@@ -1,0 +1,12 @@
+export const HOST_GET_ATTEMPT: string = 'HOST_GET_ATTEMPT';
+export const HOST_GET_FULFILLED: string = 'HOST_GET_FULFILLED';
+export const HOST_GET_FAILED: string = 'HOST_GET_FAILED';
+export const HOST_CREATE_ATTEMPT: string = 'HOST_CREATE_ATTEMPT';
+export const HOST_CREATE_FAILED: string = 'HOST_CREATE_FAILED';
+export const HOST_CREATE_FULFILLED: string = 'HOST_CREATE_FULFILLED';
+export const HOST_UPDATE_ATTEMPT: string = 'HOST_UPDATE_ATTEMPT';
+export const HOST_UPDATE_FULFILLED: string = 'HOST_UPDATE_FULFILLED';
+export const HOST_UPDATE_FAILED: string = 'HOST_UPDATE_FAILED';
+export const HOST_DELETE_ATTEMPT: string = 'HOST_DELETE_ATTEMPT';
+export const HOST_DELETE_FAILED: string = 'HOST_DELETE_FAILED';
+export const HOST_DELETE_FULFILLED: string = 'HOST_DELETE_FULFILLED';
