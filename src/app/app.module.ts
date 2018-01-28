@@ -22,6 +22,8 @@ import { ActionCreatorModule } from './store/action-creators/action-creator.modu
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+import { HostLayoutComponent } from './layouts/host/host-layout.component';
+import { MemberLayoutComponent } from './layouts/member/member-layout.component';
 
 @NgModule({
   imports: [
@@ -42,7 +44,9 @@ import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    HostLayoutComponent,
+    MemberLayoutComponent
   ],
   providers: [
 
