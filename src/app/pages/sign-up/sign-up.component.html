@@ -1,0 +1,22 @@
+<div>
+  <app-navbar-auth></app-navbar-auth>
+  <section>
+    
+    <div class="col-md-8 col-md-offset-2">
+      <p><a href="#/auth/sign-in">Login</a> | <a (click)="toggleRegistration()"> {{registrationText}} </a></p>
+      <div *ngIf="isRegisteringAsMember; else registerAsHost">
+          <app-member-registraion
+          (submit)="onSubmit($event)"
+          ></app-member-registraion>
+      </div>
+      <ng-template #registerAsHost>
+        <app-host-registration
+        (submit)="onSubmit($event)"
+        ></app-host-registration>
+      </ng-template>
+    </div>
+  </section>
+  <div class="col-md-12">
+    <app-footer-cmp></app-footer-cmp>
+  </div>
+</div>
