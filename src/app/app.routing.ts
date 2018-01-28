@@ -2,7 +2,9 @@
 import { Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
+import { HostLayoutComponent } from './layouts/host/host-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+import { MemberLayoutComponent } from './layouts/member/member-layout.component';
 
 export const AppRoutes: Routes =[
     { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -12,27 +14,27 @@ export const AppRoutes: Routes =[
       children: [
         {
           path: 'admin',
-          loadChildren: './dashboard/dashboard.module#DashboardModule'
+          loadChildren: './admin-page/admin-page.module#AdminModule'
         }
       ]
     },
     {
       path: '',
-      component: AdminLayoutComponent,
+      component: HostLayoutComponent,
       children: [
         {
           path: 'host',
-          loadChildren: './dashboard/dashboard.module#DashboardModule'
+          loadChildren: './host-page/host-page.module#HostModule'
         }
       ]
     },
     {
       path: '',
-      component: AdminLayoutComponent,
+      component: MemberLayoutComponent,
       children: [
         {
           path: 'member',
-          loadChildren: './dashboard/dashboard.module#DashboardModule'
+          loadChildren: './member-page/member-page.module#MemberModule'
         }
       ]
     },
