@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
 import { SessionService } from './session.service';
+import { HostService } from './host.service';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ export class ServiceModule {
     return {
       ngModule: ServiceModule,
       providers: [
-        SessionService
+        SessionService,
+        HostService
       ]
     }
   }

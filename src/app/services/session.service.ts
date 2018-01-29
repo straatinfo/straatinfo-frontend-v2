@@ -47,5 +47,4 @@ export class SessionService {
   SessionDestroy(): void {
     localStorage.clear();
   }
-
 }
