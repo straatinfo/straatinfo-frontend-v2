@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HostActionCreator } from './store/action-creators';
 
 @Component({
   selector: 'app-my-app',
@@ -8,9 +7,8 @@ import { HostActionCreator } from './store/action-creators';
 })
 export class AppComponent implements OnInit {
 
-     constructor(private hostActionCreator: HostActionCreator) {}
+     constructor() {}
 
     ngOnInit(){
-      this.hostActionCreator.GetHosts();
     }
 }

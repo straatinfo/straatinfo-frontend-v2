@@ -2,7 +2,7 @@ import { IRole } from '../role/role.interface';
 
 export interface IHost {
   id?: number;
-  institutionName?: string;
+  hostName?: string;
   email?: string;
   username?: string;
   address?: string;

@@ -118,11 +118,29 @@ export const hostDeleteFailed = (state, action) => {
   });
 };
 
+export const hostSelectAttempt = (state, action) => {
+  return tassign(state, {
+    hosts: state.hosts,
+    selectedHost: state.selectedHost,
+    spinner: true,
+    error: ''
+  });
+};
+
 export const hostSelectFulfilled = (state, action) => {
   return tassign(state, {
     hosts: state.hosts,
     selectedHost: action.payload,
     spinner: false,
     error: ''
+  });
+};
+
+export const hostSelectFailed = (state, action) => {
+  return tassign(state, {
+    hosts: state.hosts,
+    selectedHost: state.selectedHost,
+    spinner: false,
+    error: action.error
   });
 };

@@ -12,6 +12,8 @@ import {
   HOST_UPDATE_ATTEMPT,
   HOST_UPDATE_FAILED,
   HOST_UPDATE_FULFILLED,
+  HOST_SELECT_ATTEMPT,
+  HOST_SELECT_FAILED,
   HOST_SELECT_FULFILLED
 } from './actions/host.action';
 import * as host from './reducers/host.reducer';
@@ -43,6 +45,8 @@ export function hostReducer(state: IHostStore = HOST_INITIAL_STATE, action): IHo
     case HOST_DELETE_ATTEMPT: return host.hostDeleteAttempt(state, action);
     case HOST_DELETE_FAILED: return host.hostDeleteFailed(state, action);
     case HOST_DELETE_FULFILLED: return host.hostDeleteFufilled(state, action);
+    case HOST_SELECT_ATTEMPT: return host.hostSelectAttempt(state, action);
+    case HOST_SELECT_FAILED: return host.hostSelectFailed(state, action);
     case HOST_SELECT_FULFILLED: return host.hostSelectFulfilled(state, action);
   }
   return state;

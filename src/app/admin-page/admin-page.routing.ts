@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import { HostListComponent } from '../host';
+import { HostListComponent, HostDetailComponent } from '../host';
 
 export const AdminRoutes: Routes = [
   { 
@@ -15,6 +15,10 @@ export const AdminRoutes: Routes = [
   {
     path: 'host-list',
     component: HostListComponent
+  },
+  {
+    path: 'host-detail/:id',
+    component: HostDetailComponent
   },
   {
     path: '**',

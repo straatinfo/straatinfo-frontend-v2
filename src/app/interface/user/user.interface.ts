@@ -2,7 +2,7 @@ import { IRole } from '../role/role.interface';
 
 export interface IUser {
   id?: number;
-  institutionName?: string;
+  hostName?: string;
   fname?: string;
   lname?: string;
   email?: string;

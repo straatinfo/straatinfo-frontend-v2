@@ -19,7 +19,7 @@ export class HostRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      institutionName: [null, Validators.required],
+      hostName: [null, Validators.required],
       email: [null, Validators.email],
       username: [null, Validators.required],
       address: [null, Validators.required],

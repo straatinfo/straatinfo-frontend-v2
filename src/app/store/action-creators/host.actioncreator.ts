@@ -22,7 +22,9 @@ import {
   HOST_UPDATE_ATTEMPT,
   HOST_UPDATE_FAILED,
   HOST_UPDATE_FULFILLED,
-  HOST_SELECT_FULFILLED
+  HOST_SELECT_FULFILLED,
+  HOST_SELECT_FAILED,
+  HOST_SELECT_ATTEMPT
 } from '../actions/host.action';
 
 
@@ -34,6 +36,7 @@ export class HostActionCreator implements OnDestroy {
   private getHostsSubscription: Subscription = null;
   private updateHostSubscription: Subscription = null;
   private deleteHostSubscription: Subscription = null;
+  private getHostByIdSubscription: Subscription = null;
 
   constructor (
     private ngRedux: NgRedux<IAppState>,
@@ -45,6 +48,7 @@ export class HostActionCreator implements OnDestroy {
     (this.getHostsSubscription) ? this.getHostsSubscription.unsubscribe() : null;
     (this.updateHostSubscription) ? this.updateHostSubscription.unsubscribe() : null;
     (this.deleteHostSubscription) ? this.deleteHostSubscription.unsubscribe() : null;
+    (this.getHostByIdSubscription) ? this.getHostByIdSubscription.unsubscribe() : null;
   }
 
   GetHosts () {
@@ -103,14 +107,29 @@ export class HostActionCreator implements OnDestroy {
     );
   }
 
-  SelectHost (host: IHost) {
-    this.ngRedux.dispatch({ type: HOST_SELECT_FULFILLED, payload: host });
+  GetHostById (id: number) {
+    this.ngRedux.dispatch({ type: HOST_SELECT_ATTEMPT });
+    this.getHostByIdSubscription = this.hostService.GetHostById(id)
+    .map(data => this.ToHostView(data))
+    .subscribe(
+      (host:IHost) => {
+        this.ngRedux.dispatch({ type: HOST_SELECT_FULFILLED, payload: host });
+      }, err => {
+        this.errorMessage = err._body;
+        if (this.errorMessage && typeof this.errorMessage === 'string') {
+          this.ngRedux.dispatch({ type: HOST_GET_FAILED, error: this.errorMessage });
+        }
+      },
+      () => {
+        this.errorMessage = null;
+      }
+    );
   }
 
   private ToHostView (data: any): IHost {
     return {
       id: data.id,
-      institutionName: data.institutionName,
+      hostName: data.hostName,
       email: data.email,
       username: data.username,
       address: data.address,
