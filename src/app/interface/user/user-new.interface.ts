@@ -1,5 +1,5 @@
 export interface IUserNew {
-  institutionName?: string;
+  hostName?: string;
   fname?: string;
   lname?: string;
   email: string;
