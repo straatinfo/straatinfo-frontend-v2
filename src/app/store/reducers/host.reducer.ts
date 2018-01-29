@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 export const hostCreateAttempt = (state, action) => {
   return tassign(state, {
     hosts: state.hosts,
+    selectedHost: state.selectedHost,
     spinner: true,
     error: null
   });
@@ -15,6 +16,7 @@ export const hostCreateFulfilled = (state, action) => {
       ...state.hosts,
       action.payload
     ],
+    selectedHost: state.selectedHost,
     spinner: false,
     error: ''
   });
@@ -23,6 +25,7 @@ export const hostCreateFulfilled = (state, action) => {
 export const hostCreateFailed = (state, action) => {
   return tassign( state, {
     hosts: state.hosts,
+    selectedHost: state.selectedHost,
     spinner: false,
     error: action.error
   });
@@ -31,6 +34,7 @@ export const hostCreateFailed = (state, action) => {
 export const hostGetAttempt = (state, action) => {
   return tassign(state, {
     hosts: state.hosts,
+    selectedHost: state.selectedHost,
     spinner: true,
     error: ''
   });
@@ -39,6 +43,7 @@ export const hostGetAttempt = (state, action) => {
 export const hostGetFulfilled = (state, action) => {
   return tassign(state, {
     hosts: action.payload,
+    selectedHost: state.selectedHost,
     spinner: false,
     error: ''
   });
@@ -47,6 +52,7 @@ export const hostGetFulfilled = (state, action) => {
 export const hostGetFailed = (state, action) => {
   return tassign(state, {
     hosts: state.hosts,
+    selectedHost: state.selectedHost,
     spinner: false,
     error: action.error
   });
@@ -55,6 +61,7 @@ export const hostGetFailed = (state, action) => {
 export const hostUpdateAttempt = (state, action) => {
   return tassign(state, {
     hosts: state.hosts,
+    selectedHost: state.selectedHost,
     spinner: true,
     error: ''
   });
@@ -66,6 +73,7 @@ export const hostUpdateFulfilled = (state, action) => {
   newArray.splice(index, 1, action.payload);
   return tassign(state, {
     hosts: newArray,
+    selectedHost: state.selectedHost,
     spinner: false,
     error: ''
   });
@@ -74,6 +82,7 @@ export const hostUpdateFulfilled = (state, action) => {
 export const hostUpdateFailed = (state, action) => {
   return tassign(state, {
     hosts: state.hosts,
+    selectedHost: state.selectedHost,
     spinner: false,
     error: action.error
   });
@@ -82,6 +91,7 @@ export const hostUpdateFailed = (state, action) => {
 export const hostDeleteAttempt = (state, action) => {
   return tassign(state, {
     hosts: state.hosts,
+    selectedHost: state.selectedHost,
     spinner: true,
     error: ''
   });
@@ -93,6 +103,7 @@ export const hostDeleteFufilled = (state, action) => {
   });
   return tassign(state, {
     hosts: newArray,
+    selectedHost: state.selectedHost,
     spinner: false,
     error: ''
   });
@@ -101,7 +112,17 @@ export const hostDeleteFufilled = (state, action) => {
 export const hostDeleteFailed = (state, action) => {
   return tassign(state, {
     hosts: state.hosts,
+    selectedHost: state.selectedHost,
     spinner: false,
     error: action.error
+  });
+};
+
+export const hostSelectFulfilled = (state, action) => {
+  return tassign(state, {
+    hosts: state.hosts,
+    selectedHost: action.payload,
+    spinner: false,
+    error: ''
   });
 };

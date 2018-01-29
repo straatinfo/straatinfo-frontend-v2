@@ -11,5 +11,6 @@ export interface IHost {
   nickName?: string;
   lat?: number;
   long?: number;
+  roleId?: number;
   role?: IRole;
 }
