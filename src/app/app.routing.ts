@@ -24,7 +24,7 @@ export const AppRoutes: Routes =[
       children: [
         {
           path: 'host',
-          loadChildren: './host-page/host-page.module#HostModule'
+          loadChildren: './host-page/host-page.module#HostPageModule'
         }
       ]
     },
