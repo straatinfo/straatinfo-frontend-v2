@@ -1,65 +1,111 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { NgModule, isDevMode } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { RouterModule } from '@angular/router';
-import { NgRedux, NgReduxModule, DevToolsExtension } from '@angular-redux/store';
-import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
-
-// service
-import { ServiceModule } from './services';
-
-import { AppRoutes } from './app.routing';
-import { NavbarModule } from './shared/navbar/navbar.module';
-import { NavbarAuthModule } from './shared/navbar-auth/navbar-auth.module';
-import { FooterModule } from './shared/footer/footer.module';
-import { SidebarModule } from './sidebar/sidebar.module';
-
-import { rootReducer, INITIAL_STATE, IAppState } from './store/app.store';
-import { ActionCreatorModule } from './store/action-creators/action-creator.module';
+import { HttpModule } from '@angular/http';
+import { APP_BASE_HREF } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatStepperModule,
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
+
+import { SidebarModule } from './sidebar/sidebar.module';
+import { FooterModule } from './shared/footer/footer.module';
+import { NavbarModule} from './shared/navbar/navbar.module';
+import { FixedpluginModule} from './shared/fixedplugin/fixedplugin.module';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
-import { HostLayoutComponent } from './layouts/host/host-layout.component';
-import { MemberLayoutComponent } from './layouts/member/member-layout.component';
+
+import { AppRoutes } from './app.routing';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    CommonModule,
-    NgReduxModule,
-    NgReduxRouterModule,
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot(AppRoutes, { useHash: true }),
-    ServiceModule.forRoot(),
-    ActionCreatorModule.forRoot(),
-    NavbarModule,
-    FooterModule,
-    SidebarModule,
-    NavbarAuthModule
-  ],
-  declarations: [
-    AppComponent,
-    AdminLayoutComponent,
-    AuthLayoutComponent,
-    HostLayoutComponent,
-    MemberLayoutComponent
-  ],
-  providers: [
-
-  ],
-  bootstrap: [AppComponent]
+  exports: [
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule
+  ]
 })
-export class AppModule {
-  constructor(
-    ngRedux: NgRedux<IAppState>,
-    ngReduxRouter: NgReduxRouter,
-    devTools:DevToolsExtension){
-    const enhancers = isDevMode() ? [devTools.enhancer()] : [];
-    ngRedux.configureStore( rootReducer, INITIAL_STATE, [], enhancers );
-    ngReduxRouter.initialize();
-  }
-}
+export class MaterialModule {}
+
+@NgModule({
+    imports:      [
+        CommonModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        RouterModule.forRoot(AppRoutes),
+        HttpModule,
+        MaterialModule,
+        MatNativeDateModule,
+        SidebarModule,
+        NavbarModule,
+        FooterModule,
+        FixedpluginModule
+    ],
+    declarations: [
+        AppComponent,
+        AdminLayoutComponent,
+        AuthLayoutComponent
+    ],
+    bootstrap:    [ AppComponent ]
+})
+export class AppModule { }
