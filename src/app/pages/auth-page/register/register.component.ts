@@ -1,39 +1,38 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { select } from '@angular-redux/store';
+import { NgClass } from '@angular/common';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { select } from '@angular-redux/store'; 
-
 import { SessionActionCreator } from '../../../store/action-creators';
+
 declare var $: any;
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html'
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
+export class RegisterComponent implements OnInit {
 
-export class LoginComponent implements OnInit {
+  public signUpForm: FormGroup;
   test: Date = new Date();
   private toggleButton: any;
   private sidebarVisible: boolean;
   private nativeElement: Node;
 
-  public signInForm: FormGroup;
-
   constructor(
     private element: ElementRef,
     private formBuilder: FormBuilder,
-    private sessionActionCreator: SessionActionCreator
+    private activatedRoute: ActivatedRoute,
+    private userActionCreator: SessionActionCreator
   ) 
     {
     this.nativeElement = element.nativeElement;
     this.sidebarVisible = false;
-    this.sessionActionCreator.SessionDestroy();
   }
 
   ngOnInit() {
-    this.signInForm = this.formBuilder.group({
-      loginName: [null, Validators.required],
-      password: [null, Validators.required]
-    });
     var navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
 
@@ -41,7 +40,12 @@ export class LoginComponent implements OnInit {
       // after 1000 ms we add the class animated to the login/register card
       $('.card').removeClass('card-hidden');
     }, 700);
+
+    this.signUpForm = this.formBuilder.group({
+      
+    });
   }
+ 
   sidebarToggle() {
     var toggleButton = this.toggleButton;
     var body = document.getElementsByTagName('body')[0];
@@ -59,14 +63,12 @@ export class LoginComponent implements OnInit {
     }
   }
   submit(){
-    if (this.signInForm.valid) {
-      this.sessionActionCreator.Login(this.signInForm.value);
+    if (this.signUpForm.valid) {
+      this.userActionCreator.Register(this.signUpForm.value);
+      this.ngOnInit();
     } else {
-      alert('Invalid form');
+
     }
   }
 
-  forgotPasswordToggle() {
-    // forgot password logic here
-  }
 }

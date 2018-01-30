@@ -17,12 +17,12 @@
               <i class="material-icons">dashboard</i> Dashboard
             </a>
           </li>
-          <li class="">
+          <li class="active">
             <a href="/auth/register">
               <i class="material-icons">person_add</i> Register
             </a>
           </li>
-          <li class=" active ">
+          <li class="">
             <a href="/auth/login">
               <i class="material-icons">fingerprint</i> Login
             </a>
@@ -40,29 +40,28 @@
     <div class="content">
       <div class="container">
         <div class="row">
-          <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-            <form [formGroup]="signInForm" (submit)="submit()">
+          <div class="col-md-8 col-sm-6 col-md-offset-2 col-sm-offset-3">
+            <form [formGroup]="signUpForm" (submit)="submit()">
               <div class="card card-login card-hidden">
                 <div class="card-header text-center" data-background-color="blue">
-                  <h4 class="card-title">Login</h4>
+                  <h4 class="card-title">Register</h4>
                 </div>
                 <div class="card-content">
                   <div class="input-group">
                     <span class="input-group-addon">
                       <i class="material-icons">face</i>
                     </span>
-                    <app-input-basic length="20" formControlName="loginName" [c]="signInForm.controls.loginName" [optional]="true" idd="loginName" placeholder=""
+                    <app-input-basic length="20" formControlName="loginName" [c]="signUpForm.controls.loginName" [optional]="true" idd="loginName" placeholder=""
                       type="email" text="Email or Username:"></app-input-basic>
                   </div>
                   <div class="input-group">
                     <span class="input-group-addon">
                       <i class="material-icons">info</i>
                     </span>
-                    <app-input-basic length="20" formControlName="password" [c]="signInForm.controls.password" [optional]="true" idd="password"
+                    <app-input-basic length="20" formControlName="password" [c]="signUpForm.controls.password" [optional]="true" idd="password"
                       placeholder="" type="password" text="Password:"></app-input-basic>
                   </div>
                 </div>
-                
                 <div class="footer text-center">
                   <button type="submit" class="btn btn-info btn-wd btn-lg">Login</button>
                 <!--  <p><a (click)="forgotPasswordToggle()">forgot password?</a></p>-->
