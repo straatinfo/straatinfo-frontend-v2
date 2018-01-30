@@ -1,10 +1,10 @@
-import { LbdFreeAngularcliPage } from './app.po';
+import { MdProAngularCliPage } from './app.po';
 
-describe('lbd-free-angularcli App', function() {
-  let page: LbdFreeAngularcliPage;
+describe('md-pro-angular-cli App', () => {
+  let page: MdProAngularCliPage;
 
   beforeEach(() => {
-    page = new LbdFreeAngularcliPage();
+    page = new MdProAngularCliPage();
   });
 
   it('should display message saying app works', () => {
