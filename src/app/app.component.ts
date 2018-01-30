@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
+declare var $: any;
+
 @Component({
-  selector: 'app-my-app',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-my-app',
+    templateUrl: './app.component.html'
 })
+
 export class AppComponent implements OnInit {
 
-     constructor() {}
+    constructor() {}
 
-    ngOnInit(){
+    ngOnInit() {
+        $.material.init();
     }
 }
