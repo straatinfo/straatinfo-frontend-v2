@@ -1,0 +1,14 @@
+<div class="form-group label-floating col-md-{{length}}">
+  <!--Label text-->
+  <label class="control-label" for="{{idd}}" [attr.for]="idd">{{text}} <span class="star">*</span>
+  </label>
+
+  <div class="form-group">
+    <!--Input form control element with on change event listener helpful to propagate changes -->
+    <input class="form-control" type="{{type}}" #input id="{{idd}}" placeholder="{{pH}}" (blur)="onChange($event, input.value)">
+    <!--Loop through errors-->
+    <div *ngIf="!c.pristine && !c.valid">
+      <p *ngFor="let error of errors" >{{error}}</p>
+    </div>
+  </div>
+</div>

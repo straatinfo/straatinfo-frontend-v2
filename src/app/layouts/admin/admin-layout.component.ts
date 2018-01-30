@@ -26,6 +26,9 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
     this.location = location;
   }
   ngOnInit() {
+    if (this.router.url === '/admin') {
+      this.router.navigate(['/admin/dashboard']);
+    }
     const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
     const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
     this.location.subscribe((ev: PopStateEvent) => {
