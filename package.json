@@ -1,18 +1,19 @@
 {
-  "name": "md-angular-cli-pro",
+  "name": "straat-info-frontend",
   "version": "1.5.0",
-  "license": "http://md-pro-angular.creative-tim.com/documentation/tutorial",
+  "license": "Personal",
   "repository": {
     "type": "git",
-    "url": "https://github.com/creativetimofficial/material-dashboard-pro-angular.git"
+    "url": ""
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build aot --prod"
   },
   "private": true,
   "dependencies": {
