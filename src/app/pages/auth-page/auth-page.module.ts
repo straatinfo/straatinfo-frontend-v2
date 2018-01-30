@@ -8,6 +8,9 @@ import { FooterModule } from '../../shared/footer/footer.module';
 import { AuthPageRoutes } from './auth-page.routing';
 import { LoginComponent } from './login/login.component';
 
+import { ComponentModule } from '../../components/component.module';
+import { RegisterComponent } from './register/register.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,10 +18,12 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     ReactiveFormsModule,
     NavbarAuthModule,
-    FooterModule
+    FooterModule,
+    ComponentModule
   ],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   entryComponents: [
 
