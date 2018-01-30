@@ -10,7 +10,7 @@ import { SessionActionCreator } from '../../../store/action-creators';
 })
 export class LoginComponent implements OnInit {
 
-  private loginForm: FormGroup;
+  public loginForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
