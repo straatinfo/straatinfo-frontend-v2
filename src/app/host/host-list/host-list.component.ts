@@ -28,4 +28,8 @@ export class HostListComponent implements OnInit {
     this.hostActionCreator.GetHosts();
   }
 
+  onMoreClick(event) {
+    console.log(event);
+  }
+
 }

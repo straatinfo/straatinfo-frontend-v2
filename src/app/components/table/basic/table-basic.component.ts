@@ -34,10 +34,10 @@ export class TableBasicComponent implements OnInit {
   @Output() clickDelete = new EventEmitter<any>();
   @Output() clickMore = new EventEmitter<any>();
 
-  private newTableDataArray:any[]; // page number
+  public newTableDataArray:any[]; // page number
   // private itemPerPage:number = 5; // item per page
-  private pagesToShow:number; // pages button between first and last
-  private totalItem:number; // total number of item
+  public pagesToShow:number; // pages button between first and last
+  public totalItem:number; // total number of item
 
   constructor (
     private formBuilder: FormBuilder,
