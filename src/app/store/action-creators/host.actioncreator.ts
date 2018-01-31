@@ -187,6 +187,7 @@ export class HostActionCreator implements OnDestroy {
       long: data.long,
       lat: data.lat,
       phoneNumber: data.phoneNumber,
+      isBlocked: data.isBlocked,
       roleId: data.roleId,
       role: data.role
     };

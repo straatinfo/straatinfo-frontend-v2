@@ -49,7 +49,8 @@ export class HostDetailComponent implements OnInit, OnDestroy {
               postalCode: [host.postalCode, Validators.required],
               phoneNumber: [host.phoneNumber, Validators.required],
               long: [host.long, Validators.required],
-              lat: [host.lat, Validators.required]
+              lat: [host.lat, Validators.required],
+              isBlocked: [host.isBlocked]
             });
           }
         );

@@ -92,6 +92,13 @@
                     <input formControlName="lat" type="text" class="form-control">
                   </div>
                 </div>
+                <div class="col-md-4">
+                  <div class="checkbox">
+                    <label>
+                      <input formControlName="isBlocked" type="checkbox" name="optionsCheckboxes"> Is Blocked?
+                    </label>
+                  </div>
+                </div>
               </div>
               <button (click)="onDelete()" type="button" class="btn btn-danger pull-right">Delete</button>
               <button (click)="onUpdate()" type="button" class="btn btn-rose pull-right">Update Profile</button>

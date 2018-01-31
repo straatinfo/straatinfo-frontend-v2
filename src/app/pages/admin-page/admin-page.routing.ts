@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { HostListComponent, HostAddComponent, HostDetailComponent } from '../../host';
+import { HostDetailGuard } from '../../guards';
 
 export const AdminRoutes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -17,7 +18,8 @@ export const AdminRoutes: Routes = [
       },
       {
         path: 'host/:id',
-        component: HostDetailComponent
+        component: HostDetailComponent,
+        canActivate: [HostDetailGuard]
       },
       {
         path: 'add-host',
