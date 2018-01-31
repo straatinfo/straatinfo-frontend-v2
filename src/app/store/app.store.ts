@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { SESSION_INITIAL_STATE, ISessionStore, sessionReducer } from './session.store';
 import { HOST_INITIAL_STATE, IHostStore, hostReducer } from './host.store';
+import { TABLE_INITIAL_STATE, ITableStore, tableReducer } from './table.store';
 
 export interface IAppState {
   session: ISessionStore,
@@ -14,5 +15,6 @@ export const INITIAL_STATE: IAppState = {
 
 export const rootReducer = combineReducers<IAppState>({
   session: sessionReducer,
-  host: hostReducer
+  host: hostReducer,
+  table: tableReducer
 });

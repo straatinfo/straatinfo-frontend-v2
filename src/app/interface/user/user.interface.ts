@@ -2,17 +2,23 @@ import { IRole } from '../role/role.interface';
 
 export interface IUser {
   id?: number;
-  hostName?: string;
   fname?: string;
   lname?: string;
-  email?: string;
-  username?: string;
   gender?: string;
   address?: string;
-  postalCode?: string;
-  city?: string;
   nickName?: string;
+  hostName?: string;
+  email?: string;
+  username?: string;
+  houseNumber?: string;
+  streetName?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  postalCode?: string;
   lat?: number;
   long?: number;
+  phoneNumber?: string;
+  roleId?: number;
   role?: IRole;
 }

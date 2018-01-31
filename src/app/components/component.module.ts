@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '../app.module';
 import { InputBasicComponent } from './input/basic/input-basic.component';
+import { TableBasicComponent } from './table/basic/table-basic.component';
 
 
 @NgModule({
@@ -14,10 +15,12 @@ import { InputBasicComponent } from './input/basic/input-basic.component';
     HttpModule
   ],
   exports: [
-    InputBasicComponent
+    InputBasicComponent,
+    TableBasicComponent
   ],
   declarations: [
-    InputBasicComponent
+    InputBasicComponent,
+    TableBasicComponent
   ],
   entryComponents: []
 })
