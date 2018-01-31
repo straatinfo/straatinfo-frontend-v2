@@ -1,0 +1,247 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-icon" data-background-color="blue">
+              <i class="material-icons">queue</i>
+            </div>
+            <div class="card-content">
+                <br />
+                <h4 class="card-title">Add Host</h4>
+                <form [formGroup]="addHostForm" (submit)="submit()">
+                  <div *ngIf="errorText" class="alert alert-danger" role="alert">
+                    <strong>Error!</strong> {{errorText}}
+                  </div>
+                  <div *ngIf="successText" class="alert alert-success" role="alert">
+                    <strong>Success!</strong> {{successText}}
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">person_outline</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="hostName"
+                        [c]="addHostForm.controls.hostName"
+                        [optional]="false"
+                        idd="hostName"
+                        placeholder="Host name"
+                        type="text"
+                        text="Host Name"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">mail</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="email"
+                        [c]="addHostForm.controls.email"
+                        [optional]="true"
+                        idd="email"
+                        placeholder="email@domain.com"
+                        type="email"
+                        text="Email"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">person_outline</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="username"
+                        [c]="addHostForm.controls.username"
+                        [optional]="true"
+                        idd="username"
+                        placeholder="username"
+                        type="text"
+                        text="Username"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">info_outline</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="houseNumber"
+                        [c]="addHostForm.controls.houseNumber"
+                        [optional]="true"
+                        idd="houseNumber"
+                        placeholder="#"
+                        type="text"
+                        text="House #:"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">info_outline</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="streetName"
+                        [c]="addHostForm.controls.streetName"
+                        [optional]="true"
+                        idd="streetName"
+                        placeholder="Street"
+                        type="text"
+                        text="Street:"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">info_outline</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="city"
+                        [c]="addHostForm.controls.city"
+                        [optional]="true"
+                        idd="city"
+                        placeholder="City"
+                        type="text"
+                        text="City:"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">info_outline</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="state"
+                        [c]="addHostForm.controls.state"
+                        [optional]="true"
+                        idd="state"
+                        placeholder="State"
+                        type="text"
+                        text="State:"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">info_outline</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="country"
+                        [c]="addHostForm.controls.country"
+                        [optional]="true"
+                        idd="country"
+                        placeholder="Country"
+                        type="text"
+                        text="Country:"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">info_outline</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="postalCode"
+                        [c]="addHostForm.controls.postalCode"
+                        [optional]="true"
+                        idd="city"
+                        placeholder="Postal Code"
+                        type="text"
+                        text="Postal Code:"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">info_outline</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="phoneNumber"
+                        [c]="addHostForm.controls.phoneNumber"
+                        [optional]="true"
+                        idd="city"
+                        placeholder="Contact Number"
+                        type="text"
+                        text="Contact Number"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">info_outline</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="long"
+                        [c]="addHostForm.controls.long"
+                        [optional]="true"
+                        idd="lat"
+                        placeholder="X coordinate"
+                        type="text"
+                        text="Longtitude:"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="material-icons">info_outline</i>
+                      </span>
+                      <app-input-basic
+                        length="20"
+                        formControlName="lat"
+                        [c]="addHostForm.controls.lat"
+                        [optional]="true"
+                        idd="lat"
+                        placeholder="Y coordinate"
+                        type="text"
+                        text="Latitude:"
+                      ></app-input-basic>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-success">Submit</button>
+                      <button (click)="onReset()" class="btn btn-warning">Reset</button>
+                    </div>
+                  </div>
+              </form>
+            </div>
+            <!-- end content-->
+          </div>
+          <!--  end card  -->
+        </div>
+        <!-- end col-md-12 -->
+      </div>
+    </div>
+  </div>
+</div>

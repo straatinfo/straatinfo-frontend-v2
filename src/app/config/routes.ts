@@ -16,12 +16,26 @@ export interface ChildrenItems {
 }
 
 //Menu Items
-const ADMIN: RouteInfo[] = [{
-  path: '/admin/dashboard',
-  title: 'Dashboard',
-  type: 'link',
-  icontype: 'dashboard'
-}];
+const ADMIN: RouteInfo[] = [
+  {
+    path: '/admin/dashboard',
+    title: 'Dashboard',
+    type: 'link',
+    icontype: 'dashboard'
+  },
+  {
+    path: '/admin/host-list',
+    title: 'Host List',
+    type: 'link',
+    icontype: 'view_list'
+  },
+  {
+    path: '/admin/add-host',
+    title: 'Add Host',
+    type: 'link',
+    icontype: 'note_add'
+  }
+];
 
 export const ROUTES = {
   ADMIN: ADMIN

@@ -37,6 +37,8 @@ export class HostActionCreator implements OnDestroy {
   private updateHostSubscription: Subscription = null;
   private deleteHostSubscription: Subscription = null;
   private getHostByIdSubscription: Subscription = null;
+  private createHostSubscription: Subscription = null;
+  private createHostBulkSubscription: Subscription = null;
 
   constructor (
     private ngRedux: NgRedux<IAppState>,
@@ -49,6 +51,8 @@ export class HostActionCreator implements OnDestroy {
     (this.updateHostSubscription) ? this.updateHostSubscription.unsubscribe() : null;
     (this.deleteHostSubscription) ? this.deleteHostSubscription.unsubscribe() : null;
     (this.getHostByIdSubscription) ? this.getHostByIdSubscription.unsubscribe() : null;
+    (this.createHostSubscription) ? this.createHostSubscription.unsubscribe() : null;
+    (this.createHostBulkSubscription) ? this.createHostBulkSubscription.unsubscribe() : null;
   }
 
   GetHosts () {
@@ -62,6 +66,25 @@ export class HostActionCreator implements OnDestroy {
         this.errorMessage = err._body;
         if (this.errorMessage && typeof this.errorMessage === 'string') {
           this.ngRedux.dispatch({ type: HOST_GET_FAILED, error: this.errorMessage });
+        }
+      },
+      () => {
+        this.errorMessage = null;
+      }
+    );
+  }
+
+  CreateHost (host: IHost) {
+    this.ngRedux.dispatch({ type: HOST_CREATE_ATTEMPT });
+    this.createHostSubscription = this.hostService.CreateHost(host)
+    .map(data => this.ToHostView(data))
+    .subscribe(
+      (host: IHost) => {
+        this.ngRedux.dispatch({ type: HOST_CREATE_FULFILLED, payload: host });
+      }, err => {
+        this.errorMessage = err._body;
+        if (this.errorMessage && typeof this.errorMessage === 'string') {
+          this.ngRedux.dispatch({ type: HOST_CREATE_FAILED, error: this.errorMessage });
         }
       },
       () => {
@@ -126,20 +149,41 @@ export class HostActionCreator implements OnDestroy {
     );
   }
 
+  CreateBulkHost (hosts: IHost[]) {
+    this.ngRedux.dispatch({ type: HOST_CREATE_ATTEMPT });
+    this.createHostBulkSubscription = this.hostService.CreateBulkHost(hosts)
+    .subscribe(
+      (data: any) => {
+        this.GetHosts();
+      }, err => {
+        this.errorMessage = err._body;
+        if (this.errorMessage && typeof this.errorMessage === 'string') {
+          this.ngRedux.dispatch({ type: HOST_CREATE_FAILED, error: this.errorMessage });
+        }
+      },
+      () => {
+        this.errorMessage = null;
+      }
+    );
+  }
+
   private ToHostView (data: any): IHost {
     return {
       id: data.id,
       hostName: data.hostName,
       email: data.email,
       username: data.username,
-      address: data.address,
-      postalCode: data.postalCode,
+      houseNumber: data.houseNumber,
+      streetName: data.streetName,
       city: data.city,
-      nickName: data.nickName,
-      lat: data.lat,
+      state: data.state,
+      country: data.country,
+      postalCode: data.postalCode,
       long: data.long,
-      role: data.role,
-      roleId: data.roleId
+      lat: data.lat,
+      phoneNumber: data.phoneNumber,
+      roleId: data.roleId,
+      role: data.role
     };
   }
 }
