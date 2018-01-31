@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { SessionActionCreator } from './session.actioncreator';
 import { HostActionCreator } from './host.actioncreator';
+import { TableActionCreator } from './table.actioncreator';
 
 @NgModule({
   imports: [],
@@ -13,7 +14,8 @@ export class ActionCreatorModule {
       ngModule: ActionCreatorModule,
       providers: [
         SessionActionCreator,
-        HostActionCreator
+        HostActionCreator,
+        TableActionCreator
       ]
     }
   }

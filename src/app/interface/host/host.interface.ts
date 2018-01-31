@@ -5,12 +5,15 @@ export interface IHost {
   hostName?: string;
   email?: string;
   username?: string;
-  address?: string;
-  postalCode?: string;
+  houseNumber?: string;
+  streetName?: string;
   city?: string;
-  nickName?: string;
+  state?: string;
+  country?: string;
+  postalCode?: string;
   lat?: number;
   long?: number;
+  phoneNumber?: string;
   roleId?: number;
   role?: IRole;
 }

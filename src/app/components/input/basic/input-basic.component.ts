@@ -58,7 +58,7 @@ export class InputBasicComponent implements OnInit {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     if (this.pH === undefined) {
-      this.pH = "Enter " + this.text;
+      this.pH = this.text;
     }
 
     // RESET the custom input form control UI when the form control is RESET
@@ -96,9 +96,11 @@ export class InputBasicComponent implements OnInit {
     for (var key in this.c.errors) {
       if (this.c.errors.hasOwnProperty(key)) {
         if (key === "required") {
-          this.errors.push("This field is required");
+          this.text = this.pH + " is " + "Required";
+        } else if (key === "email") {
+          this.text = this.pH + " is " + "Required";
         } else {
-          this.errors.push(this.c.errors[key]);
+          this.text = this.pH + " is " + "Required";
         }
       }
     }
