@@ -100,6 +100,7 @@ export class HostActionCreator implements OnDestroy {
     .subscribe(
       (host: IHost) => {
         this.ngRedux.dispatch({ type: HOST_UPDATE_FULFILLED, payload: host });
+        this.ngRedux.dispatch({ type: HOST_SELECT_FULFILLED, payload: host.id });
       }, err => {
         this.errorMessage = err._body;
         if (this.errorMessage && typeof this.errorMessage === 'string') {
@@ -167,6 +168,10 @@ export class HostActionCreator implements OnDestroy {
     );
   }
 
+  SelectHost (id: number) {
+    this.ngRedux.dispatch({ type: HOST_SELECT_FULFILLED, payload: id });
+  }
+
   private ToHostView (data: any): IHost {
     return {
       id: data.id,
@@ -182,6 +187,7 @@ export class HostActionCreator implements OnDestroy {
       long: data.long,
       lat: data.lat,
       phoneNumber: data.phoneNumber,
+      isBlocked: data.isBlocked,
       roleId: data.roleId,
       role: data.role
     };

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HostListComponent } from './host-list/host-list.component';
 import { ComponentModule } from '../components';
 import { HostAddComponent } from './host-add/host-add.component';
+import { HostDetailComponent } from './host-detail/host-detail.component';
 
 @NgModule({
   imports: [
@@ -16,11 +17,13 @@ import { HostAddComponent } from './host-add/host-add.component';
   ],
   declarations: [
     HostListComponent,
-    HostAddComponent
+    HostAddComponent,
+    HostDetailComponent
   ],
   exports: [
     HostListComponent,
-    HostAddComponent
+    HostAddComponent,
+    HostDetailComponent
   ]
 })
 export class HostModule { }

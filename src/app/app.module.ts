@@ -57,6 +57,9 @@ import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AppRoutes } from './app.routing';
 import { ServiceModule } from 'app/services';
 
+/* Routing Guards */
+import { AdminGuard, SessionGuard, HostDetailGuard } from './guards';
+
 @NgModule({
   exports: [
     MatAutocompleteModule,
@@ -117,7 +120,12 @@ export class MaterialModule {}
         AdminLayoutComponent,
         AuthLayoutComponent
     ],
-    bootstrap:    [ AppComponent ]
+    bootstrap:    [ AppComponent ],
+    providers: [
+      SessionGuard,
+      AdminGuard,
+      HostDetailGuard
+    ]
 })
 export class AppModule {
   constructor(
