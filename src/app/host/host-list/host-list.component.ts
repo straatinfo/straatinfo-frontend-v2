@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { HostActionCreator } from '../../store/action-creators';
 
@@ -21,7 +22,8 @@ export class HostListComponent implements OnInit {
   ];
 
   constructor(
-    private hostActionCreator: HostActionCreator
+    private hostActionCreator: HostActionCreator,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -29,7 +31,8 @@ export class HostListComponent implements OnInit {
   }
 
   onMoreClick(event) {
-    console.log(event);
+    this.hostActionCreator.SelectHost(event.id);
+    this.router.navigate([`admin/host/${event.id}`]);
   }
 
 }
