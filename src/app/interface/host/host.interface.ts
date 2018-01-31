@@ -14,6 +14,7 @@ export interface IHost {
   lat?: number;
   long?: number;
   phoneNumber?: string;
+  isBlocked?: boolean;
   roleId?: number;
   role?: IRole;
 }

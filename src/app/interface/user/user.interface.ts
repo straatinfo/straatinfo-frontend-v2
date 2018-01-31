@@ -20,5 +20,6 @@ export interface IUser {
   long?: number;
   phoneNumber?: string;
   roleId?: number;
+  isBlocked?: boolean;
   role?: IRole;
 }
