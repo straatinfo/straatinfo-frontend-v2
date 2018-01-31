@@ -24,7 +24,7 @@ const ADMIN: RouteInfo[] = [
     icontype: 'dashboard'
   },
   {
-    path: '/admin/host-list',
+    path: '/admin/host',
     title: 'Host List',
     type: 'link',
     icontype: 'view_list'
