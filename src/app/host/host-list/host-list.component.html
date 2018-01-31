@@ -1,0 +1,35 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-icon" data-background-color="blue">
+              <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+              <app-table-basic
+                tableTitle="Host List"
+                paginator="true"
+                itemPerPage="10"
+                [currentPage]="(page | async)"
+                [actionDelete]="false"
+                [actionMore]="true"
+                [actionEdit]="false"
+                [tableDataArray]="(hosts)"
+                [tableHeaderName]="dataNames"
+                [tableHeaderAlias]="dataAliases"
+                (clickEdit)="onClickEdit($event)"
+                (clickDelete)="onClickDelete($event)"
+                (clickMore)="onMoreClick($event)"
+              ></app-table-basic>
+            </div>
+            <!-- end content-->
+          </div>
+          <!--  end card  -->
+        </div>
+        <!-- end col-md-12 -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -65,6 +65,15 @@ export class HostService {
     .share()
   }
 
+  CreateHost (host: IHost): Observable<IHost> {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({headers: headers});
+    return this.http.post(`${this.hostUrl}`,host, options)
+    .map(response => response.json())
+    .share()
+  }
+
   UpdateHost (id: number, host:IHost): Observable<IHost> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
@@ -79,6 +88,15 @@ export class HostService {
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
     return this.http.delete(`${this.hostUrl}/${id}`, options)
+    .map(response => response.json())
+    .share()
+  }
+
+  CreateBulkHost (hosts: IHost[]): Observable<any> {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({headers: headers});
+    return this.http.post(`${this.hostUrl}/bulk`,hosts, options)
     .map(response => response.json())
     .share()
   }
