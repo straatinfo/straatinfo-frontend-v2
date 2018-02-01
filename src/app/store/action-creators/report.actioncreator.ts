@@ -21,7 +21,8 @@ import {
 } from '../actions/report.action';
 import { Subscription } from 'rxjs/Subscription';
 import { ReportService } from '../../services';
-import { IReport } from 'app/interface/report/report.interface';
+import { IReport } from '../../interface/report/report.interface';
+import { IReportView } from '../../interface/report/report-view.interface';
 
 
 @Injectable()
@@ -47,8 +48,14 @@ export class ReportActionCreator implements OnDestroy {
   GetLatestReport() {
     this.ngRedux.dispatch({ type: REPORT_GET_ATTEMPT });
     this.getLatestReportSubscription = this.reportService.GetLatestReport()
+    .map(data => {
+      return data.map(d => this.ReportToView(d))
+    })
+    .map(data => {
+      return data.map(d => this.formatDate(d))
+    })
     .subscribe(
-      (reports: IReport[]) => {
+      (reports: IReportView[]) => {
         this.ngRedux.dispatch({ type: REPORT_GET_FULFILLED, payload: reports });
       }, err => {
         this.errorMessage = err._body;
@@ -97,4 +104,47 @@ export class ReportActionCreator implements OnDestroy {
       }
     );
   }
+
+  private ReportToView(data: IReport): IReportView {
+    const report: IReportView = {
+      id: data.id,
+      generatedReportId: data.generatedReportId,
+      title: data.title,
+      description: data.description,
+      location: data.location,
+      long: data.long,
+      lat: data.lat,
+      note: data.note,
+      status: data.status,
+      isVehicleInvolved: data.isVehicleInvolved,
+      isPeopleInvolved: data.isPeopleInvolved,
+      vehicleInvolvedDescription: data.vehicleInvolvedDescription,
+      peopleInvolvedCount: data.peopleInvolvedCount,
+      reportTypeId: data.reportTypeId,
+      reportType: data['reportType.name'],
+      mainCategoryId: data.mainCategoryId,
+      mainCategory: data['mainCategory.name'],
+      subCategoryId: data.subCategoryId,
+      subCategory: data['subCategory.name'],
+      priorityId: data.priorityId,
+      priority: data['priority.name'],
+      reporterId: data.reporterId,
+      reporter: data['reporter.fname'] + ' ' + data['reporter.lname'],
+      hostId: data.hostId,
+      host: data['host.hostName'],
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt
+    };
+    return report;
+  }
+
+  private formatDate (data: IReportView): IReportView {
+    const date = new Date(data.createdAt);
+    const formattedDate = date.getFullYear() + '-' + (date.getMonth() +1) + '-' + date.getDate();
+    return {
+      ...data,
+      date: formattedDate
+    };
+  }
+
 }

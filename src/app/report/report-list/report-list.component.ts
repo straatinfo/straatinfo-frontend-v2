@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { select } from '@angular-redux/store';
+import { ReportActionCreator } from '../../store/action-creators';
 
 @Component({
   selector: 'app-report-list',
@@ -7,9 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportListComponent implements OnInit {
 
-  constructor() { }
+  @select(s => s.report.reports) reports;
+  @select(s => s.report.spinner) reportSpinner;
+  @select(s => s.table.page) page;
 
-  ngOnInit() {
+  public dataNames: string[] = [
+    'generatedReportId', 'date', 'title', 'description', 'reporter', 'host', 'status'
+  ];
+
+  public dataAliases: string[] = [
+    'ID', 'Date', 'Title', 'Description', 'Reporter', 'Host', 'Status'
+  ];
+
+  constructor(
+    private reportActionCreator: ReportActionCreator
+  ) {
+    this.reportActionCreator.GetLatestReport();
   }
 
+  ngOnInit() {
+    this.reportActionCreator.GetLatestReport();
+  }
+
+  onMoreClick(event) {
+    console.log(event);
+  }
 }
