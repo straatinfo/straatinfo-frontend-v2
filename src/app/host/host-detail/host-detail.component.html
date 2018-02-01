@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-8">
         <div class="card">
           <div class="card-header card-header-icon" data-background-color="rose">
             <i class="material-icons">perm_identity</i>
@@ -92,16 +92,11 @@
                     <input formControlName="lat" type="text" class="form-control">
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="checkbox">
-                    <label>
-                      <input formControlName="isBlocked" type="checkbox" name="optionsCheckboxes"> Is Blocked?
-                    </label>
-                  </div>
-                </div>
               </div>
-              <button (click)="onDelete()" type="button" class="btn btn-danger pull-right">Delete</button>
-              <button (click)="onUpdate()" type="button" class="btn btn-rose pull-right">Update Profile</button>
+              <button type="button" class="btn btn-info pull-left">View Reports</button>
+              <button type="button" class="btn btn-success pull-left">View Reporters</button>
+              <button (click)="onUpdate()" type="button" class="btn btn-rose pull-left">Update Host</button>
+              <button (click)="onDelete()" type="button" class="btn btn-danger pull-left">Delete Host</button>
               <div class="clearfix"></div>
             </form>
           </div>
