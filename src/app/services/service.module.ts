@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 
 import { SessionService } from './session.service';
 import { HostService } from './host.service';
+import { ReportService } from './report.service';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ export class ServiceModule {
       ngModule: ServiceModule,
       providers: [
         SessionService,
-        HostService
+        HostService,
+        ReportService
       ]
     }
   }

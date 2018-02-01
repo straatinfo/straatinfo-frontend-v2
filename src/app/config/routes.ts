@@ -34,6 +34,12 @@ const ADMIN: RouteInfo[] = [
     title: 'Add Host',
     type: 'link',
     icontype: 'note_add'
+  },
+  {
+    path: '/admin/report',
+    title: 'Reports',
+    type: 'link',
+    icontype: 'update'
   }
 ];
 
