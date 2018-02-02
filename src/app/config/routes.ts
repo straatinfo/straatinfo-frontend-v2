@@ -40,7 +40,7 @@ const ADMIN: RouteInfo[] = [
     title: 'Reports',
     type: 'link',
     icontype: 'update'
-  }
+  },
 ];
 
 export const ROUTES = {

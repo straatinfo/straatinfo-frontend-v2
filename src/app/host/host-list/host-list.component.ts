@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { HostActionCreator } from '../../store/action-creators';
 
-
 @Component({
   selector: 'app-host-list',
   templateUrl: './host-list.component.html',

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { HostListComponent, HostAddComponent, HostDetailComponent } from '../../host';
-import { ReportListComponent } from '../../report';
+import { HostListComponent, HostAddComponent, HostDetailComponent, HostReportListComponent } from '../../host';
+import { ReportListComponent, ReportDetailComponent  } from '../../report';
 
 import { HostDetailGuard } from '../../guards';
 
@@ -28,9 +28,17 @@ export const AdminRoutes: Routes = [
         component: HostAddComponent
       },
       {
+          path: 'host-report/:hostId',
+          component: HostReportListComponent,
+      },
+      {
         path: 'report',
         component: ReportListComponent
-      }
+      },
+      {
+        path: 'report/:id',
+        component: ReportDetailComponent,
+      },
     ]
   },
   {

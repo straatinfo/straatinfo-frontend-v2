@@ -6,6 +6,7 @@ import { HostListComponent } from './host-list/host-list.component';
 import { ComponentModule } from '../components';
 import { HostAddComponent } from './host-add/host-add.component';
 import { HostDetailComponent } from './host-detail/host-detail.component';
+import { HostReportListComponent } from './host-report-list/host-report-list.component';
 
 @NgModule({
   imports: [
@@ -18,12 +19,14 @@ import { HostDetailComponent } from './host-detail/host-detail.component';
   declarations: [
     HostListComponent,
     HostAddComponent,
-    HostDetailComponent
+    HostDetailComponent,
+    HostReportListComponent
   ],
   exports: [
     HostListComponent,
     HostAddComponent,
-    HostDetailComponent
+    HostDetailComponent,
+    HostReportListComponent
   ]
 })
 export class HostModule { }

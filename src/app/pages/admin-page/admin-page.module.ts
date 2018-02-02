@@ -15,7 +15,7 @@ import { ReportModule } from '../../report';
     ReactiveFormsModule,
     DashboardModule,
     HostModule,
-    ReportModule
+    ReportModule,
   ],
   declarations: [
   ],
