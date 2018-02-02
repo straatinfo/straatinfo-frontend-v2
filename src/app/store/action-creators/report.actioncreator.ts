@@ -69,6 +69,30 @@ export class ReportActionCreator implements OnDestroy {
     );
   }
 
+  GetLatestReportByHost(hostId: number) {
+      this.ngRedux.dispatch({ type: REPORT_GET_ATTEMPT });
+      this.getLatestReportSubscription = this.reportService.GetLatestReportByHost(hostId)
+          .map(data => {
+              return data.map(d => this.ReportToView(d))
+          })
+          .map(data => {
+              return data.map(d => this.formatDate(d))
+          })
+          .subscribe(
+          (reports: IReportView[]) => {
+              this.ngRedux.dispatch({ type: REPORT_GET_FULFILLED, payload: reports });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: REPORT_GET_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
+  }
+
   UpdateReport(id: number, note: string, status: string) {
     this.ngRedux.dispatch({ type: REPORT_UPDATE_ATTEMPT });
     this.updateReportSubscription = this.reportService.UpdateReport(id, note, status)

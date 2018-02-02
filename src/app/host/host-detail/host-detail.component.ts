@@ -63,10 +63,15 @@ export class HostDetailComponent implements OnInit, OnDestroy {
     (this.hostSubscription) ? this.hostSubscription.unsubscribe() : null;
   }
 
+  onViewReport() {
+      //console.log("test");
+      this.router.navigate([`admin/host-report/${this.hostDetailForm.value.id}`]);
+  }
+
   onUpdate() {
-    if (this.hostDetailForm.valid) {
-      this.hostActionCreator.UpdateHost(this.hostDetailForm.value.id, this.hostDetailForm.value);
-    }
+      if (this.hostDetailForm.valid) {
+          this.hostActionCreator.UpdateHost(this.hostDetailForm.value.id, this.hostDetailForm.value);
+      }
   }
 
   onDelete() {

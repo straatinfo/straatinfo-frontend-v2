@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
 import { ReportActionCreator } from '../../store/action-creators';
 
 @Component({
-  selector: 'app-report-list',
-  templateUrl: './report-list.component.html',
-  styleUrls: ['./report-list.component.scss']
+  selector: 'app-host-report-list',
+  templateUrl: './host-report-list.component.html',
+  styleUrls: ['./host-report-list.component.scss']
 })
-export class ReportListComponent implements OnInit {
+export class HostReportListComponent implements OnInit {
+
+  private routeParamsSubscription: Subscription = null;
 
   @select(s => s.report.reports) reports;
   @select(s => s.report.spinner) reportSpinner;
@@ -23,14 +26,20 @@ export class ReportListComponent implements OnInit {
   ];
 
   constructor(
+      private actvatedRoute: ActivatedRoute,
       private reportActionCreator: ReportActionCreator,
       private router: Router
   ) {
-    this.reportActionCreator.GetLatestReport();
+      //this.reportActionCreator.GetLatestReport();
   }
 
   ngOnInit() {
-    this.reportActionCreator.GetLatestReport();
+      this.routeParamsSubscription = this.actvatedRoute.params
+        .subscribe(
+        params => {
+            this.reportActionCreator.GetLatestReportByHost(params.hostId);
+        }
+        );
   }
 
   onMoreClick(event) {
