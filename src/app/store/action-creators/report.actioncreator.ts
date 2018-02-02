@@ -105,6 +105,10 @@ export class ReportActionCreator implements OnDestroy {
     );
   }
 
+  SelectReport (id: number) {
+    this.ngRedux.dispatch({ type: REPORT_SELECT_FULFILLED, payload: id });
+  }
+
   private ReportToView(data: IReport): IReportView {
     const report: IReportView = {
       id: data.id,

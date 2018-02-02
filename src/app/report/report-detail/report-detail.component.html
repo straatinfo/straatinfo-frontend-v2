@@ -1,0 +1,127 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="blue">
+            <i class="material-icons">perm_identity</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Report -
+              <small class="category">Report details</small>
+            </h4>
+            <form [formGroup]="hostDetailForm">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group label-floating">
+                    <label class="control-label">Host Name</label>
+                    <input formControlName="hostName" type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group label-floating">
+                    <label class="control-label">Title</label>
+                    <input formControlName="reportTitle" type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group label-floating">
+                    <label class="control-label">Description</label>
+                    <input formControlName="description" type="text" class="form-control">
+                  </div>
+                </div>                  
+              </div>
+
+              <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group label-floating">
+                      <label class="control-label">Report Type</label>
+                      <input formControlName="hostName" type="text" class="form-control" >
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group label-floating">
+                      <label class="control-label">Main Category</label>
+                      <input formControlName="mainCategory" type="text" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group label-floating">
+                      <label class="control-label">Sub Category</label>
+                      <input formControlName="subCategory" type="text" class="form-control">
+                    </div>
+                  </div>                  
+                </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group label-floating">
+                    <label class="control-label">Location</label>
+                    <input formControlName="location" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group label-floating">
+                    <label class="control-label">Longtitude</label>
+                    <input formControlName="long" type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group label-floating">
+                    <label class="control-label">Latitude</label>
+                    <input formControlName="lat" type="text" class="form-control">
+                  </div>
+                </div>              
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label>
+                            <input formControlName="isVehicleInvolved" type="checkbox" name="optionsIsVehicleInvolved"> Is Vehicle Involved?
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group label-floating">
+                        <label class="control-label">Vehicle Involved Description</label>
+                        <input formControlName="vehicleInvolvedDescription" type="text" class="form-control">
+                    </div>
+                </div>  
+              </div> 
+
+              <div class="row">
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label>
+                            <input formControlName="isPeopleInvolved" type="checkbox" name="optionsIsPeopleInvolved"> Is People Involved?
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group label-floating">
+                        <label class="control-label">People Involved Count</label>
+                        <input formControlName="peopleInvolvedCount" type="number" class="form-control">
+                    </div>
+                </div>
+              </div> 
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group label-floating">
+                    <label class="control-label">Note</label>
+                    <input formControlName="note" type="text" class="form-control">
+                  </div>
+                </div>             
+              </div>        
+
+              <button (click)="onUpdate()" type="button" class="btn btn-rose pull-left">Update Report</button>
+              <button (click)="onDelete()" type="button" class="btn btn-danger pull-left">Delete Report</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
