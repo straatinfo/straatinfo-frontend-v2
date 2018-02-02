@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReportListComponent } from './report-list/report-list.component';
+import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ComponentModule } from '../components';
 
 @NgModule({
@@ -14,10 +15,12 @@ import { ComponentModule } from '../components';
     ComponentModule
   ],
   declarations: [
-    ReportListComponent
+    ReportListComponent,
+    ReportDetailComponent
   ],
   exports: [
-    ReportListComponent
+    ReportListComponent,
+    ReportDetailComponent
   ]
 })
 export class ReportModule { }
