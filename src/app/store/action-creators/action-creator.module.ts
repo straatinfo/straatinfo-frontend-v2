@@ -4,6 +4,7 @@ import { SessionActionCreator } from './session.actioncreator';
 import { HostActionCreator } from './host.actioncreator';
 import { TableActionCreator } from './table.actioncreator';
 import { ReportActionCreator } from './report.actioncreator';
+import { ReporterActionCreator } from './reporter.actioncreator';
 
 @NgModule({
   imports: [],
@@ -17,7 +18,8 @@ export class ActionCreatorModule {
         SessionActionCreator,
         HostActionCreator,
         TableActionCreator,
-        ReportActionCreator
+        ReportActionCreator,
+        ReporterActionCreator
       ]
     }
   }
