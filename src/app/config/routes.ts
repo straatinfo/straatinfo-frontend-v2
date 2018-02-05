@@ -41,6 +41,12 @@ const ADMIN: RouteInfo[] = [
     type: 'link',
     icontype: 'update'
   },
+  {
+      path: '/admin/reporter',
+      title: 'Reporters',
+      type: 'link',
+      icontype: 'update'
+  },
 ];
 
 export const ROUTES = {
