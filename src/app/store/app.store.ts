@@ -3,22 +3,26 @@ import { SESSION_INITIAL_STATE, ISessionStore, sessionReducer } from './session.
 import { HOST_INITIAL_STATE, IHostStore, hostReducer } from './host.store';
 import { TABLE_INITIAL_STATE, ITableStore, tableReducer } from './table.store';
 import { REPORT_INITIAL_STATE, IReportStore, reportReducer } from './report.store';
+import { REPORTER_INITIAL_STATE, IReporterStore, reporterReducer } from './reporter.store';
 
 export interface IAppState {
   session: ISessionStore,
   host: IHostStore,
-  report: IReportStore
+  report: IReportStore,
+  reporter: IReporterStore
 }
 
 export const INITIAL_STATE: IAppState = {
   session: SESSION_INITIAL_STATE,
   host: HOST_INITIAL_STATE,
-  report: REPORT_INITIAL_STATE
+  report: REPORT_INITIAL_STATE,
+  reporter: REPORTER_INITIAL_STATE
 }
 
 export const rootReducer = combineReducers<IAppState>({
   session: sessionReducer,
   host: hostReducer,
   table: tableReducer,
-  report: reportReducer
+  report: reportReducer,
+  reporter: reporterReducer
 });

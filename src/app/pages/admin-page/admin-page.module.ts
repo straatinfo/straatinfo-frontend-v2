@@ -6,6 +6,7 @@ import { AdminRoutes } from './admin-page.routing';
 import { DashboardModule } from '../../dashboard/dashboard.module';
 import { HostModule } from '../../host';
 import { ReportModule } from '../../report';
+import { ReporterModule } from '../../reporter';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ReportModule } from '../../report';
     DashboardModule,
     HostModule,
     ReportModule,
+    ReporterModule
   ],
   declarations: [
   ],
