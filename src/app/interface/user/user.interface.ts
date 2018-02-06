@@ -1,7 +1,7 @@
 import { IRole } from '../role/role.interface';
 
 export interface IUser {
-  id?: number;
+  _id?: string;
   fname?: string;
   lname?: string;
   gender?: string;
@@ -19,7 +19,7 @@ export interface IUser {
   lat?: number;
   long?: number;
   phoneNumber?: string;
-  roleId?: number;
   isBlocked?: boolean;
-  role?: IRole;
+  isPatron?: boolean;
+  _role?: IRole;
 }

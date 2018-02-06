@@ -128,7 +128,7 @@ export const hostSelectAttempt = (state, action) => {
 };
 
 export const hostSelectFulfilled = (state, action) => {
-  const index = _.findIndex(state.hosts, (h) => { return h.id == action.payload });
+  const index = _.findIndex(state.hosts, (h) => { return h._id == action.payload });
   return tassign(state, {
     hosts: state.hosts,
     selectedHost: state.hosts[index],

@@ -47,7 +47,7 @@ export class SessionActionCreator implements OnDestroy {
       (session: ISession) => {
         this.sessionService.SessionSave(session);
         this.ngRedux.dispatch({type: SESSION_CREATE_FULFILLED, payload: session});
-        this.router.navigate([`/${session.user.role.code.toLowerCase()}`]);
+        this.router.navigate([`/${session.user._role.code.toLowerCase()}`]);
       }, err => {
         this.errorMessage = err._body;
         if (this.errorMessage && typeof this.errorMessage === 'string') {

@@ -35,15 +35,17 @@ export class HostService {
     const options = new RequestOptions({headers: headers});
     return this.http.get(`${this.hostUrl}`, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share()
   }
 
-  GetHostById (id: number): Observable<IHost> {
+  GetHostById (_id: string): Observable<IHost> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.get(`${this.hostUrl}/${id}`, options)
+    return this.http.get(`${this.hostUrl}/${_id}`, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share()
   }
 
@@ -53,6 +55,7 @@ export class HostService {
     const options = new RequestOptions({headers: headers});
     return this.http.get(`${this.hostUrl}/page/${pageNumber}/${itemPerPage}`, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share()
   }
 
@@ -62,6 +65,7 @@ export class HostService {
     const options = new RequestOptions({headers: headers});
     return this.http.get(`${this.hostUrl}/withinRadius/${long}/${lat}/${radius}`, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share()
   }
 
@@ -71,24 +75,27 @@ export class HostService {
     const options = new RequestOptions({headers: headers});
     return this.http.post(`${this.hostUrl}`,host, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share()
   }
 
-  UpdateHost (id: number, host:IHost): Observable<IHost> {
+  UpdateHost (_id: string, host:IHost): Observable<IHost> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.put(`${this.hostUrl}/${id}`,host, options)
+    return this.http.put(`${this.hostUrl}/${_id}`,host, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share()
   }
 
-  DeleteHost (id: number): Observable<any> {
+  DeleteHost (_id: string): Observable<any> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.delete(`${this.hostUrl}/${id}`, options)
+    return this.http.delete(`${this.hostUrl}/${_id}`, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share()
   }
 
@@ -98,6 +105,11 @@ export class HostService {
     const options = new RequestOptions({headers: headers});
     return this.http.post(`${this.hostUrl}/bulk`,hosts, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share()
+  }
+
+  GetData (data) {
+    return data.data;
   }
 }

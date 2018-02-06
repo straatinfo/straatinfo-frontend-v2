@@ -1,7 +1,7 @@
 import { IRole } from '../role/role.interface';
 
 export interface IHost {
-  id?: number;
+  _id?: string;
   hostName?: string;
   email?: string;
   username?: string;
@@ -15,6 +15,5 @@ export interface IHost {
   long?: number;
   phoneNumber?: string;
   isBlocked?: boolean;
-  roleId?: number;
-  role?: IRole;
+  _role?: IRole;
 }

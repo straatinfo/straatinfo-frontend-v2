@@ -33,6 +33,7 @@ export class SessionService {
     const options = new RequestOptions({headers: headers});
     return this.http.post(`${this.authUrl}/login`, sessionCreate, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share()
   }
 
@@ -46,5 +47,9 @@ export class SessionService {
 
   SessionDestroy(): void {
     localStorage.clear();
+  }
+
+  GetData (data) {
+    return data.data;
   }
 }
