@@ -1,5 +1,6 @@
 export interface IReportType {
-  id?: number;
+  _id?: string;
+  code?: string;
   name?: string;
   description?: string;
 }

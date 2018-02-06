@@ -1,8 +1,7 @@
 import { IMainCategory } from "./main-category.interface";
 
 export interface ISubCategory {
-  id?: number;
+  _id?: string;
   name?: string;
-  mainCategoryId?: number;
-  mainCategory?: IMainCategory;
+  _mainCategory?: IMainCategory;
 }
