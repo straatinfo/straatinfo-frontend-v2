@@ -1,5 +1,5 @@
 export interface IReporter {
-  id?: number;
+  _id?: number;
   firstName?: string;
   lastName?: string;
   chatName?: string;

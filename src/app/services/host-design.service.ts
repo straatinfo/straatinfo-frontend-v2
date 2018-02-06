@@ -6,19 +6,19 @@ import 'rxjs/add/operator/share';
 import * as _ from 'lodash';
 
 import { ISession } from '../interface/session/session.interface';
-import { IReporter } from '../interface/reporter/reporter.interface';
+import { IHostDesign } from '../interface/host/host-design.interface';
 import { SessionService } from './session.service';
 import { BACKEND_URL } from '../config';
 
 @Injectable()
-export class ReporterService {
+export class HostDesignService {
 
   constructor(
     private http: Http,
     private sessionService: SessionService
   ) { }
 
-  private reporterUrl = `${BACKEND_URL}/v1/api/reporter`;
+  private hostDesignUrl = `${BACKEND_URL}/v1/api/hostDesign`;
 
   private GetSessionToken(): string {
     const session: ISession = this.sessionService.SessionRead();
@@ -29,44 +29,24 @@ export class ReporterService {
     }
   }
 
-  GetLatestReporter (): Observable<IReporter[]> {
-    const headers = new Headers({ 'Content-Type': 'application/json'});
-    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-    const options = new RequestOptions({headers: headers});
-    return this.http.get(`${this.reporterUrl}`, options)
-    .map(response => response.json())
-    .map(data => this.GetData(data))
-    .share();
-  }
-
-  GetLatestReporterByHost(_hostId: string): Observable<IReporter[]> {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-    const options = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.reporterUrl}/host/${_hostId}`, options)
-        .map(response => response.json())
-        .map(data => this.GetData(data))
-        .share();
-  }
-
-  UpdateReporter(_id: string): Observable<IReporter> {
+  GetHostDesignById(_id: string): Observable<IHostDesign> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.put(`${this.reporterUrl}/${_id}`, { _id }, options)
+      return this.http.get(`${this.hostDesignUrl}/${_id}`, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
-          .share();
+          .share()
   }
 
-  DeleteReporter(_id: string): Observable<any> {
+  UpdateHostDesign(_id: string, hostDesign: IHostDesign): Observable<IHostDesign> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.delete(`${this.reporterUrl}/${_id}`, options)
+      return this.http.put(`${this.hostDesignUrl}/${_id}`, hostDesign, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
-          .share();
+          .share()
   }
 
   GetData(data) {
