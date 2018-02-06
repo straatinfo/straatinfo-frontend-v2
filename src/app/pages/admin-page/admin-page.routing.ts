@@ -20,7 +20,7 @@ export const AdminRoutes: Routes = [
         component: HostListComponent
       },
       {
-        path: 'host/:id',
+        path: 'host/:_id',
         component: HostDetailComponent,
         canActivate: [HostDetailGuard]
       },
@@ -41,7 +41,7 @@ export const AdminRoutes: Routes = [
         component: ReportListComponent
       },
       {
-        path: 'report/:id',
+        path: 'report/:_id',
         component: ReportDetailComponent,
       },
       {
@@ -49,7 +49,7 @@ export const AdminRoutes: Routes = [
           component: ReporterListComponent
       },
       {
-          path: 'reporter/:id',
+          path: 'reporter/:_id',
           component: ReporterDetailComponent,
       },
     ]

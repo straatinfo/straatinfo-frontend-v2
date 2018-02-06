@@ -14,7 +14,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
   canActivate(
   ): Observable<boolean> | Promise<boolean> | boolean {
     const session: ISession = JSON.parse(localStorage.getItem('session'));
-    if (!session || !session.token || (session.user.roleId !== 1 )) {
+    if (!session || !session.token || (session.user._role.accessLevel !== 1 )) {
       swal({
         type: 'error',
         title: 'Invalid URL',
@@ -30,7 +30,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
   canActivateChild(
   ): Observable<boolean> | Promise<boolean> | boolean {
     const session: ISession = JSON.parse(localStorage.getItem('session'));
-    if (!session || !session.token || (session.user.roleId !== 1 )) {
+    if (!session || !session.token || (session.user._role.accessLevel !== 1 )) {
       swal({
         type: 'error',
         title: 'Invalid URL',
