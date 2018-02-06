@@ -1,9 +1,10 @@
 import { IHost } from "../host/host.interface";
+import { IReportType } from '../report/report-type.interface';
 
 export interface IMainCategory {
-  id?: number;
+  _id?: string;
   name?: string;
   description?: string;
-  hostId?: number;
-  host?: IHost;
+  _host?: IHost;
+  _reportType?: IReportType;
 }
