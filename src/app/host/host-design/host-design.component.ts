@@ -32,12 +32,12 @@ export class HostDesignComponent implements OnInit, OnDestroy {
     this.routeParamsSubscription = this.actvatedRoute.params
     .subscribe(
       params => {
-        this.hostDesignActionCreator.SelectHostDesign(params.id);
+        this.hostDesignActionCreator.SelectHostDesign(params._id);
         this.hostDesignSubscription = this.selectedHost
         .subscribe(
           host => {
             this.hostDesignForm = this.formBuilder.group({
-                id: [host.id, Validators.required],
+                _id: [host._id, Validators.required],
                 color1: [host.color1, Validators.required],
                 color2: [host.color2, Validators.required],
                 color3: [host.color3, Validators.required],

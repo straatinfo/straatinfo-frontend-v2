@@ -46,9 +46,9 @@ export class HostDesignActionCreator implements OnDestroy {
     (this.updateHostDesignSubscription) ? this.updateHostDesignSubscription.unsubscribe() : null;
   }
 
-  GetHostDesignByHostId(id: number) {
+  GetHostDesignByHostId(_id: string) {
     this.ngRedux.dispatch({ type: HOSTDESIGN_SELECT_ATTEMPT });
-    this.getHostDesignByIdSubscription = this.hostDesignService.GetHostDesignById(id)
+    this.getHostDesignByIdSubscription = this.hostDesignService.GetHostDesignById(_id)
         .map(data => this.ToHostDesignView(data))
         .subscribe(
         (hostDesign: IHostDesign) => {
@@ -65,14 +65,14 @@ export class HostDesignActionCreator implements OnDestroy {
         );
   }
 
-  UpdateHostDesign(id: number, hostDesign: IHostDesign) {
+  UpdateHostDesign(_id: string, hostDesign: IHostDesign) {
       this.ngRedux.dispatch({ type: HOSTDESIGN_UPDATE_ATTEMPT });
-      this.updateHostDesignSubscription = this.hostDesignService.UpdateHostDesign(id, hostDesign)
+      this.updateHostDesignSubscription = this.hostDesignService.UpdateHostDesign(_id, hostDesign)
           .map(data => this.ToHostDesignView(data))
           .subscribe(
           (hostDesign: IHostDesign) => {
               this.ngRedux.dispatch({ type: HOSTDESIGN_UPDATE_FULFILLED, payload: hostDesign });
-              this.ngRedux.dispatch({ type: HOSTDESIGN_SELECT_FULFILLED, payload: hostDesign.id });
+              this.ngRedux.dispatch({ type: HOSTDESIGN_SELECT_FULFILLED, payload: hostDesign._id });
           }, err => {
               this.errorMessage = err._body;
               if (this.errorMessage && typeof this.errorMessage === 'string') {
@@ -85,13 +85,13 @@ export class HostDesignActionCreator implements OnDestroy {
           );
   }
 
-  SelectHostDesign(id: number) {
-      this.ngRedux.dispatch({ type: HOSTDESIGN_SELECT_FULFILLED, payload: id });
+  SelectHostDesign(_id: string) {
+      this.ngRedux.dispatch({ type: HOSTDESIGN_SELECT_FULFILLED, payload: _id });
   }
 
   private ToHostDesignView(data: any): IHostDesign {
       return {
-          id: data.id,
+          _id: data._id,
           hostId: data.hostId,
           color1: data.color1,
           color2: data.color2,

@@ -32,12 +32,12 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
     this.routeParamsSubscription = this.actvatedRoute.params
     .subscribe(
       params => {
-        this.reporterActionCreator.SelectReporter(params.id);
+        this.reporterActionCreator.SelectReporter(params._id);
         this.reporterSubscription = this.selectedReporter
         .subscribe(
           report => {
             this.reporterDetailForm = this.formBuilder.group({
-                id: [report.id, Validators.required],
+                _id: [report._id, Validators.required],
                 firstName: [report.firstName, Validators.required],
                 lastName: [report.lastName, Validators.required],
                 chatName: [report.chatName, Validators.required],
@@ -60,7 +60,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
 
   onUpdate() {
      if (this.reporterDetailForm.valid) {
-         this.reporterActionCreator.UpdateReporter(this.reporterDetailForm.value.id);
+         this.reporterActionCreator.UpdateReporter(this.reporterDetailForm.value._id);
      }
   }
 
@@ -75,7 +75,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
        confirmButtonText: 'Yes'
      }).then((result) => {
        if (result) {
-         this.reporterActionCreator.DeleteReporter(this.reporterDetailForm.value.id, this.reporterDetailForm.value);
+         this.reporterActionCreator.DeleteReporter(this.reporterDetailForm.value._id, this.reporterDetailForm.value);
          swal(
            'Deleted!',
            `${this.reporterDetailForm.value.firstName} has been deleted.`,

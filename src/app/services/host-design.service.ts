@@ -29,21 +29,27 @@ export class HostDesignService {
     }
   }
 
-  GetHostDesignById(id: number): Observable<IHostDesign> {
+  GetHostDesignById(_id: string): Observable<IHostDesign> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.get(`${this.hostDesignUrl}/${id}`, options)
+      return this.http.get(`${this.hostDesignUrl}/${_id}`, options)
           .map(response => response.json())
+          .map(data => this.GetData(data))
           .share()
   }
 
-  UpdateHostDesign(id: number, hostDesign: IHostDesign): Observable<IHostDesign> {
+  UpdateHostDesign(_id: string, hostDesign: IHostDesign): Observable<IHostDesign> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.put(`${this.hostDesignUrl}/${id}`, hostDesign, options)
+      return this.http.put(`${this.hostDesignUrl}/${_id}`, hostDesign, options)
           .map(response => response.json())
+          .map(data => this.GetData(data))
           .share()
+  }
+
+  GetData(data) {
+      return data.data;
   }
 }

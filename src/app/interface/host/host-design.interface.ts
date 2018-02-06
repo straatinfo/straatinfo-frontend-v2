@@ -1,5 +1,5 @@
 export interface IHostDesign {
-  id?: number;
+  _id?: number;
   hostId?: string;
   color1?: string;
   color2?: string;

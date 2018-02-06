@@ -66,9 +66,9 @@ export class ReporterActionCreator implements OnDestroy {
           );
   }
 
-  GetLatestReporterByHost(hostId: number) {
+  GetLatestReporterByHost(_hostId: string) {
       this.ngRedux.dispatch({ type: REPORTER_GET_ATTEMPT });
-      this.getLatestReporterSubscription = this.reporterService.GetLatestReporterByHost(hostId)
+      this.getLatestReporterSubscription = this.reporterService.GetLatestReporterByHost(_hostId)
           .map(data => {
               return data.map(d => this.ReporterToView(d))
           })
@@ -87,9 +87,9 @@ export class ReporterActionCreator implements OnDestroy {
           );
   }
 
-  UpdateReporter(id: number) {
+  UpdateReporter(_id: string) {
       this.ngRedux.dispatch({ type: REPORTER_UPDATE_ATTEMPT });
-      this.updateReporterSubscription = this.reporterService.UpdateReporter(id)
+      this.updateReporterSubscription = this.reporterService.UpdateReporter(_id)
           .subscribe(
           (reporter: IReporter) => {
               this.ngRedux.dispatch({ type: REPORTER_UPDATE_FULFILLED, payload: reporter });
@@ -105,9 +105,9 @@ export class ReporterActionCreator implements OnDestroy {
           );
   }
 
-  DeleteReporter(id: number, report: IReporter) {
+  DeleteReporter(_id: string, report: IReporter) {
       this.ngRedux.dispatch({ type: REPORTER_DELETE_ATTEMPT });
-      this.deleteReporterSubscription = this.reporterService.DeleteReporter(id)
+      this.deleteReporterSubscription = this.reporterService.DeleteReporter(_id)
           .subscribe(
           data => {
               this.ngRedux.dispatch({ type: REPORTER_DELETE_FULFILLED, payload: report });
@@ -123,13 +123,13 @@ export class ReporterActionCreator implements OnDestroy {
           );
   }
 
-  SelectReporter (id: number) {
-    this.ngRedux.dispatch({ type: REPORTER_SELECT_FULFILLED, payload: id });
+  SelectReporter(_id: string) {
+      this.ngRedux.dispatch({ type: REPORTER_SELECT_FULFILLED, payload: _id });
   }
 
   private ReporterToView(data: IReporter): IReporterView {
     const reporter: IReporterView = {
-        id: data.id,
+        _id: data._id,
         firstName: data.firstName,
         lastName: data.lastName,
         chatName: data.chatName,

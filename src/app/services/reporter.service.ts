@@ -35,33 +35,41 @@ export class ReporterService {
     const options = new RequestOptions({headers: headers});
     return this.http.get(`${this.reporterUrl}`, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share();
   }
 
-  GetLatestReporterByHost(hostId: number): Observable<IReporter[]> {
+  GetLatestReporterByHost(_hostId: string): Observable<IReporter[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.reporterUrl}/${hostId}`, options)
+    return this.http.get(`${this.reporterUrl}/host/${_hostId}`, options)
         .map(response => response.json())
+        .map(data => this.GetData(data))
         .share();
   }
 
-  UpdateReporter(id: number): Observable<IReporter> {
+  UpdateReporter(_id: string): Observable<IReporter> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.put(`${this.reporterUrl}/${id}`, { id }, options)
+      return this.http.put(`${this.reporterUrl}/${_id}`, { _id }, options)
           .map(response => response.json())
+          .map(data => this.GetData(data))
           .share();
   }
 
-  DeleteReporter(id: number): Observable<any> {
+  DeleteReporter(_id: string): Observable<any> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.delete(`${this.reporterUrl}/${id}`, options)
+      return this.http.delete(`${this.reporterUrl}/${_id}`, options)
           .map(response => response.json())
+          .map(data => this.GetData(data))
           .share();
+  }
+
+  GetData(data) {
+      return data.data;
   }
 }

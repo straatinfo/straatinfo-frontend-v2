@@ -25,7 +25,7 @@ export const AdminRoutes: Routes = [
         canActivate: [HostDetailGuard]
       },
       {
-          path: 'host-design/:id',
+          path: 'host-design/:_id',
           component: HostDesignComponent,
       },
       {
@@ -33,11 +33,11 @@ export const AdminRoutes: Routes = [
         component: HostAddComponent
       },
       {
-          path: 'host-report/:hostId',
+          path: 'host-report/:_hostId',
           component: HostReportListComponent,
       },
       {
-          path: 'host-reporter/:hostId',
+          path: 'host-reporter/:_hostId',
           component: HostReporterListComponent,
       },
       {

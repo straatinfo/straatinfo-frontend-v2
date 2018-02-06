@@ -37,13 +37,13 @@ export class HostReporterListComponent implements OnInit {
     this.routeParamsSubscription = this.actvatedRoute.params
     .subscribe(
         params => {
-            this.reporterActionCreator.GetLatestReporterByHost(params.hostId);
+            this.reporterActionCreator.GetLatestReporterByHost(params._hostId);
         }
     );
   }
 
   onMoreClick(event) {
-      this.reporterActionCreator.SelectReporter(event.id);
-      this.router.navigate([`admin/reporter/${event.id}`]);
+      this.reporterActionCreator.SelectReporter(event._id);
+      this.router.navigate([`admin/reporter/${event._id}`]);
   }
 }
