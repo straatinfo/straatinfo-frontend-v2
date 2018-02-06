@@ -30,8 +30,8 @@ export class HostListComponent implements OnInit {
   }
 
   onMoreClick(event) {
-    this.hostActionCreator.SelectHost(event.id);
-    this.router.navigate([`admin/host/${event.id}`]);
+    this.hostActionCreator.SelectHost(event._id);
+    this.router.navigate([`admin/host/${event._id}`]);
   }
 
 }

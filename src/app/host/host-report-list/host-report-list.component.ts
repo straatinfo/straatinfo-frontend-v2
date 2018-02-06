@@ -18,7 +18,7 @@ export class HostReportListComponent implements OnInit {
   @select(s => s.table.page) page;
 
   public dataNames: string[] = [
-    'generatedReportId', 'date', 'title', 'description', 'reporter', 'host', 'status'
+    'generatedReportId', 'date', 'title', 'description', '_reporter', '_host', 'status'
   ];
 
   public dataAliases: string[] = [
@@ -43,7 +43,7 @@ export class HostReportListComponent implements OnInit {
   }
 
   onMoreClick(event) {
-      this.reportActionCreator.SelectReport(event.id);
-      this.router.navigate([`admin/report/${event.id}`]);
+      this.reportActionCreator.SelectReport(event._id);
+      this.router.navigate([`admin/report/${event._id}`]);
   }
 }

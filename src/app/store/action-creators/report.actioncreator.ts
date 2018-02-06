@@ -135,7 +135,7 @@ export class ReportActionCreator implements OnDestroy {
 
   private ReportToView(data: IReport): IReportView {
     const report: IReportView = {
-      id: data.id,
+      _id: data._id,
       generatedReportId: data.generatedReportId,
       title: data.title,
       description: data.description,
@@ -148,18 +148,11 @@ export class ReportActionCreator implements OnDestroy {
       isPeopleInvolved: data.isPeopleInvolved,
       vehicleInvolvedDescription: data.vehicleInvolvedDescription,
       peopleInvolvedCount: data.peopleInvolvedCount,
-      reportTypeId: data.reportTypeId,
-      reportType: data['reportType.name'],
-      mainCategoryId: data.mainCategoryId,
-      mainCategory: data['mainCategory.name'],
-      subCategoryId: data.subCategoryId,
-      subCategory: data['subCategory.name'],
-      priorityId: data.priorityId,
-      priority: data['priority.name'],
-      reporterId: data.reporterId,
-      reporter: data['reporter.fname'] + ' ' + data['reporter.lname'],
-      hostId: data.hostId,
-      host: data['host.hostName'],
+      _reportType: data._reportType.code,
+      _mainCategory: data._mainCategory.name,
+      _subCategory: data._subCategory.name,
+      _reporter: data._reporter.fname + ' ' + data._reporter.lname,
+      _host: data._host.hostName,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt
     };

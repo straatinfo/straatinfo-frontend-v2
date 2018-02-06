@@ -32,15 +32,15 @@ export class HostDetailComponent implements OnInit, OnDestroy {
     this.routeParamsSubscription = this.actvatedRoute.params
     .subscribe(
       params => {
-        this.hostActionCreator.SelectHost(params.id);
+        this.hostActionCreator.SelectHost(params._id);
         this.hostSubscription = this.selectedHost
         .subscribe(
           host => {
             this.hostDetailForm = this.formBuilder.group({
-              id: [host.id, Validators.required],
+              _id: [host._id, Validators.required],
               hostName: [host.hostName, Validators.required],
               email: [host.email, [Validators.required, Validators.email]],
-              username: [host.username, Validators.required],
+              username: [host.username],
               houseNumber: [host.houseNumber, Validators.required],
               streetName: [host.streetName, Validators.required],
               city: [host.city, Validators.required],
@@ -50,7 +50,8 @@ export class HostDetailComponent implements OnInit, OnDestroy {
               phoneNumber: [host.phoneNumber, Validators.required],
               long: [host.long, Validators.required],
               lat: [host.lat, Validators.required],
-              isBlocked: [host.isBlocked]
+              isBlocked: [host.isBlocked],
+              isPatron: [host.isPatron]
             });
           }
         );
@@ -64,16 +65,16 @@ export class HostDetailComponent implements OnInit, OnDestroy {
   }
 
   onViewReport() {
-      this.router.navigate([`admin/host-report/${this.hostDetailForm.value.id}`]);
+      this.router.navigate([`admin/host-report/${this.hostDetailForm.value._id}`]);
   }
 
   onViewReporter() {
-      this.router.navigate([`admin/host-reporter/${this.hostDetailForm.value.id}`]);
+      this.router.navigate([`admin/host-reporter/${this.hostDetailForm.value._id}`]);
   }
 
   onUpdate() {
       if (this.hostDetailForm.valid) {
-          this.hostActionCreator.UpdateHost(this.hostDetailForm.value.id, this.hostDetailForm.value);
+          this.hostActionCreator.UpdateHost(this.hostDetailForm.value._id, this.hostDetailForm.value);
       }
   }
 
@@ -88,7 +89,7 @@ export class HostDetailComponent implements OnInit, OnDestroy {
       confirmButtonText: 'Yes'
     }).then((result) => {
       if (result) {
-        this.hostActionCreator.DeleteHost(this.hostDetailForm.value.id, this.hostDetailForm.value);
+        this.hostActionCreator.DeleteHost(this.hostDetailForm.value._id, this.hostDetailForm.value);
         swal(
           'Deleted!',
           `${this.hostDetailForm.value.hostName} has been deleted.`,

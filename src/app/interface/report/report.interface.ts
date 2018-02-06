@@ -3,10 +3,9 @@ import { IHost } from '../host/host.interface';
 import { IReportType } from './report-type.interface';
 import { IMainCategory } from '../category/main-category.interface';
 import { ISubCategory } from '../category/sub-category.interface';
-import { IPriority } from '../priority/priority.interface';
 
 export interface IReport {
-  id?: number;
+  _id?: string;
   generatedReportId?: string;
   title?: string;
   description?: string;
@@ -19,18 +18,12 @@ export interface IReport {
   isPeopleInvolved?: boolean;
   vehicleInvolvedDescription?: string;
   peopleInvolvedCount?: number;
-  reportTypeId?: number;
-  reportType?: IReportType;
-  mainCategoryId?: number;
-  mainCategory?: IMainCategory;
-  subCategoryId?: number;
-  subCategory?: ISubCategory;
-  priorityId?: number;
-  priority?: IPriority;
-  reporterId?: number;
-  reporter?: IUser;
-  hostId?: number;
-  host?: IHost;
+  _reportType?: IReportType;
+  _mainCategory?: IMainCategory;
+  _subCategory?: ISubCategory;
+  _reporter?: IUser;
+  _host?: IHost;
+  date?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

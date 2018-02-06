@@ -35,6 +35,7 @@ export class ReportService {
     const options = new RequestOptions({headers: headers});
     return this.http.get(`${this.reportUrl}`, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share();
   }
 
@@ -43,8 +44,9 @@ export class ReportService {
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({ headers: headers });
     return this.http.get(`${this.reportUrl}/${hostId}`, options)
-        .map(response => response.json())
-        .share();
+    .map(response => response.json())
+    .map(data => this.GetData(data))
+    .share();
   }
 
   UpdateReport (id: number, note: string, status: string): Observable<IReport> {
@@ -53,6 +55,7 @@ export class ReportService {
     const options = new RequestOptions({headers: headers});
     return this.http.put(`${this.reportUrl}/${id}`, {id, note, status}, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share();
   }
 
@@ -62,7 +65,12 @@ export class ReportService {
     const options = new RequestOptions({headers: headers});
     return this.http.delete(`${this.reportUrl}/${id}`, options)
     .map(response => response.json())
+    .map(data => this.GetData(data))
     .share();
+  }
+
+  GetData (data) {
+    return data.data;
   }
 
 }

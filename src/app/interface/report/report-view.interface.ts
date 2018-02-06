@@ -1,5 +1,5 @@
 export interface IReportView {
-  id?: number;
+  _id?: string;
   generatedReportId?: string;
   title?: string;
   description?: string;
@@ -12,18 +12,11 @@ export interface IReportView {
   isPeopleInvolved?: boolean;
   vehicleInvolvedDescription?: string;
   peopleInvolvedCount?: number;
-  reportTypeId?: number;
-  reportType: string;
-  mainCategoryId?: number;
-  mainCategory?: string;
-  subCategoryId?: number;
-  subCategory?: string;
-  priorityId?: number;
-  priority?: string;
-  reporterId?: number;
-  reporter?: string;
-  hostId?: number;
-  host?: string;
+  _reportType?: string;
+  _mainCategory?: string;
+  _subCategory?: string;
+  _reporter?: string;
+  _host?: string;
   date?: string;
   createdAt?: Date;
   updatedAt?: Date;
