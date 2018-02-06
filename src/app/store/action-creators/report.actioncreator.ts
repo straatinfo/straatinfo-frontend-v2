@@ -69,9 +69,9 @@ export class ReportActionCreator implements OnDestroy {
     );
   }
 
-  GetLatestReportByHost(hostId: number) {
+  GetLatestReportByHost(_hostId: string) {
       this.ngRedux.dispatch({ type: REPORT_GET_ATTEMPT });
-      this.getLatestReportSubscription = this.reportService.GetLatestReportByHost(hostId)
+      this.getLatestReportSubscription = this.reportService.GetLatestReportByHost(_hostId)
           .map(data => {
               return data.map(d => this.ReportToView(d))
           })
@@ -93,9 +93,9 @@ export class ReportActionCreator implements OnDestroy {
           );
   }
 
-  UpdateReport(id: number, note: string, status: string) {
+  UpdateReport(_id: string, note: string, status: string) {
     this.ngRedux.dispatch({ type: REPORT_UPDATE_ATTEMPT });
-    this.updateReportSubscription = this.reportService.UpdateReport(id, note, status)
+    this.updateReportSubscription = this.reportService.UpdateReport(_id, note, status)
     .subscribe(
       (report: IReport) => {
         this.ngRedux.dispatch({ type: REPORT_UPDATE_FULFILLED, payload: report });
@@ -111,9 +111,9 @@ export class ReportActionCreator implements OnDestroy {
     );
   }
 
-  DeleteReport(id: number, report: IReport) {
+  DeleteReport(_id: string, report: IReport) {
     this.ngRedux.dispatch({ type: REPORT_DELETE_ATTEMPT });
-    this.deleteReportSubscription = this.reportService.DeleteReport(id)
+    this.deleteReportSubscription = this.reportService.DeleteReport(_id)
     .subscribe(
       data => {
         this.ngRedux.dispatch({ type: REPORT_DELETE_FULFILLED, payload: report });
@@ -129,8 +129,8 @@ export class ReportActionCreator implements OnDestroy {
     );
   }
 
-  SelectReport (id: number) {
-    this.ngRedux.dispatch({ type: REPORT_SELECT_FULFILLED, payload: id });
+  SelectReport(_id: string) {
+      this.ngRedux.dispatch({ type: REPORT_SELECT_FULFILLED, payload: _id });
   }
 
   private ReportToView(data: IReport): IReportView {

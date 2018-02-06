@@ -39,31 +39,31 @@ export class ReportService {
     .share();
   }
 
-  GetLatestReportByHost(hostId: number): Observable<IReport[]> {
+  GetLatestReportByHost(_hostId: string): Observable<IReport[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.reportUrl}/${hostId}`, options)
+    return this.http.get(`${this.reportUrl}/host/${_hostId}`, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
     .share();
   }
 
-  UpdateReport (id: number, note: string, status: string): Observable<IReport> {
+  UpdateReport (_id: string, note: string, status: string): Observable<IReport> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.put(`${this.reportUrl}/${id}`, {id, note, status}, options)
+    return this.http.put(`${this.reportUrl}/${_id}`, { _id, note, status}, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
     .share();
   }
 
-  DeleteReport (id: number): Observable<any> {
+   DeleteReport(_id: string): Observable<any> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.delete(`${this.reportUrl}/${id}`, options)
+    return this.http.delete(`${this.reportUrl}/${_id}`, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
     .share();

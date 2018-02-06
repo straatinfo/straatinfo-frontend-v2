@@ -37,7 +37,7 @@ export class HostReportListComponent implements OnInit {
       this.routeParamsSubscription = this.actvatedRoute.params
         .subscribe(
         params => {
-            this.reportActionCreator.GetLatestReportByHost(params.hostId);
+            this.reportActionCreator.GetLatestReportByHost(params._hostId);
         }
         );
   }
