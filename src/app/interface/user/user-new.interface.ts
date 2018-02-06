@@ -16,7 +16,7 @@ export interface IUserNew {
   phoneNumber?: string;
   lat?: number;
   long?: number;
-  roleId: number;
+  _role: string;
   password: string;
   confirmedPassword: string;
 }
