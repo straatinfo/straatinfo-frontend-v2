@@ -76,8 +76,6 @@ export class HostDetailComponent implements OnInit, OnDestroy {
   }
 
   onUpdate() {
-      console.log(this.hostDetailForm.value)
-
       if (this.hostDetailForm.valid) {
           this.hostActionCreator.UpdateHost(this.hostDetailForm.value._id, this.hostDetailForm.value);
       }
