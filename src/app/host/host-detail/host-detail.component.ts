@@ -40,7 +40,6 @@ export class HostDetailComponent implements OnInit, OnDestroy {
               _id: [host._id, Validators.required],
               hostName: [host.hostName, Validators.required],
               email: [host.email, [Validators.required, Validators.email]],
-              username: [host.username],
               houseNumber: [host.houseNumber, Validators.required],
               streetName: [host.streetName, Validators.required],
               city: [host.city, Validators.required],
@@ -77,6 +76,8 @@ export class HostDetailComponent implements OnInit, OnDestroy {
   }
 
   onUpdate() {
+      console.log(this.hostDetailForm.value)
+
       if (this.hostDetailForm.valid) {
           this.hostActionCreator.UpdateHost(this.hostDetailForm.value._id, this.hostDetailForm.value);
       }
