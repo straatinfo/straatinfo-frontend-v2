@@ -18,14 +18,14 @@ import {
 } from './actions/design.action';
 import * as design from './reducers/design.reducer';
 export interface IDesignStore {
-  hostDesigns: IDesign[];
+  designs: IDesign[];
   selectedDesign: IDesign;
   spinner: boolean;
   error: string;
 }
 
 export const DESIGN_INITIAL_STATE: IDesignStore = {
-  hostDesigns: [],
+  designs: [],
   selectedDesign: null,
   spinner: false,
   error: ''

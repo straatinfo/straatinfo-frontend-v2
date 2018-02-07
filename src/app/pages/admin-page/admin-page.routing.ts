@@ -1,6 +1,13 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { HostListComponent, HostAddComponent, HostDetailComponent, HostReportListComponent, HostReporterListComponent, HostDesignComponent } from '../../host';
+import { HostListComponent,
+        HostAddComponent,
+        HostDetailComponent,
+        HostReportListComponent,
+        HostReporterListComponent,
+        HostDesignComponent,
+        HostDesignAddComponent,
+        HostDesignDetailComponent} from '../../host';
 import { ReportListComponent, ReportDetailComponent  } from '../../report';
 import { ReporterListComponent, ReporterDetailComponent  } from '../../reporter';
 
@@ -25,8 +32,16 @@ export const AdminRoutes: Routes = [
         canActivate: [HostDetailGuard]
       },
       {
-          path: 'host-design/:_id',
+          path: 'host-design/:_hostId',
           component: HostDesignComponent,
+      },
+      {
+          path: 'host-design-add/:_hostId',
+          component: HostDesignAddComponent,
+      },
+      {
+          path: 'host-design-detail/:_id',
+          component: HostDesignDetailComponent,
       },
       {
         path: 'add-host',

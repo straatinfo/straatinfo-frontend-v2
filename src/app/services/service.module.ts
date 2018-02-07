@@ -8,6 +8,8 @@ import { DesignService } from './design.service';
 import { ReportService } from './report.service';
 import { ReporterService } from './reporter.service';
 
+import { DialogService } from './dialog.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ export class ServiceModule {
         HostService,
         DesignService,
         ReportService,
-        ReporterService
+        ReporterService,
+        DialogService
       ]
     }
   }
