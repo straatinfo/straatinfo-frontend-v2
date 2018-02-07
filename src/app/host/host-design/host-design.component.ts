@@ -30,23 +30,23 @@ export class HostDesignComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.routeParamsSubscription = this.actvatedRoute.params
-    .subscribe(
-      params => {
-        this.designActionCreator.GetDesignByHostId(params._hostId);
+        .subscribe(
+        params => {
+        this.designActionCreator.SelectDesign(params._id);
         this.hostDesignSubscription = this.selectedHost
         .subscribe(
-          host => {
+          hostDesign => {
             this.hostDesignForm = this.formBuilder.group({
-                _id: [host._id, Validators.required],
-                colorOne: [host.colorOne, Validators.required],
-                colorTwo: [host.colorTwo, Validators.required],
-                colorThree: [host.colorThree, Validators.required],
-                url: [host.url, Validators.required],
+                _id: [hostDesign._id, Validators.required],
+                colorOne: [hostDesign.colorOne, Validators.required],
+                colorTwo: [hostDesign.colorTwo, Validators.required],
+                colorThree: [hostDesign.colorThree, Validators.required],
+                url: [hostDesign.url, Validators.required],
             });
           }
         );
       }
-    );
+      );
   }
 
   ngOnDestroy() {
@@ -54,9 +54,21 @@ export class HostDesignComponent implements OnInit, OnDestroy {
     (this.hostDesignSubscription) ? this.hostDesignSubscription.unsubscribe() : null;
   }
 
+  onColorOneEvent(value: string) {
+    this.hostDesignForm.value.colorOne = value;
+  }
+
+  onColorTwoEvent(value: string) {
+    this.hostDesignForm.value.colorTwo = value;
+  }
+
+  onColorThreeEvent(value: string) {
+    this.hostDesignForm.value.colorThree = value;
+  }
+
   onUpdate() {
       if (this.hostDesignForm.valid) {
-          this.designActionCreator.UpdateDesign(this.hostDesignForm.value.id, this.hostDesignForm.value);
+          this.designActionCreator.UpdateDesign(this.hostDesignForm.value._id, this.hostDesignForm.value);
       }
   }
 

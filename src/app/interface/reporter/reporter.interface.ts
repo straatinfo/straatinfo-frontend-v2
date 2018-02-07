@@ -7,7 +7,7 @@ export interface IReporter {
     _id?: number;
     firstName?: string;
     lastName?: string;
-    volunteer?: string;
+    isVolunteer?: boolean;
     status1?: string;
     status2?: string;
     _reporter?: IUser;

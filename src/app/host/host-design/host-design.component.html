@@ -13,21 +13,48 @@
             <form [formGroup]="hostDesignForm">
               <div class="row">
                 <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Color 1</label>
-                    <input formControlName="colorOne" type="text" class="form-control" disabled>
+                  <div class="form-group">    
+                    <label class="control-label">Color One</label> 
+                    <input formControlName="colorOne"
+                            [value]="color1"
+                            [style.background]="color1"
+                            [cpOutputFormat]="'hex'"
+                            [cpOKButton]="true"
+                            [cpOKButtonClass]= "'btn btn-primary btn-xs'"
+                            [(colorPicker)]="color1"
+                            (colorPickerChange)="onColorOneEvent($event)"
+                            class="form-control" 
+                            placeholder="Color 1"/>
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Color 2</label>
-                    <input formControlName="colorTwo" type="text" class="form-control">
+                  <div class="form-group">
+                      <label class="control-label">Color Two</label> 
+                      <input formControlName="colorTwo"
+                             [value]="color2"
+                             [style.background]="color2"
+                             [cpOutputFormat]="'hex'"
+                             [cpOKButton]="true"
+                             [cpOKButtonClass]="'btn btn-primary btn-xs'"
+                             [(colorPicker)]="color2"
+                             (colorPickerChange)="onColorTwoEvent($event)"
+                             class="form-control" 
+                             placeholder="Color 2"/>
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Color 3</label>
-                    <input formControlName="colorThree" type="text" class="form-control">
+                  <div class="form-group">
+                      <label class="control-label">Color Three</label> 
+                      <input formControlName="colorThree"
+                             [value]="color3"
+                             [style.background]="color3"
+                             [cpOutputFormat]="'hex'"
+                             [cpOKButton]="true"
+                             [cpOKButtonClass]="'btn btn-primary btn-xs'"
+                             [(colorPicker)]="color3"
+                             (colorPickerChange)="onColorThreeEvent($event)"
+                             class="form-control" 
+                             placeholder="Color 3"/>
                   </div>
                 </div>
               </div>

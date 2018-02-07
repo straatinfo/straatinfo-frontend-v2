@@ -56,7 +56,7 @@ export class HostDetailComponent implements OnInit, OnDestroy {
           }
         );
       }
-    );
+      );
   }
 
   ngOnDestroy() {
@@ -70,6 +70,10 @@ export class HostDetailComponent implements OnInit, OnDestroy {
 
   onViewReporter() {
       this.router.navigate([`admin/host-reporter/${this.hostDetailForm.value._id}`]);
+  }
+
+  onDesign() {
+      this.router.navigate([`admin/host-design/${this.hostDetailForm.value._id}`]);
   }
 
   onUpdate() {
