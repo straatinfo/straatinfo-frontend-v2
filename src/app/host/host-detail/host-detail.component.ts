@@ -40,7 +40,6 @@ export class HostDetailComponent implements OnInit, OnDestroy {
               _id: [host._id, Validators.required],
               hostName: [host.hostName, Validators.required],
               email: [host.email, [Validators.required, Validators.email]],
-              username: [host.username],
               houseNumber: [host.houseNumber, Validators.required],
               streetName: [host.streetName, Validators.required],
               city: [host.city, Validators.required],
@@ -56,7 +55,7 @@ export class HostDetailComponent implements OnInit, OnDestroy {
           }
         );
       }
-    );
+      );
   }
 
   ngOnDestroy() {
@@ -70,6 +69,10 @@ export class HostDetailComponent implements OnInit, OnDestroy {
 
   onViewReporter() {
       this.router.navigate([`admin/host-reporter/${this.hostDetailForm.value._id}`]);
+  }
+
+  onDesign() {
+      this.router.navigate([`admin/host-design/${this.hostDetailForm.value._id}`]);
   }
 
   onUpdate() {

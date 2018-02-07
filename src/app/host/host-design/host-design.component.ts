@@ -5,8 +5,8 @@ import { select } from '@angular-redux/store';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import swal from 'sweetalert2';
 
-import { HostDesignActionCreator } from '../../store/action-creators';
-import { IHostDesign } from 'app/interface/host/host-design.interface';
+import { DesignActionCreator } from '../../store/action-creators';
+import { IDesign } from 'app/interface/design/design.interface';
 
 @Component({
   selector: 'app-host-design',
@@ -25,28 +25,28 @@ export class HostDesignComponent implements OnInit, OnDestroy {
     private actvatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
-    private hostDesignActionCreator: HostDesignActionCreator
+    private designActionCreator: DesignActionCreator
   ) { }
 
   ngOnInit() {
     this.routeParamsSubscription = this.actvatedRoute.params
-    .subscribe(
-      params => {
-        this.hostDesignActionCreator.SelectHostDesign(params._id);
+        .subscribe(
+        params => {
+        this.designActionCreator.SelectDesign(params._id);
         this.hostDesignSubscription = this.selectedHost
         .subscribe(
-          host => {
+          hostDesign => {
             this.hostDesignForm = this.formBuilder.group({
-                _id: [host._id, Validators.required],
-                color1: [host.color1, Validators.required],
-                color2: [host.color2, Validators.required],
-                color3: [host.color3, Validators.required],
-                logo: [host.logo, Validators.required],
+                _id: [hostDesign._id, Validators.required],
+                colorOne: [hostDesign.colorOne, Validators.required],
+                colorTwo: [hostDesign.colorTwo, Validators.required],
+                colorThree: [hostDesign.colorThree, Validators.required],
+                url: [hostDesign.url, Validators.required],
             });
           }
         );
       }
-    );
+      );
   }
 
   ngOnDestroy() {
@@ -54,9 +54,21 @@ export class HostDesignComponent implements OnInit, OnDestroy {
     (this.hostDesignSubscription) ? this.hostDesignSubscription.unsubscribe() : null;
   }
 
+  onColorOneEvent(value: string) {
+    this.hostDesignForm.value.colorOne = value;
+  }
+
+  onColorTwoEvent(value: string) {
+    this.hostDesignForm.value.colorTwo = value;
+  }
+
+  onColorThreeEvent(value: string) {
+    this.hostDesignForm.value.colorThree = value;
+  }
+
   onUpdate() {
       if (this.hostDesignForm.valid) {
-          this.hostDesignActionCreator.UpdateHostDesign(this.hostDesignForm.value.id, this.hostDesignForm.value);
+          this.designActionCreator.UpdateDesign(this.hostDesignForm.value._id, this.hostDesignForm.value);
       }
   }
 
