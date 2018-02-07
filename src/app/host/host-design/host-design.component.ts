@@ -5,8 +5,8 @@ import { select } from '@angular-redux/store';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import swal from 'sweetalert2';
 
-import { HostDesignActionCreator } from '../../store/action-creators';
-import { IHostDesign } from 'app/interface/host/host-design.interface';
+import { DesignActionCreator } from '../../store/action-creators';
+import { IDesign } from 'app/interface/design/design.interface';
 
 @Component({
   selector: 'app-host-design',
@@ -25,23 +25,23 @@ export class HostDesignComponent implements OnInit, OnDestroy {
     private actvatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
-    private hostDesignActionCreator: HostDesignActionCreator
+    private designActionCreator: DesignActionCreator
   ) { }
 
   ngOnInit() {
     this.routeParamsSubscription = this.actvatedRoute.params
     .subscribe(
       params => {
-        this.hostDesignActionCreator.SelectHostDesign(params._id);
+        this.designActionCreator.GetDesignByHostId(params._hostId);
         this.hostDesignSubscription = this.selectedHost
         .subscribe(
           host => {
             this.hostDesignForm = this.formBuilder.group({
                 _id: [host._id, Validators.required],
-                color1: [host.color1, Validators.required],
-                color2: [host.color2, Validators.required],
-                color3: [host.color3, Validators.required],
-                logo: [host.logo, Validators.required],
+                colorOne: [host.colorOne, Validators.required],
+                colorTwo: [host.colorTwo, Validators.required],
+                colorThree: [host.colorThree, Validators.required],
+                url: [host.url, Validators.required],
             });
           }
         );
@@ -56,7 +56,7 @@ export class HostDesignComponent implements OnInit, OnDestroy {
 
   onUpdate() {
       if (this.hostDesignForm.valid) {
-          this.hostDesignActionCreator.UpdateHostDesign(this.hostDesignForm.value.id, this.hostDesignForm.value);
+          this.designActionCreator.UpdateDesign(this.hostDesignForm.value.id, this.hostDesignForm.value);
       }
   }
 
