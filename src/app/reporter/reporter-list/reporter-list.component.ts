@@ -15,7 +15,7 @@ export class ReporterListComponent implements OnInit {
   @select(s => s.table.page) page;
 
   public dataNames: string[] = [
-      'firstName', 'lastName', 'chatName', 'volunteer', 'team', 'host', 'status1', 'status2'
+      'firstName', 'lastName', '_chat', 'isVolunteer', '_team', '_host', 'status1', 'status2'
   ];
 
   public dataAliases: string[] = [

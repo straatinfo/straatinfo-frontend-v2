@@ -132,7 +132,7 @@ export class ReporterActionCreator implements OnDestroy {
             _id: data._id,
             firstName: data._reporter.fname,
             lastName: data._reporter.lname,
-            volunteer: data.volunteer,
+            isVolunteer: data.isVolunteer,
             status1: data.status1,
             status2: data.status2,
             _host: data._host.hostName,

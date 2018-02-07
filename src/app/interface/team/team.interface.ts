@@ -3,6 +3,7 @@ import { ITeamLeader } from './teamLeader.interface';
 import { ITeamMember } from './teamMember.interface';
 
 export interface ITeam {
+    _id?: string;
     name?: string;
     email?: string;
     logoUrl?: string;
