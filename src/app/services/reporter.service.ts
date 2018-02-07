@@ -13,63 +13,63 @@ import { BACKEND_URL } from '../config';
 @Injectable()
 export class ReporterService {
 
-  constructor(
-    private http: Http,
-    private sessionService: SessionService
-  ) { }
+    constructor(
+        private http: Http,
+        private sessionService: SessionService
+    ) { }
 
-  private reporterUrl = `${BACKEND_URL}/v1/api/reporter`;
+    private reporterUrl = `${BACKEND_URL}/v1/api/reporter`;
 
-  private GetSessionToken(): string {
-    const session: ISession = this.sessionService.SessionRead();
-    if (!session) {
-      return 'invalid token';
-    } else {
-      return session.token;
+    private GetSessionToken(): string {
+        const session: ISession = this.sessionService.SessionRead();
+        if (!session) {
+            return 'invalid token';
+        } else {
+            return session.token;
+        }
     }
-  }
 
-  GetLatestReporter (): Observable<IReporter[]> {
-    const headers = new Headers({ 'Content-Type': 'application/json'});
-    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-    const options = new RequestOptions({headers: headers});
-    return this.http.get(`${this.reporterUrl}`, options)
-    .map(response => response.json())
-    .map(data => this.GetData(data))
-    .share();
-  }
+    GetLatestReporter(): Observable<IReporter[]> {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+        const options = new RequestOptions({ headers: headers });
+        return this.http.get(`${this.reporterUrl}`, options)
+            .map(response => response.json())
+            .map(data => this.GetData(data))
+            .share();
+    }
 
-  GetLatestReporterByHost(_hostId: string): Observable<IReporter[]> {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-    const options = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.reporterUrl}/host/${_hostId}`, options)
-        .map(response => response.json())
-        .map(data => this.GetData(data))
-        .share();
-  }
+    GetLatestReporterByHost(_hostId: string): Observable<IReporter[]> {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+        const options = new RequestOptions({ headers: headers });
+        return this.http.get(`${this.reporterUrl}/host/${_hostId}`, options)
+            .map(response => response.json())
+            .map(data => this.GetData(data))
+            .share();
+    }
 
-  UpdateReporter(_id: string): Observable<IReporter> {
-      const headers = new Headers({ 'Content-Type': 'application/json' });
-      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-      const options = new RequestOptions({ headers: headers });
-      return this.http.put(`${this.reporterUrl}/${_id}`, { _id }, options)
-          .map(response => response.json())
-          .map(data => this.GetData(data))
-          .share();
-  }
+    BlockReporter(_id: string): Observable<IReporter> {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+        const options = new RequestOptions({ headers: headers });
+        return this.http.put(`${this.reporterUrl}/block/${_id}`, { _id }, options)
+            .map(response => response.json())
+            .map(data => this.GetData(data))
+            .share();
+    }
 
-  DeleteReporter(_id: string): Observable<any> {
-      const headers = new Headers({ 'Content-Type': 'application/json' });
-      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-      const options = new RequestOptions({ headers: headers });
-      return this.http.delete(`${this.reporterUrl}/${_id}`, options)
-          .map(response => response.json())
-          .map(data => this.GetData(data))
-          .share();
-  }
+    UnblockReporter(_id: string): Observable<IReporter> {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+        const options = new RequestOptions({ headers: headers });
+        return this.http.put(`${this.reporterUrl}/unblock/${_id}`, { _id }, options)
+            .map(response => response.json())
+            .map(data => this.GetData(data))
+            .share();
+    }
 
-  GetData(data) {
-      return data.data;
-  }
+    GetData(data) {
+        return data.data;
+    }
 }
