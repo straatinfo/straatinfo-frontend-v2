@@ -6,19 +6,19 @@ import 'rxjs/add/operator/share';
 import * as _ from 'lodash';
 
 import { ISession } from '../interface/session/session.interface';
-import { IHostDesign } from '../interface/host/host-design.interface';
+import { IDesign } from '../interface/design/design.interface';
 import { SessionService } from './session.service';
 import { BACKEND_URL } from '../config';
 
 @Injectable()
-export class HostDesignService {
+export class DesignService {
 
   constructor(
     private http: Http,
     private sessionService: SessionService
   ) { }
 
-  private hostDesignUrl = `${BACKEND_URL}/v1/api/hostDesign`;
+  private designUrl = `${BACKEND_URL}/v1/api/design`;
 
   private GetSessionToken(): string {
     const session: ISession = this.sessionService.SessionRead();
@@ -29,21 +29,31 @@ export class HostDesignService {
     }
   }
 
-  GetHostDesignById(_id: string): Observable<IHostDesign> {
+  GetDesignByHostId(_hostId: string): Observable<IDesign> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.get(`${this.hostDesignUrl}/${_id}`, options)
+      return this.http.get(`${this.designUrl}/host/${_hostId}`, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
           .share()
   }
 
-  UpdateHostDesign(_id: string, hostDesign: IHostDesign): Observable<IHostDesign> {
+  GetDesignById(_id: string): Observable<IDesign> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.put(`${this.hostDesignUrl}/${_id}`, hostDesign, options)
+      return this.http.get(`${this.designUrl}/${_id}`, options)
+          .map(response => response.json())
+          .map(data => this.GetData(data))
+          .share()
+  }
+
+  UpdateDesign(_id: string, design: IDesign): Observable<IDesign> {
+      const headers = new Headers({ 'Content-Type': 'application/json' });
+      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+      const options = new RequestOptions({ headers: headers });
+      return this.http.put(`${this.designUrl}/${_id}`, design, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
           .share()
