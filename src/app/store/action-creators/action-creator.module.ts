@@ -7,6 +7,8 @@ import { TableActionCreator } from './table.actioncreator';
 import { ReportActionCreator } from './report.actioncreator';
 import { ReporterActionCreator } from './reporter.actioncreator';
 
+import { MiscActionCreator } from './misc.actioncreator';
+
 @NgModule({
   imports: [],
   declarations: []
@@ -21,7 +23,8 @@ export class ActionCreatorModule {
         DesignActionCreator,
         TableActionCreator,
         ReportActionCreator,
-        ReporterActionCreator
+        ReporterActionCreator,
+        MiscActionCreator
       ]
     }
   }
