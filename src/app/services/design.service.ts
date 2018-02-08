@@ -29,7 +29,7 @@ export class DesignService {
     }
   }
 
-  GetDesignByHostId(_hostId: string): Observable<IDesign> {
+  GetDesignByHostId(_hostId: string): Observable<IDesign[]> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
@@ -44,6 +44,16 @@ export class DesignService {
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
       return this.http.get(`${this.designUrl}/${_id}`, options)
+          .map(response => response.json())
+          .map(data => this.GetData(data))
+          .share()
+  }
+
+  CreateDesign(hostId: string, design: IDesign): Observable<IDesign> {
+      const headers = new Headers({ 'Content-Type': 'application/json' });
+      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+      const options = new RequestOptions({ headers: headers });
+      return this.http.post(`${this.designUrl}/host/${hostId}`, design, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
           .share()

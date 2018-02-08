@@ -7,7 +7,6 @@ export interface IDesign {
   colorTwo?: string;
   colorThree?: string;
   colorFour?: string;  
-  url?: string;
   secure_url?: string;
   _host?: IHost
 }

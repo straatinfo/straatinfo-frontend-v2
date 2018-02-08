@@ -1,75 +1,55 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
-import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
-import swal from 'sweetalert2';
-
 import { DesignActionCreator } from '../../store/action-creators';
-import { IDesign } from 'app/interface/design/design.interface';
 
 @Component({
   selector: 'app-host-design',
   templateUrl: './host-design.component.html',
   styleUrls: ['./host-design.component.scss']
 })
+export class HostDesignComponent implements OnInit {
 
-export class HostDesignComponent implements OnInit, OnDestroy {
-
-  public hostDesignForm: FormGroup;
+  public hostId: string;
   private routeParamsSubscription: Subscription = null;
-  private hostDesignSubscription: Subscription = null;
-  @select(s => s.host.selectedHost) selectedHost;
+  @select(s => s.design.designs) designs;
+  @select(s => s.table.page) page;
+
+  public dataNames = [
+    'designName'
+  ];
+  public dataAliases = [
+    'Design Name'
+  ];
 
   constructor(
     private actvatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private designActionCreator: DesignActionCreator
+    private designActionCreator: DesignActionCreator,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.routeParamsSubscription = this.actvatedRoute.params
+
+      this.routeParamsSubscription = this.actvatedRoute.params
         .subscribe(
-        params => {
-        this.designActionCreator.SelectDesign(params._id);
-        this.hostDesignSubscription = this.selectedHost
-        .subscribe(
-          hostDesign => {
-            this.hostDesignForm = this.formBuilder.group({
-                _id: [hostDesign._id, Validators.required],
-                colorOne: [hostDesign.colorOne, Validators.required],
-                colorTwo: [hostDesign.colorTwo, Validators.required],
-                colorThree: [hostDesign.colorThree, Validators.required],
-                url: [hostDesign.url, Validators.required],
-            });
-          }
-        );
-      }
+          params => {
+              this.hostId = params._hostId;
+              this.designActionCreator.GetDesignByHostId(params._hostId);
+        }
       );
   }
 
-  ngOnDestroy() {
-    (this.routeParamsSubscription) ? this.routeParamsSubscription.unsubscribe() : null;
-    (this.hostDesignSubscription) ? this.hostDesignSubscription.unsubscribe() : null;
+  onAdd(event) {
+      this.router.navigate([`admin/host-design-add/${this.hostId}`]);
   }
 
-  onColorOneEvent(value: string) {
-    this.hostDesignForm.value.colorOne = value;
+  onMoreClick(event) {
+    this.designActionCreator.SelectDesign(event._id);
+    this.router.navigate([`admin/host-design-detail/${event._id}`]);
   }
 
-  onColorTwoEvent(value: string) {
-    this.hostDesignForm.value.colorTwo = value;
+  onDeleteClick(event) {
+      //this.designActionCreator.DeleteDesign(event._id);
   }
-
-  onColorThreeEvent(value: string) {
-    this.hostDesignForm.value.colorThree = value;
-  }
-
-  onUpdate() {
-      if (this.hostDesignForm.valid) {
-          this.designActionCreator.UpdateDesign(this.hostDesignForm.value._id, this.hostDesignForm.value);
-      }
-  }
-
 }

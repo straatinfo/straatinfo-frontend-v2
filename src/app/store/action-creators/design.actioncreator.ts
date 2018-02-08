@@ -34,6 +34,7 @@ export class DesignActionCreator implements OnDestroy {
   private errorMessage: string;
   private getDesignByIdSubscription: Subscription = null;
   private updateDesignSubscription: Subscription = null;
+  private createDesignSubscription: Subscription = null;
 
   constructor (
     private ngRedux: NgRedux<IAppState>,
@@ -44,11 +45,33 @@ export class DesignActionCreator implements OnDestroy {
   ngOnDestroy () {
     (this.getDesignByIdSubscription) ? this.getDesignByIdSubscription.unsubscribe() : null;
     (this.updateDesignSubscription) ? this.updateDesignSubscription.unsubscribe() : null;
+    (this.createDesignSubscription) ? this.createDesignSubscription.unsubscribe() : null;
   }
 
   GetDesignByHostId(_hostId: string) {
-      this.ngRedux.dispatch({ type: DESIGN_SELECT_ATTEMPT });
+      this.ngRedux.dispatch({ type: DESIGN_GET_ATTEMPT });
       this.getDesignByIdSubscription = this.designService.GetDesignByHostId(_hostId)
+          .map(data => {
+              return data.map(d => this.ToDesignView(d))
+          })
+          .subscribe(
+          (design: IDesign[]) => {
+              this.ngRedux.dispatch({ type: DESIGN_GET_FULFILLED, payload: design });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: DESIGN_GET_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
+  }
+
+  GetDesignById(_id: string) {
+      this.ngRedux.dispatch({ type: DESIGN_SELECT_ATTEMPT });
+      this.getDesignByIdSubscription = this.designService.GetDesignById(_id)
           .map(data => this.ToDesignView(data))
           .subscribe(
           (design: IDesign) => {
@@ -65,23 +88,24 @@ export class DesignActionCreator implements OnDestroy {
           );
   }
 
-  GetDesignById(_id: string) {
-    this.ngRedux.dispatch({ type: DESIGN_SELECT_ATTEMPT });
-    this.getDesignByIdSubscription = this.designService.GetDesignById(_id)
-        .map(data => this.ToDesignView(data))
-        .subscribe(
-        (design: IDesign) => {
-            this.ngRedux.dispatch({ type: DESIGN_SELECT_FULFILLED, payload: design });
-        }, err => {
-            this.errorMessage = err._body;
-            if (this.errorMessage && typeof this.errorMessage === 'string') {
-                this.ngRedux.dispatch({ type: DESIGN_GET_FAILED, error: this.errorMessage });
-            }
-        },
-        () => {
-            this.errorMessage = null;
-        }
-        );
+  CreateDesign(_hostId: string, design: IDesign) {
+      this.ngRedux.dispatch({ type: DESIGN_CREATE_ATTEMPT });
+      this.createDesignSubscription = this.designService.CreateDesign(_hostId, design)
+          .map(data => this.ToDesignView(data))
+          .subscribe(
+          (design: IDesign) => {
+              console.log(design)
+              this.ngRedux.dispatch({ type: DESIGN_CREATE_FULFILLED, payload: design });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: DESIGN_CREATE_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
   }
 
   UpdateDesign(_id: string, design: IDesign) {
@@ -111,12 +135,12 @@ export class DesignActionCreator implements OnDestroy {
   private ToDesignView(data: any): IDesign {
       return {
           _id: data._id,
-          _host: data._host.hostName,
-          colorOne: data.color1,
-          colorTwo: data.color2,
-          colorThree: data.color3,
-          secure_url: data.logo,
-          url: data.logoUrl,          
+          _host: data._host,
+          designName: data.designName,
+          colorOne: data.colorOne,
+          colorTwo: data.colorTwo,
+          colorThree: data.colorThree,
+          secure_url: data.secure_url,        
       };
   }
 }
