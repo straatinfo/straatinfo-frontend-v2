@@ -5,6 +5,8 @@ import { HostDetailComponent } from './host-detail/host-detail.component';
 import { HostReportListComponent } from './host-report-list/host-report-list.component';
 import { HostReporterListComponent } from './host-reporter-list/host-reporter-list.component';
 import { HostDesignComponent } from './host-design/host-design.component';
+import { HostDesignDetailComponent } from './host-design-detail/host-design-detail.component';
+import { HostDesignAddComponent } from './host-design-add/host-design-add.component';
 
 export {
   HostModule,
@@ -14,4 +16,6 @@ export {
   HostReportListComponent,
   HostReporterListComponent,
   HostDesignComponent,
+  HostDesignDetailComponent,
+  HostDesignAddComponent
 };
