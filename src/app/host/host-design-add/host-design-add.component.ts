@@ -76,6 +76,10 @@ export class HostDesignAddComponent implements OnInit, OnDestroy {
     this.hostDesignForm.value.colorThree = value;
   }
 
+  onBack() {
+      this.router.navigate([`admin/host-design/${this.hostId}`]);
+  }
+
   onAdd() {
     this.errorText = null;
     this.successText = null;

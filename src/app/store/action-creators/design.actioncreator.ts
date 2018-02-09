@@ -128,6 +128,24 @@ export class DesignActionCreator implements OnDestroy {
           );
   }
 
+  DeleteDesign(_id: string) {
+      this.ngRedux.dispatch({ type: DESIGN_DELETE_ATTEMPT });
+      this.updateDesignSubscription = this.designService.DeleteDesign(_id)
+          .subscribe(
+          data => {
+              this.ngRedux.dispatch({ type: DESIGN_DELETE_FULFILLED, payload: _id });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: DESIGN_GET_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
+  }
+
   SelectDesign(_id: string) {
       this.ngRedux.dispatch({ type: DESIGN_SELECT_FULFILLED, payload: _id });
   }
