@@ -69,6 +69,16 @@ export class DesignService {
           .share()
   }
 
+  DeleteDesign(_id: string): Observable<any> {
+      const headers = new Headers({ 'Content-Type': 'application/json' });
+      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+      const options = new RequestOptions({ headers: headers });
+      return this.http.delete(`${this.designUrl}/${_id}`, options)
+          .map(response => response.json())
+          .map(data => this.GetData(data))
+          .share()
+  }
+
   GetData(data) {
       return data.data;
   }
