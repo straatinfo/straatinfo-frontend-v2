@@ -7,6 +7,7 @@ import { ISubCategory } from '../category/sub-category.interface';
 export interface IReport {
   _id?: string;
   generatedReportId?: string;
+  hostName: string;
   title?: string;
   description?: string;
   location?: string;

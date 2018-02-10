@@ -38,7 +38,7 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
           report => {
             this.reportDetailForm = this.formBuilder.group({
               _id: [report._id, Validators.required],
-              host: [report.host, Validators.required],
+              hostName: [report.host, Validators.required],
               title: [report.title, Validators.required],
               description: [report.description, Validators.required],
               reportType: [report.reportType, Validators.required],
@@ -56,7 +56,7 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
           }
         );
       }
-    );
+      );
   }
 
   ngOnDestroy() {

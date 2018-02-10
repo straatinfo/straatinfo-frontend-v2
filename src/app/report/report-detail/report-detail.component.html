@@ -21,7 +21,7 @@
                 <div class="col-md-4">
                   <div class="form-group label-floating">
                     <label class="control-label">Title</label>
-                    <input formControlName="reportTitle" type="text" class="form-control">
+                    <input formControlName="title" type="text" class="form-control">
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -118,6 +118,16 @@
               <button (click)="onUpdate()" type="button" class="btn btn-rose pull-left">Update Report</button>
               <button (click)="onDelete()" type="button" class="btn btn-danger pull-left">Delete Report</button>
               <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h4><b>Location: {{reportDetailForm.value.location}}</b></h4>
+
+                    <agm-map [latitude]="reportDetailForm.value.lat" [longitude]="reportDetailForm.value.long">
+                        <agm-marker [latitude]="reportDetailForm.value.lat" [longitude]="reportDetailForm.value.long"></agm-marker>
+                    </agm-map>
+                </div>
+            </div>
             </form>
           </div>
         </div>
