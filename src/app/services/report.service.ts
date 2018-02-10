@@ -69,7 +69,7 @@ export class ReportService {
     .share();
   }
 
-  GetData (data) {
+   GetData(data) {
     return data.data;
   }
 

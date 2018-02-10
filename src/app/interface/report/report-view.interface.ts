@@ -1,6 +1,7 @@
 export interface IReportView {
   _id?: string;
   generatedReportId?: string;
+  hostName: string;
   title?: string;
   description?: string;
   location?: string;

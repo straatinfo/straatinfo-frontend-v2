@@ -137,6 +137,7 @@ export class ReportActionCreator implements OnDestroy {
     const report: IReportView = {
       _id: data._id,
       generatedReportId: data.generatedReportId,
+      hostName: data._host.hostName,
       title: data.title,
       description: data.description,
       location: data.location,

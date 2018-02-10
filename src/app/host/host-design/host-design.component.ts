@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
 import { DesignActionCreator } from '../../store/action-creators';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-host-design',
@@ -50,6 +51,25 @@ export class HostDesignComponent implements OnInit {
   }
 
   onDeleteClick(event) {
-      //this.designActionCreator.DeleteDesign(event._id);
-  }
+      swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+      }).then((result) => {
+          if (result) {
+              this.designActionCreator.DeleteDesign(event._id);
+              swal(
+                  'Deleted!',
+                  `${event.designName} has been deleted.`,
+                  'success'
+              );
+          }
+          }).then(() => {
+          this.router.navigate([`admin/host-design/${this.hostId}`]);
+      });
+  } 
 }
