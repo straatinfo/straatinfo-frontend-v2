@@ -18,7 +18,7 @@ import { BACKEND_URL } from '../../config';
 
 export class HostDesignDetailComponent implements OnInit, OnDestroy {
 
-  private uploadUrl: string;
+  public uploadUrl: string;
   public hostId: string;
   public hostDesignForm: FormGroup;
   private routeParamsSubscription: Subscription = null;
