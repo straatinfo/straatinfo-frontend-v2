@@ -10,6 +10,7 @@ import { HostListComponent,
         HostDesignDetailComponent} from '../../host';
 import { ReportListComponent, ReportDetailComponent  } from '../../report';
 import { ReporterListComponent, ReporterDetailComponent  } from '../../reporter';
+import { DesignDetailComponent  } from '../../design';
 
 import { HostDetailGuard } from '../../guards';
 
@@ -70,6 +71,10 @@ export const AdminRoutes: Routes = [
       {
           path: 'reporter/:_id',
           component: ReporterDetailComponent,
+      },
+      {
+          path: 'design',
+          component: DesignDetailComponent,
       },
     ]
   },

@@ -47,6 +47,12 @@ const ADMIN: RouteInfo[] = [
       type: 'link',
       icontype: 'update'
   },
+  {
+      path: '/admin/design',
+      title: 'General Design',
+      type: 'link',
+      icontype: 'settings'
+  },
 ];
 
 export const ROUTES = {
