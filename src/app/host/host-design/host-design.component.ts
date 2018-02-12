@@ -41,7 +41,7 @@ export class HostDesignComponent implements OnInit {
       );
   }
 
-  onAdd(event) {
+  onAdd() {
       this.router.navigate([`admin/host-design-add/${this.hostId}`]);
   }
 
