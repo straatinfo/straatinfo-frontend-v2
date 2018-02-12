@@ -33,6 +33,8 @@ export class HostReportListComponent implements OnInit {
       //this.reportActionCreator.GetLatestReport();
   }
 
+  // test
+
   ngOnInit() {
       this.routeParamsSubscription = this.actvatedRoute.params
         .subscribe(
