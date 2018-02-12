@@ -39,6 +39,16 @@ export class ReportTypeService {
           .share()
   }
 
+  UpdateReportType(_id: string, reportType: IReportType): Observable<IReportType> {
+      const headers = new Headers({ 'Content-Type': 'application/json' });
+      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+      const options = new RequestOptions({ headers: headers });
+      return this.http.put(`${this.reportTypeUrl}/${_id}`, reportType, options)
+          .map(response => response.json())
+          .map(data => this.GetData(data))
+          .share()
+  }
+
   GetData(data) {
       return data.data;
   }

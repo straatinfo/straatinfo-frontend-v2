@@ -80,13 +80,13 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
 
   onSave(type: string) {
       if (type == 'reportA') {
-          //this.reportAForm.UpdateHost(this.reportAForm.value._id, this.reportAForm.value);
+          this.reportTypeActionCreator.UpdateReportType(this.reportAForm.value._id, this.reportAForm.value);
       }
       else if (type == 'reportB') {
-          //this.reportAForm.UpdateHost(this.reportAForm.value._id, this.reportAForm.value);
+          this.reportTypeActionCreator.UpdateReportType(this.reportBForm.value._id, this.reportBForm.value);
       }
       else if (type == 'reportC') {
-          //this.reportAForm.UpdateHost(this.reportAForm.value._id, this.reportAForm.value);
+          this.reportTypeActionCreator.UpdateReportType(this.reportCForm.value._id, this.reportCForm.value);
       }
   }
 
