@@ -1,0 +1,85 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="rose">
+            <i class="material-icons">perm_identity</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Host Design -
+              <small class="category">Change host design</small>
+            </h4>
+            <form [formGroup]="hostDesignForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Design Name</label>
+                            <input formControlName="designName" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">    
+                    <label class="control-label">Color One</label> 
+                    <input formControlName="colorOne"
+                            [style.background]="color1"
+                            [cpOutputFormat]="'hex'"
+                            [cpOKButton]="true"
+                            [cpOKButtonClass]= "'btn btn-primary btn-xs'"
+                            [(colorPicker)]="color1"
+                            (colorPickerChange)="onColorOneEvent($event)"
+                            class="form-control" 
+                            placeholder="Color 1"/>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label class="control-label">Color Two</label> 
+                      <input formControlName="colorTwo"
+                             [style.background]="color2"
+                             [cpOutputFormat]="'hex'"
+                             [cpOKButton]="true"
+                             [cpOKButtonClass]="'btn btn-primary btn-xs'"
+                             [(colorPicker)]="color2"
+                             (colorPickerChange)="onColorTwoEvent($event)"
+                             class="form-control" 
+                             placeholder="Color 2"/>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label class="control-label">Color Three</label> 
+                      <input formControlName="colorThree"
+                             [style.background]="color3"
+                             [cpOutputFormat]="'hex'"
+                             [cpOKButton]="true"
+                             [cpOKButtonClass]="'btn btn-primary btn-xs'"
+                             [(colorPicker)]="color3"
+                             (colorPickerChange)="onColorThreeEvent($event)"
+                             class="form-control" 
+                             placeholder="Color 3"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                  <div class="form-group">
+                      <img [src]="hostDesignForm.value.secure_url" class="img-rounded" alt="" style="width:50%">
+                  </div>
+              </div>
+
+              <button (click)="onBack()" class="btn btn-default pull-left">Back</button>
+              <button (click)="onUpdate()" class="btn btn-rose pull-left">Update Design</button>
+              <app-fileUpload-basic fileAlias="host-logo" [URL]="uploadUrl"></app-fileUpload-basic>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
