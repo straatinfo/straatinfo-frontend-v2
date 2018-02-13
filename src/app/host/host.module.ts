@@ -12,6 +12,8 @@ import { HostDesignComponent } from './host-design/host-design.component';
 import { HostDesignDetailComponent } from './host-design-detail/host-design-detail.component';
 import { HostDesignAddComponent } from './host-design-add/host-design-add.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { DirectiveModule } from '../directives';
+import { SpinnerComponent } from '../directives';
 
 @NgModule({
   imports: [
@@ -20,7 +22,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
     ReactiveFormsModule,
     RouterModule,
     ComponentModule,
-    ColorPickerModule
+    ColorPickerModule,
+    DirectiveModule
   ],
   declarations: [
     HostListComponent,
@@ -41,6 +44,9 @@ import { ColorPickerModule } from 'ngx-color-picker';
     HostDesignComponent,
     HostDesignDetailComponent,
     HostDesignAddComponent
+  ],
+  entryComponents: [
+    SpinnerComponent
   ]
 })
 export class HostModule { }
