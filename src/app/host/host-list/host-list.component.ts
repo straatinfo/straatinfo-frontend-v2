@@ -12,6 +12,7 @@ export class HostListComponent implements OnInit {
 
   @select(s => s.host.hosts) hosts;
   @select(s => s.table.page) page;
+  @select(s => s.host.spinner) hostSpinner;
 
   public dataNames = [
     'hostName', 'email', 'houseNumber', 'streetName', 'city', 'state', 'country', 'postalCode', 'phoneNumber'
