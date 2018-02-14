@@ -18,14 +18,14 @@ import {
 } from './actions/reportType.action';
 import * as reportType from './reducers/reportType.reducer';
 export interface IReportTypeStore {
-  reportType: IReportType[];
+  reportTypes: IReportType[];
   selectedReportType: IReportType;
   spinner: boolean;
   error: string;
 }
 
 export const REPORTTYPE_INITIAL_STATE: IReportTypeStore = {
-  reportType: [],
+  reportTypes: [],
   selectedReportType: null,
   spinner: false,
   error: ''

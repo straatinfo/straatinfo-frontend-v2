@@ -6,7 +6,18 @@ import { REPORT_INITIAL_STATE, IReportStore, reportReducer } from './report.stor
 import { REPORTER_INITIAL_STATE, IReporterStore, reporterReducer } from './reporter.store';
 import { REPORTTYPE_INITIAL_STATE, IReportTypeStore, reportTypeReducer } from './reportType.store';
 import { DESIGN_INITIAL_STATE, IDesignStore, designReducer } from './design.store';
-import { CATEGORY_INITIAL_STATE, ICategoryStore, categoryReducer } from './category.store';
+import { CATEGORYMAIN_A_INITIAL_STATE,
+        CATEGORYMAIN_B_INITIAL_STATE,
+        CATEGORYMAIN_C_INITIAL_STATE,
+        CATEGORYSUB_A_INITIAL_STATE,
+        ICategoryMainAStore,
+        ICategoryMainBStore,
+        ICategoryMainCStore,
+        ICategorySubAStore,
+        categoryMainAReducer,
+        categoryMainBReducer,
+        categoryMainCReducer,
+        categorySubAReducer} from './category.store';
 import { MISC_INITIAL_STATE, IMiscStore, miscReducer  } from './misc.store';
 
 export interface IAppState {
@@ -16,7 +27,10 @@ export interface IAppState {
   reporter: IReporterStore,
   reportType: IReportTypeStore,
   design: IDesignStore,
-  category: ICategoryStore,
+  categoryMainA: ICategoryMainAStore,
+  categoryMainB: ICategoryMainBStore,
+  categoryMainC: ICategoryMainCStore,
+  categorySubA: ICategorySubAStore,
   misc: IMiscStore;
 }
 
@@ -27,7 +41,10 @@ export const INITIAL_STATE: IAppState = {
   reporter: REPORTER_INITIAL_STATE,
   reportType: REPORTTYPE_INITIAL_STATE,
   design: DESIGN_INITIAL_STATE,
-  category: CATEGORY_INITIAL_STATE,
+  categoryMainA: CATEGORYMAIN_A_INITIAL_STATE,
+  categoryMainB: CATEGORYMAIN_B_INITIAL_STATE,
+  categoryMainC: CATEGORYMAIN_C_INITIAL_STATE,
+  categorySubA: CATEGORYSUB_A_INITIAL_STATE,
   misc: MISC_INITIAL_STATE,
 }
 
@@ -39,6 +56,9 @@ export const rootReducer = combineReducers<IAppState>({
   reporter: reporterReducer,
   reportType: reportTypeReducer,
   design: designReducer,
-  category: categoryReducer,
+  categoryMainA: categoryMainAReducer,
+  categoryMainB: categoryMainBReducer,
+  categoryMainC: categoryMainCReducer,
+  categorySubA: categorySubAReducer,
   misc: miscReducer
 });
