@@ -49,6 +49,22 @@ const ADMIN: RouteInfo[] = [
   },
 ];
 
+const HOST: RouteInfo[] = [
+  {
+    path: '/host/dashboard',
+    title: 'Dashboard',
+    type: 'link',
+    icontype: 'dashboard'
+  },
+  {
+    path: '/host/report',
+    title: 'Reports',
+    type: 'link',
+    icontype: 'update'
+  }
+]
+
 export const ROUTES = {
-  ADMIN: ADMIN
+  ADMIN: ADMIN,
+  HOST: HOST
 }
