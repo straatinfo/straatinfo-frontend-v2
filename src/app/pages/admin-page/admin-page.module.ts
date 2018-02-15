@@ -7,6 +7,7 @@ import { DashboardModule } from '../../dashboard/dashboard.module';
 import { HostModule } from '../../host';
 import { ReportModule } from '../../report';
 import { ReporterModule } from '../../reporter';
+import { DesignModule } from '../../design';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ReporterModule } from '../../reporter';
     DashboardModule,
     HostModule,
     ReportModule,
-    ReporterModule
+    ReporterModule,
+    DesignModule
   ],
   declarations: [
   ],
