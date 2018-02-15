@@ -49,8 +49,8 @@ export class HostDetailComponent implements OnInit, OnDestroy {
               long: [host.long, Validators.required],
               lat: [host.lat, Validators.required],
               isBlocked: [host.isBlocked],
-              firstName: [host.firstName, Validators.required],
-              lastName: [host.lastName, Validators.required],
+              fname: [host.fname, Validators.required],
+              lname: [host.lname, Validators.required],
               personalEmail: [host.personalEmail, Validators.required],
             });
           }
