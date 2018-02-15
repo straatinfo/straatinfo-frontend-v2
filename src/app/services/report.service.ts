@@ -29,6 +29,16 @@ export class ReportService {
     }
   }
 
+  GetReportById(_id: string): Observable<IReport> {
+      const headers = new Headers({ 'Content-Type': 'application/json' });
+      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+      const options = new RequestOptions({ headers: headers });
+      return this.http.get(`${this.reportUrl}/${_id}`, options)
+          .map(response => response.json())
+          .map(data => this.GetData(data))
+          .share()
+  }
+
   GetLatestReport (): Observable<IReport[]> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
