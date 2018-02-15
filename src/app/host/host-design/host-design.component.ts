@@ -42,12 +42,12 @@ export class HostDesignComponent implements OnInit {
   }
 
   onAdd() {
-      this.router.navigate([`admin/host-design-add/${this.hostId}`]);
+      this.router.navigate([`admin/host/design/add/${this.hostId}`]);
   }
 
   onMoreClick(event) {
     this.designActionCreator.SelectDesign(event._id);
-    this.router.navigate([`admin/host-design-detail/${event._id}`]);
+    this.router.navigate([`admin/host/design/detail/${event._id}`]);
   }
 
   onDeleteClick(event) {
@@ -69,7 +69,7 @@ export class HostDesignComponent implements OnInit {
               );
           }
           }).then(() => {
-          this.router.navigate([`admin/host-design/${this.hostId}`]);
+          this.router.navigate([`admin/host/design/${this.hostId}`]);
       });
   } 
 }
