@@ -25,6 +25,7 @@ export interface IReport {
   _reporter?: IUser;
   _host?: IHost;
   date?: string;
+  finishedDate?: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }

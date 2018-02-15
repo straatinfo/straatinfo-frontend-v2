@@ -53,7 +53,7 @@ export class ReportActionCreator implements OnDestroy {
     })
     .map(data => {
       return data.map(d => this.formatDate(d))
-    })
+        })
     .subscribe(
       (reports: IReportView[]) => {
         this.ngRedux.dispatch({ type: REPORT_GET_FULFILLED, payload: reports });
@@ -77,7 +77,7 @@ export class ReportActionCreator implements OnDestroy {
       })
       .map(data => {
         return data.map(d => this.formatDate(d))
-      })
+          })
       .subscribe(
       (reports: IReportView[]) => {
           this.ngRedux.dispatch({ type: REPORT_GET_FULFILLED, payload: reports });
@@ -155,7 +155,8 @@ export class ReportActionCreator implements OnDestroy {
       _reporter: (data['_reporter.lname'] && data['_reporter.fname']) ? data['_reporter.fname'] + ' ' + data['_reporter.lname'] : '',
       _host: data['_host.hostName'],
       createdAt: data.createdAt,
-      updatedAt: data.updatedAt
+      updatedAt: data.updatedAt,
+      finishedDate: this.formatFinishedDate(data)
     };
     return report;
   }
@@ -169,4 +170,9 @@ export class ReportActionCreator implements OnDestroy {
     };
   }
 
+  private formatFinishedDate(data: IReport): string {
+      const date = new Date(data.finishedDate);
+      const formattedDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+      return formattedDate;
+  }
 }
