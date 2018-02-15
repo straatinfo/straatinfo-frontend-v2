@@ -1,0 +1,212 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="rose">
+            <i class="material-icons">assignment</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">General Design -
+              <small class="category">Edit design</small>
+            </h4>
+
+              <div class="row">
+                  <div class="col-md-12">
+                      <h4>Categories Report A</h4>
+                      <button (click)="onAddMainCategory('reportA')" type="button" class="btn btn-info pull-left">Add Main Category</button>
+                      <button (click)="onAddSubCategory('reportA')" type="button" class="btn btn-warning pull-left">Add Sub Category</button>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-md-6">
+                      
+                      <form [formGroup]="categoryAForm" [hidden]="isCategoryAHidden">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Name</label>
+                                        <input formControlName="name" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Description</label>
+                                        <input formControlName="description" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button (click)="onSaveMainCategory('reportA')" type="button" class="btn btn-info pull-left">Save Main Category</button>
+                            </div>
+
+                          <div class="clearfix"></div>
+                      </form>
+
+                      <form [formGroup]="categorySubAForm" [hidden]="isCategoryASubHidden">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Main Category</label>
+                                        <mat-form-field>
+                                            <mat-select [(value)]="selectedMainCategoryA">
+                                                <mat-option *ngFor="let category of mainCategoryAList" [value]="category.value">
+                                                    {{ category.viewValue }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Name</label>
+                                        <input formControlName="name" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Description</label>
+                                        <input formControlName="description" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button (click)="onSaveSubCategory('reportA')" type="button" class="btn btn-info pull-left">Save Sub Category</button>
+                            </div>
+
+                          <div class="clearfix"></div>
+                      </form>
+
+                  </div>
+
+                  <div class="col-md-6">
+                      <app-table-basic tableTitle="Main Category A List"
+                                       paginator="false"
+                                       itemPerPage="5"
+                                       [currentPage]="0"
+                                       [actionDelete]="true"
+                                       [actionMore]="false"
+                                       [actionEdit]="false"
+                                       [tableDataArray]="(categoryMainAs)"
+                                       [tableHeaderName]="mainSubDataNames"
+                                       [tableHeaderAlias]="mainSubDataAliases"
+                                       (clickDelete)="onDeleteCategoryAClick($event)"></app-table-basic>
+                  </div>
+
+              </div>
+
+              <hr />
+
+              <div class="row">
+                  <div class="col-md-12">
+                      <h4>Categories Report B</h4>
+                      <button (click)="onAddMainCategory('reportB')" type="button" class="btn btn-info pull-left">Add Main Category</button>                      
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-md-6">
+
+                      <form [formGroup]="categoryBForm" [hidden]="isCategoryBHidden">
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label class="control-label">Name</label>
+                                      <input formControlName="name" type="text" class="form-control">
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label class="control-label">Description</label>
+                                      <input formControlName="description" type="text" class="form-control">
+                                  </div>
+                              </div>
+                          </div>
+                          <div>
+                              <button (click)="onSaveMainCategory('reportB')" type="button" class="btn btn-info pull-left">Save Main Category</button>
+                          </div>
+
+                          <div class="clearfix"></div>
+                      </form>
+
+                  </div>
+
+                  <div class="col-md-6">
+                      <app-table-basic tableTitle="Main Category B List"
+                                       paginator="true"
+                                       itemPerPage="5"
+                                       [currentPage]="0"
+                                       [actionDelete]="true"
+                                       [actionMore]="false"
+                                       [actionEdit]="false"
+                                       [tableDataArray]="(categoryMainBs)"
+                                       [tableHeaderName]="mainDataNames"
+                                       [tableHeaderAlias]="mainDataAliases"
+                                       (clickDelete)="onDeleteCategoryBClick($event)"></app-table-basic>
+                  </div>
+
+              </div>
+
+              <hr />
+
+              <div class="row">
+                  <div class="col-md-12">
+                      <h4>Categories Report C</h4>
+                      <button (click)="onAddMainCategory('reportC')" type="button" class="btn btn-info pull-left">Add Main Category</button>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-md-6">
+
+                      <form [formGroup]="categoryCForm" [hidden]="isCategoryCHidden">
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label class="control-label">Name</label>
+                                      <input formControlName="name" type="text" class="form-control">
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label class="control-label">Description</label>
+                                      <input formControlName="description" type="text" class="form-control">
+                                  </div>
+                              </div>
+                          </div>
+                          <div>
+                              <button (click)="onSaveMainCategory('reportC')" type="button" class="btn btn-info pull-left">Save Main Category</button>
+                          </div>
+
+                          <div class="clearfix"></div>
+                      </form>
+
+                  </div>
+
+                  <div class="col-md-6">
+                      <app-table-basic tableTitle="Main Category C List"
+                                       paginator="true"
+                                       itemPerPage="5"
+                                       [currentPage]="0"
+                                       [actionDelete]="true"
+                                       [actionMore]="false"
+                                       [actionEdit]="false"
+                                       [tableDataArray]="(categoryMainCs)"
+                                       [tableHeaderName]="mainDataNames"
+                                       [tableHeaderAlias]="mainDataAliases"
+                                       (clickDelete)="onDeleteCategoryCClick($event)"></app-table-basic>
+                  </div>
+
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
