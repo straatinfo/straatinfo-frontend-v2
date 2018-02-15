@@ -15,5 +15,6 @@ export interface IHost {
   long?: number;
   phoneNumber?: string;
   isBlocked?: boolean;
+  design?: string;
   _role?: IRole;
 }

@@ -188,7 +188,8 @@ export class HostActionCreator implements OnDestroy {
       lat: data.lat,
       phoneNumber: data.phoneNumber,
       isBlocked: data.isBlocked,
-      _role: data._role
+      design: data.design,
+      _role: data._role,
     };
   }
 }
