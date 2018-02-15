@@ -89,8 +89,7 @@ export class ReportTypeActionCreator implements OnDestroy {
           _id: data._id,
           code: data.code,
           name: data.name,
-          description: data.description,
-          mainCategoryId: data.mainCategoryId
+          description: data.description
       };
   }
 }
