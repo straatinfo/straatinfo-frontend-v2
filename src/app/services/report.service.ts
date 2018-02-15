@@ -33,9 +33,9 @@ export class ReportService {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.get(`${this.reportUrl}`, options)
+    return this.http.get(`${this.reportUrl}?flat=true`, options)
     .map(response => response.json())
-    .map(data => this.GetData(data))
+    .map(data => {console.log(data);return this.GetData(data)})
     .share();
   }
 
@@ -43,7 +43,7 @@ export class ReportService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.reportUrl}/host/${_hostId}`, options)
+    return this.http.get(`${this.reportUrl}/host/${_hostId}?flat=true`, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
     .share();
