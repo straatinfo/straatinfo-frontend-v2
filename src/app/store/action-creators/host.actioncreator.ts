@@ -178,7 +178,6 @@ export class HostActionCreator implements OnDestroy {
       hostName: data.hostName,
       email: data.email,
       username: data.username,
-      houseNumber: data.houseNumber,
       streetName: data.streetName,
       city: data.city,
       state: data.state,
@@ -189,6 +188,9 @@ export class HostActionCreator implements OnDestroy {
       phoneNumber: data.phoneNumber,
       isBlocked: data.isBlocked,
       design: data.design,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      personalEmail: data.personalEmail,
       _role: data._role,
     };
   }

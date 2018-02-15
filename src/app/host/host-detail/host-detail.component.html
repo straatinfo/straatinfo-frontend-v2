@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-icon" data-background-color="rose">
             <i class="material-icons">perm_identity</i>
@@ -11,95 +11,99 @@
               <small class="category">Complete your profile</small>
             </h4>
             <form [formGroup]="hostDetailForm">
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Host Name</label>
-                    <input formControlName="hostName" type="text" class="form-control" disabled>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Email</label>
-                    <input formControlName="email" type="text" class="form-control">
-                  </div>
-                </div>
-                  <div class="col-md-4">
-                      <div class="checkbox">
-                          <label>
-                              <input formControlName="isPatron" type="checkbox" name="optionsIsPatron"> Is Patron?
-                          </label>
-                      </div>
-                  </div>
-              </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Host Name</label>
+                            <input formControlName="hostName" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
 
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Residence #</label>
-                    <input formControlName="houseNumber" type="text" class="form-control">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Street</label>
-                    <input formControlName="streetName" type="text" class="form-control">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">City</label>
-                    <input formControlName="city" type="text" class="form-control">
-                  </div>
-                </div>
-              </div>
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Email</label>
+                            <input formControlName="email" type="text" class="form-control">
+                        </div>
+                    </div>
 
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">State</label>
-                    <input formControlName="state" type="text" class="form-control">
-                  </div>
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Street</label>
+                            <input formControlName="streetName" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">City</label>
+                            <input formControlName="city" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">State</label>
+                            <input formControlName="state" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Country</label>
+                            <input formControlName="country" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Postal Code</label>
+                            <input formControlName="postalCode" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Phone Number</label>
+                            <input formControlName="phoneNumber" type="text" class="form-control">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Country</label>
-                    <input formControlName="country" type="text" class="form-control">
-                  </div>
+
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">First Name</label>
+                            <input formControlName="firstName" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Last Name</label>
+                            <input formControlName="lastName" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Personal Email</label>
+                            <input formControlName="personalEmail" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Longtitude</label>
+                            <input formControlName="long" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Latitude</label>
+                            <input formControlName="lat" type="text" class="form-control">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Postal Code</label>
-                    <input formControlName="postalCode" type="text" class="form-control">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Phone Number</label>
-                    <input formControlName="phoneNumber" type="text" class="form-control">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Longtitude</label>
-                    <input formControlName="long" type="text" class="form-control">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Latitude</label>
-                    <input formControlName="lat" type="text" class="form-control">
-                  </div>
-                </div>
-              </div>
-              <button (click)="onViewReport()" type="button" class="btn btn-info pull-left">View Reports</button>
-              <button (click)="onViewReporter()" type="button" class="btn btn-success pull-left">View Reporters</button>
-              <button (click)="onDesign()" type="button" class="btn btn-info pull-left">Design</button>
-              <button (click)="onUpdate()" type="button" class="btn btn-rose pull-left">Update Host</button>
-              <button (click)="onDelete()" type="button" class="btn btn-danger pull-left">Delete Host</button>
-              <div class="clearfix"></div>
+
+                <button (click)="onViewReport()" type="button" class="btn btn-info pull-left">View Reports</button>
+                <button (click)="onViewReporter()" type="button" class="btn btn-success pull-left">View Reporters</button>
+                <button (click)="onDesign()" type="button" class="btn btn-info pull-left">Design</button>
+                <button (click)="onUpdate()" type="button" class="btn btn-rose pull-left">Update Host</button>
+                <button (click)="onDelete()" type="button" class="btn btn-danger pull-left">Delete Host</button>
+                <div class="clearfix"></div>
             </form>
           </div>
         </div>

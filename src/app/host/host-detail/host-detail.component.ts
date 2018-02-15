@@ -40,7 +40,6 @@ export class HostDetailComponent implements OnInit, OnDestroy {
               _id: [host._id, Validators.required],
               hostName: [host.hostName, Validators.required],
               email: [host.email, [Validators.required, Validators.email]],
-              houseNumber: [host.houseNumber, Validators.required],
               streetName: [host.streetName, Validators.required],
               city: [host.city, Validators.required],
               state: [host.state, Validators.required],
@@ -50,7 +49,9 @@ export class HostDetailComponent implements OnInit, OnDestroy {
               long: [host.long, Validators.required],
               lat: [host.lat, Validators.required],
               isBlocked: [host.isBlocked],
-              isPatron: [host.isPatron]
+              firstName: [host.firstName, Validators.required],
+              lastName: [host.lastName, Validators.required],
+              personalEmail: [host.personalEmail, Validators.required],
             });
           }
         );

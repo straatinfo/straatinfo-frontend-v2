@@ -16,5 +16,8 @@ export interface IHost {
   phoneNumber?: string;
   isBlocked?: boolean;
   design?: string;
+  firstName: string;
+  lastName: string;
+  personalEmail: string;
   _role?: IRole;
 }
