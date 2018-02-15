@@ -7,7 +7,9 @@ import * as _ from 'lodash';
 
 import { ISession } from '../interface/session/session.interface';
 import { IMainCategory } from '../interface/category/main-category.interface';
+import { IMainViewCategory } from '../interface/category/main-category-view.interface';
 import { ISubCategory } from '../interface/category/sub-category.interface';
+import { ISubViewCategory } from '../interface/category/sub-category-view.interface';
 import { SessionService } from './session.service';
 import { BACKEND_URL } from '../config';
 
@@ -30,7 +32,7 @@ export class CategoryService {
     }
   }
 
-  GetMainCategoryA(reportTypeId: string): Observable<IMainCategory[]> {
+  GetMainCategory(reportTypeId: string): Observable<IMainViewCategory[]> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
@@ -40,27 +42,7 @@ export class CategoryService {
           .share()
   }
 
-  GetMainCategoryB(reportTypeId: string): Observable<IMainCategory[]> {
-      const headers = new Headers({ 'Content-Type': 'application/json' });
-      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-      const options = new RequestOptions({ headers: headers });
-      return this.http.get(`${this.categoryUrl}/mainCategory/reportTypeId/${reportTypeId}`, options)
-          .map(response => response.json())
-          .map(data => this.GetData(data))
-          .share()
-  }
-
-  GetMainCategoryC(reportTypeId: string): Observable<IMainCategory[]> {
-      const headers = new Headers({ 'Content-Type': 'application/json' });
-      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-      const options = new RequestOptions({ headers: headers });
-      return this.http.get(`${this.categoryUrl}/mainCategory/reportTypeId/${reportTypeId}`, options)
-          .map(response => response.json())
-          .map(data => this.GetData(data))
-          .share()
-  }
-
-  GetSubCategory(mainCategoryId: string): Observable<IMainCategory[]> {
+  GetSubCategory(mainCategoryId: string): Observable<ISubViewCategory[]> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
@@ -80,7 +62,7 @@ export class CategoryService {
           .share()
   }
 
-  CreateMainCategory(_id: string, category: IMainCategory): Observable<IMainCategory> {
+  CreateMainCategory(_id: string, category: IMainViewCategory): Observable<IMainViewCategory> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
@@ -90,7 +72,7 @@ export class CategoryService {
           .share()
   }
 
-  CreateSubCategory(_mainCategoryId: string, category: ISubCategory): Observable<ISubCategory> {
+  CreateSubCategory(_mainCategoryId: string, category: ISubViewCategory): Observable<ISubViewCategory> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });

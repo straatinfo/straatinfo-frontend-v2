@@ -104,10 +104,10 @@ export class CategoryActionCreator implements OnDestroy {
 
   GetMainCategoryA(reportTypeId: string) {
       this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_ATTEMPT });
-      this.getCategorySubscription = this.categoryService.GetMainCategoryA(reportTypeId)
+      this.getCategorySubscription = this.categoryService.GetMainCategory(reportTypeId)
           .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
           .subscribe(
-          (category: IMainCategory[]) => {
+          (category: IMainViewCategory[]) => {
               this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_FULFILLED, payload: category });
           }, err => {
               this.errorMessage = err._body;
@@ -123,10 +123,10 @@ export class CategoryActionCreator implements OnDestroy {
 
   GetMainCategoryB(reportTypeId: string) {
       this.ngRedux.dispatch({ type: CATEGORYMAIN_B_GET_ATTEMPT });
-      this.getCategorySubscription = this.categoryService.GetMainCategoryB(reportTypeId)
+      this.getCategorySubscription = this.categoryService.GetMainCategory(reportTypeId)
           .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
           .subscribe(
-          (category: IMainCategory[]) => {
+          (category: IMainViewCategory[]) => {
               this.ngRedux.dispatch({ type: CATEGORYMAIN_B_GET_FULFILLED, payload: category });
           }, err => {
               this.errorMessage = err._body;
@@ -142,10 +142,10 @@ export class CategoryActionCreator implements OnDestroy {
 
   GetMainCategoryC(reportTypeId: string) {
       this.ngRedux.dispatch({ type: CATEGORYMAIN_C_GET_ATTEMPT });
-      this.getCategorySubscription = this.categoryService.GetMainCategoryC(reportTypeId)
+      this.getCategorySubscription = this.categoryService.GetMainCategory(reportTypeId)
           .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
           .subscribe(
-          (category: IMainCategory[]) => {
+          (category: IMainViewCategory[]) => {
               this.ngRedux.dispatch({ type: CATEGORYMAIN_C_GET_FULFILLED, payload: category });
           }, err => {
               this.errorMessage = err._body;
@@ -218,7 +218,7 @@ export class CategoryActionCreator implements OnDestroy {
       this.updateCategorySubscription = this.categoryService.CreateMainCategory(_id, category)
           .map(data => this.ToMainCategoryView(data))
           .subscribe(
-          (category: IMainCategory) => {
+          (category: IMainViewCategory) => {
               this.ngRedux.dispatch({ type: CATEGORYMAIN_A_UPDATE_FULFILLED, payload: category });
               this.ngRedux.dispatch({ type: CATEGORYMAIN_A_SELECT_FULFILLED, payload: category._id });
           }, err => {
@@ -238,7 +238,7 @@ export class CategoryActionCreator implements OnDestroy {
       this.updateCategorySubscription = this.categoryService.CreateMainCategory(_id, category)
           .map(data => this.ToMainCategoryView(data))
           .subscribe(
-          (category: IMainCategory) => {
+          (category: IMainViewCategory) => {
               this.ngRedux.dispatch({ type: CATEGORYMAIN_B_UPDATE_FULFILLED, payload: category });
               this.ngRedux.dispatch({ type: CATEGORYMAIN_B_SELECT_FULFILLED, payload: category._id });
           }, err => {
@@ -258,7 +258,7 @@ export class CategoryActionCreator implements OnDestroy {
       this.updateCategorySubscription = this.categoryService.CreateMainCategory(_id, category)
           .map(data => this.ToMainCategoryView(data))
           .subscribe(
-          (category: IMainCategory) => {
+          (category: IMainViewCategory) => {
               this.ngRedux.dispatch({ type: CATEGORYMAIN_C_UPDATE_FULFILLED, payload: category });
               this.ngRedux.dispatch({ type: CATEGORYMAIN_C_SELECT_FULFILLED, payload: category._id });
           }, err => {
@@ -278,7 +278,7 @@ export class CategoryActionCreator implements OnDestroy {
       this.updateCategorySubscription = this.categoryService.CreateSubCategory(_mainCategoryId, category)
           .map(data => this.ToSubCategoryView(data))
           .subscribe(
-          (category: ISubCategory) => {
+          (category: ISubViewCategory) => {
               this.ngRedux.dispatch({ type: CATEGORYSUB_A_UPDATE_FULFILLED, payload: category });
               this.ngRedux.dispatch({ type: CATEGORYSUB_A_SELECT_FULFILLED, payload: category._id });
           }, err => {
@@ -293,16 +293,16 @@ export class CategoryActionCreator implements OnDestroy {
           );
   }
 
-  private ToMainCategoryView(data: any): IMainCategory {
+  private ToMainCategoryView(data: any): IMainViewCategory {
       return {
           _id: data._id,
           name: data.name,
           description: data.description,
-          _reportType: data._reportType._id,
+          _reportType: data._reportType,
       };
   }
 
-  private ToSubCategoryView(data: any): ISubCategory {
+  private ToSubCategoryView(data: any): ISubViewCategory {
       return {
           _id: data._id,
           name: data.name,

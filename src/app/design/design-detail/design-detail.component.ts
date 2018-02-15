@@ -29,7 +29,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
   public isCategoryCHidden = true;
   public isCategoryASubHidden = true;
 
-  public mainCategoryAList: [];
+  public mainCategoryAList = [];
   public selectedMainCategoryA: string;
 
   private hostId: string;
@@ -37,8 +37,14 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
   private categories = [];
 
   @select(s => s.categoryMainA.categoryMainAs) categoryMainAs;
+  @select(s => s.categoryMainA.spinner) categoryMainAsSpinner;
+
   @select(s => s.categoryMainB.categoryMainBs) categoryMainBs;
+  @select(s => s.categoryMainB.spinner) categoryMainBsSpinner;
+
   @select(s => s.categoryMainC.categoryMainCs) categoryMainCs;
+  @select(s => s.categoryMainC.spinner) categoryMainCsSpinner;
+
   @select(s => s.reportType.reportTypes) reportTypes;
 
   @select(s => s.table.page) page;
@@ -109,7 +115,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
                             _reportType: report._id
                       });
                       this.categoryActionCreator.GetMainCategoryA(report._id);
-                      this.categoryService.GetMainCategoryA(report._id).subscribe(dataCategory => {
+                      this.categoryService.GetMainCategory(report._id).subscribe(dataCategory => {
                           if (dataCategory != null) {
                               this.categories = [];
                               dataCategory.forEach(category => {
@@ -216,29 +222,36 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
   onSaveMainCategory(type: string) {
 
       if (type == 'reportA') {
-          this.categoryActionCreator.CreateMainCategoryA(this.hostId, this.categoryAForm.value);
-          this.categoryActionCreator.GetMainCategoryA(this.categoryAForm.value._reportType);
+          this.categoryService.CreateMainCategory(this.hostId, this.categoryAForm.value).subscribe(val => {
 
-          this.categoryService.GetMainCategoryA(this.categoryAForm.value._reportType).subscribe(dataCategory => {
-              if (dataCategory != null) {
-                  this.categories = [];
-                  dataCategory.forEach(category => {
-                      var valueToPush = {};
-                      valueToPush["value"] = category._id;
-                      valueToPush["viewValue"] = category.name;                      
-                      this.categories.push(valueToPush);
-                  });
-                  this.mainCategoryAList = this.categories;
-              }
-          }); 
+              this.categoryActionCreator.GetMainCategoryA(this.categoryAForm.value._reportType);
+              this.categoryService.GetMainCategory(this.categoryAForm.value._reportType).subscribe(dataCategory => {
+                  if (dataCategory != null) {
+                      this.categories = [];
+                      dataCategory.forEach(category => {
+                          var valueToPush = {};
+                          valueToPush["value"] = category._id;
+                          valueToPush["viewValue"] = category.name;
+                          this.categories.push(valueToPush);
+                      });
+                      this.mainCategoryAList = this.categories;
+                  }
+              }); 
+          });
       }
       else if (type == 'reportB') {
-          this.categoryActionCreator.CreateMainCategoryB(this.hostId, this.categoryBForm.value);
-          this.categoryActionCreator.GetMainCategoryB(this.categoryBForm.value._reportType);
+
+          this.categoryService.CreateMainCategory(this.hostId, this.categoryBForm.value).subscribe(val => {
+              this.categoryActionCreator.GetMainCategoryB(this.categoryBForm.value._reportType);              
+          });
+
       }
       else if (type == 'reportC') {
-          this.categoryActionCreator.CreateMainCategoryC(this.hostId, this.categoryCForm.value);
-          this.categoryActionCreator.GetMainCategoryC(this.categoryCForm.value._reportType);
+
+          this.categoryService.CreateMainCategory(this.hostId, this.categoryCForm.value).subscribe(val => {
+              this.categoryActionCreator.GetMainCategoryC(this.categoryCForm.value._reportType);
+          });
+
       }
   }
 
@@ -267,7 +280,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
               );
           }
           }).then(() => {
-          this.categoryActionCreator.GetMainCategoryA(event._id);
+              this.categoryActionCreator.GetMainCategoryA(this.categoryAForm.value._reportType);
       });
   }
 
@@ -289,8 +302,8 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
                   'success'
               );
           }
-      }).then(() => {
-          this.categoryActionCreator.GetMainCategoryB(event._id);
+          }).then(() => {
+          this.categoryActionCreator.GetMainCategoryB(this.categoryBForm.value._reportType);
       });
   }
 
@@ -313,7 +326,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
               );
           }
       }).then(() => {
-          this.categoryActionCreator.GetMainCategoryC(event._id);
+          this.categoryActionCreator.GetMainCategoryC(this.categoryCForm.value._reportType);
       });
   }
 }

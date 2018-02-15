@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { ComponentModule } from '../components';
 import { DesignDetailComponent } from './design-detail/design-detail.component';
 import { MatSelectModule } from '@angular/material/select';
+import { DirectiveModule } from '../directives';
+import { SpinnerComponent } from '../directives';
 
 @NgModule({
   imports: [
@@ -13,13 +15,17 @@ import { MatSelectModule } from '@angular/material/select';
     ReactiveFormsModule,
     RouterModule,
     ComponentModule,
-    MatSelectModule
+    MatSelectModule,
+    DirectiveModule
   ],
   declarations: [
     DesignDetailComponent,
   ],
   exports: [
     DesignDetailComponent,
+  ],
+  entryComponents: [
+      SpinnerComponent
   ]
 })
 export class DesignModule { }

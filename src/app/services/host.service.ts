@@ -39,7 +39,7 @@ export class HostService {
     .share()
   }
 
-  GetFreeHost(): Observable<IHost[]> {
+  GetFreeHost(): Observable<IHost> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
