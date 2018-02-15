@@ -22,7 +22,7 @@ export class HostReportListComponent implements OnInit {
   ];
 
   public dataAliases: string[] = [
-    'ID', 'Date', 'Main Category', 'Sub Category', 'Reporter', 'Finished Date', 'Host', 'Status'
+    'ID', 'Date', 'Main Category', 'Sub Category', 'Chat Name', 'Finished Date', 'Host', 'Status'
   ];
 
   constructor(
