@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import PerfectScrollbar from 'perfect-scrollbar';
 import * as _ from 'lodash';
 import { ROUTES } from '../config';
+import { ISession } from 'app/interface/session/session.interface';
 
 declare const $: any;
 
@@ -14,6 +15,14 @@ declare const $: any;
 export class SidebarComponent implements OnInit {
   public menuItems: any[];
 
+  public session: ISession = JSON.parse(localStorage.getItem('session'));
+
+  getRole (): string {
+    if (this.session) {
+      return this.session.user._role.code;
+    }
+  }
+
   isMobileMenu() {
     if ($(window).width() > 991) {
       return false;
@@ -22,7 +31,7 @@ export class SidebarComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.menuItems = ROUTES['ADMIN'].filter(menuItem => menuItem);
+    this.menuItems = ROUTES[this.getRole()].filter(menuItem => menuItem);
   }
   updatePS(): void {
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
