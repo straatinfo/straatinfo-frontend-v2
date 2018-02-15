@@ -72,25 +72,25 @@ export class ReportActionCreator implements OnDestroy {
   GetLatestReportByHost(_hostId: string) {
       this.ngRedux.dispatch({ type: REPORT_GET_ATTEMPT });
       this.getLatestReportSubscription = this.reportService.GetLatestReportByHost(_hostId)
-          .map(data => {
-              return data.map(d => this.ReportToView(d))
-          })
-          .map(data => {
-              return data.map(d => this.formatDate(d))
-          })
-          .subscribe(
-          (reports: IReportView[]) => {
-              this.ngRedux.dispatch({ type: REPORT_GET_FULFILLED, payload: reports });
-          }, err => {
-              this.errorMessage = err._body;
-              if (this.errorMessage && typeof this.errorMessage === 'string') {
-                  this.ngRedux.dispatch({ type: REPORT_GET_FAILED, error: this.errorMessage });
-              }
-          },
-          () => {
-              this.errorMessage = null;
+      .map(data => {
+        return data.map(d => this.ReportToView(d))
+      })
+      .map(data => {
+        return data.map(d => this.formatDate(d))
+      })
+      .subscribe(
+      (reports: IReportView[]) => {
+          this.ngRedux.dispatch({ type: REPORT_GET_FULFILLED, payload: reports });
+      }, err => {
+          this.errorMessage = err._body;
+          if (this.errorMessage && typeof this.errorMessage === 'string') {
+              this.ngRedux.dispatch({ type: REPORT_GET_FAILED, error: this.errorMessage });
           }
-          );
+      },
+      () => {
+          this.errorMessage = null;
+      }
+      );
   }
 
   UpdateReport(_id: string, note: string, status: string) {
@@ -137,7 +137,7 @@ export class ReportActionCreator implements OnDestroy {
     const report: IReportView = {
       _id: data._id,
       generatedReportId: data.generatedReportId,
-      hostName: data._host.hostName,
+      hostName: data['_host.hostName'],
       title: data.title,
       description: data.description,
       location: data.location,
@@ -149,11 +149,11 @@ export class ReportActionCreator implements OnDestroy {
       isPeopleInvolved: data.isPeopleInvolved,
       vehicleInvolvedDescription: data.vehicleInvolvedDescription,
       peopleInvolvedCount: data.peopleInvolvedCount,
-      _reportType: data._reportType.code,
-      _mainCategory: data._mainCategory.name,
-      _subCategory: data._subCategory.name,
-      _reporter: data._reporter.fname + ' ' + data._reporter.lname,
-      _host: data._host.hostName,
+      _reportType: data['_reportType.code'],
+      _mainCategory: data['_mainCategory.name'],
+      _subCategory: data['_subCategory.name'],
+      _reporter: (data['_reporter.lname'] && data['_reporter.fname']) ? data['_reporter.fname'] + ' ' + data['_reporter.lname'] : '',
+      _host: data['_host.hostName'],
       createdAt: data.createdAt,
       updatedAt: data.updatedAt
     };
