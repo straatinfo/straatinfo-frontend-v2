@@ -3,4 +3,5 @@ export interface IReportType {
   code?: string;
   name?: string;
   description?: string;
+  mainCategoryId?: string;
 }
