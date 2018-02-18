@@ -19,6 +19,7 @@ export interface IReportView {
   _reporter?: string;
   _host?: string;
   date?: string;
+  finishedDate: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

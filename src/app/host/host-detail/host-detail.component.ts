@@ -65,15 +65,15 @@ export class HostDetailComponent implements OnInit, OnDestroy {
   }
 
   onViewReport() {
-      this.router.navigate([`admin/host-report/${this.hostDetailForm.value._id}`]);
+      this.router.navigate([`admin/host/report/${this.hostDetailForm.value._id}`]);
   }
 
   onViewReporter() {
-      this.router.navigate([`admin/host-reporter/${this.hostDetailForm.value._id}`]);
+      this.router.navigate([`admin/host/reporter/${this.hostDetailForm.value._id}`]);
   }
 
   onDesign() {
-      this.router.navigate([`admin/host-design/${this.hostDetailForm.value._id}`]);
+      this.router.navigate([`admin/host/design/${this.hostDetailForm.value._id}`]);
   }
 
   onUpdate() {

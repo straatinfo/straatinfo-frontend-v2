@@ -8,18 +8,26 @@
                 <i class="material-icons">assignment</i>
               </div>
               <div class="card-content">
+                  <div class="row">
+                      <h4> Report page of [{{hostName}}]</h4>
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <button (click)="onBack()" type="button" class="btn btn-default pull-left">Back to Host</button>
+                          </div>
+                      </div>
+                  </div>
+
                 <app-table-basic
-                  tableTitle="Reports"
+                  tableTitle="Host Reports"
                   paginator="true"
                   itemPerPage="5"
                   [currentPage]="(page | async)"
                   [actionDelete]="false"
-                  [actionMore]="true"
+                  [actionMore]="false"
                   [actionEdit]="false"
                   [tableDataArray]="(reports)"
                   [tableHeaderName]="dataNames"
                   [tableHeaderAlias]="dataAliases"
-                  (clickMore)="onMoreClick($event)"
                 ></app-table-basic>
               </div>
               <!-- end content-->

@@ -68,7 +68,7 @@ export const reporterUpdateAttempt = (state, action) => {
 };
 
 export const reporterUpdateFulfilled = (state, action) => {
-  const index = _.findIndex(state.reporters, (h) => { return h.id == action.payload.id });
+  const index = _.findIndex(state.reporters, (h) => { return h._id == action.payload.id });
   let newArray = state.reporters.slice();
   newArray.splice(index, 1, action.payload);
   return tassign(state, {
@@ -128,7 +128,7 @@ export const reporterSelectAttempt = (state, action) => {
 };
 
 export const reporterSelectFulfilled = (state, action) => {
-  const index = _.findIndex(state.reporters, (h) => { return h.id == action.payload });
+  const index = _.findIndex(state.reporters, (h) => { return h._id == action.payload });
   return tassign(state, {
     reporters: state.reporters,
     selectedReporter: state.reporters[index],

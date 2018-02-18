@@ -33,6 +33,7 @@ export class ReportActionCreator implements OnDestroy {
   private getLatestReportSubscription: Subscription = null;
   private updateReportSubscription: Subscription = null;
   private deleteReportSubscription: Subscription = null;
+  private getReportByIdSubscription: Subscription = null;
 
   constructor (
     private ngRedux: NgRedux<IAppState>,
@@ -43,6 +44,7 @@ export class ReportActionCreator implements OnDestroy {
     (this.getLatestReportSubscription) ? this.getLatestReportSubscription.unsubscribe() : null;
     (this.updateReportSubscription) ? this.updateReportSubscription.unsubscribe() : null;
     (this.deleteReportSubscription) ? this.deleteReportSubscription.unsubscribe() : null;
+    (this.getReportByIdSubscription) ? this.getReportByIdSubscription.unsubscribe() : null;
   }
 
   GetLatestReport() {
@@ -53,7 +55,7 @@ export class ReportActionCreator implements OnDestroy {
     })
     .map(data => {
       return data.map(d => this.formatDate(d))
-    })
+        })
     .subscribe(
       (reports: IReportView[]) => {
         this.ngRedux.dispatch({ type: REPORT_GET_FULFILLED, payload: reports });
@@ -77,7 +79,7 @@ export class ReportActionCreator implements OnDestroy {
       })
       .map(data => {
         return data.map(d => this.formatDate(d))
-      })
+          })
       .subscribe(
       (reports: IReportView[]) => {
           this.ngRedux.dispatch({ type: REPORT_GET_FULFILLED, payload: reports });
@@ -129,6 +131,25 @@ export class ReportActionCreator implements OnDestroy {
     );
   }
 
+  GetReportById(_id: string) {
+      this.ngRedux.dispatch({ type: REPORT_SELECT_ATTEMPT });
+      this.getReportByIdSubscription = this.reportService.GetReportById(_id)
+          .map(data => this.ReportToView(data))
+          .subscribe(
+          (report: IReportView) => {
+              this.ngRedux.dispatch({ type: REPORT_SELECT_FULFILLED, payload: report });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: REPORT_GET_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
+  }
+
   SelectReport(_id: string) {
       this.ngRedux.dispatch({ type: REPORT_SELECT_FULFILLED, payload: _id });
   }
@@ -155,7 +176,8 @@ export class ReportActionCreator implements OnDestroy {
       _reporter: (data['_reporter.lname'] && data['_reporter.fname']) ? data['_reporter.fname'] + ' ' + data['_reporter.lname'] : '',
       _host: data['_host.hostName'],
       createdAt: data.createdAt,
-      updatedAt: data.updatedAt
+      updatedAt: data.updatedAt,
+      finishedDate: this.formatFinishedDate(data)
     };
     return report;
   }
@@ -169,4 +191,9 @@ export class ReportActionCreator implements OnDestroy {
     };
   }
 
+  private formatFinishedDate(data: IReport): string {
+      const date = new Date(data.finishedDate);
+      const formattedDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+      return formattedDate;
+  }
 }

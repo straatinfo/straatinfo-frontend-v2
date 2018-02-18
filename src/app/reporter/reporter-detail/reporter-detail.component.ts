@@ -69,4 +69,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
             this.reporterActionCreator.UnblockReporter(this.reporterDetailForm.value._id);
         }
     }
+    onBack() {
+        this.router.navigate([`admin/reporter`]);
+    }
 }

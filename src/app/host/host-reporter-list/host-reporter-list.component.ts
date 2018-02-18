@@ -12,10 +12,15 @@ import { ReporterActionCreator } from '../../store/action-creators';
 export class HostReporterListComponent implements OnInit {
 
   private routeParamsSubscription: Subscription = null;
+  private hostSubscription: Subscription = null;
 
   @select(s => s.reporter.reporters) reporters;
   @select(s => s.reporter.spinner) reporterSpinner;
   @select(s => s.table.page) page;
+  @select(s => s.host.selectedHost) selectedHost;
+
+  public hostName: string;
+  public hostId: string;
 
   public dataNames: string[] = [
       'firstName', 'lastName', 'chatName', 'volunteer', 'team', 'host', 'status1', 'status2'
@@ -30,16 +35,25 @@ export class HostReporterListComponent implements OnInit {
       private reporterActionCreator: ReporterActionCreator,
       private router: Router
   ) {
-    //this.reporterActionCreator.GetLatestReporter();
   }
 
   ngOnInit() {
     this.routeParamsSubscription = this.actvatedRoute.params
     .subscribe(
         params => {
+            this.hostId = params._hostId;
             this.reporterActionCreator.GetLatestReporterByHost(params._hostId);
         }
-    );
+      );
+
+    this.hostSubscription = this.selectedHost
+        .subscribe(host => {
+            this.hostName = host.hostName;
+        });
+  }
+
+  onBack() {
+      this.router.navigate([`admin/host/${this.hostId}`]);
   }
 
   onMoreClick(event) {

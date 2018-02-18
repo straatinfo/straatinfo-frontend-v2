@@ -35,15 +35,17 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
         this.reportActionCreator.SelectReport(params._id);
         this.reportSubscription = this.selectedReport
         .subscribe(
-          report => {
+            report => {
+
+                console.log(report)
             this.reportDetailForm = this.formBuilder.group({
               _id: [report._id, Validators.required],
-              hostName: [report.host, Validators.required],
+              hostName: [report.hostName, Validators.required],
               title: [report.title, Validators.required],
               description: [report.description, Validators.required],
-              reportType: [report.reportType, Validators.required],
-              mainCategory: [report.mainCategory, Validators.required],
-              subCategory: [report.subCategory, Validators.required],
+              reportType: [report._reportType, Validators.required],
+              mainCategory: [report._mainCategory, Validators.required],
+              subCategory: [report._subCategory, Validators.required],
               location: [report.location, Validators.required],
               long: [report.long, Validators.required],
               lat: [report.lat, Validators.required],
@@ -68,6 +70,10 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
      if (this.reportDetailForm.valid) {
          this.reportActionCreator.UpdateReport(this.reportDetailForm.value._id, this.reportDetailForm.value.note, this.reportDetailForm.value);
      }
+  }
+
+  onBack() {
+      this.router.navigate([`admin/report`]);
   }
 
   onDelete() {

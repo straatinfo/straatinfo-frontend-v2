@@ -21,14 +21,14 @@ import {
 import * as reporter from './reducers/reporter.reducer';
 export interface IReporterStore {
   reporters: IReporter[];
-  selectedReport: IReporter;
+  selectedReporter: IReporter;
   spinner: boolean;
   error: string;
 }
 
 export const REPORTER_INITIAL_STATE: IReporterStore = {
   reporters: [],
-  selectedReport: null,
+  selectedReporter: null,
   spinner: false,
   error: ''
 }
