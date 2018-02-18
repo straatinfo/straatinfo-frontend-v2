@@ -78,7 +78,7 @@ export class HostDesignDetailComponent implements OnInit, OnDestroy {
   }
 
   onBack() {
-      this.router.navigate([`admin/host-design/${this.hostId}`]);
+      this.router.navigate([`admin/host/design/${this.hostId}`]);
   }
 
   onUpdate() {       

@@ -12,17 +12,22 @@ import { ReportActionCreator } from '../../store/action-creators';
 export class HostReportListComponent implements OnInit {
 
   private routeParamsSubscription: Subscription = null;
+  private hostSubscription: Subscription = null;
 
   @select(s => s.report.reports) reports;
   @select(s => s.report.spinner) reportSpinner;
   @select(s => s.table.page) page;
+  @select(s => s.host.selectedHost) selectedHost;
+
+  public hostName: string;
+  public hostId: string;
 
   public dataNames: string[] = [
-    'generatedReportId', 'date', 'title', 'description', '_reporter', '_host', 'status'
+      'generatedReportId', 'date', '_mainCategory', '_subCategory', '_reporter', 'finishedDate', '_host', 'status'
   ];
 
   public dataAliases: string[] = [
-    'ID', 'Date', 'Title', 'Description', 'Reporter', 'Host', 'Status'
+    'ID', 'Date', 'Main Category', 'Sub Category', 'Chat Name', 'Finished Date', 'Host', 'Status'
   ];
 
   constructor(
@@ -30,18 +35,25 @@ export class HostReportListComponent implements OnInit {
       private reportActionCreator: ReportActionCreator,
       private router: Router
   ) {
-      //this.reportActionCreator.GetLatestReport();
   }
-
-  // test
 
   ngOnInit() {
       this.routeParamsSubscription = this.actvatedRoute.params
         .subscribe(
-        params => {
-            this.reportActionCreator.GetLatestReportByHost(params._hostId);
+          params => {
+                this.hostId = params._hostId;
+                this.reportActionCreator.GetLatestReportByHost(params._hostId);
         }
-        );
+      );
+
+      this.hostSubscription = this.selectedHost
+          .subscribe(host => {  
+              this.hostName = host.hostName;        
+          });
+  }
+
+  onBack() {
+      this.router.navigate([`admin/host/${this.hostId}`]);
   }
 
   onMoreClick(event) {
