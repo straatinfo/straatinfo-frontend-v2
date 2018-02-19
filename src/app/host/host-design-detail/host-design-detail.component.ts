@@ -45,14 +45,18 @@ export class HostDesignDetailComponent implements OnInit, OnDestroy {
             this.designSubscription = this.selectedDesign
                 .subscribe(
                 design => {
-                    console.log(design)
+
+                    var imageUrl = design.secure_url;
+                    if (design.secure_url == null)
+                        imageUrl = `${BACKEND_URL}/assets/img/no_image_available.jpg`;
+
                     this.hostDesignForm = this.formBuilder.group({
                         _id: [design._id, Validators.required],
                         designName: [design.designName, Validators.required],
                         colorOne: [design.colorOne, Validators.required],
                         colorTwo: [design.colorTwo, Validators.required],
                         colorThree: [design.colorThree, Validators.required],
-                        secure_url: [design.secure_url, Validators.required],
+                        secure_url: [imageUrl, Validators.required],
                     });
                 }
                 );
