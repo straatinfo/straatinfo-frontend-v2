@@ -37,16 +37,11 @@ export class HostDesignAddComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-      this.routeParamsSubscription = this.actvatedRoute.params
-          .subscribe(
-          params => {
-              this.hostId = params._hostId
-          }
-          );
-
     this.hostDesignSubscription = this.selectedHost
         .subscribe(
-        hostDesign => {
+        design => {
+            this.hostId = design._id;
+
             this.hostDesignForm = this.formBuilder.group({
                 designName: [null, Validators.required],
                 colorOne: [null, Validators.required],

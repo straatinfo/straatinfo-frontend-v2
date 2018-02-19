@@ -18,7 +18,9 @@ export interface IReportView {
   _subCategory?: string;
   _reporter?: string;
   _host?: string;
+  _team: string;
   date?: string;
+  causeOfFinished?: string;
   finishedDate: string;
   createdAt?: Date;
   updatedAt?: Date;
