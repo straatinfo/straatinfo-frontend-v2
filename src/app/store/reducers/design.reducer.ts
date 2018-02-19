@@ -68,7 +68,7 @@ export const designUpdateAttempt = (state, action) => {
 };
 
 export const designUpdateFulfilled = (state, action) => {
-    const index = _.findIndex(state.designs, (h) => { return h.id == action.payload.id });
+    const index = _.findIndex(state.designs, (h) => { return h._id == action.payload._id });
     let newArray = state.designs.slice();
     newArray.splice(index, 1, action.payload);
     return tassign(state, {

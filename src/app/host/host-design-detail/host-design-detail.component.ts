@@ -45,6 +45,7 @@ export class HostDesignDetailComponent implements OnInit, OnDestroy {
             this.designSubscription = this.selectedDesign
                 .subscribe(
                 design => {
+                    console.log(design)
                     this.hostDesignForm = this.formBuilder.group({
                         _id: [design._id, Validators.required],
                         designName: [design.designName, Validators.required],
@@ -81,7 +82,7 @@ export class HostDesignDetailComponent implements OnInit, OnDestroy {
       this.router.navigate([`admin/host/design/${this.hostId}`]);
   }
 
-  onUpdate() {       
+  onUpdate() {      
     this.designActionCreator.UpdateDesign(this.hostDesignForm.value._id, this.hostDesignForm.value);
   }
 
