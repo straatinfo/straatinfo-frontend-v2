@@ -21,7 +21,6 @@ export interface IReportView {
   _team: string;
   date?: string;
   causeOfFinished?: string;
-  reportType: string;
   finishedDate: string;
   createdAt?: Date;
   updatedAt?: Date;
