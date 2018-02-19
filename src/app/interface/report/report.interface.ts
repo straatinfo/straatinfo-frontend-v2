@@ -3,6 +3,7 @@ import { IHost } from '../host/host.interface';
 import { IReportType } from './report-type.interface';
 import { IMainCategory } from '../category/main-category.interface';
 import { ISubCategory } from '../category/sub-category.interface';
+import { ITeam } from '../team/team.interface';
 
 export interface IReport {
   _id?: string;
@@ -24,7 +25,10 @@ export interface IReport {
   _subCategory?: ISubCategory;
   _reporter?: IUser;
   _host?: IHost;
-  date?: string;
+  _team: ITeam;
+  date?: string;  
+  causeOfFinished?: string;
+  reportType: string;
   finishedDate?: Date;
   createdAt?: Date;
   updatedAt?: Date;
