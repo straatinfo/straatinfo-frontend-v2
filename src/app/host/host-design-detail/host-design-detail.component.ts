@@ -38,13 +38,13 @@ export class HostDesignDetailComponent implements OnInit, OnDestroy {
 
     this.routeParamsSubscription = this.actvatedRoute.params
         .subscribe(
-        params => {
-            this.hostId = params._id
+        params => {            
             this.uploadUrl = `${BACKEND_URL}/v1/api/design/${params._id}`;     
             this.designActionCreator.SelectDesign(params._id);
             this.designSubscription = this.selectedDesign
                 .subscribe(
                 design => {
+                    this.hostId = design._host._id;
 
                     var imageUrl = design.secure_url;
                     if (design.secure_url == null)
