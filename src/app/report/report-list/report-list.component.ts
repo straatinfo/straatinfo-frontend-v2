@@ -22,11 +22,11 @@ export class ReportListComponent implements OnInit {
   public _host: IHost = this.session.user;
 
   public dataNames: string[] = [
-      'generatedReportId', 'date', '_mainCategory', '_subCategory', '_reporter', 'finishedDate', '_host', 'status'
+      'generatedReportId', 'date', '_mainCategory', '_subCategory', '_reporter', '_team', 'finishedDate', 'causeOfFinished', '_reportType'
   ];
 
   public dataAliases: string[] = [
-      'ID', 'Date', 'Main Category', 'Sub Category', 'Chat Name', 'Finished Date', 'Host', 'Status'
+      'ID', 'Date', 'Main Category', 'Sub Category', 'Chat Name', 'Team', 'Finished Date', 'Cause of Finishing', '_Report Type'
   ];
 
   constructor(

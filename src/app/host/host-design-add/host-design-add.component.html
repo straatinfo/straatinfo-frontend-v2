@@ -32,6 +32,7 @@
                   <div class="form-group">    
                     <label class="control-label">Color One</label> 
                     <input formControlName="colorOne"
+                            [value] ="hostDesignForm.value.colorOne"
                             [style.background]="hostDesignForm.value.colorOne"
                             [cpOutputFormat]="'hex'"
                             [cpOKButton]="true"
@@ -39,13 +40,14 @@
                             [(colorPicker)]="hostDesignForm.value.colorOne"
                             (colorPickerChange)="onColorOneEvent($event)"
                             class="form-control" 
-                            placeholder="Color 1"/>
+                            placeholder="Color 1" readonly/>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                       <label class="control-label">Color Two</label> 
                       <input formControlName="colorTwo"
+                             [value] ="hostDesignForm.value.colorTwo"
                              [style.background]="hostDesignForm.value.colorTwo"
                              [cpOutputFormat]="'hex'"
                              [cpOKButton]="true"
@@ -53,13 +55,14 @@
                              [(colorPicker)]="hostDesignForm.value.colorTwo"
                              (colorPickerChange)="onColorTwoEvent($event)"
                              class="form-control" 
-                             placeholder="Color 2"/>
+                             placeholder="Color 2" readonly/>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                       <label class="control-label">Color Three</label> 
                       <input formControlName="colorThree"
+                             [value] ="hostDesignForm.value.colorThree"
                              [style.background]="hostDesignForm.value.colorThree"
                              [cpOutputFormat]="'hex'"
                              [cpOKButton]="true"
@@ -67,13 +70,13 @@
                              [(colorPicker)]="hostDesignForm.value.colorThree"
                              (colorPickerChange)="onColorThreeEvent($event)"
                              class="form-control" 
-                             placeholder="Color 3"/>
+                             placeholder="Color 3" readonly/>
                   </div>
                 </div>
               </div>
 
-              <button (click)="onBack()" type="button" class="btn btn-default pull-left">Back</button>
-              <button (click)="onAdd()" type="button" class="btn btn-rose pull-left">Add Design</button>
+              <button (click)="onBack()" class="btn btn-default pull-left">Back</button>
+              <button (click)="onAdd()" class="btn btn-rose pull-left">Add Design</button>
               <div class="clearfix"></div>
             </form>
           </div>

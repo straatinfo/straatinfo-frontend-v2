@@ -37,6 +37,10 @@ export class FileUploadBasicComponent implements OnInit {
         };
     }
 
+    refresh(): void {
+        window.location.reload();
+    }
+
     constructor(
         private http: Http,
         private el: ElementRef,
@@ -77,6 +81,7 @@ export class FileUploadBasicComponent implements OnInit {
                         });
                     }
                     this.ngOnInit();
+                    this.refresh();
                 },
                 (error) => {
                     this.dialogService.showSwal('error-message', {
