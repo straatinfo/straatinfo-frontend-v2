@@ -38,20 +38,25 @@ export class HostDesignDetailComponent implements OnInit, OnDestroy {
 
     this.routeParamsSubscription = this.actvatedRoute.params
         .subscribe(
-        params => {
-            this.hostId = params._id
+        params => {            
             this.uploadUrl = `${BACKEND_URL}/v1/api/design/${params._id}`;     
             this.designActionCreator.SelectDesign(params._id);
             this.designSubscription = this.selectedDesign
                 .subscribe(
                 design => {
+                    this.hostId = design._host._id;
+
+                    var imageUrl = design.secure_url;
+                    if (design.secure_url == null)
+                        imageUrl = `${BACKEND_URL}/assets/img/no_image_available.jpg`;
+
                     this.hostDesignForm = this.formBuilder.group({
                         _id: [design._id, Validators.required],
                         designName: [design.designName, Validators.required],
                         colorOne: [design.colorOne, Validators.required],
                         colorTwo: [design.colorTwo, Validators.required],
                         colorThree: [design.colorThree, Validators.required],
-                        secure_url: [design.secure_url, Validators.required],
+                        secure_url: [imageUrl, Validators.required],
                     });
                 }
                 );
@@ -81,7 +86,7 @@ export class HostDesignDetailComponent implements OnInit, OnDestroy {
       this.router.navigate([`admin/host/design/${this.hostId}`]);
   }
 
-  onUpdate() {       
+  onUpdate() {      
     this.designActionCreator.UpdateDesign(this.hostDesignForm.value._id, this.hostDesignForm.value);
   }
 

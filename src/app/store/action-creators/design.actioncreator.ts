@@ -32,6 +32,7 @@ import {
 export class DesignActionCreator implements OnDestroy {
 
   private errorMessage: string;
+  private getDesignBySubscription: Subscription = null;
   private getDesignByIdSubscription: Subscription = null;
   private updateDesignSubscription: Subscription = null;
   private createDesignSubscription: Subscription = null;
@@ -42,7 +43,8 @@ export class DesignActionCreator implements OnDestroy {
     private designService: DesignService
   ) {}
 
-  ngOnDestroy () {
+  ngOnDestroy() {
+    (this.getDesignBySubscription) ? this.getDesignBySubscription.unsubscribe() : null;
     (this.getDesignByIdSubscription) ? this.getDesignByIdSubscription.unsubscribe() : null;
     (this.updateDesignSubscription) ? this.updateDesignSubscription.unsubscribe() : null;
     (this.createDesignSubscription) ? this.createDesignSubscription.unsubscribe() : null;
@@ -50,10 +52,8 @@ export class DesignActionCreator implements OnDestroy {
 
   GetDesignByHostId(_hostId: string) {
       this.ngRedux.dispatch({ type: DESIGN_GET_ATTEMPT });
-      this.getDesignByIdSubscription = this.designService.GetDesignByHostId(_hostId)
-          .map(data => {
-              return data.map(d => this.ToDesignView(d))
-          })
+      this.getDesignBySubscription = this.designService.GetDesignByHostId(_hostId)
+          .map((data: any[]) => { return data.map(d => this.ToDesignView(d)); })
           .subscribe(
           (design: IDesign[]) => {
               this.ngRedux.dispatch({ type: DESIGN_GET_FULFILLED, payload: design });
@@ -79,7 +79,7 @@ export class DesignActionCreator implements OnDestroy {
           }, err => {
               this.errorMessage = err._body;
               if (this.errorMessage && typeof this.errorMessage === 'string') {
-                  this.ngRedux.dispatch({ type: DESIGN_GET_FAILED, error: this.errorMessage });
+                  this.ngRedux.dispatch({ type: DESIGN_SELECT_FAILED, error: this.errorMessage });
               }
           },
           () => {
@@ -115,11 +115,11 @@ export class DesignActionCreator implements OnDestroy {
           .subscribe(
           (design: IDesign) => {
               this.ngRedux.dispatch({ type: DESIGN_UPDATE_FULFILLED, payload: design });
-              this.ngRedux.dispatch({ type: DESIGN_SELECT_FULFILLED, payload: design._id });
+              //this.ngRedux.dispatch({ type: DESIGN_SELECT_FULFILLED, payload: design._id });
           }, err => {
               this.errorMessage = err._body;
               if (this.errorMessage && typeof this.errorMessage === 'string') {
-                  this.ngRedux.dispatch({ type: DESIGN_GET_FAILED, error: this.errorMessage });
+                  this.ngRedux.dispatch({ type: DESIGN_UPDATE_FAILED, error: this.errorMessage });
               }
           },
           () => {
@@ -137,7 +137,7 @@ export class DesignActionCreator implements OnDestroy {
           }, err => {
               this.errorMessage = err._body;
               if (this.errorMessage && typeof this.errorMessage === 'string') {
-                  this.ngRedux.dispatch({ type: DESIGN_GET_FAILED, error: this.errorMessage });
+                  this.ngRedux.dispatch({ type: DESIGN_DELETE_FAILED, error: this.errorMessage });
               }
           },
           () => {
