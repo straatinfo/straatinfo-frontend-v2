@@ -9,6 +9,7 @@ import { ComponentModule } from '../components';
 /* Angular Google Map */
 import { AgmCoreModule } from '@agm/core';
 import { MaterialModule } from 'app/app.module';
+import { DirectiveModule } from '../directives';
 
 @NgModule({
   imports: [
@@ -17,10 +18,11 @@ import { MaterialModule } from 'app/app.module';
     ReactiveFormsModule,
     RouterModule,
     ComponentModule,
-    MaterialModule,
     AgmCoreModule.forRoot({
-        apiKey: 'AIzaSyBTuSniFR4-7NIkjbbfPMsd4SM4GyKcIEA'
-    })
+        apiKey: 'AIzaSyBTuSniFR4-7NIkjbbfPMsd4SM4GyKcIEA' // Change this to a new apiKey
+    }),
+    DirectiveModule,
+    MaterialModule
   ],
   declarations: [
     ReportListComponent,
