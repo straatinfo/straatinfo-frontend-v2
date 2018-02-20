@@ -5,8 +5,8 @@ import { IConversation } from '../conversation/conversation.interface';
 
 export interface IReporter {
     _id?: number;
-    firstName?: string;
-    lastName?: string;
+    fname?: string;
+    lname?: string;
     isVolunteer?: boolean;
     status1?: string;
     status2?: string;

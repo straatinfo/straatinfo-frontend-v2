@@ -1,8 +1,8 @@
 export interface IReporterView {
     _id?: number;
-    firstName?: string;
-    lastName?: string;
-    isVolunteer?: boolean;
+    fname?: string;
+    lname?: string;
+    isVolunteer?: string;
     status1?: string;
     status2?: string;
     _host?: string;

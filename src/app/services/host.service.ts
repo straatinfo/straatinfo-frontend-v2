@@ -33,7 +33,7 @@ export class HostService {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.get(`${this.hostUrl}`, options)
+    return this.http.get(`${this.hostUrl}?flat=true`, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
     .share()
