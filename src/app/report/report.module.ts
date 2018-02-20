@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { ReportListComponent } from './report-list/report-list.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ComponentModule } from '../components';
+import { DirectiveModule } from '../directives';
+import { SpinnerComponent } from '../directives';
 
 /* Angular Google Map */
 import { AgmCoreModule } from '@agm/core';
@@ -17,8 +19,9 @@ import { AgmCoreModule } from '@agm/core';
     RouterModule,
     ComponentModule,
     AgmCoreModule.forRoot({
-        apiKey: 'AIzaSyBTuSniFR4-7NIkjbbfPMsd4SM4GyKcIEA'
-    })
+        apiKey: 'AIzaSyBTuSniFR4-7NIkjbbfPMsd4SM4GyKcIEA' // Change this to a new apiKey
+    }),
+    DirectiveModule
   ],
   declarations: [
     ReportListComponent,
@@ -27,6 +30,9 @@ import { AgmCoreModule } from '@agm/core';
   exports: [
     ReportListComponent,
     ReportDetailComponent
+  ],
+  entryComponents: [
+      SpinnerComponent
   ]
 })
 export class ReportModule { }
