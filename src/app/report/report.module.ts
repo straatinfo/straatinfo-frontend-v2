@@ -5,11 +5,11 @@ import { RouterModule } from '@angular/router';
 import { ReportListComponent } from './report-list/report-list.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ComponentModule } from '../components';
+import { DirectiveModule, SpinnerComponent } from '../directives';
 
 /* Angular Google Map */
 import { AgmCoreModule } from '@agm/core';
 import { MaterialModule } from 'app/app.module';
-import { DirectiveModule } from '../directives';
 
 @NgModule({
   imports: [
@@ -18,11 +18,11 @@ import { DirectiveModule } from '../directives';
     ReactiveFormsModule,
     RouterModule,
     ComponentModule,
+    MaterialModule,
     AgmCoreModule.forRoot({
         apiKey: 'AIzaSyBTuSniFR4-7NIkjbbfPMsd4SM4GyKcIEA' // Change this to a new apiKey
     }),
-    DirectiveModule,
-    MaterialModule
+    DirectiveModule
   ],
   declarations: [
     ReportListComponent,
@@ -31,6 +31,9 @@ import { DirectiveModule } from '../directives';
   exports: [
     ReportListComponent,
     ReportDetailComponent
+  ],
+  entryComponents: [
+      SpinnerComponent
   ]
 })
 export class ReportModule { }
