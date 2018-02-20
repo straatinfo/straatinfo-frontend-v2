@@ -7,6 +7,8 @@ import swal from 'sweetalert2';
 
 import { ReportActionCreator } from '../../store/action-creators';
 import { IReport } from 'app/interface/report/report.interface';
+import { ISession } from 'app/interface/session/session.interface';
+import { IRole } from 'app/interface/role/role.interface';
 
 @Component({
   selector: 'app-report-detail',
@@ -19,6 +21,8 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
   public reportDetailForm: FormGroup;
   private routeParamsSubscription: Subscription = null;
   private reportSubscription: Subscription = null;
+  public session: ISession = JSON.parse(localStorage.getItem('session'));
+  public _role: IRole = this.session.user._role;
   @select(s => s.report.selectedReport) selectedReport;
 
   constructor(
@@ -37,7 +41,7 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
         .subscribe(
             report => {
 
-                console.log(report)
+            console.log(report)
             this.reportDetailForm = this.formBuilder.group({
               _id: [report._id, Validators.required],
               hostName: [report.hostName, Validators.required],
@@ -54,6 +58,7 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
               isPeopleInvolved: [report.isPeopleInvolved, Validators.required],
               peopleInvolvedCount: [report.peopleInvolvedCount, Validators.required],
               note: [report.note, Validators.required],
+              status: [report.status, Validators.required]
             });
           }
         );
@@ -67,13 +72,13 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
   }
 
   onUpdate() {
-     if (this.reportDetailForm.valid) {
-         this.reportActionCreator.UpdateReport(this.reportDetailForm.value._id, this.reportDetailForm.value.note, this.reportDetailForm.value);
+     if (this.reportDetailForm.value._id && this.reportDetailForm.value.note) {
+        this.reportActionCreator.UpdateReport(this.reportDetailForm.value._id, this.reportDetailForm.value.note, (this.reportDetailForm.value.status) ? this.reportDetailForm.value.status : 'Unresolved');
      }
   }
 
   onBack() {
-      this.router.navigate([`admin/report`]);
+    this.router.navigate([`${this._role.code.toLowerCase()}/report`]);
   }
 
   onDelete() {
@@ -95,7 +100,7 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
          );
        }
      }).then(() => {
-       this.router.navigate(['admin/report']);
+       this.router.navigate([`${this._role.code.toLowerCase()}/report`]);
      });
   }
 }
