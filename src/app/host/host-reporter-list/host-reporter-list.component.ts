@@ -23,11 +23,11 @@ export class HostReporterListComponent implements OnInit {
   public hostId: string;
 
   public dataNames: string[] = [
-      'firstName', 'lastName', 'chatName', 'volunteer', 'team', 'host', 'status1', 'status2'
+      'fname', 'lname', '_chat', 'isVolunteer', '_team'
   ];
 
   public dataAliases: string[] = [
-      'First Name', 'Last Name', 'Chat Name', 'Volunteer', 'Team', 'Host', 'Status1', 'Status2'
+      'First Name', 'Last Name', 'Chat Name', 'Volunteer', 'Team'
   ];
 
   constructor(
