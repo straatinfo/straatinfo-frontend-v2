@@ -8,6 +8,7 @@ import { ComponentModule } from '../components';
 
 /* Angular Google Map */
 import { AgmCoreModule } from '@agm/core';
+import { MaterialModule } from 'app/app.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { AgmCoreModule } from '@agm/core';
     ReactiveFormsModule,
     RouterModule,
     ComponentModule,
+    MaterialModule,
     AgmCoreModule.forRoot({
         apiKey: 'AIzaSyBTuSniFR4-7NIkjbbfPMsd4SM4GyKcIEA'
     })
