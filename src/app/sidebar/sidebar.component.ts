@@ -3,6 +3,7 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import * as _ from 'lodash';
 import { ROUTES } from '../config';
 import { ISession } from 'app/interface/session/session.interface';
+import { IUser } from 'app/interface/user/user.interface';
 
 declare const $: any;
 
@@ -16,6 +17,7 @@ export class SidebarComponent implements OnInit {
   public menuItems: any[];
 
   public session: ISession = JSON.parse(localStorage.getItem('session'));
+  public user: IUser = this.session.user;
 
   getRole (): string {
     if (this.session) {
