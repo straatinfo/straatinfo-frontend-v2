@@ -33,7 +33,7 @@ import { MaterialModule } from 'app/app.module';
     ReportDetailComponent
   ],
   entryComponents: [
-      SpinnerComponent
+    SpinnerComponent
   ]
 })
 export class ReportModule { }

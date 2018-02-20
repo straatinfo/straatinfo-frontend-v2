@@ -26,7 +26,7 @@ export class ReportListComponent implements OnInit {
   ];
 
   public dataAliases: string[] = [
-      'ID', 'Date', 'Main Category', 'Sub Category', 'Chat Name', 'Team', 'Finished Date', 'Cause of Finishing', '_Report Type'
+      'ID', 'Date', 'Main Category', 'Sub Category', 'Chat Name', 'Team', 'Finished Date', 'Cause of Finishing', 'Report Type'
   ];
 
   constructor(
