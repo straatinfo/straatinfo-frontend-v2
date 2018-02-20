@@ -40,7 +40,7 @@ export class HostDesignComponent implements OnInit {
 
       this.routeParamsSubscription = this.actvatedRoute.params
         .subscribe(
-          params => {
+          params => {              
               this.hostId = params._hostId;
               this.designActionCreator.GetDesignByHostId(params._hostId);
         }

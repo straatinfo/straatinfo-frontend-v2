@@ -37,15 +37,15 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                     .subscribe(
                     report => {
                         this.reporterDetailForm = this.formBuilder.group({
-                            _id: [report._id, Validators.required],
-                            firstName: [report.firstName, Validators.required],
-                            lastName: [report.lastName, Validators.required],
-                            chatName: [report.chatName, Validators.required],
-                            volunteer: [report.volunteer, Validators.required],
-                            teamName: [report.teamName, Validators.required],
-                            hostName: [report.hostName, Validators.required],
-                            status1: [report.status1, Validators.required],
-                            status2: [report.status2, Validators.required],
+                            _id: [report._id , Validators.required],
+                            fname: [{ value: report.fname, disabled: true }, Validators.required],
+                            lname: [{ value: report.lname, disabled: true }, Validators.required],
+                            chatName: [{ value: report._chat, disabled: true }, Validators.required],
+                            isVolunteer: [{ value: report.isVolunteer, disabled: true }, Validators.required],
+                            teamName: [{ value: report._team, disabled: true }, Validators.required],
+                            hostName: [{ value: report._host, disabled: true }, Validators.required],
+                            status1: [{ value: report.status1, disabled: true }, Validators.required],
+                            status2: [{ value: report.status2, disabled: true }, Validators.required],
                         });
                     }
                     );

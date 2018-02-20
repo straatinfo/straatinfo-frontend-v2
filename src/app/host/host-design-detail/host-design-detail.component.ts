@@ -45,7 +45,6 @@ export class HostDesignDetailComponent implements OnInit, OnDestroy {
                 .subscribe(
                 design => {
                     this.hostId = design._host._id;
-
                     var imageUrl = design.secure_url;
                     if (design.secure_url == null)
                         imageUrl = `${BACKEND_URL}/assets/img/no_image_available.jpg`;
