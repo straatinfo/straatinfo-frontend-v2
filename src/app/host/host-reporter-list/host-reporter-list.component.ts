@@ -14,7 +14,7 @@ export class HostReporterListComponent implements OnInit {
 
   private routeParamsSubscription: Subscription = null;
   private hostSubscription: Subscription = null;
-  private reportSubscription: Subscription = null;
+  private reporterSubscription: Subscription = null;
 
   @select(s => s.reporter.reporters) reporters;
   @select(s => s.reporter.spinner) reporterSpinner;
@@ -54,7 +54,7 @@ export class HostReporterListComponent implements OnInit {
             this.hostName = host.hostName;
         });
 
-    this.reportSubscription = this.reporters
+    this.reporterSubscription = this.reporters
         .subscribe(reporter => {
             this.reporterData = reporter;
         });
