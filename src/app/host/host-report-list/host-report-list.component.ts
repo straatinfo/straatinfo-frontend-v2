@@ -26,11 +26,11 @@ export class HostReportListComponent implements OnInit {
   public reportData = [];
 
   public dataNames: string[] = [
-      'generatedReportId', 'date', '_mainCategory', '_subCategory', '_reporter', 'finishedDate', '_host', 'status'
+      'generatedReportId', 'date', '_mainCategory', '_subCategory', '_reporter', '_team', 'finishedDate', 'causeOfFinished', '_reportType'
   ];
 
   public dataAliases: string[] = [
-    'ID', 'Date', 'Main Category', 'Sub Category', 'Chat Name', 'Finished Date', 'Host', 'Status'
+      'ID', 'Date', 'Main Category', 'Sub Category', 'Chat Name', 'Team', 'Finished Date', 'Cause of Finishing', 'Report Type'
   ];
 
   constructor(
