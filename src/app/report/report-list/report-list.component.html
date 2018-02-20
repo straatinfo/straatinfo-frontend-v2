@@ -8,6 +8,14 @@
                 <i class="material-icons">assignment</i>
               </div>
               <div class="card-content">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <button (click)="onDownload()" type="button" class="btn btn-success pull-left">Download Data</button>
+                          </div>
+                      </div>
+                  </div>
+
                 <app-table-basic
                   tableTitle="Reports"
                   paginator="true"
