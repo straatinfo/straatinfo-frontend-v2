@@ -36,7 +36,7 @@ export class CategoryService {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.get(`${this.categoryUrl}/mainCategory/reportTypeId/${reportTypeId}`, options)
+      return this.http.get(`${this.categoryUrl}/mainCategory/reportTypeId/${reportTypeId}?flat=true`, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
           .share()
@@ -46,7 +46,7 @@ export class CategoryService {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.get(`${this.categoryUrl}/subCategory/${mainCategoryId}`, options)
+      return this.http.get(`${this.categoryUrl}/subCategory/${mainCategoryId}?flat=true`, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
           .share()

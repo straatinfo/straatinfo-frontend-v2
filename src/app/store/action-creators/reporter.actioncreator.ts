@@ -33,6 +33,7 @@ export class ReporterActionCreator implements OnDestroy {
     private getLatestReporterSubscription: Subscription = null;
     private updateReporterSubscription: Subscription = null;
     private deleteReporterSubscription: Subscription = null;
+    private getReporterByIdSubscription: Subscription = null;
 
     constructor(
         private ngRedux: NgRedux<IAppState>,
@@ -43,6 +44,7 @@ export class ReporterActionCreator implements OnDestroy {
         (this.getLatestReporterSubscription) ? this.getLatestReporterSubscription.unsubscribe() : null;
         (this.updateReporterSubscription) ? this.updateReporterSubscription.unsubscribe() : null;
         (this.deleteReporterSubscription) ? this.deleteReporterSubscription.unsubscribe() : null;
+        (this.getReporterByIdSubscription) ? this.getReporterByIdSubscription.unsubscribe() : null;
     }
 
     GetLatestReporter() {
@@ -123,6 +125,25 @@ export class ReporterActionCreator implements OnDestroy {
             );
     }
 
+    GetReporterById(_id: string) {
+        this.ngRedux.dispatch({ type: REPORTER_SELECT_ATTEMPT });
+        this.getReporterByIdSubscription = this.reporterService.GetReporterById(_id)
+            .map(data => this.ReporterToView(data))
+            .subscribe(
+            (reporter: IReporterView) => {
+                this.ngRedux.dispatch({ type: REPORTER_SELECT_FULFILLED, payload: reporter });
+            }, err => {
+                this.errorMessage = err._body;
+                if (this.errorMessage && typeof this.errorMessage === 'string') {
+                    this.ngRedux.dispatch({ type: REPORTER_GET_FAILED, error: this.errorMessage });
+                }
+            },
+            () => {
+                this.errorMessage = null;
+            }
+            );
+    }
+
     SelectReporter(_id: string) {
         this.ngRedux.dispatch({ type: REPORTER_SELECT_FULFILLED, payload: _id });
     }
@@ -130,17 +151,18 @@ export class ReporterActionCreator implements OnDestroy {
     private ReporterToView(data: IReporter): IReporterView {
         const reporter: IReporterView = {
             _id: data._id,
-            firstName: data._reporter.fname,
-            lastName: data._reporter.lname,
-            isVolunteer: data.isVolunteer,
+            fname: data.fname,
+            lname: data.lname,
+            isVolunteer: data.isVolunteer ? "volunteer" : "non-volunteer",
             status1: data.status1,
             status2: data.status2,
-            _host: data._host.hostName,
-            _chat: data._chat.title,
-            _team: data._team.name,
+            _host: data['_host.hostName'],
+            _chat: data['username'],
+            _team: data['_team.name'],
             createdAt: data.createdAt,
             updatedAt: data.updatedAt
         };
         return reporter;
     }
 }
+ 
