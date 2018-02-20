@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { ReporterListComponent } from './reporter-list/reporter-list.component';
 import { ReporterDetailComponent } from './reporter-detail/reporter-detail.component';
 import { ComponentModule } from '../components';
+import { DirectiveModule } from '../directives';
+import { SpinnerComponent } from '../directives';
 
 @NgModule({
   imports: [
@@ -12,7 +14,8 @@ import { ComponentModule } from '../components';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    ComponentModule
+    ComponentModule,
+    DirectiveModule
   ],
   declarations: [
     ReporterListComponent,
@@ -21,6 +24,9 @@ import { ComponentModule } from '../components';
   exports: [
     ReporterListComponent,
     ReporterDetailComponent
+  ],
+  entryComponents: [
+      SpinnerComponent
   ]
 })
 export class ReporterModule { }
