@@ -15,11 +15,11 @@ export class ReporterListComponent implements OnInit {
   @select(s => s.table.page) page;
 
   public dataNames: string[] = [
-      'fname', 'lname', '_chat', 'isVolunteer', '_team', '_host', 'status1', 'status2'
+      'fname', 'lname', '_chat', 'isVolunteer', '_team', '_host'
   ];
 
   public dataAliases: string[] = [
-      'First Name', 'Last Name', 'Chat Name', 'Volunteer', 'Team', 'Host', 'Status1', 'Status2'
+      'First Name', 'Last Name', 'Chat Name', 'Volunteer', 'Team', 'Host'
   ];
 
   constructor(

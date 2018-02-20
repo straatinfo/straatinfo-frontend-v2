@@ -153,11 +153,11 @@ export class ReporterActionCreator implements OnDestroy {
             _id: data._id,
             fname: data.fname,
             lname: data.lname,
-            isVolunteer: data.isVolunteer ? "true" : "false",
+            isVolunteer: data.isVolunteer ? "volunteer" : "non-volunteer",
             status1: data.status1,
             status2: data.status2,
             _host: data['_host.hostName'],
-            _chat: data['_chat.title'],
+            _chat: data['username'],
             _team: data['_team.name'],
             createdAt: data.createdAt,
             updatedAt: data.updatedAt
