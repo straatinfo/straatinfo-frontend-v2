@@ -20,7 +20,7 @@
     <div class="info">
       <a data-toggle="collapse" href="#collapseExample" class="collapsed">
         <span>
-          Admin
+          {{ (user.username) ? user.username : user.email }}
           <b class="caret"></b>
         </span>
       </a>
