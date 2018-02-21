@@ -19,5 +19,5 @@ export interface IUserNew {
   _role: string;
   password: string;
   confirmedPassword: string;
-  personalEmail: string;
+  hostPersonalEmail: string;
 }
