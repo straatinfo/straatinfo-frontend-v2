@@ -82,5 +82,4 @@ export class ReportService {
    GetData(data) {
     return data.data;
   }
-
 }

@@ -119,7 +119,7 @@ export class HostService {
     .share()
   }
 
-  GetData (data) {
+  GetData(data) {
     return data.data;
   }
 }

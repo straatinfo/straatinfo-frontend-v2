@@ -170,12 +170,11 @@ export class ReportActionCreator implements OnDestroy {
       isPeopleInvolved: data.isPeopleInvolved,
       vehicleInvolvedDescription: data.vehicleInvolvedDescription,
       peopleInvolvedCount: data.peopleInvolvedCount,
-      _reportType: data['_reportType.code'],
-      _mainCategory: data['_mainCategory.name'],
-      _subCategory: data['_subCategory.name'],
-      _reporter: (data['_reporter.lname'] && data['_reporter.fname']) ? data['_reporter.fname'] + ' ' + data['_reporter.lname'] : '',
-      _host: data['_host.hostName'],
-      _team: data['_team.name'],
+      reportTypeCode: data['_reportType.code'],
+      mainCategoryName: data['_mainCategory.name'],
+      subCategoryName: data['_subCategory.name'],
+      reporterName: (data['_reporter.lname'] && data['_reporter.fname']) ? data['_reporter.fname'] + ' ' + data['_reporter.lname'] : '',
+      teamName: data['_team.teamName'],
       causeOfFinished: data.causeOfFinished,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
@@ -196,6 +195,10 @@ export class ReportActionCreator implements OnDestroy {
   private formatFinishedDate(data: IReport): string {
       const date = new Date(data.finishedDate);
       const formattedDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+
+      if (data.finishedDate == null)
+          return "";
+
       return formattedDate;
   }
 }

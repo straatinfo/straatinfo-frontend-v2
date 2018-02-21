@@ -5,9 +5,9 @@ export interface IReporterView {
     isVolunteer?: string;
     status1?: string;
     status2?: string;
-    _host?: string;
-    _team?: string;
-    _chat?: string;
+    hostName?: string;
+    activeTeamName?: string;
+    chatName?: string;
     createdAt?: Date;
     updatedAt?: Date;
 }

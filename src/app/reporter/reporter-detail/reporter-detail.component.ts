@@ -40,10 +40,10 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                             _id: [report._id , Validators.required],
                             fname: [{ value: report.fname, disabled: true }, Validators.required],
                             lname: [{ value: report.lname, disabled: true }, Validators.required],
-                            chatName: [{ value: report._chat, disabled: true }, Validators.required],
+                            chatName: [{ value: report.chatName, disabled: true }, Validators.required],
                             isVolunteer: [{ value: report.isVolunteer, disabled: true }, Validators.required],
-                            teamName: [{ value: report._team, disabled: true }, Validators.required],
-                            hostName: [{ value: report._host, disabled: true }, Validators.required],
+                            teamName: [{ value: report.activeTeamName, disabled: true }, Validators.required],
+                            hostName: [{ value: report.hostName, disabled: true }, Validators.required],
                             status1: [{ value: report.status1, disabled: true }, Validators.required],
                             status2: [{ value: report.status2, disabled: true }, Validators.required],
                         });
