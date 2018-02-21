@@ -21,9 +21,14 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
   public reportDetailForm: FormGroup;
   private routeParamsSubscription: Subscription = null;
   private reportSubscription: Subscription = null;
+  private reportErrorSubscription: Subscription = null;
+  public errorText: string = null;
+  public successText: string = null;
+  @select(s => s.report.error) reportStoreError;
+  @select(s => s.report.selectedReport) selectedReport;
+
   public session: ISession = JSON.parse(localStorage.getItem('session'));
   public _role: IRole = this.session.user._role;
-  @select(s => s.report.selectedReport) selectedReport;
 
   constructor(
     private actvatedRoute: ActivatedRoute,
@@ -67,12 +72,23 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     (this.routeParamsSubscription) ? this.routeParamsSubscription.unsubscribe() : null;
     (this.reportSubscription) ? this.reportSubscription.unsubscribe() : null;
+    (this.reportErrorSubscription) ? this.reportErrorSubscription.unsubscribe() : null;
   }
 
   onUpdate() {
-     if (this.reportDetailForm.value._id && this.reportDetailForm.value.note) {
-        this.reportActionCreator.UpdateReport(this.reportDetailForm.value._id, this.reportDetailForm.value.note, (this.reportDetailForm.value.status) ? this.reportDetailForm.value.status : 'Unresolved');
-     }
+      this.errorText = null;
+      this.successText = null;
+      this.reportActionCreator.UpdateReport(this.reportDetailForm.value._id, this.reportDetailForm.value.note, (this.reportDetailForm.value.status) ? this.reportDetailForm.value.status : 'Unresolved');
+      this.reportErrorSubscription = this.reportStoreError.subscribe(
+          error => {
+              if (error) {
+                  console.log(error);
+                  this.errorText = error;
+              } else {
+                  this.successText = 'The Report has been updated.';
+              }
+          }
+      );
   }
 
   onBack() {

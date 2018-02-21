@@ -91,7 +91,6 @@ export class HostDetailComponent implements OnInit, OnDestroy {
                   console.log(error);
                   this.errorText = error;
               } else {
-                  this.hostDetailForm.reset();
                   this.successText = 'The Host has been updated.';
               }
           }

@@ -11,6 +11,12 @@
               <small class="category">Report details</small>
             </h4>
             <form [formGroup]="reportDetailForm">
+                <div *ngIf="errorText" class="alert alert-danger" role="alert">
+                    <strong>Error!</strong> {{errorText}}
+                </div>
+                <div *ngIf="successText" class="alert alert-success" role="alert">
+                    <strong>Success!</strong> {{successText}}
+                </div>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group label-floating">

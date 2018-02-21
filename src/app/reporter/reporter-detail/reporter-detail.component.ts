@@ -19,6 +19,10 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
     public reporterDetailForm: FormGroup;
     private routeParamsSubscription: Subscription = null;
     private reporterSubscription: Subscription = null;
+    private reporterErrorSubscription: Subscription = null;
+    public errorText: string = null;
+    public successText: string = null;
+    @select(s => s.reporter.error) reporterStoreError;
     @select(s => s.reporter.selectedReporter) selectedReporter;
 
     constructor(
@@ -65,18 +69,39 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         (this.routeParamsSubscription) ? this.routeParamsSubscription.unsubscribe() : null;
         (this.reporterSubscription) ? this.reporterSubscription.unsubscribe() : null;
+        (this.reporterErrorSubscription) ? this.reporterErrorSubscription.unsubscribe() : null;
     }
 
     onBlock() {
-        if (this.reporterDetailForm.valid) {
-            this.reporterActionCreator.BlockReporter(this.reporterDetailForm.value._id);
-        }
+        this.errorText = null;
+        this.successText = null;
+        this.reporterActionCreator.BlockReporter(this.reporterDetailForm.value._id);
+        this.reporterErrorSubscription = this.reporterStoreError.subscribe(
+            error => {
+                if (error) {
+                    console.log(error);
+                    this.errorText = error;
+                } else {
+                    this.successText = 'The Reporter has been block.';
+                }
+            }
+        );
     }
 
     onUnblock() {
-        if (this.reporterDetailForm.valid) {
-            this.reporterActionCreator.UnblockReporter(this.reporterDetailForm.value._id);
-        }
+        this.errorText = null;
+        this.successText = null;
+        this.reporterActionCreator.UnblockReporter(this.reporterDetailForm.value._id);
+        this.reporterErrorSubscription = this.reporterStoreError.subscribe(
+            error => {
+                if (error) {
+                    console.log(error);
+                    this.errorText = error;
+                } else {
+                    this.successText = 'The Reporter has been unblock.';
+                }
+            }
+        );
     }
     onBack() {
         this.router.navigate([`admin/reporter`]);
