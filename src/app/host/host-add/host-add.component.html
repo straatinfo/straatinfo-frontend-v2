@@ -8,10 +8,7 @@
               <i class="material-icons">queue</i>
             </div>
             <div class="card-content">
-                <h4 class="card-title">
-                    Add Host -
-                    <small class="category">Create new host</small>
-                </h4>
+                <h4 class="card-title">Add Host - <small class="category">Create new host</small></h4>
 
                 <form [formGroup]="addHostForm" (submit)="submit()">
                   <div *ngIf="errorText" class="alert alert-danger" role="alert">
@@ -20,7 +17,7 @@
                   <div *ngIf="successText" class="alert alert-success" role="alert">
                     <strong>Success!</strong> {{successText}}
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-5">
                       <div class="input-group">
                           <span class="input-group-addon">
                               <i class="material-icons">person_outline</i>
@@ -134,7 +131,7 @@
                       </div>
                   </div>
 
-                  <div class="col-md-6">
+                  <div class="col-md-5">
                       <div class="input-group">
                           <span class="input-group-addon">
                               <i class="material-icons">info_outline</i>
@@ -206,8 +203,12 @@
                       </div>
                   </div>
 
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <button (click)="onReset()" class="btn btn-warning">Reset</button>
+                    <div class="col-md-2">
+                        <div class="row">
+                            <button type="submit" class="btn btn-success btn-block">Submit</button>
+                            <button (click)="onReset()" class="btn btn-warning btn-block">Reset</button>
+                        </div>
+                    </div>
                     <div class="clearfix"></div>
 
               </form>

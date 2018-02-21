@@ -7,10 +7,8 @@
                         <i class="material-icons">perm_identity</i>
                     </div>
                     <div class="card-content">
-                        <h4 class="card-title">
-                            Reporter -
-                            <small class="category">Reporter details</small>
-                        </h4>
+                        <h4 class="card-title">Reporter - <small class="category">Details</small></h4>
+
                         <form [formGroup]="reporterDetailForm">
                             <div *ngIf="errorText" class="alert alert-danger" role="alert">
                                 <strong>Error!</strong> {{errorText}}
@@ -18,7 +16,7 @@
                             <div *ngIf="successText" class="alert alert-success" role="alert">
                                 <strong>Success!</strong> {{successText}}
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="material-icons">info_outline</i>
@@ -101,7 +99,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="material-icons">info_outline</i>
@@ -183,9 +181,14 @@
                                 </div>
                             </div>
 
-                            <button (click)="onBack()" type="button" class="btn btn-default pull-left">Back</button>
-                            <button (click)="onBlock()" type="button" class="btn btn-rose pull-left">Block Reporter</button>
-                            <button (click)="onUnblock()" type="button" class="btn btn-danger pull-left">Unblock Reporter</button>
+                            <div class="col-md-2">
+                                <div class="row">
+                                    <button (click)="onBack()" type="button" class="btn btn-default btn-block">Back</button>
+                                    <button (click)="onBlock()" type="button" class="btn btn-rose btn-block">Block Reporter</button>
+                                    <button (click)="onUnblock()" type="button" class="btn btn-danger btn-block">Unblock Reporter</button>
+                                </div>
+                            </div>
+
                             <div class="clearfix"></div>
                         </form>
                     </div>
