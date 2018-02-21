@@ -28,7 +28,6 @@ export class HostAddComponent implements OnInit, OnDestroy {
     this.addHostForm = this.formBuilder.group({
       hostName: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
-      username: [null, Validators.required],
       houseNumber: [null, Validators.required],
       streetName: [null, Validators.required],
       city: [null, Validators.required],
