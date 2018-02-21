@@ -27,11 +27,11 @@ export class ReportListComponent implements OnInit {
   public reportData = [];
 
   public dataNames: string[] = [
-      'generatedReportId', 'date', 'mainCategoryName', 'subCategoryName', 'reporterName', 'teamName', 'finishedDate', 'causeOfFinished', 'reportTypeCode'
+      'generatedReportId', 'date', 'mainCategoryName', 'reporterName', 'teamName'
   ];
 
   public dataAliases: string[] = [
-      'ID', 'Date', 'Main Category', 'Sub Category', 'Chat Name', 'Team', 'Finished Date', 'Cause of Finishing', 'Report Type'
+      'ID', 'Date', 'Main Category', 'Chat Name', 'Team'
   ];
 
   constructor(
