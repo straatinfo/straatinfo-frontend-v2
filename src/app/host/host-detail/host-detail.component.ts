@@ -36,7 +36,6 @@ export class HostDetailComponent implements OnInit, OnDestroy {
         this.hostSubscription = this.selectedHost
         .subscribe(
             host => {
-                console.log(host)
             this.hostDetailForm = this.formBuilder.group({
               _id: [host._id, Validators.required],
               hostName: [{ value: host.hostName, disabled: true }, Validators.required],
@@ -52,7 +51,7 @@ export class HostDetailComponent implements OnInit, OnDestroy {
               isBlocked: [host.isBlocked],
               fname: [host.fname, Validators.required],
               lname: [host.lname, Validators.required],
-              personalEmail: [host.personalEmail, Validators.required],
+              hostPersonalEmail: [host.hostPersonalEmail, Validators.required],
             });
           }
         );

@@ -172,7 +172,7 @@ export class HostActionCreator implements OnDestroy {
     this.ngRedux.dispatch({ type: HOST_SELECT_FULFILLED, payload: _id });
   }
 
-  private ToHostView (data: any): IHost {
+  private ToHostView(data: any): IHost {
     return {
       _id: data._id,
       hostName: data.hostName,
@@ -190,7 +190,7 @@ export class HostActionCreator implements OnDestroy {
       design: data.design,
       fname: data.fname,
       lname: data.lname,
-      personalEmail: data.personalEmail,
+      hostPersonalEmail: data.hostPersonalEmail,
       _role: data._role,
     };
   }

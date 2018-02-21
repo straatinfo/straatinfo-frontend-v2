@@ -40,7 +40,7 @@ export class HostAddComponent implements OnInit, OnDestroy {
       lat: [null, Validators.required],
       fname: [null, Validators.required],
       lname: [null, Validators.required],
-      personalEmail: [null, Validators.required],
+      hostPersonalEmail: [null, Validators.required],
     });
   }
 
