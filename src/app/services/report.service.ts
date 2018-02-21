@@ -45,7 +45,7 @@ export class ReportService {
     const options = new RequestOptions({headers: headers});
     return this.http.get(`${this.reportUrl}?flat=true`, options)
     .map(response => response.json())
-    .map(data => {console.log(data);return this.GetData(data)})
+    .map(data => this.GetData(data))
     .share();
   }
 

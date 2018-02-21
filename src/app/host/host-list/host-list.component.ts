@@ -15,10 +15,10 @@ export class HostListComponent implements OnInit {
   @select(s => s.host.spinner) hostSpinner;
 
   public dataNames = [
-    'hostName', 'email', 'houseNumber', 'streetName', 'city', 'state', 'country', 'postalCode', 'phoneNumber'
+    'hostName', 'email', 'houseNumber', 'city', 'country'
   ];
   public dataAliases = [
-    'Host Name', 'Email', '#', 'Street', 'City', 'State', 'Country', 'Postal Code', 'Phone'
+    'Host Name', 'Email', '#', 'City', 'Country'
   ];
 
   constructor(

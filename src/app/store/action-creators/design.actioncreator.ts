@@ -94,7 +94,6 @@ export class DesignActionCreator implements OnDestroy {
           .map(data => this.ToDesignView(data))
           .subscribe(
           (design: IDesign) => {
-              console.log(design)
               this.ngRedux.dispatch({ type: DESIGN_CREATE_FULFILLED, payload: design });
           }, err => {
               this.errorMessage = err._body;

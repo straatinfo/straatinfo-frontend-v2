@@ -11,6 +11,12 @@
               <small class="category">Complete your profile</small>
             </h4>
             <form [formGroup]="hostDetailForm">
+                <div *ngIf="errorText" class="alert alert-danger" role="alert">
+                    <strong>Error!</strong> {{errorText}}
+                </div>
+                <div *ngIf="successText" class="alert alert-success" role="alert">
+                    <strong>Success!</strong> {{successText}}
+                </div>
                 <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -110,7 +116,7 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <i class="material-icons">info_outline</i>
+                            <i class="material-icons">email</i>
                         </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Personal Email</label>

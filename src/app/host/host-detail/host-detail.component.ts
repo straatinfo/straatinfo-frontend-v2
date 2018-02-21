@@ -19,6 +19,10 @@ export class HostDetailComponent implements OnInit, OnDestroy {
   public hostDetailForm: FormGroup;
   private routeParamsSubscription: Subscription = null;
   private hostSubscription: Subscription = null;
+  private hostErrorSubscription: Subscription = null;
+  public errorText: string = null;
+  public successText: string = null;
+  @select(s => s.host.error) hostStoreError;
   @select(s => s.host.selectedHost) selectedHost;
 
   constructor(
@@ -62,6 +66,7 @@ export class HostDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     (this.routeParamsSubscription) ? this.routeParamsSubscription.unsubscribe() : null;
     (this.hostSubscription) ? this.hostSubscription.unsubscribe() : null;
+    (this.hostErrorSubscription) ? this.hostErrorSubscription.unsubscribe() : null;
   }
 
   onViewReport() {
@@ -77,9 +82,20 @@ export class HostDetailComponent implements OnInit, OnDestroy {
   }
 
   onUpdate() {
-      if (this.hostDetailForm.valid) {
-          this.hostActionCreator.UpdateHost(this.hostDetailForm.value._id, this.hostDetailForm.value);
-      }
+      this.errorText = null;
+      this.successText = null;
+      this.hostActionCreator.UpdateHost(this.hostDetailForm.value._id, this.hostDetailForm.value);
+      this.hostErrorSubscription = this.hostStoreError.subscribe(
+          error => {
+              if (error) {
+                  console.log(error);
+                  this.errorText = error;
+              } else {
+                  this.hostDetailForm.reset();
+                  this.successText = 'The Host has been updated.';
+              }
+          }
+      );
   }
 
   onDelete() {

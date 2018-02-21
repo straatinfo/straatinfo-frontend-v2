@@ -49,7 +49,6 @@ export class HostAddComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    //if (this.addHostForm.valid) {
       this.errorText = null;
       this.successText = null;
       this.hostActionCreator.CreateHost(this.addHostForm.value);
@@ -64,7 +63,6 @@ export class HostAddComponent implements OnInit, OnDestroy {
           }
         }
       );
-    //}
   }
   onReset() {
     this.addHostForm.reset();
