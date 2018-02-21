@@ -12,57 +12,168 @@
                             <small class="category">Reporter details</small>
                         </h4>
                         <form [formGroup]="reporterDetailForm">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">First Name</label>
-                                        <input formControlName="fname" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Last Name</label>
-                                        <input formControlName="lname" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Chat Name</label>
-                                        <input formControlName="chatName" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
+
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
                                     <div class="form-group label-floating">
                                         <label class="control-label">Volunteer</label>
                                         <input formControlName="isVolunteer" type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">person_outline</i>
+                                    </span>
                                     <div class="form-group label-floating">
-                                        <label class="control-label">Team Name</label>
-                                        <input formControlName="teamName" type="text" class="form-control">
+                                        <label class="control-label">First Name</label>
+                                        <input formControlName="fname" type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">person_outline</i>
+                                    </span>
                                     <div class="form-group label-floating">
-                                        <label class="control-label">Host Name</label>
-                                        <input formControlName="hostName" type="text" class="form-control">
+                                        <label class="control-label">Last Name</label>
+                                        <input formControlName="lname" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Gender</label>
+                                        <input formControlName="gender" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Street</label>
+                                        <input formControlName="streetName" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Postal Code</label>
+                                        <input formControlName="postalCode" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">City</label>
+                                        <input formControlName="city" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">email</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Email</label>
+                                        <input formControlName="email" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Phone Number</label>
+                                        <input formControlName="phoneNumber" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Chat Name</label>
+                                        <input formControlName="chatName" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Host</label>
+                                        <input formControlName="hostName" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Team Name</label>
+                                        <input formControlName="activeTeamName" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Team Email Address</label>
+                                        <input formControlName="activeTeamEmail" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
                                     <div class="form-group label-floating">
                                         <label class="control-label">Status 1</label>
                                         <input formControlName="status1" type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
                                     <div class="form-group label-floating">
                                         <label class="control-label">Status 2</label>
                                         <input formControlName="status2" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Date of registration new reporter</label>
+                                        <input formControlName="dateRegistrationReporter" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">info_outline</i>
+                                    </span>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Date of creation of new team</label>
+                                        <input formControlName="dateCreationTeam" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>

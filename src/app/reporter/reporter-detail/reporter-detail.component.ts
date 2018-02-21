@@ -36,16 +36,25 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                 this.reporterSubscription = this.selectedReporter
                     .subscribe(
                     report => {
-                        this.reporterDetailForm = this.formBuilder.group({
-                            _id: [report._id , Validators.required],
+                        this.reporterDetailForm = this.formBuilder.group({                            
+                            _id: [report._id, Validators.required],
+                            isVolunteer: [{ value: report.isVolunteer, disabled: true }, Validators.required],
                             fname: [{ value: report.fname, disabled: true }, Validators.required],
                             lname: [{ value: report.lname, disabled: true }, Validators.required],
-                            chatName: [{ value: report.chatName, disabled: true }, Validators.required],
-                            isVolunteer: [{ value: report.isVolunteer, disabled: true }, Validators.required],
-                            teamName: [{ value: report.activeTeamName, disabled: true }, Validators.required],
+                            gender: [{ value: report.gender, disabled: true }, Validators.required],
+                            streetName: [{ value: report.streetName, disabled: true }, Validators.required],
+                            postalCode: [{ value: report.postalCode, disabled: true }, Validators.required],
+                            city: [{ value: report.city, disabled: true }, Validators.required],
+                            email: [{ value: report.email, disabled: true }, Validators.required],
+                            phoneNumber: [{ value: report.phoneNumber, disabled: true }, Validators.required],
+                            chatName: [{ value: report.chatName, disabled: true }, Validators.required],                                                        
                             hostName: [{ value: report.hostName, disabled: true }, Validators.required],
+                            activeTeamName: [{ value: report.activeTeamName, disabled: true }, Validators.required],
+                            activeTeamEmail: [{ value: report.activeTeamEmail, disabled: true }, Validators.required],
                             status1: [{ value: report.status1, disabled: true }, Validators.required],
                             status2: [{ value: report.status2, disabled: true }, Validators.required],
+                            dateRegistrationReporter: [{ value: report.dateRegistrationReporter, disabled: true }, Validators.required],
+                            dateCreationTeam: [{ value: report.dateCreationTeam, disabled: true }, Validators.required],
                         });
                     }
                     );

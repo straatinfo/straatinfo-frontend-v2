@@ -151,14 +151,23 @@ export class ReporterActionCreator implements OnDestroy {
     private ReporterToView(data: IReporter): IReporterView {
         const reporter: IReporterView = {
             _id: data._id,
+            isVolunteer: data.isVolunteer ? "Volunteer" : "Non-Volunteer",
             fname: data.fname,
             lname: data.lname,
-            isVolunteer: data.isVolunteer ? "volunteer" : "non-volunteer",
+            gender: data.gender,
+            streetName: data.streetName,
+            postalCode: data.postalCode,
+            city: data.city,
+            email: data.email,
+            phoneNumber: data['_host.phoneNumber'],
             status1: data.status1,
             status2: data.status2,
+            dateRegistrationReporter: data.dateRegistrationReporter,
+            dateCreationTeam: data.dateCreationTeam,
             hostName: data['_host.hostName'],
-            chatName: data['username'],
             activeTeamName: data['activeTeam.teamName'],
+            activeTeamEmail: data['activeTeam.teamEmail'],
+            chatName: data.username,
             createdAt: data.createdAt,
             updatedAt: data.updatedAt
         };
