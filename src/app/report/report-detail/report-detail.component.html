@@ -8,137 +8,195 @@
           </div>
           <div class="card-content">
             <h4 class="card-title">Report -
-              <small class="category">Report details</small>
+              <small class="category">Details</small>
             </h4>
+
             <form [formGroup]="reportDetailForm">
-              <div class="row">
-                <div class="col-md-4">
+              <div *ngIf="errorText" class="alert alert-danger" role="alert">
+                <strong>Error!</strong> {{errorText}}
+              </div>
+              <div *ngIf="successText" class="alert alert-success" role="alert">
+                <strong>Success!</strong> {{successText}}
+              </div>
+
+              <div class="col-md-5">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Host Name</label>
                     <input formControlName="hostName" type="text" class="form-control">
                   </div>
                 </div>
-                <div class="col-md-4">
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Title</label>
                     <input formControlName="title" type="text" class="form-control">
                   </div>
                 </div>
-                <div class="col-md-4">
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Description</label>
                     <input formControlName="description" type="text" class="form-control">
                   </div>
-                </div>                  
-              </div>
-
-              <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-group label-floating">
-                      <label class="control-label">Report Type</label>
-                      <input formControlName="reportType" type="text" class="form-control" >
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group label-floating">
-                      <label class="control-label">Main Category</label>
-                      <input formControlName="mainCategory" type="text" class="form-control">
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group label-floating">
-                      <label class="control-label">Sub Category</label>
-                      <input formControlName="subCategory" type="text" class="form-control">
-                    </div>
-                  </div>                  
                 </div>
 
-              <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group label-floating">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
+                  <div class="form-group label-floating">
+                    <label class="control-label">Report Type</label>
+                    <input formControlName="reportType" type="text" class="form-control">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
+                  <div class="form-group label-floating">
+                    <label class="control-label">Main Category</label>
+                    <input formControlName="mainCategory" type="text" class="form-control">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
+                  <div class="form-group label-floating">
+                    <label class="control-label">Sub Category</label>
+                    <input formControlName="subCategory" type="text" class="form-control">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
+                  <div class="form-group label-floating">
                     <label class="control-label">Location</label>
                     <input formControlName="location" type="text" class="form-control">
-                    </div>
+                  </div>
                 </div>
-                <div class="col-md-4">
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Longtitude</label>
                     <input formControlName="long" type="text" class="form-control">
                   </div>
                 </div>
-                <div class="col-md-4">
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Latitude</label>
                     <input formControlName="lat" type="text" class="form-control">
                   </div>
-                </div>              
+                </div>
               </div>
 
-              <div class="row">
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        <label>
-                            <input formControlName="isVehicleInvolved" type="checkbox" name="optionsIsVehicleInvolved"> Is Vehicle Involved?
-                        </label>
-                    </div>
+              <div class="col-md-5">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
+                  <div class="checkbox">
+                    <label>
+                      <input formControlName="isVehicleInvolved" type="checkbox" name="optionsIsVehicleInvolved"> Is Vehicle Involved?
+                    </label>
+                  </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group label-floating">
-                        <label class="control-label">Vehicle Involved Description</label>
-                        <input formControlName="vehicleInvolvedDescription" type="text" class="form-control">
-                    </div>
-                </div>  
-              </div> 
 
-              <div class="row">
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        <label>
-                            <input formControlName="isPeopleInvolved" type="checkbox" name="optionsIsPeopleInvolved"> Is People Involved?
-                        </label>
-                    </div>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
+                  <div class="form-group label-floating">
+                    <label class="control-label">Vehicle Involved Description</label>
+                    <input formControlName="vehicleInvolvedDescription" type="text" class="form-control">
+                  </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group label-floating">
-                        <label class="control-label">People Involved Count</label>
-                        <input formControlName="peopleInvolvedCount" type="number" class="form-control">
-                    </div>
-                </div>
-              </div> 
 
-              <div class="row">
-                <div class="col-md-8">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
+                  <div class="checkbox">
+                    <label>
+                      <input formControlName="isPeopleInvolved" type="checkbox" name="optionsIsPeopleInvolved"> Is People Involved?
+                    </label>
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
+                  <div class="form-group label-floating">
+                    <label class="control-label">People Involved Count</label>
+                    <input formControlName="peopleInvolvedCount" type="number" class="form-control">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Note</label>
                     <input formControlName="note" type="text" class="form-control">
                   </div>
                 </div>
-                <div class="col-md-4">
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="material-icons">info_outline</i>
+                  </span>
                   <mat-form-field style="width:100% !important;" ngClass="form-group label-floating">
-                    <mat-select placeholder="Status"  formControlName="status">
+                    <mat-select placeholder="Status" formControlName="status">
                       <mat-option value="NEW">New</mat-option>
                       <mat-option value="INPROGRESS">In Progress</mat-option>
                       <mat-option value="DONE">Done</mat-option>
                       <mat-option value="EXPIRED">Expired</mat-option>
                     </mat-select>
                   </mat-form-field>
-                </div>         
+                </div>
               </div>
 
-              <button (click)="onBack()" type="button" class="btn btn-default pull-left">Back</button>
-              <button (click)="onUpdate()" type="button" class="btn btn-rose pull-left">Update Report</button>
-              <button (click)="onDelete()" type="button" class="btn btn-danger pull-left">Delete Report</button>
-              <div class="clearfix"></div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <h4><b>Location: {{reportDetailForm.value.location}}</b></h4>
-
-                    <agm-map [latitude]="reportDetailForm.value.lat" [longitude]="reportDetailForm.value.long">
-                        <agm-marker [latitude]="reportDetailForm.value.lat" [longitude]="reportDetailForm.value.long"></agm-marker>
-                    </agm-map>
+              <div class="col-md-2">
+                <div class="row">
+                  <button (click)="onBack()" type="button" class="btn btn-default btn-block">Back</button>
+                  <button (click)="onUpdate()" type="button" class="btn btn-rose btn-block">Update Report</button>
+                  <button (click)="onDelete()" type="button" class="btn btn-danger btn-block">Delete Report</button>
                 </div>
-            </div>
+              </div>
+
+              <div class="col-md-12">
+                <h4>
+                  <b>Location: {{reportDetailForm.value.location}}</b>
+                </h4>
+                <agm-map [latitude]="reportDetailForm.value.lat" [longitude]="reportDetailForm.value.long">
+                  <agm-marker [latitude]="reportDetailForm.value.lat" [longitude]="reportDetailForm.value.long"></agm-marker>
+                </agm-map>
+              </div>
+
+              <div class="clearfix"></div>
             </form>
           </div>
         </div>

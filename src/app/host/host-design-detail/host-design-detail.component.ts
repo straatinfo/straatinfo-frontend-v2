@@ -24,6 +24,8 @@ export class HostDesignDetailComponent implements OnInit, OnDestroy {
   private routeParamsSubscription: Subscription = null;
   private designSubscription: Subscription = null;
   private designErrorSubscription: Subscription = null;
+  public errorText: string = null;
+  public successText: string = null;
   @select(s => s.design.error) designStoreError;
   @select(s => s.design.selectedDesign) selectedDesign;
 
@@ -85,8 +87,19 @@ export class HostDesignDetailComponent implements OnInit, OnDestroy {
       this.router.navigate([`admin/host/design/${this.hostId}`]);
   }
 
-  onUpdate() {      
-    this.designActionCreator.UpdateDesign(this.hostDesignForm.value._id, this.hostDesignForm.value);
+  onUpdate() {   
+      this.errorText = null;
+      this.successText = null;
+      this.designActionCreator.UpdateDesign(this.hostDesignForm.value._id, this.hostDesignForm.value);
+      this.designErrorSubscription = this.designStoreError.subscribe(
+          error => {
+              if (error) {
+                  console.log(error);
+                  this.errorText = error;
+              } else {
+                  this.successText = 'Design has been updated.';
+              }
+          }
+      );
   }
-
 }

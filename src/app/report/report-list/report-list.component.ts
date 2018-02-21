@@ -27,11 +27,11 @@ export class ReportListComponent implements OnInit {
   public reportData = [];
 
   public dataNames: string[] = [
-      'generatedReportId', 'date', '_mainCategory', '_subCategory', '_reporter', '_team', 'finishedDate', 'causeOfFinished', '_reportType'
+      'generatedReportId', 'date', 'mainCategoryName', 'reporterName', 'teamName'
   ];
 
   public dataAliases: string[] = [
-      'ID', 'Date', 'Main Category', 'Sub Category', 'Chat Name', 'Team', 'Finished Date', 'Cause of Finishing', 'Report Type'
+      'ID', 'Date', 'Main Category', 'Chat Name', 'Team'
   ];
 
   constructor(
@@ -103,11 +103,11 @@ export class ReportListComponent implements OnInit {
           vehicleInvolvedDescription: data.vehicleInvolvedDescription,
           note: data.note,
           host: data._host,
-          mainCategory: data._mainCategory,
-          subCategory: data._subCategory,
-          reporter: data._reporter,
-          reportType: data._reportType,
-          team: data._team,
+          mainCategory: data.mainCategoryName,
+          subCategory: data.subCategoryName,
+          reporter: data.reporterName,
+          reportType: data.reportTypeCode,
+          team: data.teamName,
           finishedDate: data.finishedDate,
           causeOfFinished: data.causeOfFinished,
           createdAt: data.createdAt

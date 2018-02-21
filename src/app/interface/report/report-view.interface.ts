@@ -13,12 +13,11 @@ export interface IReportView {
   isPeopleInvolved?: boolean;
   vehicleInvolvedDescription?: string;
   peopleInvolvedCount?: number;
-  _reportType?: string;
-  _mainCategory?: string;
-  _subCategory?: string;
-  _reporter?: string;
-  _host?: string;
-  _team: string;
+  reportTypeCode?: string;
+  mainCategoryName?: string;
+  subCategoryName?: string;
+  reporterName?: string;
+  teamName: string;
   date?: string;
   causeOfFinished?: string;
   finishedDate: string;

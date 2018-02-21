@@ -31,7 +31,6 @@ export class SessionGuard implements CanActivate, CanActivateChild {
   canActivateChild(
   ): Observable<boolean> | Promise<boolean> | boolean {
     const session: ISession = JSON.parse(localStorage.getItem('session'));
-    console.log(session);
     if (!session || !session.token) {
       swal({
         type: 'error',
