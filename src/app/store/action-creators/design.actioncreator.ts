@@ -115,7 +115,6 @@ export class DesignActionCreator implements OnDestroy {
           .subscribe(
           (design: IDesign) => {
               this.ngRedux.dispatch({ type: DESIGN_UPDATE_FULFILLED, payload: design });
-              //this.ngRedux.dispatch({ type: DESIGN_SELECT_FULFILLED, payload: design._id });
           }, err => {
               this.errorMessage = err._body;
               if (this.errorMessage && typeof this.errorMessage === 'string') {

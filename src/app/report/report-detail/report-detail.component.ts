@@ -40,8 +40,6 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
         this.reportSubscription = this.selectedReport
         .subscribe(
             report => {
-
-            console.log(report)
             this.reportDetailForm = this.formBuilder.group({
               _id: [report._id, Validators.required],
               hostName: [report.hostName, Validators.required],

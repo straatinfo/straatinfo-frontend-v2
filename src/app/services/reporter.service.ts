@@ -80,7 +80,6 @@ export class ReporterService {
     }
 
     GetData(data) {
-    console.log(data.data)
         return data.data;
     }
 }
