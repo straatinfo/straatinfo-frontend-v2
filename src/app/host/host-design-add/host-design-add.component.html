@@ -7,9 +7,8 @@
             <i class="material-icons">perm_identity</i>
           </div>
           <div class="card-content">
-            <h4 class="card-title">Host Design -
-              <small class="category">Add new design</small>
-            </h4>
+              <h4 class="card-title">Add Design - <small class="category">Add new host design</small></h4>
+
             <form [formGroup]="hostDesignForm">
                 <div *ngIf="errorText" class="alert alert-danger" role="alert">
                     <strong>Error!</strong> {{errorText}}
@@ -18,16 +17,13 @@
                     <strong>Success!</strong> {{successText}}
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group label-floating">
-                            <label class="control-label">Design Name</label>
-                            <input formControlName="designName" type="text" class="form-control">
-                        </div>
+                <div class="col-md-12">
+                    <div class="form-group label-floating">
+                        <label class="control-label">Design Name</label>
+                        <input formControlName="designName" type="text" class="form-control">
                     </div>
                 </div>
 
-              <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">    
                     <label class="control-label">Color One</label> 
@@ -73,11 +69,13 @@
                              placeholder="Color 3" readonly/>
                   </div>
                 </div>
-              </div>
 
-              <button (click)="onBack()" class="btn btn-default pull-left">Back</button>
-              <button (click)="onAdd()" class="btn btn-rose pull-left">Add Design</button>
-              <div class="clearfix"></div>
+                <div  class="col-md-12">
+                    <button (click)="onBack()" class="btn btn-default pull-left">Back</button>
+                    <button (click)="onAdd()" class="btn btn-rose pull-left">Add Design</button>
+                </div>
+
+                <div class="clearfix"></div>
             </form>
           </div>
         </div>

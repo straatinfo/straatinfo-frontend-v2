@@ -8,19 +8,15 @@
               <i class="material-icons">assignment</i>
             </div>
             <div class="card-content">
+                <h4 class="card-title">Design page of [{{hostName}}]</h4>
 
-                <div class="row">
-                    <h4> Design page of [{{hostName}}]</h4>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button (click)="onBack()" type="button" class="btn btn-default pull-left">Back to Host</button>
-                            <button (click)="onAdd()" type="button" class="btn btn-rose pull-left">Add Design</button>
-                        </div>
-                    </div>
+                <div class="col-md-12">
+                    <button (click)="onBack()" type="button" class="btn btn-default">Back to Host</button>
+                    <button (click)="onAdd()" type="button" class="btn btn-rose">Add Design</button>
                 </div>
 
               <app-table-basic
-                tableTitle="Host Design List"
+                tableTitle=""
                 paginator="true"
                 itemPerPage="5"
                 [currentPage]="(page | async)"

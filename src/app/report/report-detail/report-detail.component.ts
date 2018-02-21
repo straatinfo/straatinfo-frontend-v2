@@ -21,9 +21,14 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
   public reportDetailForm: FormGroup;
   private routeParamsSubscription: Subscription = null;
   private reportSubscription: Subscription = null;
+  private reportErrorSubscription: Subscription = null;
+  public errorText: string = null;
+  public successText: string = null;
+  @select(s => s.report.error) reportStoreError;
+  @select(s => s.report.selectedReport) selectedReport;
+
   public session: ISession = JSON.parse(localStorage.getItem('session'));
   public _role: IRole = this.session.user._role;
-  @select(s => s.report.selectedReport) selectedReport;
 
   constructor(
     private actvatedRoute: ActivatedRoute,
@@ -40,16 +45,14 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
         this.reportSubscription = this.selectedReport
         .subscribe(
             report => {
-
-            console.log(report)
             this.reportDetailForm = this.formBuilder.group({
               _id: [report._id, Validators.required],
               hostName: [report.hostName, Validators.required],
               title: [report.title, Validators.required],
               description: [report.description, Validators.required],
-              reportType: [report._reportType, Validators.required],
-              mainCategory: [report._mainCategory, Validators.required],
-              subCategory: [report._subCategory, Validators.required],
+              reportType: [report.reportTypeCode, Validators.required],
+              mainCategory: [report.mainCategoryName, Validators.required],
+              subCategory: [report.subCategoryName, Validators.required],
               location: [report.location, Validators.required],
               long: [report.long, Validators.required],
               lat: [report.lat, Validators.required],
@@ -69,12 +72,23 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     (this.routeParamsSubscription) ? this.routeParamsSubscription.unsubscribe() : null;
     (this.reportSubscription) ? this.reportSubscription.unsubscribe() : null;
+    (this.reportErrorSubscription) ? this.reportErrorSubscription.unsubscribe() : null;
   }
 
   onUpdate() {
-     if (this.reportDetailForm.value._id && this.reportDetailForm.value.note) {
-        this.reportActionCreator.UpdateReport(this.reportDetailForm.value._id, this.reportDetailForm.value.note, (this.reportDetailForm.value.status) ? this.reportDetailForm.value.status : 'Unresolved');
-     }
+      this.errorText = null;
+      this.successText = null;
+      this.reportActionCreator.UpdateReport(this.reportDetailForm.value._id, this.reportDetailForm.value.note, (this.reportDetailForm.value.status) ? this.reportDetailForm.value.status : 'Unresolved');
+      this.reportErrorSubscription = this.reportStoreError.subscribe(
+          error => {
+              if (error) {
+                  console.log(error);
+                  this.errorText = error;
+              } else {
+                  this.successText = 'The Report has been updated.';
+              }
+          }
+      );
   }
 
   onBack() {

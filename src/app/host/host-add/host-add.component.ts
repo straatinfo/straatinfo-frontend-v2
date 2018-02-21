@@ -28,7 +28,6 @@ export class HostAddComponent implements OnInit, OnDestroy {
     this.addHostForm = this.formBuilder.group({
       hostName: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
-      username: [null, Validators.required],
       houseNumber: [null, Validators.required],
       streetName: [null, Validators.required],
       city: [null, Validators.required],
@@ -37,7 +36,10 @@ export class HostAddComponent implements OnInit, OnDestroy {
       postalCode: [null, Validators.required],
       phoneNumber: [null, Validators.required],
       long: [null, Validators.required],
-      lat: [null, Validators.required]
+      lat: [null, Validators.required],
+      fname: [null, Validators.required],
+      lname: [null, Validators.required],
+      hostPersonalEmail: [null, Validators.required],
     });
   }
 
@@ -46,7 +48,6 @@ export class HostAddComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    if (this.addHostForm.valid) {
       this.errorText = null;
       this.successText = null;
       this.hostActionCreator.CreateHost(this.addHostForm.value);
@@ -61,7 +62,6 @@ export class HostAddComponent implements OnInit, OnDestroy {
           }
         }
       );
-    }
   }
   onReset() {
     this.addHostForm.reset();

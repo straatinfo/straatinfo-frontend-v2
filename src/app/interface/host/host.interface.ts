@@ -18,6 +18,6 @@ export interface IHost {
   design?: string;
   fname?: string;
   lname?: string;
-  personalEmail: string;
+  hostPersonalEmail: string;
   _role?: IRole;
 }

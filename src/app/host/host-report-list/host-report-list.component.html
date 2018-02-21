@@ -8,18 +8,15 @@
                 <i class="material-icons">assignment</i>
               </div>
               <div class="card-content">
-                  <div class="row">
-                      <h4> Report page of [{{hostName}}]</h4>
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <button (click)="onBack()" type="button" class="btn btn-default pull-left">Back to Host</button>
-                              <button (click)="onDownload()" type="button" class="btn btn-success pull-left">Download Data</button>
-                          </div>
-                      </div>
-                  </div>
+                <h4 class="card-title">Host Reports page of [{{hostName}}]</h4>
+
+                <div class="col-md-12">
+                    <button (click)="onBack()" type="button" class="btn btn-default">Back to Host</button> 
+                    <button (click)="onDownload()" type="button" class="btn btn-success">Download Data</button>                                                 
+                </div>
 
                 <app-table-basic
-                  tableTitle="Host Reports"
+                  tableTitle=""
                   paginator="true"
                   itemPerPage="5"
                   [currentPage]="(page | async)"

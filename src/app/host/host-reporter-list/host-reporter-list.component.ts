@@ -26,7 +26,7 @@ export class HostReporterListComponent implements OnInit {
   public reporterData = [];
 
   public dataNames: string[] = [
-      'fname', 'lname', '_chat', 'isVolunteer', '_team'
+      'fname', 'lname', 'chatName', 'isVolunteer', 'activeTeamName'
   ];
 
   public dataAliases: string[] = [
@@ -99,10 +99,10 @@ export class HostReporterListComponent implements OnInit {
           id: data._id,
           fname: data.fname,
           lname: data.lname,
-          chatName: data._chat,
+          chatName: data.chatName,
           isVolunteer: data.isVolunteer,
-          team: data._team,
-          host: data._host,
+          team: data.activeTeamName,
+          host: data.hostName,
           status1: data.status1,
           status2: data.status2,
       };

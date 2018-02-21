@@ -7,57 +7,86 @@
             <i class="material-icons">perm_identity</i>
           </div>
           <div class="card-content">
-            <h4 class="card-title">Edit Profile -
-              <small class="category">Complete your profile</small>
-            </h4>
+            <h4 class="card-title">Edit Profile - <small class="category">Complete your profile</small></h4>
+
             <form [formGroup]="hostDetailForm">
-                <div class="col-md-6">
-                    <div class="col-md-12">
+                <div *ngIf="errorText" class="alert alert-danger" role="alert">
+                    <strong>Error!</strong> {{errorText}}
+                </div>
+                <div *ngIf="successText" class="alert alert-success" role="alert">
+                    <strong>Success!</strong> {{successText}}
+                </div>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person_outline</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Host Name</label>
                             <input formControlName="hostName" type="text" class="form-control" disabled>
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Email</label>
                             <input formControlName="email" type="text" class="form-control">
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Street</label>
                             <input formControlName="streetName" type="text" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">City</label>
                             <input formControlName="city" type="text" class="form-control">
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">State</label>
                             <input formControlName="state" type="text" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Country</label>
                             <input formControlName="country" type="text" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Postal Code</label>
                             <input formControlName="postalCode" type="text" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Phone Number</label>
                             <input formControlName="phoneNumber" type="text" class="form-control">
@@ -65,32 +94,47 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="col-md-12">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">First Name</label>
                             <input formControlName="fname" type="text" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Last Name</label>
                             <input formControlName="lname" type="text" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Personal Email</label>
-                            <input formControlName="personalEmail" type="text" class="form-control">
+                            <input formControlName="hostPersonalEmail" type="text" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Longtitude</label>
                             <input formControlName="long" type="text" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Latitude</label>
                             <input formControlName="lat" type="text" class="form-control">
@@ -98,11 +142,16 @@
                     </div>
                 </div>
 
-                <button (click)="onViewReport()" type="button" class="btn btn-info pull-left">View Reports</button>
-                <button (click)="onViewReporter()" type="button" class="btn btn-success pull-left">View Reporters</button>
-                <button (click)="onDesign()" type="button" class="btn btn-info pull-left">Edit Design</button>
-                <button (click)="onUpdate()" type="button" class="btn btn-rose pull-left">Update Host</button>
-                <button (click)="onDelete()" type="button" class="btn btn-danger pull-left">Delete Host</button>
+                <div class="col-md-2">
+                    <div class="row">
+                        <button (click)="onViewReport()" type="button" class="btn btn-info btn-block">View Reports</button>
+                        <button (click)="onViewReporter()" type="button" class="btn btn-success btn-block">View Reporters</button>
+                        <button (click)="onDesign()" type="button" class="btn btn-warning btn-block">Edit Design</button>
+                        <button (click)="onUpdate()" type="button" class="btn btn-rose btn-block">Update Host</button>
+                        <button (click)="onDelete()" type="button" class="btn btn-danger btn-block">Delete Host</button>
+                    </div>                    
+                </div>
+
                 <div class="clearfix"></div>
             </form>
           </div>
