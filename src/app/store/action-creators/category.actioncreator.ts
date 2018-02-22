@@ -102,6 +102,44 @@ export class CategoryActionCreator implements OnDestroy {
       (this.updateCategorySubscription) ? this.updateCategorySubscription.unsubscribe() : null;
   }
 
+  GetHostMainCategory(hostId: string) {
+      this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_ATTEMPT });
+      this.getCategorySubscription = this.categoryService.GetHostMainCategory(hostId)
+          .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+          .subscribe(
+          (category: IMainViewCategory[]) => {
+              this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_FULFILLED, payload: category });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
+  }
+
+  GetHostSubCategory(mainCategoryId: string) {
+      this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_ATTEMPT });
+      this.getCategorySubscription = this.categoryService.GetSubCategory(mainCategoryId)
+          .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+          .subscribe(
+          (category: IMainViewCategory[]) => {
+              this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_FULFILLED, payload: category });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
+  }
+
   GetMainCategoryA(reportTypeId: string) {
       this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_ATTEMPT });
       this.getCategorySubscription = this.categoryService.GetMainCategory(reportTypeId)

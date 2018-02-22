@@ -32,6 +32,16 @@ export class CategoryService {
     }
   }
 
+  GetHostMainCategory(hostId: string): Observable<IMainViewCategory[]> {
+      const headers = new Headers({ 'Content-Type': 'application/json' });
+      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+      const options = new RequestOptions({ headers: headers });
+      return this.http.get(`${this.categoryUrl}/mainCategory/hostId/${hostId}?flat=true`, options)
+          .map(response => response.json())
+          .map(data => this.GetData(data))
+          .share()
+  }
+
   GetMainCategory(reportTypeId: string): Observable<IMainViewCategory[]> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
@@ -46,7 +56,7 @@ export class CategoryService {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.get(`${this.categoryUrl}/subCategory/${mainCategoryId}?flat=true`, options)
+      return this.http.get(`${this.categoryUrl}/subCategory/mainCategoryId/${mainCategoryId}?flat=true`, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
           .share()
@@ -83,6 +93,7 @@ export class CategoryService {
   }
 
   GetData(data) {
+  console.log(data.data)
       return data.data;
   }
 }
