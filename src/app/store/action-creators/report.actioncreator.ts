@@ -185,7 +185,12 @@ export class ReportActionCreator implements OnDestroy {
 
   private formatDate (data: IReportView): IReportView {
     const date = new Date(data.createdAt);
-    const formattedDate = date.getFullYear() + '-' + (date.getMonth() +1) + '-' + date.getDate();
+    const year = date.getFullYear().toString();
+    const month = this.padLeft((date.getMonth() + 1).toString(), '0', 2);
+    const day = this.padLeft(date.getDate().toString(), '0', 2);
+    const hour = this.padLeft(date.getHours().toString(), '0', 2);
+    const minutes = this.padLeft(date.getMinutes().toString(), '0', 2);
+    const formattedDate = year + "/" + month + "/" + day + " " + hour + ":" + minutes;
     return {
       ...data,
       date: formattedDate
@@ -193,12 +198,22 @@ export class ReportActionCreator implements OnDestroy {
   }
 
   private formatFinishedDate(data: IReport): string {
+
       const date = new Date(data.finishedDate);
-      const formattedDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+      const year = date.getFullYear().toString();
+      const month = this.padLeft((date.getMonth() + 1).toString(), '0', 2);
+      const day = this.padLeft(date.getDate().toString(), '0', 2);
+      const hour = this.padLeft(date.getHours().toString(), '0', 2);
+      const minutes = this.padLeft(date.getMinutes().toString(), '0', 2);
+      const formattedDate = year + "/" + month + "/" + day + " " + hour + ":" + minutes;
 
       if (data.finishedDate == null)
           return "";
 
       return formattedDate;
+  }
+
+  private padLeft(text: string, padChar: string, size: number): string {
+      return (String(padChar).repeat(size) + text).substr((size * -1), size);
   }
 }

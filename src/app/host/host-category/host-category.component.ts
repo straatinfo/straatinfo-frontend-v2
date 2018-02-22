@@ -12,33 +12,29 @@ import { CategoryService, HostService } from '../../services';
 import { BACKEND_URL } from '../../config';
 
 @Component({
-  selector: 'app-design-detail',
-  templateUrl: './design-detail.component.html',
-  styleUrls: ['./design-detail.component.scss']
+  selector: 'app-host-category',
+  templateUrl: './host-category.component.html',
+  styleUrls: ['./host-category.component.scss']
 })
 
-export class DesignDetailComponent implements OnInit, OnDestroy {
+export class HostCategoryComponent implements OnInit, OnDestroy {
 
   public categoryAForm: FormGroup;
-  public categoryBForm: FormGroup;
-  public categoryCForm: FormGroup;
   public categorySubAForm: FormGroup;
 
   public isCategoryAHidden = true;
-  public isCategoryBHidden = true;
-  public isCategoryCHidden = true;
   public isCategoryASubHidden = true;
   public isCategoryASubTableHidden = true;
 
   public mainCategoryAList = [];
   public selectedMainCategoryA: string;
 
+  public hostName: string;
   private hostId: string;
   private routeParamsSubscription: Subscription = null;
   private categoryAErrorSubscription: Subscription = null;
-  private categoryBErrorSubscription: Subscription = null;
-  private categoryCErrorSubscription: Subscription = null;
   private categorySubAErrorSubscription: Subscription = null;
+  private hostSubscription: Subscription = null;
   private categories = [];
 
   public errorText: string = null;
@@ -48,19 +44,12 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
   @select(s => s.categoryMainA.categoryMainAs) categoryMainAs;
   @select(s => s.categoryMainA.spinner) categoryMainAsSpinner;
 
-  @select(s => s.categoryMainB.error) categoryMainBStoreError;
-  @select(s => s.categoryMainB.categoryMainBs) categoryMainBs;
-  @select(s => s.categoryMainB.spinner) categoryMainBsSpinner;
-
-  @select(s => s.categoryMainC.error) categoryMainCStoreError;
-  @select(s => s.categoryMainC.categoryMainCs) categoryMainCs;
-  @select(s => s.categoryMainC.spinner) categoryMainCsSpinner;
-
   @select(s => s.categorySubA.error) categorySubAStoreError;
   @select(s => s.categorySubA.categorySubAs) categorySubAs;
   @select(s => s.categorySubA.spinner) categorySubAsSpinner;
 
   @select(s => s.reportType.reportTypes) reportTypes;
+  @select(s => s.host.selectedHost) selectedHost;
   @select(s => s.table.page) page;
 
   public mainDataNames = [
@@ -96,20 +85,6 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
           _reportType: [null, Validators.required],
       });
 
-      this.categoryBForm = this.formBuilder.group({
-          _id: [null, Validators.required],
-          name: [null, Validators.required],
-          description: [null, Validators.required],
-          _reportType: [null, Validators.required],
-      });
-
-      this.categoryCForm = this.formBuilder.group({
-          _id: [null, Validators.required],
-          name: [null, Validators.required],
-          description: [null, Validators.required],
-          _reportType: [null, Validators.required],
-      });
-
       this.categorySubAForm = this.formBuilder.group({
           _id: [null, Validators.required],
           name: [null, Validators.required],
@@ -127,54 +102,45 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
                             name: null,
                             description: null,
                             _reportType: report._id
-                      });
-                      this.categoryActionCreator.GetMainCategoryA(report._id);
-                      this.categoryService.GetMainCategory(report._id).subscribe(dataCategory => {
-                          if (dataCategory != null) {
-                              this.categories = [];
-                              dataCategory.forEach(category => {
-                                  var valueToPush = {};
-                                  valueToPush["value"] = category._id;
-                                  valueToPush["viewValue"] = category.name;                                  
-                                  this.categories.push(valueToPush);                            
-                              });
-                              this.mainCategoryAList = this.categories;
-                          }
-                      });                                                          
-                  }
-                  else if (report.code == 'B') {
-                      this.categoryBForm.setValue({
-                          _id: null,
-                          name: null,
-                          description: null, 
-                          _reportType: report._id
-                      });
-                      this.categoryActionCreator.GetMainCategoryB(report._id);
-                  }
-                  else if (report.code == 'C') {
-                      this.categoryCForm.setValue({
-                          _id: null,
-                          name: null,
-                          description: null,
-                          _reportType: report._id
-                      });
-                      this.categoryActionCreator.GetMainCategoryC(report._id);
-                  }
+                      });                                                                             
+                  }                 
               });
           }
       });
 
-      this.hostService.GetFreeHost().subscribe(val => {
-          this.hostId = val._id;
-      });   
+      this.routeParamsSubscription = this.actvatedRoute.params
+          .subscribe(params => {
+              this.hostId = params._hostId;  
+              this.categoryActionCreator.GetHostMainCategory(this.hostId);
+              this.categoryService.GetHostMainCategory(this.hostId).subscribe(dataCategory => {
+                  if (dataCategory != null) {
+                      this.categories = [];
+                      dataCategory.forEach(category => {
+                          var valueToPush = {};
+                          valueToPush["value"] = category._id;
+                          valueToPush["viewValue"] = category.name;
+                          this.categories.push(valueToPush);
+                      });
+                      this.mainCategoryAList = this.categories;
+                  }
+              });  
+                      
+          });  
+
+      this.hostSubscription = this.selectedHost
+          .subscribe(host => {
+              this.hostName = host.hostName;
+          });            
   }
 
   ngOnDestroy() {
       (this.routeParamsSubscription) ? this.routeParamsSubscription.unsubscribe() : null;
-      (this.categoryAErrorSubscription) ? this.categoryAErrorSubscription.unsubscribe() : null;
-      (this.categoryBErrorSubscription) ? this.categoryBErrorSubscription.unsubscribe() : null;
-      (this.categoryCErrorSubscription) ? this.categoryCErrorSubscription.unsubscribe() : null;
-      (this.categorySubAErrorSubscription) ? this.categorySubAErrorSubscription.unsubscribe() : null;  
+      (this.categoryAErrorSubscription) ? this.categoryAErrorSubscription.unsubscribe() : null;   
+      (this.categorySubAErrorSubscription) ? this.categorySubAErrorSubscription.unsubscribe() : null;            
+  }
+
+  onBack() {
+      this.router.navigate([`admin/host/${this.hostId}`]);
   }
 
   onAddMainCategory(type: string) {
@@ -195,33 +161,6 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
               this.isCategoryAHidden = false;
           else
               this.isCategoryAHidden = true;
-      }
-      else if (type == 'reportB') {
-          this.categoryBForm.setValue({
-              _id: null,
-              name: null,
-              description: null,
-              _reportType: this.categoryBForm.value._reportType
-          });
-
-          if (this.isCategoryBHidden)
-              this.isCategoryBHidden = false;
-          else
-              this.isCategoryBHidden = true;
-      }
-      else if (type == 'reportC') {
-          this.categoryCForm.setValue({
-              _id: null,
-              name: null,
-              description: null,
-              _reportType: this.categoryCForm.value._reportType
-          });
-
-          if (this.isCategoryCHidden)
-              this.isCategoryCHidden = false;
-          else 
-              this.isCategoryCHidden = true;
-         
       }
   }
 
@@ -260,9 +199,8 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
                       this.errorText = error;
                   } else {
                       this.successText = 'The Main category has been saved.';
-                      this.categoryActionCreator.GetMainCategoryA(this.categoryAForm.value._reportType);
-
-                      this.categoryService.GetMainCategory(this.categoryAForm.value._reportType).subscribe(dataCategory => {
+                      this.categoryActionCreator.GetHostMainCategory(this.hostId);
+                      this.categoryService.GetHostMainCategory(this.hostId).subscribe(dataCategory => {
                           if (dataCategory != null) {
                               this.categories = [];
                               dataCategory.forEach(category => {
@@ -273,42 +211,11 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
                               });
                               this.mainCategoryAList = this.categories;
                           }
-                      }); 
+                      });
                   }
               }
           );
-      }
-      else if (type == 'reportB') {
-
-          this.categoryActionCreator.CreateMainCategoryB(this.hostId, this.categoryBForm.value)
-          this.categoryBErrorSubscription = this.categoryMainBStoreError.subscribe(
-              error => {
-                  if (error) {
-                      console.log(error);
-                      this.errorText = error;
-                  } else {
-                      this.successText = 'The Main category has been saved.';
-                      this.categoryActionCreator.GetMainCategoryB(this.categoryBForm.value._reportType);
-                  }
-              }
-          );
-
-      }
-      else if (type == 'reportC') {
-
-          this.categoryActionCreator.CreateMainCategoryC(this.hostId, this.categoryCForm.value)
-          this.categoryCErrorSubscription = this.categoryMainCStoreError.subscribe(
-              error => {
-                  if (error) {
-                      console.log(error);
-                      this.errorText = error;
-                  } else {
-                      this.successText = 'The Main category has been saved.';
-                      this.categoryActionCreator.GetMainCategoryC(this.categoryCForm.value._reportType);
-                  }
-              }
-          );
-      }
+      }    
   }
 
   onSaveSubCategory(type: string) {
@@ -325,7 +232,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
                       this.errorText = error;
                   } else {
                       this.successText = 'The Sub category has been saved.';
-                      this.categoryActionCreator.GetSubCategory(this.selectedMainCategoryA);
+                      this.categoryActionCreator.GetSubCategory(this.selectedMainCategoryA);                    
                   }
               }
           );
@@ -357,9 +264,8 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
               );
           }
           }).then(() => {
-
-              this.categoryActionCreator.GetMainCategoryA(this.categoryAForm.value._reportType);
-              this.categoryService.GetMainCategory(this.categoryAForm.value._reportType).subscribe(dataCategory => {
+              this.categoryActionCreator.GetHostMainCategory(this.hostId);
+              this.categoryService.GetHostMainCategory(this.hostId).subscribe(dataCategory => {
                   if (dataCategory != null) {
                       this.categories = [];
                       dataCategory.forEach(category => {
@@ -372,53 +278,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
                   }
               });
 
-              this.isCategoryASubTableHidden = true;               
-      });
-  }
-
-  onDeleteCategoryBClick(event) {
-      swal({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes'
-      }).then((result) => {
-          if (result) {
-              this.categoryActionCreator.DeleteMainCategoryB(event._id);
-              swal(
-                  'Deleted!',
-                  `${event.name} has been deleted.`,
-                  'success'
-              );
-          }
-          }).then(() => {
-          this.categoryActionCreator.GetMainCategoryB(this.categoryBForm.value._reportType);
-      });
-  }
-
-  onDeleteCategoryCClick(event) {
-      swal({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes'
-      }).then((result) => {
-          if (result) {
-              this.categoryActionCreator.DeleteMainCategoryC(event._id);
-              swal(
-                  'Deleted!',
-                  `${event.name} has been deleted.`,
-                  'success'
-              );
-          }
-      }).then(() => {
-          this.categoryActionCreator.GetMainCategoryC(this.categoryCForm.value._reportType);
+              this.isCategoryASubTableHidden = true;            
       });
   }
 

@@ -11,9 +11,11 @@ import { HostReporterListComponent } from './host-reporter-list/host-reporter-li
 import { HostDesignComponent } from './host-design/host-design.component';
 import { HostDesignDetailComponent } from './host-design-detail/host-design-detail.component';
 import { HostDesignAddComponent } from './host-design-add/host-design-add.component';
+import { HostCategoryComponent } from './host-category/host-category.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { DirectiveModule } from '../directives';
 import { SpinnerComponent } from '../directives';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -23,7 +25,8 @@ import { SpinnerComponent } from '../directives';
     RouterModule,
     ComponentModule,
     ColorPickerModule,
-    DirectiveModule
+    DirectiveModule,
+    MatSelectModule
   ],
   declarations: [
     HostListComponent,
@@ -33,7 +36,8 @@ import { SpinnerComponent } from '../directives';
     HostReporterListComponent,
     HostDesignComponent,    
     HostDesignDetailComponent,
-    HostDesignAddComponent
+    HostDesignAddComponent,
+    HostCategoryComponent
   ],
   exports: [
     HostListComponent,
@@ -43,7 +47,8 @@ import { SpinnerComponent } from '../directives';
     HostReporterListComponent,
     HostDesignComponent,
     HostDesignDetailComponent,
-    HostDesignAddComponent
+    HostDesignAddComponent,
+    HostCategoryComponent
   ],
   entryComponents: [
     SpinnerComponent
