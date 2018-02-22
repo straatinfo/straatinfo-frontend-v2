@@ -251,6 +251,24 @@ export class CategoryActionCreator implements OnDestroy {
           );
   }
 
+  DeleteSubCategoryA(_id: string) {
+      this.ngRedux.dispatch({ type: CATEGORYSUB_A_DELETE_ATTEMPT });
+      this.updateCategorySubscription = this.categoryService.DeleteSubCategory(_id)
+          .subscribe(
+          data => {
+              this.ngRedux.dispatch({ type: CATEGORYSUB_A_DELETE_FULFILLED, payload: _id });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
+  }
+
   CreateMainCategoryA(_id: string, category: IMainViewCategory) {
       this.ngRedux.dispatch({ type: CATEGORYMAIN_A_UPDATE_ATTEMPT });
       this.updateCategorySubscription = this.categoryService.CreateMainCategory(_id, category)

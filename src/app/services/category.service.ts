@@ -72,6 +72,16 @@ export class CategoryService {
           .share()
   }
 
+  DeleteSubCategory(_id: string): Observable<any> {
+      const headers = new Headers({ 'Content-Type': 'application/json' });
+      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+      const options = new RequestOptions({ headers: headers });
+      return this.http.delete(`${this.categoryUrl}/subCategory/${_id}`, options)
+          .map(response => response.json())
+          .map(data => this.GetData(data))
+          .share()
+  }
+
   CreateMainCategory(_id: string, category: IMainViewCategory): Observable<IMainViewCategory> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
@@ -93,7 +103,6 @@ export class CategoryService {
   }
 
   GetData(data) {
-  console.log(data.data)
       return data.data;
   }
 }
