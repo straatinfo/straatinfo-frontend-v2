@@ -161,7 +161,7 @@ export class ReporterActionCreator implements OnDestroy {
             email: data.email,
             phoneNumber: data['_host.phoneNumber'],
             status1: data.status1,
-            status2: data.status2,
+            status2: data['activeTeam.teamLeader._id'] == null ? 'Team Member' : 'Team Leader',
             dateRegistrationReporter: data.dateRegistrationReporter,
             dateCreationTeam: data.dateCreationTeam,
             hostName: data['_host.hostName'],
