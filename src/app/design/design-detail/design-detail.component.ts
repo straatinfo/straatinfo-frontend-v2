@@ -28,25 +28,39 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
   public isCategoryBHidden = true;
   public isCategoryCHidden = true;
   public isCategoryASubHidden = true;
+  public isCategoryASubTableHidden = true;
 
   public mainCategoryAList = [];
   public selectedMainCategoryA: string;
 
   private hostId: string;
   private routeParamsSubscription: Subscription = null;
+  private categoryAErrorSubscription: Subscription = null;
+  private categoryBErrorSubscription: Subscription = null;
+  private categoryCErrorSubscription: Subscription = null;
+  private categorySubAErrorSubscription: Subscription = null;
   private categories = [];
 
+  public errorText: string = null;
+  public successText: string = null;  
+
+  @select(s => s.categoryMainA.error) categoryMainAStoreError;
   @select(s => s.categoryMainA.categoryMainAs) categoryMainAs;
   @select(s => s.categoryMainA.spinner) categoryMainAsSpinner;
 
+  @select(s => s.categoryMainB.error) categoryMainBStoreError;
   @select(s => s.categoryMainB.categoryMainBs) categoryMainBs;
   @select(s => s.categoryMainB.spinner) categoryMainBsSpinner;
 
+  @select(s => s.categoryMainC.error) categoryMainCStoreError;
   @select(s => s.categoryMainC.categoryMainCs) categoryMainCs;
   @select(s => s.categoryMainC.spinner) categoryMainCsSpinner;
 
-  @select(s => s.reportType.reportTypes) reportTypes;
+  @select(s => s.categorySubA.error) categorySubAStoreError;
+  @select(s => s.categorySubA.categorySubAs) categorySubAs;
+  @select(s => s.categorySubA.spinner) categorySubAsSpinner;
 
+  @select(s => s.reportType.reportTypes) reportTypes;
   @select(s => s.table.page) page;
 
   public mainDataNames = [
@@ -57,7 +71,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
   ];
 
   public mainSubDataNames = [
-      'name', 'sub'
+      'mainCategoryName', 'name'
   ];
   public mainSubDataAliases = [
       'Main', 'Sub'
@@ -156,10 +170,18 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    (this.routeParamsSubscription) ? this.routeParamsSubscription.unsubscribe() : null;
+      (this.routeParamsSubscription) ? this.routeParamsSubscription.unsubscribe() : null;
+      (this.categoryAErrorSubscription) ? this.categoryAErrorSubscription.unsubscribe() : null;
+      (this.categoryBErrorSubscription) ? this.categoryBErrorSubscription.unsubscribe() : null;
+      (this.categoryCErrorSubscription) ? this.categoryCErrorSubscription.unsubscribe() : null;
+      (this.categorySubAErrorSubscription) ? this.categorySubAErrorSubscription.unsubscribe() : null;  
   }
 
   onAddMainCategory(type: string) {
+
+      this.errorText = null;
+      this.successText = null;
+
       if (type == 'reportA') {
           this.categoryAForm.setValue({
               _id: null,
@@ -204,6 +226,10 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
   }
 
   onAddSubCategory(type: string) {
+
+      this.errorText = null;
+      this.successText = null;
+
       if (type == 'reportA') {
           this.categorySubAForm.setValue({
               _id: null,
@@ -221,44 +247,95 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
 
   onSaveMainCategory(type: string) {
 
-      if (type == 'reportA') {
-          this.categoryService.CreateMainCategory(this.hostId, this.categoryAForm.value).subscribe(val => {
+      this.errorText = null;
+      this.successText = null;
 
-              this.categoryActionCreator.GetMainCategoryA(this.categoryAForm.value._reportType);
-              this.categoryService.GetMainCategory(this.categoryAForm.value._reportType).subscribe(dataCategory => {
-                  if (dataCategory != null) {
-                      this.categories = [];
-                      dataCategory.forEach(category => {
-                          var valueToPush = {};
-                          valueToPush["value"] = category._id;
-                          valueToPush["viewValue"] = category.name;
-                          this.categories.push(valueToPush);
-                      });
-                      this.mainCategoryAList = this.categories;
+      if (type == 'reportA') {
+
+          this.categoryActionCreator.CreateMainCategoryA(this.hostId, this.categoryAForm.value)
+          this.categoryAErrorSubscription = this.categoryMainAStoreError.subscribe(
+              error => {
+                  if (error) {
+                      console.log(error);
+                      this.errorText = error;
+                  } else {
+                      this.successText = 'The Main category has been saved.';
+                      this.categoryActionCreator.GetMainCategoryA(this.categoryAForm.value._reportType);
+
+                      this.categoryService.GetMainCategory(this.categoryAForm.value._reportType).subscribe(dataCategory => {
+                          if (dataCategory != null) {
+                              this.categories = [];
+                              dataCategory.forEach(category => {
+                                  var valueToPush = {};
+                                  valueToPush["value"] = category._id;
+                                  valueToPush["viewValue"] = category.name;
+                                  this.categories.push(valueToPush);
+                              });
+                              this.mainCategoryAList = this.categories;
+                          }
+                      }); 
                   }
-              }); 
-          });
+              }
+          );
       }
       else if (type == 'reportB') {
 
-          this.categoryService.CreateMainCategory(this.hostId, this.categoryBForm.value).subscribe(val => {
-              this.categoryActionCreator.GetMainCategoryB(this.categoryBForm.value._reportType);              
-          });
+          this.categoryActionCreator.CreateMainCategoryB(this.hostId, this.categoryBForm.value)
+          this.categoryBErrorSubscription = this.categoryMainBStoreError.subscribe(
+              error => {
+                  if (error) {
+                      console.log(error);
+                      this.errorText = error;
+                  } else {
+                      this.successText = 'The Main category has been saved.';
+                      this.categoryActionCreator.GetMainCategoryB(this.categoryBForm.value._reportType);
+                  }
+              }
+          );
 
       }
       else if (type == 'reportC') {
 
-          this.categoryService.CreateMainCategory(this.hostId, this.categoryCForm.value).subscribe(val => {
-              this.categoryActionCreator.GetMainCategoryC(this.categoryCForm.value._reportType);
-          });
-
+          this.categoryActionCreator.CreateMainCategoryC(this.hostId, this.categoryCForm.value)
+          this.categoryCErrorSubscription = this.categoryMainCStoreError.subscribe(
+              error => {
+                  if (error) {
+                      console.log(error);
+                      this.errorText = error;
+                  } else {
+                      this.successText = 'The Main category has been saved.';
+                      this.categoryActionCreator.GetMainCategoryC(this.categoryCForm.value._reportType);
+                  }
+              }
+          );
       }
   }
 
   onSaveSubCategory(type: string) {
+
+      this.errorText = null;
+      this.successText = null;
+
       if (type == 'reportA') {
           this.categoryActionCreator.CreateSubCategoryA(this.selectedMainCategoryA, this.categorySubAForm.value);
+          this.categorySubAErrorSubscription = this.categorySubAStoreError.subscribe(
+              error => {
+                  if (error) {
+                      console.log(error);
+                      this.errorText = error;
+                  } else {
+                      this.successText = 'The Sub category has been saved.';
+                      this.categoryActionCreator.GetSubCategory(this.selectedMainCategoryA);
+                  }
+              }
+          );
       }
+  }
+
+  onMoreCategoryAClick(event) {
+      this.selectedMainCategoryA = event._id;
+      this.categoryActionCreator.GetSubCategory(event._id);
+      this.isCategoryASubTableHidden = false;
   }
 
   onDeleteCategoryAClick(event) {
@@ -280,7 +357,22 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
               );
           }
           }).then(() => {
+
               this.categoryActionCreator.GetMainCategoryA(this.categoryAForm.value._reportType);
+              this.categoryService.GetMainCategory(this.categoryAForm.value._reportType).subscribe(dataCategory => {
+                  if (dataCategory != null) {
+                      this.categories = [];
+                      dataCategory.forEach(category => {
+                          var valueToPush = {};
+                          valueToPush["value"] = category._id;
+                          valueToPush["viewValue"] = category.name;
+                          this.categories.push(valueToPush);
+                      });
+                      this.mainCategoryAList = this.categories;
+                  }
+              });
+
+              this.isCategoryASubTableHidden = true;               
       });
   }
 
@@ -327,6 +419,29 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
           }
       }).then(() => {
           this.categoryActionCreator.GetMainCategoryC(this.categoryCForm.value._reportType);
+      });
+  }
+
+  onDeleteSubCategoryAClick(event) {
+      swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+      }).then((result) => {
+          if (result) {
+              this.categoryActionCreator.DeleteSubCategoryA(event._id);
+              swal(
+                  'Deleted!',
+                  `${event.name} has been deleted.`,
+                  'success'
+              );
+          }
+      }).then(() => {
+          this.categoryActionCreator.GetSubCategory(this.selectedMainCategoryA);
       });
   }
 }

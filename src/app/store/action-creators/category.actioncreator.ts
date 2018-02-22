@@ -121,12 +121,12 @@ export class CategoryActionCreator implements OnDestroy {
           );
   }
 
-  GetHostSubCategory(mainCategoryId: string) {
+  GetSubCategory(mainCategoryId: string) {
       this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_ATTEMPT });
       this.getCategorySubscription = this.categoryService.GetSubCategory(mainCategoryId)
-          .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+          .map((data: any[]) => { return data.map(d => this.ToSubCategoryView(d)); })
           .subscribe(
-          (category: IMainViewCategory[]) => {
+          (category: ISubViewCategory[]) => {
               this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_FULFILLED, payload: category });
           }, err => {
               this.errorMessage = err._body;
@@ -363,6 +363,7 @@ export class CategoryActionCreator implements OnDestroy {
           _id: data._id,
           name: data.name,
           description: data.description,
+          mainCategoryName: data._mainCategory.name        
       };
   }
 }

@@ -3,4 +3,5 @@ export interface ISubViewCategory {
   name?: string;
   description?: string;
   _mainCategoryId?: string;
+  mainCategoryName?: string;
 }

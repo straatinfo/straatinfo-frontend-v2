@@ -29,7 +29,6 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   public mainCategoryAList = [];
   public selectedMainCategoryA: string;
 
-
   public hostName: string;
   private hostId: string;
   private routeParamsSubscription: Subscription = null;
@@ -61,10 +60,10 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   ];
 
   public mainSubDataNames = [
-      'name'
+      'mainCategoryName', 'name'
   ];
   public mainSubDataAliases = [
-      'Sub'
+      'Main', 'Sub'
   ];
 
   constructor(
@@ -145,6 +144,10 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   }
 
   onAddMainCategory(type: string) {
+
+      this.errorText = null;
+      this.successText = null;
+
       if (type == 'reportA') {
           this.categoryAForm.setValue({
               _id: null,
@@ -159,12 +162,13 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
           else
               this.isCategoryAHidden = true;
       }
-
-      this.errorText = null;
-      this.successText = null;
   }
 
   onAddSubCategory(type: string) {
+
+      this.errorText = null;
+      this.successText = null;
+
       if (type == 'reportA') {
           this.categorySubAForm.setValue({
               _id: null,
@@ -178,17 +182,15 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
           else
               this.isCategoryASubHidden = true;
       }
-
-      this.errorText = null;
-      this.successText = null;
   }
 
   onSaveMainCategory(type: string) {
 
+      this.errorText = null;
+      this.successText = null;
+
       if (type == 'reportA') {
 
-          this.errorText = null;
-          this.successText = null;
           this.categoryActionCreator.CreateMainCategoryA(this.hostId, this.categoryAForm.value)
           this.categoryAErrorSubscription = this.categoryMainAStoreError.subscribe(
               error => {
@@ -217,29 +219,29 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   }
 
   onSaveSubCategory(type: string) {
+
+      this.errorText = null;
+      this.successText = null;
+
       if (type == 'reportA') {
-          this.errorText = null;
-          this.successText = null;
           this.categoryActionCreator.CreateSubCategoryA(this.selectedMainCategoryA, this.categorySubAForm.value);
-          this.categoryAErrorSubscription = this.categoryMainAStoreError.subscribe(
+          this.categorySubAErrorSubscription = this.categorySubAStoreError.subscribe(
               error => {
                   if (error) {
                       console.log(error);
                       this.errorText = error;
                   } else {
                       this.successText = 'The Sub category has been saved.';
-                      this.categoryActionCreator.GetHostSubCategory(this.selectedMainCategoryA);                    
+                      this.categoryActionCreator.GetSubCategory(this.selectedMainCategoryA);                    
                   }
               }
           );
-
-
       }
   }
 
   onMoreCategoryAClick(event) {
       this.selectedMainCategoryA = event._id;
-      this.categoryActionCreator.GetHostSubCategory(event._id);
+      this.categoryActionCreator.GetSubCategory(event._id);
       this.isCategoryASubTableHidden = false;
   }
 
@@ -299,7 +301,7 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
               );
           }
       }).then(() => {
-          this.categoryActionCreator.GetHostSubCategory(this.selectedMainCategoryA);
+          this.categoryActionCreator.GetSubCategory(this.selectedMainCategoryA);
       });
   }
 }
