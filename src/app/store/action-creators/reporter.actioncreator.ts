@@ -161,9 +161,9 @@ export class ReporterActionCreator implements OnDestroy {
             email: data.email,
             phoneNumber: data['_host.phoneNumber'],
             status1: data.status1,
-            status2: data.status2,
-            dateRegistrationReporter: data.dateRegistrationReporter,
-            dateCreationTeam: data.dateCreationTeam,
+            status2: data['activeTeam.teamLeader._id'] == null ? 'Team Member' : 'Team Leader',
+            dateRegistrationReporter: data['activeTeam.teamLeader.createdAt'] == null ? this.formatDate(data['activeTeam.teamMember.createdAt']) : this.formatDate(data['activeTeam.teamLeader.createdAt']),
+            dateCreationTeam: this.formatDate(data['activeTeam.createdAt']) ,
             hostName: data['_host.hostName'],
             activeTeamName: data['activeTeam.teamName'],
             activeTeamEmail: data['activeTeam.teamEmail'],
@@ -172,6 +172,26 @@ export class ReporterActionCreator implements OnDestroy {
             updatedAt: data.updatedAt
         };
         return reporter;
+    }
+
+    private formatDate(data: Date): string {
+
+        const date = new Date(data);
+        const year = date.getFullYear().toString();
+        const month = this.padLeft((date.getMonth() + 1).toString(), '0', 2);
+        const day = this.padLeft(date.getDate().toString(), '0', 2);
+        const hour = this.padLeft(date.getHours().toString(), '0', 2);
+        const minutes = this.padLeft(date.getMinutes().toString(), '0', 2);
+        const formattedDate = year + "/" + month + "/" + day + " " + hour + ":" + minutes;
+
+        if (data == null)
+            return "";
+
+        return formattedDate;
+    }
+
+    private padLeft(text: string, padChar: string, size: number): string {
+        return (String(padChar).repeat(size) + text).substr((size * -1), size);
     }
 }
  

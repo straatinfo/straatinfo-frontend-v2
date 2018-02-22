@@ -7,7 +7,8 @@ import { HostListComponent,
         HostReporterListComponent,
         HostDesignComponent,
         HostDesignAddComponent,
-        HostDesignDetailComponent} from '../../host';
+        HostDesignDetailComponent,
+        HostCategoryComponent} from '../../host';
 import { ReportListComponent, ReportDetailComponent  } from '../../report';
 import { ReporterListComponent, ReporterDetailComponent  } from '../../reporter';
 import { DesignDetailComponent  } from '../../design';
@@ -55,6 +56,10 @@ export const AdminRoutes: Routes = [
       {
           path: 'host/reporter/:_hostId',
           component: HostReporterListComponent,
+      },
+      {
+          path: 'host/category/:_hostId',
+          component: HostCategoryComponent,
       },
       {
         path: 'report',

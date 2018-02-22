@@ -102,6 +102,44 @@ export class CategoryActionCreator implements OnDestroy {
       (this.updateCategorySubscription) ? this.updateCategorySubscription.unsubscribe() : null;
   }
 
+  GetHostMainCategory(hostId: string) {
+      this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_ATTEMPT });
+      this.getCategorySubscription = this.categoryService.GetHostMainCategory(hostId)
+          .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+          .subscribe(
+          (category: IMainViewCategory[]) => {
+              this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_FULFILLED, payload: category });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
+  }
+
+  GetSubCategory(mainCategoryId: string) {
+      this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_ATTEMPT });
+      this.getCategorySubscription = this.categoryService.GetSubCategory(mainCategoryId)
+          .map((data: any[]) => { return data.map(d => this.ToSubCategoryView(d)); })
+          .subscribe(
+          (category: ISubViewCategory[]) => {
+              this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_FULFILLED, payload: category });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
+  }
+
   GetMainCategoryA(reportTypeId: string) {
       this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_ATTEMPT });
       this.getCategorySubscription = this.categoryService.GetMainCategory(reportTypeId)
@@ -213,6 +251,24 @@ export class CategoryActionCreator implements OnDestroy {
           );
   }
 
+  DeleteSubCategoryA(_id: string) {
+      this.ngRedux.dispatch({ type: CATEGORYSUB_A_DELETE_ATTEMPT });
+      this.updateCategorySubscription = this.categoryService.DeleteSubCategory(_id)
+          .subscribe(
+          data => {
+              this.ngRedux.dispatch({ type: CATEGORYSUB_A_DELETE_FULFILLED, payload: _id });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
+  }
+
   CreateMainCategoryA(_id: string, category: IMainViewCategory) {
       this.ngRedux.dispatch({ type: CATEGORYMAIN_A_UPDATE_ATTEMPT });
       this.updateCategorySubscription = this.categoryService.CreateMainCategory(_id, category)
@@ -307,6 +363,7 @@ export class CategoryActionCreator implements OnDestroy {
           _id: data._id,
           name: data.name,
           description: data.description,
+          mainCategoryName: data._mainCategory.name        
       };
   }
 }
