@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject, DoCheck } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject, DoCheck, OnDestroy } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
 import * as _ from 'lodash';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { TableActionCreator } from '../../../store/action-creators';
+import { Subscription } from 'rxjs/Subscription';
 
 declare interface DataTable {
   headerRow: string[];
@@ -17,7 +18,7 @@ declare interface DataTable {
   templateUrl: './table-basic.component.html',
   styleUrls: ['./table-basic.component.scss']
 })
-export class TableBasicComponent implements OnInit {
+export class TableBasicComponent implements OnInit, OnDestroy {
 
   @Input() tableTitle:string;
   @Input() actionDelete: boolean;
@@ -41,13 +42,15 @@ export class TableBasicComponent implements OnInit {
   public sortBy: string;
   public sortName: string;
 
+  private tableDataSubscription: Subscription = null;
+
   constructor (
     private formBuilder: FormBuilder,
     private tableActionCreator: TableActionCreator
   ) {}
 
   ngOnInit () {
-    this.tableDataArray
+    this.tableDataSubscription = this.tableDataArray
     .map(data => this.sorter(data, this.sortName, this.sortBy))
     .map(data => this.chunker(data, this.itemPerPage, this.currentPage))
     .subscribe(
@@ -55,6 +58,22 @@ export class TableBasicComponent implements OnInit {
         this.newTableDataArray = data
       }
     );
+  }
+
+  ngDoCheck () {
+    this.tableDataSubscription = this.tableDataArray
+    .map(data => this.sorter(data, this.sortName, this.sortBy))
+    .map(data => this.chunker(data, this.itemPerPage, this.currentPage))
+    .subscribe(
+      data => {
+        this.newTableDataArray = data
+      }
+    )
+  }
+
+  ngOnDestroy () {
+    (this.tableDataSubscription) ? this.tableDataSubscription.unsubscribe() : null;
+    this.tableActionCreator.ResetPage();
   }
 
   chunker(data, itemPerPage, currentPage) {
@@ -66,17 +85,6 @@ export class TableBasicComponent implements OnInit {
     } else {
       return data;
     }
-  }
-
-  ngDoCheck () {
-    this.tableDataArray
-    .map(data => this.sorter(data, this.sortName, this.sortBy))
-    .map(data => this.chunker(data, this.itemPerPage, this.currentPage))
-    .subscribe(
-      data => {
-        this.newTableDataArray = data
-      }
-    )
   }
 
   actionsEnabled (): boolean {
@@ -132,7 +140,6 @@ export class TableBasicComponent implements OnInit {
   }
 
   sorter (data, sortName, sortBy) {
-    console.log(sortName, sortBy);
     const sortedData = _.orderBy(data, sortName, sortBy);
     return sortedData;
   }
