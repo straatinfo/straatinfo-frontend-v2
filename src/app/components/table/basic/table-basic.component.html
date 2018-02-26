@@ -10,7 +10,7 @@
     <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
       <thead *ngIf="tableHeaderAlias && tableHeaderAlias.length > 0">
         <tr>
-          <th *ngFor="let th of tableHeaderAlias">{{ th }}</th>
+          <th *ngFor="let th of tableHeaderAlias; let i = index"><span class="sort"><i (click)="sortAscending(tableHeaderName[i])" class="material-icons">arrow_drop_up</i><i (click)="sortDescending(tableHeaderName[i])" class="material-icons">arrow_drop_down</i></span>{{ th }}</th>
           <th *ngIf="actionsEnabled()" class="disabled-sorting text-right">
             Actions
           </th>
