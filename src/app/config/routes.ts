@@ -53,6 +53,12 @@ const ADMIN: RouteInfo[] = [
       type: 'link',
       icontype: 'settings'
   },
+  {
+    path: '/auth/login',
+    title: 'Logout',
+    type: 'link',
+    icontype: 'exit_to_app'
+  }
 ];
 
 const HOST: RouteInfo[] = [
@@ -67,6 +73,12 @@ const HOST: RouteInfo[] = [
     title: 'Reports',
     type: 'link',
     icontype: 'update'
+  },
+  {
+    path: '/auth/login',
+    title: 'Logout',
+    type: 'link',
+    icontype: 'exit_to_app'
   }
 ]
 

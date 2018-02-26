@@ -38,6 +38,8 @@ export class TableBasicComponent implements OnInit {
   // private itemPerPage:number = 5; // item per page
   public pagesToShow:number; // pages button between first and last
   public totalItem:number; // total number of item
+  public sortBy: string;
+  public sortName: string;
 
   constructor (
     private formBuilder: FormBuilder,
@@ -46,6 +48,7 @@ export class TableBasicComponent implements OnInit {
 
   ngOnInit () {
     this.tableDataArray
+    .map(data => this.sorter(data, this.sortName, this.sortBy))
     .map(data => this.chunker(data, this.itemPerPage, this.currentPage))
     .subscribe(
       data => {
@@ -67,6 +70,7 @@ export class TableBasicComponent implements OnInit {
 
   ngDoCheck () {
     this.tableDataArray
+    .map(data => this.sorter(data, this.sortName, this.sortBy))
     .map(data => this.chunker(data, this.itemPerPage, this.currentPage))
     .subscribe(
       data => {
@@ -115,6 +119,22 @@ export class TableBasicComponent implements OnInit {
 
   onMoreClick (data) {
     this.clickMore.emit(data);
+  }
+
+  sortAscending (headerName) {
+    this.sortBy = 'asc';
+    this.sortName = headerName;
+  }
+
+  sortDescending (headerName) {
+    this.sortBy = 'desc';
+    this.sortName = headerName;
+  }
+
+  sorter (data, sortName, sortBy) {
+    console.log(sortName, sortBy);
+    const sortedData = _.orderBy(data, sortName, sortBy);
+    return sortedData;
   }
 
 }
