@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select } from '@angular-redux/store';
-import { HostActionCreator } from '../../store/action-creators';
+import { HostActionCreator, TableActionCreator } from '../../store/action-creators';
+import { ISession } from '../../interface/session/session.interface';
+import { IUser } from '../../interface/user/user.interface';
 
 @Component({
   selector: 'app-host-list',
@@ -23,11 +25,13 @@ export class HostListComponent implements OnInit {
 
   constructor(
     private hostActionCreator: HostActionCreator,
-    private router: Router
+    private router: Router,
+    private tableActionCreator: TableActionCreator
   ) { }
 
   ngOnInit() {
-      this.hostActionCreator.GetHosts();
+    this.hostActionCreator.GetHosts();
+    this.tableActionCreator.ResetPage();
   }
 
   onMoreClick(event) {

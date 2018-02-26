@@ -1,0 +1,13 @@
+.sort {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.sort i {
+  margin-bottom: -15px;
+}
+
+.sort i:hover {
+  cursor: default;
+  color: gray;
+}
