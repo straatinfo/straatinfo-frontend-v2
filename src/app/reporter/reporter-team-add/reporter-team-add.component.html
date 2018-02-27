@@ -1,0 +1,70 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="material-icons">queue</i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">Team page of [{{reporterName}}]</h4>
+
+                            <form [formGroup]="addTeamForm">
+                                <div *ngIf="errorText" class="alert alert-danger" role="alert">
+                                    <strong>Error!</strong> {{errorText}}
+                                </div>
+                                <div *ngIf="successText" class="alert alert-success" role="alert">
+                                    <strong>Success!</strong> {{successText}}
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">info_outline</i>
+                                        </span>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Team Name</label>
+                                            <input formControlName="teamName" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">email</i>
+                                        </span>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Team Email</label>
+                                            <input formControlName="teamEmail" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">info_outline</i>
+                                        </span>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input formControlName="isVolunteer" type="checkbox" name="optionsIsVolunteer"> Is Volunteer?
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="row">
+                                        <button (click)="onBack()" type="button" class="btn btn-default btn-block">Back</button>
+                                        <button (click)="onSubmit()" class="btn btn-success btn-block">Submit</button>
+                                        <button (click)="onReset()" class="btn btn-warning btn-block">Reset</button>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                        <!-- end content-->
+                    </div>
+                    <!--  end card  -->
+                </div>
+                <!-- end col-md-12 -->
+            </div>
+        </div>
+    </div>
+</div>

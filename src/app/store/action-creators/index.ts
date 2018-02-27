@@ -6,6 +6,7 @@ import { ReportActionCreator } from './report.actioncreator';
 import { ReporterActionCreator } from './reporter.actioncreator';
 import { ReportTypeActionCreator } from './reportType.actioncreator';
 import { CategoryActionCreator } from './category.actioncreator';
+import { TeamActionCreator } from './team.actioncreator';
 
 import { MiscActionCreator } from './misc.actioncreator';
 
@@ -18,5 +19,6 @@ export {
   ReporterActionCreator,
   ReportTypeActionCreator,
   CategoryActionCreator,
+  TeamActionCreator,
   MiscActionCreator
 };
