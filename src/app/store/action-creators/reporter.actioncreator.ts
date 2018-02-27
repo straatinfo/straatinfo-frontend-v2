@@ -165,6 +165,7 @@ export class ReporterActionCreator implements OnDestroy {
             dateRegistrationReporter: data['activeTeam.teamLeader.createdAt'] == null ? this.formatDate(data['activeTeam.teamMember.createdAt']) : this.formatDate(data['activeTeam.teamLeader.createdAt']),
             dateCreationTeam: this.formatDate(data['activeTeam.createdAt']) ,
             hostName: data['_host.hostName'],
+            activeTeamId: data['activeTeam._id'],
             activeTeamName: data['activeTeam.teamName'],
             activeTeamEmail: data['activeTeam.teamEmail'],
             chatName: data.username,
