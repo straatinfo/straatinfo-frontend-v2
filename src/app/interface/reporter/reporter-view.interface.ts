@@ -18,6 +18,7 @@ export interface IReporterView {
     activeTeamName?: string;
     activeTeamEmail?: string;
     chatName?: string;
+    hostId?: string;
     createdAt?: Date;
     updatedAt?: Date;
 }

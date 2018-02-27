@@ -21,8 +21,7 @@ import {
 } from '../actions/team.action';
 import { Subscription } from 'rxjs/Subscription';
 import { TeamService } from '../../services';
-import { ITeam } from '../../interface/team/team.interface';
-
+import { ITeamView } from '../../interface/team/team-view.interface';
 
 @Injectable()
 
@@ -30,7 +29,9 @@ export class TeamActionCreator implements OnDestroy {
 
   private errorMessage: string;
   private getLatestTeamSubscription: Subscription = null;
-
+  private getTeamSubscription: Subscription = null;
+  private createTeamSubscription: Subscription = null;
+  
   constructor (
     private ngRedux: NgRedux<IAppState>,
     private teamService: TeamService
@@ -38,14 +39,54 @@ export class TeamActionCreator implements OnDestroy {
 
   ngOnDestroy() {
       (this.getLatestTeamSubscription) ? this.getLatestTeamSubscription.unsubscribe() : null;
+      (this.getTeamSubscription) ? this.getTeamSubscription.unsubscribe() : null;
+      (this.createTeamSubscription) ? this.createTeamSubscription.unsubscribe() : null;      
+  } 
+
+  GetTeams() {
+      this.ngRedux.dispatch({ type: TEAM_GET_ATTEMPT });
+      this.getTeamSubscription = this.teamService.GetTeams()
+          .map((data: any[]) => { return data.map(d => this.ToTeamView(d)); })
+          .subscribe(
+          (team: ITeamView[]) => {
+              this.ngRedux.dispatch({ type: TEAM_GET_FULFILLED, payload: team });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: TEAM_GET_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
+  }
+
+  CreateTeam(_userId: string, team: ITeamView) {
+      this.ngRedux.dispatch({ type: TEAM_CREATE_ATTEMPT });
+      this.createTeamSubscription = this.teamService.CreateTeam(_userId, team)
+          .map(data => this.ToTeamView(data))
+          .subscribe(
+          (team: ITeamView) => {
+              this.ngRedux.dispatch({ type: TEAM_CREATE_FULFILLED, payload: team });
+          }, err => {
+              this.errorMessage = err._body;
+              if (this.errorMessage && typeof this.errorMessage === 'string') {
+                  this.ngRedux.dispatch({ type: TEAM_CREATE_FAILED, error: this.errorMessage });
+              }
+          },
+          () => {
+              this.errorMessage = null;
+          }
+          );
   }
 
   SetAsTeamLeader(_userId: string, _teamId: string) {
       this.ngRedux.dispatch({ type: TEAM_SELECT_ATTEMPT });
       this.getLatestTeamSubscription = this.teamService.SetAsTeamLeader(_userId, _teamId)
-          .map(data => this.TeamToView(data))
+          .map(data => this.ToTeamView(data))
           .subscribe(
-          (team: ITeam) => {
+          (team: ITeamView) => {
               this.ngRedux.dispatch({ type: TEAM_SELECT_FULFILLED, payload: team });
           }, err => {
               this.errorMessage = err._body;
@@ -57,14 +98,14 @@ export class TeamActionCreator implements OnDestroy {
               this.errorMessage = null;
           }
           );
-  }
+  } 
 
   SetAsTeamMember(_userId: string, _teamId: string) {
       this.ngRedux.dispatch({ type: TEAM_SELECT_ATTEMPT });
       this.getLatestTeamSubscription = this.teamService.SetAsTeamMember(_userId, _teamId)
-          .map(data => this.TeamToView(data))
+          .map(data => this.ToTeamView(data))
           .subscribe(
-          (team: ITeam) => {
+          (team: ITeamView) => {
               this.ngRedux.dispatch({ type: TEAM_SELECT_FULFILLED, payload: team });
           }, err => {
               this.errorMessage = err._body;
@@ -78,9 +119,17 @@ export class TeamActionCreator implements OnDestroy {
           );
   }
 
-  private TeamToView(data: any): ITeam {
+  SelectTeam(_id: string) {
+      this.ngRedux.dispatch({ type: TEAM_SELECT_FULFILLED, payload: _id });
+  }
+
+  private ToTeamView(data: any): ITeamView {
       return {
           _id: data._id,
+          teamName: data.teamName,
+          teamEmail: data.teamEmail,
+          isVolunteer: data.isVolunteer,
+          _host: data._host,
       };
   }
 }
