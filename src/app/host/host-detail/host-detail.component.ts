@@ -86,6 +86,10 @@ export class HostDetailComponent implements OnInit, OnDestroy {
       this.router.navigate([`admin/host/category/${this.hostDetailForm.value._id}`]);
   }
 
+  onBack() {
+      this.router.navigate([`admin/host`]);
+  }
+
   onUpdate() {
       this.errorText = null;
       this.successText = null;
