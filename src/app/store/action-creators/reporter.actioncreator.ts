@@ -125,6 +125,24 @@ export class ReporterActionCreator implements OnDestroy {
             );
     }
 
+    DeleteReporter(_id: string, reporter: IReporterView) {
+        this.ngRedux.dispatch({ type: REPORTER_DELETE_ATTEMPT });
+        this.deleteReporterSubscription = this.reporterService.DeleteReporter(_id)
+            .subscribe(
+            data => {
+                this.ngRedux.dispatch({ type: REPORTER_DELETE_FULFILLED, payload: reporter });
+            }, err => {
+                this.errorMessage = err._body;
+                if (this.errorMessage && typeof this.errorMessage === 'string') {
+                    this.ngRedux.dispatch({ type: REPORTER_GET_FAILED, error: this.errorMessage });
+                }
+            },
+            () => {
+                this.errorMessage = null;
+            }
+            );
+    }
+
     GetReporterById(_id: string) {
         this.ngRedux.dispatch({ type: REPORTER_SELECT_ATTEMPT });
         this.getReporterByIdSubscription = this.reporterService.GetReporterById(_id)

@@ -152,6 +152,33 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
         }
     }
 
+    onTeam() {
+    }
+
+    onDelete() {
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result) {
+                this.reporterActionCreator.DeleteReporter(this.reporterDetailForm.value._id, this.reporterDetailForm.value);
+                swal(
+                    'Deleted!',
+                    `${this.reporterDetailForm.value.fname} has been deleted.`,
+                    'success'
+                );
+            }
+        }).then(() => {
+            this.router.navigate(['admin/reporter']);
+        });
+
+    }
+
     onBack() {
         this.router.navigate([`admin/reporter`]);
     }
