@@ -36,7 +36,15 @@
                             <input formControlName="email" type="text" class="form-control">
                         </div>
                     </div>
-
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Design Type</label>
+                            <input formControlName="designType" type="text" class="form-control">
+                        </div>
+                    </div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">info_outline</i>
@@ -144,6 +152,7 @@
 
                 <div class="col-md-2">
                     <div class="row">
+                        <button (click)="onBack()" type="button" class="btn btn-default btn-block">Back</button>
                         <button (click)="onViewReport()" type="button" class="btn btn-info btn-block">View Reports</button>
                         <button (click)="onViewReporter()" type="button" class="btn btn-success btn-block">View Reporters</button>
                         <button (click)="onDesign()" type="button" class="btn btn-warning btn-block">Edit Design</button>

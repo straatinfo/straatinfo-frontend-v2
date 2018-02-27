@@ -44,6 +44,7 @@ export class HostDetailComponent implements OnInit, OnDestroy {
               _id: [host._id, Validators.required],
               hostName: [{ value: host.hostName, disabled: true }, Validators.required],
               email: [host.email, [Validators.required, Validators.email]],
+              designType: [{ value: host.designType, disabled: true }, Validators.required],
               streetName: [host.streetName, Validators.required],
               city: [host.city, Validators.required],
               state: [host.state, Validators.required],
@@ -83,6 +84,10 @@ export class HostDetailComponent implements OnInit, OnDestroy {
 
   onCategory() {
       this.router.navigate([`admin/host/category/${this.hostDetailForm.value._id}`]);
+  }
+
+  onBack() {
+      this.router.navigate([`admin/host`]);
   }
 
   onUpdate() {

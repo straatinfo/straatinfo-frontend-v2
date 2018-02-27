@@ -5,7 +5,7 @@ import { select } from '@angular-redux/store';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import swal from 'sweetalert2';
 
-import { ReporterActionCreator } from '../../store/action-creators';
+import { ReporterActionCreator, TeamActionCreator } from '../../store/action-creators';
 import { IReporter } from 'app/interface/reporter/reporter.interface';
 
 @Component({
@@ -18,18 +18,25 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
 
     public reporterDetailForm: FormGroup;
     private routeParamsSubscription: Subscription = null;
-    private reporterSubscription: Subscription = null;
+    private reporterSubscription: Subscription = null;    
     private reporterErrorSubscription: Subscription = null;
+    private teamSubscription: Subscription = null;
+    private teamErrorSubscription: Subscription = null;
     public errorText: string = null;
     public successText: string = null;
+
+    private teamId: string;
+
     @select(s => s.reporter.error) reporterStoreError;
+    @select(s => s.team.error) teamStoreError;
     @select(s => s.reporter.selectedReporter) selectedReporter;
 
     constructor(
         private actvatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
         private router: Router,
-        private reporterActionCreator: ReporterActionCreator
+        private reporterActionCreator: ReporterActionCreator,
+        private teamActionCreator: TeamActionCreator
     ) { }
 
     ngOnInit() {
@@ -40,6 +47,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                 this.reporterSubscription = this.selectedReporter
                     .subscribe(
                     report => {
+                        this.teamId = report.activeTeamId;
                         this.reporterDetailForm = this.formBuilder.group({                            
                             _id: [report._id, Validators.required],
                             isVolunteer: [{ value: report.isVolunteer, disabled: true }, Validators.required],
@@ -70,6 +78,8 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
         (this.routeParamsSubscription) ? this.routeParamsSubscription.unsubscribe() : null;
         (this.reporterSubscription) ? this.reporterSubscription.unsubscribe() : null;
         (this.reporterErrorSubscription) ? this.reporterErrorSubscription.unsubscribe() : null;
+        (this.teamSubscription) ? this.teamSubscription.unsubscribe() : null;
+        (this.teamErrorSubscription) ? this.teamErrorSubscription.unsubscribe() : null;
     }
 
     onBlock() {
@@ -103,6 +113,73 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
             }
         );
     }
+
+    onTeamLeader() {
+        this.errorText = null;
+        this.successText = null;
+
+        if (this.teamId != null) {
+            this.teamActionCreator.SetAsTeamLeader(this.reporterDetailForm.value._id, this.teamId);
+            this.teamErrorSubscription = this.teamStoreError.subscribe(
+                error => {
+                    if (error) {
+                        console.log(error);
+                        this.errorText = error;
+                    } else {
+                        this.successText = 'The Reporter has been set as team leader';
+                    }
+                }
+            );
+        }
+    }
+
+    onTeamMember() {
+        this.errorText = null;
+        this.successText = null;
+
+        if (this.teamId != null) {
+            this.teamActionCreator.SetAsTeamMember(this.reporterDetailForm.value._id, this.teamId);
+            this.teamErrorSubscription = this.teamStoreError.subscribe(
+                error => {
+                    if (error) {
+                        console.log(error);
+                        this.errorText = error;
+                    } else {
+                        this.successText = 'The Reporter has been set as team member';
+                    }
+                }
+            );
+        }
+    }
+
+    onTeam() {
+        this.router.navigate([`admin/reporter/teamAdd/${this.reporterDetailForm.value._id}`]);
+    }
+
+    onDelete() {
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result) {
+                this.reporterActionCreator.DeleteReporter(this.reporterDetailForm.value._id, this.reporterDetailForm.value);
+                swal(
+                    'Deleted!',
+                    `${this.reporterDetailForm.value.fname} has been deleted.`,
+                    'success'
+                );
+            }
+        }).then(() => {
+            this.router.navigate(['admin/reporter']);
+        });
+
+    }
+
     onBack() {
         this.router.navigate([`admin/reporter`]);
     }

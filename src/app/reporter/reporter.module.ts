@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReporterListComponent } from './reporter-list/reporter-list.component';
 import { ReporterDetailComponent } from './reporter-detail/reporter-detail.component';
+import { ReporterTeamAddComponent } from './reporter-team-add/reporter-team-add.component';
 import { ComponentModule } from '../components';
 import { DirectiveModule } from '../directives';
 import { SpinnerComponent } from '../directives';
@@ -19,14 +20,16 @@ import { SpinnerComponent } from '../directives';
   ],
   declarations: [
     ReporterListComponent,
-    ReporterDetailComponent
+    ReporterDetailComponent,
+    ReporterTeamAddComponent
   ],
   exports: [
     ReporterListComponent,
-    ReporterDetailComponent
+    ReporterDetailComponent,
+    ReporterTeamAddComponent
   ],
   entryComponents: [
-      SpinnerComponent
+    SpinnerComponent
   ]
 })
 export class ReporterModule { }

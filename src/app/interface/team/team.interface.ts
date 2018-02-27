@@ -4,8 +4,9 @@ import { ITeamMember } from './teamMember.interface';
 
 export interface ITeam {
     _id?: string;
-    name?: string;
-    email?: string;
+    teamName?: string;
+    teamEmail?: string;
+    isVolunteer?: boolean;
     logoUrl?: string;
     logoSecuredUrl?: string;
     description?: string;

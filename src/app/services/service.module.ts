@@ -9,6 +9,7 @@ import { ReportService } from './report.service';
 import { ReporterService } from './reporter.service';
 import { ReportTypeService } from './reportType.service';
 import { CategoryService } from './category.service';
+import { TeamService } from './team.service';
 
 import { DialogService } from './dialog.service';
 
@@ -31,6 +32,7 @@ export class ServiceModule {
         ReporterService,
         ReportTypeService,
         CategoryService,
+        TeamService,
         DialogService
       ]
     }
