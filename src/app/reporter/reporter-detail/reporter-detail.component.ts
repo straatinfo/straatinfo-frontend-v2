@@ -47,7 +47,6 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                 this.reporterSubscription = this.selectedReporter
                     .subscribe(
                     report => {
-                        console.log(report)
                         this.teamId = report.activeTeamId;
                         this.reporterDetailForm = this.formBuilder.group({                            
                             _id: [report._id, Validators.required],
