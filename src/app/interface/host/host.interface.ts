@@ -18,6 +18,7 @@ export interface IHost {
   design?: string;
   fname?: string;
   lname?: string;
-  hostPersonalEmail: string;
+  hostPersonalEmail?: string;
+  designType?: string;
   _role?: IRole;
 }
