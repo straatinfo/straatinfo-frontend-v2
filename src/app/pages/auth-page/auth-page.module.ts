@@ -10,11 +10,13 @@ import { LoginComponent } from './login/login.component';
 
 import { ComponentModule } from '../../components/component.module';
 import { RegisterComponent } from './register/register.component';
+import { SpinnerComponent, DirectiveModule } from '../../directives';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AuthPageRoutes),
+    DirectiveModule,
     FormsModule,
     ReactiveFormsModule,
     NavbarAuthModule,
@@ -26,7 +28,7 @@ import { RegisterComponent } from './register/register.component';
     RegisterComponent
   ],
   entryComponents: [
-
+    SpinnerComponent
   ]
 })
 
