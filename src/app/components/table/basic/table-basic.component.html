@@ -29,6 +29,9 @@
           <button *ngIf="actionDelete" (click)="onDeleteClick(row)" class="btn btn-simple btn-danger btn-icon remove"  matTooltip="Remove" [matTooltipPosition]="'left'">
             <i class="material-icons">delete</i>
           </button>
+          <button *ngIf="actionApprove" (click)="onActionApproveClick(row)" class="btn btn-simple btn-success btn-icon check" matTooltip="Approve" [matTooltipPosition]="'left'">
+            <i class="material-icons">check</i>
+          </button>
         </td>
       </tr>
     </tbody>
