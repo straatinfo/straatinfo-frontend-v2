@@ -16,9 +16,7 @@ export class SessionService {
   private authUrl: string = `${BACKEND_URL}/v1/api/auth`;
   constructor(
     private http: Http
-  ) { 
-    console.log(this.authUrl);
-  }
+  ) { }
 
   Register (userNew: IUserNew): Observable<ISession> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
