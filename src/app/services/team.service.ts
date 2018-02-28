@@ -70,6 +70,26 @@ export class TeamService {
     .share();
   }
 
+  GetNonApprovedTeam(): Observable<ITeam[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(`${this.teamUrl}/approve?isApproved=false&flat=true`, options)
+    .map(response => response.json())
+    .map(data => this.GetData(data))
+    .share()
+  }
+
+  ApproveTeam (_id): Observable<ITeam> {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({headers: headers});
+    return this.http.post(`${this.teamUrl}/approve`, {teamId: _id}, options)
+    .map(response => response.json())
+    .map(data => this.GetData(data))
+    .share()
+  }
+
    GetData(data) {
     return data.data;
   }

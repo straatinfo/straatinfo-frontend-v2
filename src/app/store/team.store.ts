@@ -15,12 +15,19 @@ import {
   TEAM_SELECT_FULFILLED,
   TEAM_UPDATE_ATTEMPT,
   TEAM_UPDATE_FAILED,
-  TEAM_UPDATE_FULFILLED
+  TEAM_UPDATE_FULFILLED,
+  TEAM_PENDING_APPROVE_ATTEMPT,
+  TEAM_PENDING_APPROVE_FAILED,
+  TEAM_PENDING_APPROVE_FULFILLED,
+  TEAM_PENDING_GET_ATTEMPT,
+  TEAM_PENDING_GET_FAILED,
+  TEAM_PENDING_GET_FULFILLED
 } from './actions/team.action';
 
 import * as team from './reducers/team.reducer';
 export interface ITeamStore {
   teams: ITeam[];
+  pendingTeams: ITeam[];
   selectedTeam: ITeam;
   spinner: boolean;
   error: string;
@@ -28,6 +35,7 @@ export interface ITeamStore {
 
 export const TEAM_INITIAL_STATE: ITeamStore = {
   teams: [],
+  pendingTeams: [],
   selectedTeam: null,
   spinner: false,
   error: ''
@@ -50,6 +58,12 @@ export function teamReducer(state: ITeamStore = TEAM_INITIAL_STATE, action): ITe
     case TEAM_SELECT_ATTEMPT: return team.teamSelectAttempt(state, action);
     case TEAM_SELECT_FAILED: return team.teamSelectFailed(state, action);
     case TEAM_SELECT_FULFILLED: return team.teamSelectFulfilled(state, action);
+    case TEAM_PENDING_APPROVE_ATTEMPT: return team.teamPendingApproveAttempt(state, action);
+    case TEAM_PENDING_APPROVE_FAILED: return team.teamPendingApproveFailed(state, action);
+    case TEAM_PENDING_APPROVE_FULFILLED: return team.teamPendingApproveFulfilled(state, action);
+    case TEAM_PENDING_GET_ATTEMPT: return team.teamPendingGetAttempt(state, action);
+    case TEAM_PENDING_GET_FAILED: return team.teamPendingGetFailed(state, action);
+    case TEAM_PENDING_GET_FULFILLED: return team.teamPendingGetFulfilled(state, action);
   }
   return state;
 };

@@ -54,6 +54,12 @@ const ADMIN: RouteInfo[] = [
       icontype: 'settings'
   },
   {
+    path: '/admin/pending-team',
+    title: 'Pending Team Approval',
+    type: 'link',
+    icontype: 'settings'
+  },
+  {
     path: '/auth/login',
     title: 'Logout',
     type: 'link',

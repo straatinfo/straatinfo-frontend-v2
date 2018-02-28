@@ -12,6 +12,7 @@ import { HostListComponent,
 import { ReportListComponent, ReportDetailComponent } from '../../report';
 import { ReporterListComponent, ReporterDetailComponent, ReporterTeamAddComponent } from '../../reporter';
 import { DesignDetailComponent  } from '../../design';
+import { TeamPendingListComponent } from '../../team';
 
 import { HostDetailGuard } from '../../guards';
 
@@ -85,6 +86,10 @@ export const AdminRoutes: Routes = [
           path: 'design',
           component: DesignDetailComponent,
       },
+      {
+        path: 'pending-team',
+        component: TeamPendingListComponent
+      }
     ]
   },
   {
