@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { IAppState } from '../app.store';
 import { SessionService } from '../../services';
-
+import swal from 'sweetalert2';
 import { ISessionCreate } from '../../interface/session/session-create.interface';
 import { ISession } from '../../interface/session/session.interface';
 import { IUserNew } from '../../interface/user/user-new.interface';
@@ -52,6 +52,13 @@ export class SessionActionCreator implements OnDestroy {
         this.errorMessage = err._body;
         if (this.errorMessage && typeof this.errorMessage === 'string') {
           this.ngRedux.dispatch({ type: SESSION_CREATE_FAILED, error: this.errorMessage });
+          swal({
+            type: 'error',
+            title: 'Login Error',
+            text: 'Invalid Login credential or password.'
+          }).then(() => {
+            window.location.reload();
+          });
         }
       },
       () => {
