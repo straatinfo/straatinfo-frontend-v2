@@ -11,6 +11,8 @@ declare var $: any;
 })
 
 export class LoginComponent implements OnInit {
+
+  @select(s => s.session.spinner) sessionSpinner;
   test: Date = new Date();
   private toggleButton: any;
   private sidebarVisible: boolean;
