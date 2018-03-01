@@ -26,6 +26,7 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
   public successText: string = null;
   @select(s => s.report.error) reportStoreError;
   @select(s => s.report.selectedReport) selectedReport;
+  @select(s => s.report.spinner) reportSpinner;
 
   public session: ISession = JSON.parse(localStorage.getItem('session'));
   public _role: IRole = this.session.user._role;

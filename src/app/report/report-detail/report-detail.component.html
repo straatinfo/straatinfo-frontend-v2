@@ -12,17 +12,17 @@
             </h4>
 
             <form [formGroup]="reportDetailForm">
-              <div *ngIf="errorText" class="alert alert-danger" role="alert">
+              <!-- <div *ngIf="errorText" class="alert alert-danger" role="alert">
                 <strong>Error!</strong> {{errorText}}
               </div>
               <div *ngIf="successText" class="alert alert-success" role="alert">
                 <strong>Success!</strong> {{successText}}
-              </div>
+              </div> -->
 
-              <div class="col-md-5">
+              <div class="col-md-6">
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Host Name</label>
@@ -32,7 +32,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Title</label>
@@ -42,7 +42,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Description</label>
@@ -52,7 +52,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Report Type</label>
@@ -62,7 +62,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Main Category</label>
@@ -72,7 +72,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Sub Category</label>
@@ -82,7 +82,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Location</label>
@@ -92,7 +92,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Longtitude</label>
@@ -102,7 +102,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Latitude</label>
@@ -111,10 +111,10 @@
                 </div>
               </div>
 
-              <div class="col-md-5">
+              <div class="col-md-6">
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="checkbox">
                     <label>
@@ -125,7 +125,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Vehicle Involved Description</label>
@@ -135,7 +135,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="checkbox">
                     <label>
@@ -146,7 +146,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
+                    
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">People Involved Count</label>
@@ -154,38 +154,51 @@
                   </div>
                 </div>
 
-                <div class="input-group">
-                  <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
-                  </span>
-                  <div class="form-group label-floating">
-                    <label class="control-label">Note</label>
-                    <input formControlName="note" type="text" class="form-control">
+                <div class="update">
+                  <div class="update-loading" *ngIf="true;else reportUpdate">
+                    <div class="spin">
+                       
+                    </div>
                   </div>
+                  <div>
+                      <legend>Update Report Here</legend>
+                      <span *appLoadingBar="(reportSpinner | async)"></span>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          
+                        </span>
+                        <div class="form-group label-floating">
+                          <label class="control-label">Note</label>
+                          <input formControlName="note" type="text" class="form-control">
+                        </div>
+                      </div>
+      
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          
+                        </span>
+                        <mat-form-field style="width:100% !important;" ngClass="form-group label-floating">
+                          <mat-select placeholder="Status" formControlName="status">
+                            <mat-option value="NEW">New</mat-option>
+                            <mat-option value="INPROGRESS">In Progress</mat-option>
+                            <mat-option value="DONE">Done</mat-option>
+                            <mat-option value="EXPIRED">Expired</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <button (click)="onBack()" type="button" class="btn btn-default">Back</button>
+                      <button (click)="onUpdate()" type="button" class="btn btn-rose">Update Report</button>
+                    </div>
+                </div>
                 </div>
 
-                <div class="input-group">
-                  <span class="input-group-addon">
-                    <i class="material-icons">info_outline</i>
-                  </span>
-                  <mat-form-field style="width:100% !important;" ngClass="form-group label-floating">
-                    <mat-select placeholder="Status" formControlName="status">
-                      <mat-option value="NEW">New</mat-option>
-                      <mat-option value="INPROGRESS">In Progress</mat-option>
-                      <mat-option value="DONE">Done</mat-option>
-                      <mat-option value="EXPIRED">Expired</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-
-              <div class="col-md-2">
+              <!-- <div class="col-md-2">
                 <div class="row">
                   <button (click)="onBack()" type="button" class="btn btn-default btn-block">Back</button>
                   <button (click)="onUpdate()" type="button" class="btn btn-rose btn-block">Update Report</button>
                   <button (click)="onDelete()" type="button" class="btn btn-danger btn-block">Delete Report</button>
                 </div>
-              </div>
+              </div> -->
 
               <div class="col-md-12">
                 <h4>

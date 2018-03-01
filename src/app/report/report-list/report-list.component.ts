@@ -26,13 +26,13 @@ export class ReportListComponent implements OnInit {
   public _host: IHost = this.session.user;
   public reportData = [];
 
-  public dataNames: string[] = [
-      'generatedReportId', 'date', 'mainCategoryName', 'reporterName', 'teamName'
-  ];
+  public dataNames: string[] = (this._role.code.toUpperCase() === 'ADMIN') ? [
+    'generatedReportId', 'date', 'mainCategoryName', 'reporterName', 'teamName'
+  ] : [ 'generatedReportId', 'date', 'mainCategoryName', 'status' ];
 
-  public dataAliases: string[] = [
-      'ID', 'Date', 'Main Category', 'Chat Name', 'Team'
-  ];
+  public dataAliases: string[] = (this._role.code.toUpperCase() === 'ADMIN') ? [
+    'Report Number', 'Date', 'Main Category', 'Chat Name', 'Team'
+  ] : [ 'Melding Nummer', 'Datum', 'Hoofdcategorie', 'Status' ]
 
   constructor(
       private reportActionCreator: ReportActionCreator,

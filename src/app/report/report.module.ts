@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ReportListComponent } from './report-list/report-list.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ComponentModule } from '../components';
-import { DirectiveModule, SpinnerComponent } from '../directives';
+import { DirectiveModule, SpinnerComponent, LoadingBarComponent } from '../directives';
 
 /* Angular Google Map */
 import { AgmCoreModule } from '@agm/core';
@@ -33,7 +33,8 @@ import { MaterialModule } from 'app/app.module';
     ReportDetailComponent
   ],
   entryComponents: [
-    SpinnerComponent
+    SpinnerComponent,
+    LoadingBarComponent
   ]
 })
 export class ReportModule { }
