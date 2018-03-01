@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { SpinnerDirective } from './spinner/spinner.directive';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { LoadingBarDirective } from './loading-bar/loading-bar.directive';
+import { LoadingBarComponent } from './loading-bar/loading-bar.component';
 
 @NgModule({
   imports: [
@@ -11,11 +13,15 @@ import { SpinnerComponent } from './spinner/spinner.component';
   ],
   exports: [
     SpinnerDirective,
-    SpinnerComponent
+    SpinnerComponent,
+    LoadingBarDirective,
+    LoadingBarComponent
   ],
   declarations: [
     SpinnerComponent,
-    SpinnerDirective
+    SpinnerDirective,
+    LoadingBarDirective,
+    LoadingBarComponent
   ]
 })
 export class DirectiveModule {

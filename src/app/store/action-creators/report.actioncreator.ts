@@ -20,7 +20,7 @@ import {
   REPORT_UPDATE_FULFILLED
 } from '../actions/report.action';
 import { Subscription } from 'rxjs/Subscription';
-import { ReportService } from '../../services';
+import { ReportService, DialogService } from '../../services';
 import { IReport } from '../../interface/report/report.interface';
 import { IReportView } from '../../interface/report/report-view.interface';
 
@@ -37,7 +37,8 @@ export class ReportActionCreator implements OnDestroy {
 
   constructor (
     private ngRedux: NgRedux<IAppState>,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private dialogService: DialogService
   ) {}
 
   ngOnDestroy() {
@@ -101,10 +102,12 @@ export class ReportActionCreator implements OnDestroy {
     .subscribe(
       (report: IReport) => {
         this.ngRedux.dispatch({ type: REPORT_UPDATE_FULFILLED, payload: report });
+        this.dialogService.showSwal('success-message', {title: 'Update Success', text: `Report: ${report.generatedReportId} was updated to ${report.status}`});
       }, err => {
         this.errorMessage = err._body;
         if (this.errorMessage && typeof this.errorMessage === 'string') {
           this.ngRedux.dispatch({ type: REPORT_UPDATE_FAILED, error: this.errorMessage });
+          this.dialogService.showSwal('error-message', {title: 'Update Error', text: this.errorMessage});
         }
       },
       () => {
