@@ -191,7 +191,7 @@ export class HostActionCreator implements OnDestroy {
       fname: data.fname,
       lname: data.lname,
       hostPersonalEmail: data.hostPersonalEmail,
-      designType: data.designs.length > 0 ? "Specific Design" : "General Design",
+      designType: data['_activeDesign.designName'],
       _role: data._role,
     };
   }
