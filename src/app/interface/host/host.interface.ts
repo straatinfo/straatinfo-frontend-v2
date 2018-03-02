@@ -20,5 +20,6 @@ export interface IHost {
   lname?: string;
   hostPersonalEmail?: string;
   designType?: string;
+  isPatron?: boolean;
   _role?: IRole;
 }
