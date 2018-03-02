@@ -30,7 +30,9 @@ export class HostDetailComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private router: Router,
     private hostActionCreator: HostActionCreator
-  ) { }
+  ) {
+    this.hostActionCreator.GetHosts();
+  }
 
   ngOnInit() {
     this.routeParamsSubscription = this.actvatedRoute.params

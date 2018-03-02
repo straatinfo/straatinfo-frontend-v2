@@ -147,7 +147,13 @@ export class TableBasicComponent implements OnInit, OnDestroy {
 
   sorter (data, sortName, sortBy) {
     if (sortName && sortBy) {
-      const sortedData = _.orderBy(data, [d => d[sortName].toLowerCase()], [sortBy]);
+      const sortedData = _.orderBy(data, [d => {
+        if (d[sortName]) {
+          return d[sortName].toLowerCase();
+        } else {
+          return d;
+        }
+      } ], [sortBy]);
       return sortedData;
     }
     return data;
