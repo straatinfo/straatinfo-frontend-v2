@@ -179,7 +179,7 @@ export class ReporterActionCreator implements OnDestroy {
             email: data.email,
             phoneNumber: data['_host.phoneNumber'],
             status1: data.status1,
-            status2: data['activeTeam.teamLeader._id'] == null ? 'Team Member' : 'Team Leader',
+            status2: data.status2,
             dateRegistrationReporter: data['activeTeam.teamLeader.createdAt'] == null ? this.formatDate(data['activeTeam.teamMember.createdAt']) : this.formatDate(data['activeTeam.teamLeader.createdAt']),
             dateCreationTeam: this.formatDate(data['activeTeam.createdAt']),
             hostId: data['_host._id'],
