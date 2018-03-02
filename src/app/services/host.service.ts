@@ -49,11 +49,11 @@ export class HostService {
           .share()
   }
 
-  GetHostById (_id: string): Observable<IHost> {
+  GetHostById (_id: string, flat: boolean = false): Observable<IHost> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.get(`${this.hostUrl}/${_id}`, options)
+    return this.http.get(`${this.hostUrl}/${_id}?flat=${flat}`, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
     .share()
