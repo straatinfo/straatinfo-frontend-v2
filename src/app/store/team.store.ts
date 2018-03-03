@@ -21,7 +21,10 @@ import {
   TEAM_PENDING_APPROVE_FULFILLED,
   TEAM_PENDING_GET_ATTEMPT,
   TEAM_PENDING_GET_FAILED,
-  TEAM_PENDING_GET_FULFILLED
+  TEAM_PENDING_GET_FULFILLED,
+  TEAM_PENDING_DECLINE_ATTEMPT,
+  TEAM_PENDING_DECLINE_FAILED,
+  TEAM_PENDING_DECLINE_FULFILLED
 } from './actions/team.action';
 
 import * as team from './reducers/team.reducer';
@@ -64,6 +67,9 @@ export function teamReducer(state: ITeamStore = TEAM_INITIAL_STATE, action): ITe
     case TEAM_PENDING_GET_ATTEMPT: return team.teamPendingGetAttempt(state, action);
     case TEAM_PENDING_GET_FAILED: return team.teamPendingGetFailed(state, action);
     case TEAM_PENDING_GET_FULFILLED: return team.teamPendingGetFulfilled(state, action);
+    case TEAM_PENDING_DECLINE_ATTEMPT: return team.teamPendingDeclineAttempt(state, action);
+    case TEAM_PENDING_DECLINE_FAILED: return team.teamPendingDeclineFailed(state, action);
+    case TEAM_PENDING_DECLINE_FULFILLED: return team.teamPendingDeclineFulfilled(state, action);
   }
   return state;
 };
