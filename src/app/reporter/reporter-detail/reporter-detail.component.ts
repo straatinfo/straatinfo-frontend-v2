@@ -170,7 +170,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                 this.reporterActionCreator.DeleteReporter(this.reporterDetailForm.value._id, this.reporterDetailForm.value);
                 swal(
                     'Deleted!',
-                    `${this.reporterDetailForm.value.fname} has been deleted.`,
+                    `${this.reporterDetailForm.getRawValue().chatName} has been deleted.`,
                     'success'
                 );
             }
