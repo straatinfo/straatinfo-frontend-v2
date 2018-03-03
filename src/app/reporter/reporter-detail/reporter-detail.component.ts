@@ -26,6 +26,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
     public successText: string = null;
 
     private teamId: string;
+    private hostId: string;
 
     @select(s => s.reporter.error) reporterStoreError;
     @select(s => s.team.error) teamStoreError;
@@ -48,6 +49,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                     .subscribe(
                     report => {
                         this.teamId = report.activeTeamId;
+                        this.hostId = report.hostId;
                         this.reporterDetailForm = this.formBuilder.group({                            
                             _id: [report._id, Validators.required],
                             isVolunteer: [{ value: report.isVolunteer, disabled: true }, Validators.required],
@@ -92,7 +94,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                     this.errorText = error;
                 } else {
                     this.successText = 'The Reporter has been block.';
-          this.reporterDetailForm.patchValue({ status1: 'BLOCK' });
+                    this.reporterDetailForm.patchValue({ status1: 'BLOCK' });
                 }
             }
         );
@@ -108,7 +110,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                     this.errorText = error;
                 } else {
                     this.successText = 'The Reporter has been unblock.';
-          this.reporterDetailForm.patchValue({ status1: 'ACTIVE' });
+                    this.reporterDetailForm.patchValue({ status1: 'ACTIVE' });
                 }
             }
         );
@@ -119,7 +121,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
         this.successText = null;
 
         if (this.teamId != null) {
-            this.teamActionCreator.SetAsTeamLeader(this.reporterDetailForm.value._id, this.teamId);
+            this.teamActionCreator.SetAsTeamLeader(this.hostId, this.teamId);
             this.teamErrorSubscription = this.teamStoreError.subscribe(
                 error => {
                     if (error) {
@@ -127,6 +129,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                         this.errorText = error;
                     } else {
                         this.successText = 'The Reporter has been set as team leader';
+                        this.reporterDetailForm.patchValue({ status2: 'LEADER' });
                     }
                 }
             );
@@ -138,7 +141,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
         this.successText = null;
 
         if (this.teamId != null) {
-            this.teamActionCreator.SetAsTeamMember(this.reporterDetailForm.value._id, this.teamId);
+            this.teamActionCreator.SetAsTeamMember(this.hostId, this.teamId);
             this.teamErrorSubscription = this.teamStoreError.subscribe(
                 error => {
                     if (error) {
@@ -146,6 +149,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                         this.errorText = error;
                     } else {
                         this.successText = 'The Reporter has been set as team member';
+                        this.reporterDetailForm.patchValue({ status2: 'MEMBER' });
                     }
                 }
             );
