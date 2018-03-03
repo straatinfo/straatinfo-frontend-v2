@@ -223,3 +223,36 @@ export const teamPendingApproveFailed = (state, action) => {
     error: action.error
   });
 };
+
+export const teamPendingDeclineAttempt = (state, action) => {
+  return tassign(state, {
+    teams: state.teams,
+    pendingTeams: state.pendingTeams,
+    selectedTeam: state.selectedTeam,
+    spinner: true,
+    error: ''
+  });
+};
+
+export const teamPendingDeclineFulfilled = (state, action) => {
+  const newArray = _.remove(state.pendingTeams, (t) => {
+    return t._id != action.payload._id;
+  });
+  return tassign(state, {
+    teams: state.teams,
+    pendingTeams: newArray,
+    selectedTeam: state.selectedTeam,
+    spinner: false,
+    error: ''
+  });
+};
+
+export const teamPendingDeclineFailed = (state, action) => {
+  return tassign(state, {
+    teams: state.teams,
+    pendingTeams: state.payload,
+    selectedTeam: state.selectedTeam,
+    spinner: false,
+    error: action.error
+  });
+};

@@ -90,6 +90,16 @@ export class TeamService {
     .share()
   }
 
+  DeclineTeam (_id): Observable<ITeam> {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({headers: headers});
+    return this.http.put(`${this.teamUrl}/approve`, {teamId: _id}, options)
+    .map(response => response.json())
+    .map(data => this.GetData(data))
+    .share()
+  }
+
    GetData(data) {
     return data.data;
   }

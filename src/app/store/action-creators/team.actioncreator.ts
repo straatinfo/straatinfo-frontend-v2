@@ -22,7 +22,11 @@ import {
 	TEAM_PENDING_GET_ATTEMPT,
 	TEAM_PENDING_GET_FAILED,
 	TEAM_PENDING_GET_FULFILLED,
-	TEAM_PENDING_APPROVE_FULFILLED
+	TEAM_PENDING_APPROVE_FULFILLED,
+	TEAM_PENDING_DECLINE_ATTEMPT,
+	TEAM_PENDING_DECLINE_FAILED,
+	TEAM_PENDING_DECLINE_FULFILLED,
+	TEAM_PENDING_APPROVE_FAILED
 } from '../actions/team.action';
 import { Subscription } from 'rxjs/Subscription';
 import { TeamService, DialogService } from '../../services';
@@ -39,6 +43,7 @@ export class TeamActionCreator implements OnDestroy {
 	private createTeamSubscription: Subscription = null;
 	private getNonApprovedTeamSubscription: Subscription = null;
 	private approveTeamSubscription: Subscription = null;
+	private declineTeamSubscription: Subscription = null;
 
 	constructor(
 		private ngRedux: NgRedux<IAppState>,
@@ -52,6 +57,7 @@ export class TeamActionCreator implements OnDestroy {
 		(this.createTeamSubscription) ? this.createTeamSubscription.unsubscribe() : null;
 		(this.getNonApprovedTeamSubscription) ? this.getNonApprovedTeamSubscription.unsubscribe() : null;
 		(this.approveTeamSubscription) ? this.approveTeamSubscription.unsubscribe() : null;
+		(this.declineTeamSubscription) ? this.declineTeamSubscription.unsubscribe() : null;
 	}
 
 	GetTeams() {
@@ -163,7 +169,7 @@ export class TeamActionCreator implements OnDestroy {
 			}, err => {
 				this.errorMessage = err._body;
 				if (this.errorMessage && typeof this.errorMessage === 'string') {
-					this.ngRedux.dispatch({ type: TEAM_PENDING_GET_FAILED, error: this.errorMessage });
+					this.ngRedux.dispatch({ type: TEAM_PENDING_APPROVE_FAILED, error: this.errorMessage });
 					this.dialogService.showSwal('error-message', {title: 'Error', text: this.errorMessage });
 				}
 			},
@@ -172,6 +178,27 @@ export class TeamActionCreator implements OnDestroy {
 			}
 		);
 	}
+
+	DeclineTeam (_id) {
+		this.ngRedux.dispatch({ type: TEAM_PENDING_DECLINE_ATTEMPT });
+		this.declineTeamSubscription = this.teamService.DeclineTeam(_id)
+		.subscribe(
+			(team: ITeam) => {
+				this.ngRedux.dispatch({ type: TEAM_PENDING_DECLINE_FULFILLED, payload: team });
+				this.dialogService.showSwal('success-message', {title: 'Team Declined', text: `Successfully declined team: ${team.teamName}`})
+			}, err => {
+				this.errorMessage = err._body;
+				if (this.errorMessage && typeof this.errorMessage === 'string') {
+					this.ngRedux.dispatch({ type: TEAM_PENDING_DECLINE_FAILED, error: this.errorMessage });
+					this.dialogService.showSwal('error-message', {title: 'Error', text: this.errorMessage });
+				}
+			},
+			() => {
+				this.errorMessage = null;
+			}
+		);
+	}
+
 
 	private ToTeamView(data: any): ITeamView {
 		return {
