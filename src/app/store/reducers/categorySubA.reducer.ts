@@ -68,7 +68,7 @@ export const categorySubAUpdateAttempt = (state, action) => {
 };
 
 export const categorySubAUpdateFulfilled = (state, action) => {
-    const index = _.findIndex(state.categorySubAs, (h) => { return h.id == action.payload.id });
+    const index = _.findIndex(state.categorySubAs, (h) => { return h._id == action.payload });
     let newArray = state.categorySubAs.slice();
     newArray.splice(index, 1, action.payload);
     return tassign(state, {
@@ -99,7 +99,7 @@ export const categorySubADeleteAttempt = (state, action) => {
 
 export const categorySubADeleteFufilled = (state, action) => {
     const newArray = _.remove(state.categorySubAs, (h) => {
-        return h.id != action.payload.id;
+        return h._id != action.payload;
     });
     return tassign(state, {
         categorySubAs: newArray,
@@ -143,5 +143,14 @@ export const categorySubASelectFailed = (state, action) => {
         selectedCategorySubA: state.selectedCategorySubA,
         spinner: false,
         error: action.error
+    });
+};
+
+export const categorySubAEmpty = (state, action) => {
+    return tassign(state, {
+        categorySubAs: [],
+        selectedCategorySubA: null,
+        spinner: false,
+        error: ''
     });
 };

@@ -84,7 +84,6 @@ export class HostDesignComponent implements OnInit {
               );
           }
           }).then(() => {
-          this.router.navigate([`admin/host/design/${this.hostId}`]);
       });
   } 
 }

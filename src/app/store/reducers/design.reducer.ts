@@ -99,7 +99,7 @@ export const designDeleteAttempt = (state, action) => {
 
 export const designDeleteFufilled = (state, action) => {
     const newArray = _.remove(state.designs, (h) => {
-        return h.id != action.payload.id;
+        return h._id != action.payload;
     });
     return tassign(state, {
         designs: newArray,
