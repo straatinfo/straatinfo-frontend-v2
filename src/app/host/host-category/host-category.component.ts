@@ -301,7 +301,7 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
               );
           }
       }).then(() => {
-          this.categoryActionCreator.GetSubCategory(this.selectedMainCategoryA);
+
       });
   }
 }

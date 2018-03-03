@@ -358,7 +358,6 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
           }
           }).then(() => {
 
-              this.categoryActionCreator.GetMainCategoryA(this.categoryAForm.value._reportType);
               this.categoryService.GetMainCategory(this.categoryAForm.value._reportType).subscribe(dataCategory => {
                   if (dataCategory != null) {
                       this.categories = [];
@@ -395,7 +394,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
               );
           }
           }).then(() => {
-          this.categoryActionCreator.GetMainCategoryB(this.categoryBForm.value._reportType);
+
       });
   }
 
@@ -418,7 +417,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
               );
           }
       }).then(() => {
-          this.categoryActionCreator.GetMainCategoryC(this.categoryCForm.value._reportType);
+
       });
   }
 

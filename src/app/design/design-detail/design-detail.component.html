@@ -87,7 +87,7 @@
               <div class="col-md-6" *appspinner="(categoryMainAsSpinner | async)">
                   <app-table-basic tableTitle="Main Category A List"
                                    paginator="true"
-                                   itemPerPage="5"
+                                   itemPerPage="50"
                                    [currentPage]="0"
                                    [actionDelete]="true"
                                    [actionMore]="true"
@@ -103,7 +103,7 @@
                 <div [hidden]="isCategoryASubTableHidden">
                     <app-table-basic tableTitle="Sub Category A List"
                                     paginator="true"
-                                    itemPerPage="5"
+                                    itemPerPage="50"
                                     [currentPage]="0"
                                     [actionDelete]="true"
                                     [actionMore]="false"
@@ -157,7 +157,7 @@
               <div class="col-md-6" *appspinner="(categoryMainBsSpinner | async)">
                   <app-table-basic tableTitle="Main Category B List"
                                    paginator="true"
-                                   itemPerPage="5"
+                                   itemPerPage="50"
                                    [currentPage]="0"
                                    [actionDelete]="true"
                                    [actionMore]="false"
@@ -210,7 +210,7 @@
               <div class="col-md-6" *appspinner="(categoryMainCsSpinner | async)">
                   <app-table-basic tableTitle="Main Category C List"
                                    paginator="true"
-                                   itemPerPage="5"
+                                   itemPerPage="50"
                                    [currentPage]="0"
                                    [actionDelete]="true"
                                    [actionMore]="false"

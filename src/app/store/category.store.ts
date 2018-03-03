@@ -71,7 +71,8 @@ import {
     CATEGORYSUB_A_UPDATE_FULFILLED,
     CATEGORYSUB_A_SELECT_FULFILLED,
     CATEGORYSUB_A_SELECT_FAILED,
-    CATEGORYSUB_A_SELECT_ATTEMPT
+    CATEGORYSUB_A_SELECT_ATTEMPT,
+    CATEGORYSUB_A_EMPTY
 } from './actions/categorySubA.action';
 
 import * as categoryMainA from './reducers/categoryMainA.reducer';
@@ -215,6 +216,7 @@ export function categorySubAReducer(state: ICategorySubAStore = CATEGORYSUB_A_IN
         case CATEGORYSUB_A_SELECT_ATTEMPT: return categorySubA.categorySubASelectAttempt(state, action);
         case CATEGORYSUB_A_SELECT_FAILED: return categorySubA.categorySubASelectFailed(state, action);
         case CATEGORYSUB_A_SELECT_FULFILLED: return categorySubA.categorySubASelectFulfilled(state, action);
+        case CATEGORYSUB_A_EMPTY: return categorySubA.categorySubAEmpty(state, action);
     }
     return state;
 };
