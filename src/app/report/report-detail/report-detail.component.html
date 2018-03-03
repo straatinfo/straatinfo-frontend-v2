@@ -204,7 +204,7 @@
                 <h4>
                   <b>Location: {{reportDetailForm.value.location}}</b>
                 </h4>
-                <agm-map [latitude]="reportDetailForm.value.lat" [longitude]="reportDetailForm.value.long">
+                <agm-map [latitude]="reportDetailForm.value.lat" [longitude]="reportDetailForm.value.long" [zoom]="17">
                   <agm-marker [latitude]="reportDetailForm.value.lat" [longitude]="reportDetailForm.value.long"></agm-marker>
                 </agm-map>
               </div>

@@ -51,7 +51,7 @@ export class ReporterTeamAddComponent implements OnInit, OnDestroy {
                     _id: [null, Validators.required],
                     teamName: [null, Validators.required],
                     teamEmail: [null, [Validators.required, Validators.email]],
-                    isVolunteer: [false, Validators.required],
+                    isVolunteer: [true, Validators.required],
                     _host: [reporter.hostId, Validators.required],
                 });
             });
@@ -67,7 +67,7 @@ export class ReporterTeamAddComponent implements OnInit, OnDestroy {
         this.successText = null;
         this.addTeamForm.value._host = this.reporterHostId;
         if (this.addTeamForm.value.isVolunteer == null)
-            this.addTeamForm.value.isVolunteer = false;
+            this.addTeamForm.value.isVolunteer = true;
         this.teamActionCreator.CreateTeam(this.reporterId, this.addTeamForm.value);
         this.teamErrorSubscription = this.teamStoreError.subscribe(
             error => {
