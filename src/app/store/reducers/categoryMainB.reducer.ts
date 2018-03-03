@@ -68,7 +68,7 @@ export const categoryMainBUpdateAttempt = (state, action) => {
 };
 
 export const categoryMainBUpdateFulfilled = (state, action) => {
-    const index = _.findIndex(state.categoryMainBs, (h) => { return h.id == action.payload.id });
+    const index = _.findIndex(state.categoryMainBs, (h) => { return h._id == action.payload });
     let newArray = state.categoryMainBs.slice();
     newArray.splice(index, 1, action.payload);
     return tassign(state, {
@@ -99,7 +99,7 @@ export const categoryMainBDeleteAttempt = (state, action) => {
 
 export const categoryMainBDeleteFufilled = (state, action) => {
     const newArray = _.remove(state.categoryMainBs, (h) => {
-        return h.id != action.payload.id;
+        return h._id != action.payload;
     });
     return tassign(state, {
         categoryMainBs: newArray,
