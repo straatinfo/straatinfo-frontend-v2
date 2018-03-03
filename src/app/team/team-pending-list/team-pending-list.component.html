@@ -18,10 +18,12 @@
                 [actionMore]="false"
                 [actionEdit]="false"
                 [actionApprove]="true"
+                [actionDecline]="true"
                 [tableDataArray]="(pendingTeams)"
                 [tableHeaderName]="dataNames"
                 [tableHeaderAlias]="dataAliases"
                 (clickActionApprove)="onActionApprove($event)"
+                (clickActionDecline)="onActionDecline($event)"
               ></app-table-basic>
             </div>
             <!-- end content-->

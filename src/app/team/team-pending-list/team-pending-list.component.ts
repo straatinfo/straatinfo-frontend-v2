@@ -36,4 +36,10 @@ export class TeamPendingListComponent implements OnInit {
     }
   }
 
+  onActionDecline (data) {
+    if (data._id) {
+      this.teamActionCreator.DeclineTeam(data._id);
+    }
+  }
+
 }

@@ -89,10 +89,10 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
         this.reporterErrorSubscription = this.reporterStoreError.subscribe(
             error => {
                 if (error) {
-                    console.log(error);
                     this.errorText = error;
                 } else {
                     this.successText = 'The Reporter has been block.';
+          this.reporterDetailForm.patchValue({ status1: 'BLOCK' });
                 }
             }
         );
@@ -105,10 +105,10 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
         this.reporterErrorSubscription = this.reporterStoreError.subscribe(
             error => {
                 if (error) {
-                    console.log(error);
                     this.errorText = error;
                 } else {
                     this.successText = 'The Reporter has been unblock.';
+          this.reporterDetailForm.patchValue({ status1: 'ACTIVE' });
                 }
             }
         );
