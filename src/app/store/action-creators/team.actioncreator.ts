@@ -136,6 +136,25 @@ export class TeamActionCreator implements OnDestroy {
 			);
 	}
 
+    JoinTeam(_userId: string, _teamId: string) {
+        this.ngRedux.dispatch({ type: TEAM_SELECT_ATTEMPT });
+        this.getLatestTeamSubscription = this.teamService.JoinTeam(_userId, _teamId)
+            .map(data => this.ToTeamView(data))
+            .subscribe(
+            (team: ITeamView) => {
+                this.ngRedux.dispatch({ type: TEAM_SELECT_FULFILLED, payload: team });
+            }, err => {
+                this.errorMessage = err._body;
+                if (this.errorMessage && typeof this.errorMessage === 'string') {
+                    this.ngRedux.dispatch({ type: TEAM_GET_FAILED, error: this.errorMessage });
+                }
+            },
+            () => {
+                this.errorMessage = null;
+            }
+            );
+    }
+
 	SelectTeam(_id: string) {
 		this.ngRedux.dispatch({ type: TEAM_SELECT_FULFILLED, payload: _id });
 	}

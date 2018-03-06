@@ -26,6 +26,7 @@ export class TableBasicComponent implements OnInit, OnDestroy {
   @Input() actionMore: boolean;
   @Input() actionApprove: boolean;
   @Input() actionDecline: boolean;
+  @Input() actionJoin: boolean;
   @Input() actionViewDetail: boolean;
   @Input() paginator: boolean;
   @Input() currentPage: number;
@@ -38,6 +39,7 @@ export class TableBasicComponent implements OnInit, OnDestroy {
   @Output() clickMore = new EventEmitter<any>();
   @Output() clickActionApprove = new EventEmitter<any>();
   @Output() clickActionDecline = new EventEmitter<any>();
+  @Output() clickActionJoin = new EventEmitter<any>();
 
   public newTableDataArray:any[]; // page number
   // private itemPerPage:number = 5; // item per page
@@ -92,7 +94,7 @@ export class TableBasicComponent implements OnInit, OnDestroy {
   }
 
   actionsEnabled (): boolean {
-    return (this.actionDelete || this.actionEdit || this.actionMore || this.actionApprove || this.actionDecline) ? true : false;
+      return (this.actionDelete || this.actionEdit || this.actionMore || this.actionApprove || this.actionDecline || this.actionJoin) ? true : false;
   }
 
   onFirst() {
@@ -139,6 +141,10 @@ export class TableBasicComponent implements OnInit, OnDestroy {
 
   onActionDeclineClick (data) {
     this.clickActionDecline.emit(data);
+  }
+
+  onActionJoinClick(data) {
+      this.clickActionJoin.emit(data);
   }
 
   sortAscending (headerName) {
