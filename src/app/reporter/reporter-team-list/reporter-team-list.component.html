@@ -1,0 +1,42 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div>
+        <div class="row">
+          <div class="col-md-12" *appspinner="(teamSpinner | async)">
+            <div class="card">
+              <div class="card-header card-header-icon" data-background-color="blue">
+                <i class="material-icons">assignment</i>
+              </div>
+              <div class="card-content">
+                <h4 class="card-title">Team page of [{{reporterName}}]</h4>
+
+                <div class="col-md-12">
+                    <button (click)="onBack()" type="button" class="btn btn-default">Back to Reporter</button>  
+                    <button (click)="onAdd()" type="button" class="btn btn-rose">Add Team</button>                                             
+                </div>
+
+                <app-table-basic
+                  tableTitle=""
+                  paginator="true"
+                  itemPerPage="50"
+                  [currentPage]="(page | async)"
+                  [actionDelete]="false"
+                  [actionMore]="false"
+                  [actionEdit]="false"
+                  [actionJoin]="true"
+                  [tableDataArray]="(teams)"
+                  [tableHeaderName]="dataNames"
+                  [tableHeaderAlias]="dataAliases"
+                  (clickActionJoin)="onJoinClick($event)"
+                ></app-table-basic>
+              </div>
+              <!-- end content-->
+            </div>
+            <!--  end card  -->
+          </div>
+          <!-- end col-md-12 -->
+        </div>
+      </div>
+    </div>
+  </div>
+  

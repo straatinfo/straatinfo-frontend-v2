@@ -77,6 +77,7 @@ export class ReporterTeamAddComponent implements OnInit, OnDestroy {
                 } else {
                     this.addTeamForm.reset();
                     this.successText = 'The team has been added.';
+                    this.router.navigate([`admin/reporter/team/${this.reporterId}`]);
                 }
             }
         );
@@ -86,6 +87,6 @@ export class ReporterTeamAddComponent implements OnInit, OnDestroy {
     }
 
     onBack() {
-        this.router.navigate([`admin/reporter/${this.reporterId}`]);
+        this.router.navigate([`admin/reporter/team/${this.reporterId}`]);
     }
 }

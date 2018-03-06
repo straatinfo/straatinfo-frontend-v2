@@ -157,7 +157,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
     }
 
     onTeam() {
-        this.router.navigate([`admin/reporter/teamAdd/${this.reporterDetailForm.value._id}`]);
+        this.router.navigate([`admin/reporter/team/${this.reporterDetailForm.value._id}`]);
     }
 
     onDelete() {
