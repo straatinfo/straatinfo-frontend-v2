@@ -35,6 +35,9 @@
           <button *ngIf="actionDecline" (click)="onActionDeclineClick(row)" class="btn btn-simple btn-danger btn-icon close" matTooltip="Decline" [matTooltipPosition]="'left'" style="padding: 0px 30px 0px 0px;">
             <i class="material-icons">close</i>
           </button>
+            <button *ngIf="actionJoin" (click)="onActionJoinClick(row)" class="btn btn-simple btn-info btn-icon add" matTooltip="Join" [matTooltipPosition]="'left'" style="padding: 0px 30px 0px 0px;">
+                <i class="material-icons">add</i>
+            </button>
         </td>
       </tr>
     </tbody>

@@ -70,6 +70,16 @@ export class TeamService {
     .share();
   }
 
+  JoinTeam(_userId: string, _teamId: string): Observable<any> {
+      const headers = new Headers({ 'Content-Type': 'application/json' });
+      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+      const options = new RequestOptions({ headers: headers });
+      return this.http.get(`${this.teamUrl}/member/${_userId}/${_teamId}`, options)
+          .map(response => response.json())
+          .map(data => this.GetData(data))
+          .share();
+  }
+
   GetNonApprovedTeam(): Observable<ITeam[]> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
@@ -100,7 +110,7 @@ export class TeamService {
     .share()
   }
 
-   GetData(data) {
+  GetData(data) {
     return data.data;
   }
 }
