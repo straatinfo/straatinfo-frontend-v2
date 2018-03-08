@@ -15,6 +15,7 @@ export interface IHost {
   long?: number;
   phoneNumber?: string;
   isBlocked?: boolean;
+  isSpecific?: boolean;
   design?: string;
   fname?: string;
   lname?: string;
