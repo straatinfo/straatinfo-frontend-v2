@@ -5,7 +5,7 @@ import * as Redux from 'redux';
 import { Subscription } from 'rxjs/Subscription';
 
 import { IAppState } from '../app.store';
-import { HostService } from '../../services';
+import { HostService, DialogService } from '../../services';
 
 import { IHost } from '../../interface/host/host.interface';
 
@@ -24,7 +24,10 @@ import {
   HOST_UPDATE_FULFILLED,
   HOST_SELECT_FULFILLED,
   HOST_SELECT_FAILED,
-  HOST_SELECT_ATTEMPT
+  HOST_SELECT_ATTEMPT,
+  HOST_DESIGN_TYPE_UPDATE_ATTEMPT,
+  HOST_DESIGN_TYPE_UPDATE_FAILED,
+  HOST_DESIGN_TYPE_UPDATE_FULFILLED
 } from '../actions/host.action';
 
 
@@ -39,11 +42,13 @@ export class HostActionCreator implements OnDestroy {
   private getHostByIdSubscription: Subscription = null;
   private createHostSubscription: Subscription = null;
   private createHostBulkSubscription: Subscription = null;
+  private updateHostDesignTypeSubscription: Subscription = null;
 
   constructor (
     private ngRedux: NgRedux<IAppState>,
     private router: Router,
-    private hostService: HostService
+    private hostService: HostService,
+    private dialogService: DialogService
   ) {}
 
   ngOnDestroy () {
@@ -53,6 +58,7 @@ export class HostActionCreator implements OnDestroy {
     (this.getHostByIdSubscription) ? this.getHostByIdSubscription.unsubscribe() : null;
     (this.createHostSubscription) ? this.createHostSubscription.unsubscribe() : null;
     (this.createHostBulkSubscription) ? this.createHostBulkSubscription.unsubscribe() : null;
+    (this.updateHostDesignTypeSubscription) ? this.updateHostDesignTypeSubscription.unsubscribe() : null;
   }
 
   GetHosts () {
@@ -168,6 +174,26 @@ export class HostActionCreator implements OnDestroy {
     );
   }
 
+  UpdateHostDesign (_host: string, isSpecific: boolean) {
+    this.ngRedux.dispatch({ type: HOST_DESIGN_TYPE_UPDATE_ATTEMPT });
+    this.updateHostDesignTypeSubscription = this.hostService.UpdateHostDesign(_host, isSpecific)
+    .subscribe(
+      (data: any) => {
+        this.ngRedux.dispatch({ type: HOST_DESIGN_TYPE_UPDATE_FULFILLED, payload: { _id: _host, isSpecific: isSpecific }});
+        this.dialogService.showSwal('success-message', {title: 'Host Design Type Update', text: 'Successfully Updated Design type'});
+      }, err => {
+        this.errorMessage = err._body;
+        if (this.errorMessage && typeof this.errorMessage === 'string') {
+          this.ngRedux.dispatch({ type: HOST_CREATE_FAILED, error: this.errorMessage });
+          this.dialogService.showSwal('error-message', {title: 'Host Design Type Update', text: 'Unable to update host at this time' });
+        }
+      },
+      () => {
+        this.errorMessage = null;
+      }
+    );
+  }
+
   SelectHost (_id: string) {
     this.ngRedux.dispatch({ type: HOST_SELECT_FULFILLED, payload: _id });
   }
@@ -187,7 +213,8 @@ export class HostActionCreator implements OnDestroy {
       lat: data.lat,
       phoneNumber: data.phoneNumber,
       isBlocked: data.isBlocked,
-      design: (data.isSpecific) ? 'CUSTOM' : 'GENERAL',
+      design: (data.isSpecific === true) ? 'CUSTOM' : 'GENERAL',
+      isSpecific: data.isSpecific,
       fname: data.fname,
       lname: data.lname,
       isPatron: data.isPatron,

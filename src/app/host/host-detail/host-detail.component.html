@@ -42,7 +42,7 @@
                         </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Design Type</label>
-                            <input formControlName="designType" type="text" class="form-control">
+                            <input formControlName="design" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="input-group">
@@ -155,7 +155,8 @@
                         <button (click)="onBack()" type="button" class="btn btn-default btn-block">Back</button>
                         <button (click)="onViewReport()" type="button" class="btn btn-info btn-block">View Reports</button>
                         <button (click)="onViewReporter()" type="button" class="btn btn-success btn-block">View Reporters</button>
-                        <button (click)="onSpecific()" type="button" class="btn btn-warning btn-block">Specific Design</button>
+                        <button *ngIf="!isSpecific" (click)="onSpecific()" type="button" class="btn btn-warning btn-block">Set To Specific</button>
+                        <button *ngIf="isSpecific" (click)="onGeneral()" type="button" class="btn btn-warning btn-block">Set To General</button>
                         <button (click)="onDesign()" type="button" class="btn btn-warning btn-block">Edit Design</button>
                         <button (click)="onCategory()" type="button" class="btn btn-primary btn-block">Edit Category</button>
                         <button (click)="onUpdate()" type="button" class="btn btn-rose btn-block">Update Host</button>

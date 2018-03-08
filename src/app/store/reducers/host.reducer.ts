@@ -145,3 +145,34 @@ export const hostSelectFailed = (state, action) => {
     error: action.error
   });
 };
+
+export const hostDesignTypeUpdateAttempt = (state, action) => {
+  return tassign(state, {
+    hosts: state.hosts,
+    selectedHost: state.selectedHost,
+    spinner: true,
+    error: ''
+  });
+}
+
+export const hostDesignTypeUpdateFulfilled = (state, action) => {
+  const index = _.findIndex(state.hosts, (h) => { return h._id === action.payload._id; });
+  const host = {...state.hosts[index], isSpecific: action.payload.isSpecific};
+  let newArray = state.hosts.slice();
+  newArray.splice(index, 1, host);
+  return tassign(state, {
+    hosts: newArray,
+    selectedHost: state.selectedHost,
+    spinner: false,
+    error: ''
+  });
+}
+
+export const hostDesignTypeUpdateFailed = (state, action) => {
+  return tassign(state, {
+    hosts: state.hosts,
+    selectedHost: state.selectedHost,
+    spinner: false,
+    error: action.error
+  });
+}

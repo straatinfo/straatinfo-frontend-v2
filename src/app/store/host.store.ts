@@ -14,7 +14,10 @@ import {
   HOST_UPDATE_FULFILLED,
   HOST_SELECT_ATTEMPT,
   HOST_SELECT_FAILED,
-  HOST_SELECT_FULFILLED
+  HOST_SELECT_FULFILLED,
+  HOST_DESIGN_TYPE_UPDATE_ATTEMPT,
+  HOST_DESIGN_TYPE_UPDATE_FAILED,
+  HOST_DESIGN_TYPE_UPDATE_FULFILLED
 } from './actions/host.action';
 import * as host from './reducers/host.reducer';
 export interface IHostStore {
@@ -48,6 +51,9 @@ export function hostReducer(state: IHostStore = HOST_INITIAL_STATE, action): IHo
     case HOST_SELECT_ATTEMPT: return host.hostSelectAttempt(state, action);
     case HOST_SELECT_FAILED: return host.hostSelectFailed(state, action);
     case HOST_SELECT_FULFILLED: return host.hostSelectFulfilled(state, action);
+    case HOST_DESIGN_TYPE_UPDATE_ATTEMPT: return host.hostDesignTypeUpdateAttempt(state, action);
+    case HOST_DESIGN_TYPE_UPDATE_FAILED: return host.hostDesignTypeUpdateFailed(state, action);
+    case HOST_DESIGN_TYPE_UPDATE_FULFILLED: return host.hostDesignTypeUpdateFulfilled(state, action);
   }
   return state;
 };

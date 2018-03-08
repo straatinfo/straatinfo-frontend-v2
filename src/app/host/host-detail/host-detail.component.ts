@@ -22,6 +22,7 @@ export class HostDetailComponent implements OnInit, OnDestroy {
   private hostErrorSubscription: Subscription = null;
   public errorText: string = null;
   public successText: string = null;
+  public isSpecific: boolean;
   @select(s => s.host.error) hostStoreError;
   @select(s => s.host.selectedHost) selectedHost;
 
@@ -47,6 +48,7 @@ export class HostDetailComponent implements OnInit, OnDestroy {
               hostName: [{ value: host.hostName, disabled: true }, Validators.required],
               email: [host.email, [Validators.required, Validators.email]],
               designType: [{ value: host.designType, disabled: true }, Validators.required],
+              design: [{ value: host.design, disabled: true }],
               streetName: [host.streetName, Validators.required],
               city: [host.city, Validators.required],
               state: [host.state, Validators.required],
@@ -59,7 +61,9 @@ export class HostDetailComponent implements OnInit, OnDestroy {
               fname: [host.fname, Validators.required],
               lname: [host.lname, Validators.required],
               hostPersonalEmail: [host.hostPersonalEmail, Validators.required],
+              isSpecific: [host.isSpecific]
             });
+            this.isSpecific = host.isSpecific;
           }
         );
       }
@@ -109,7 +113,33 @@ export class HostDetailComponent implements OnInit, OnDestroy {
   }
 
   onSpecific() {
+    this.hostActionCreator.UpdateHostDesign(this.hostDetailForm.value._id, true);
+    this.hostStoreError.subscribe(
+      error => {
+        if (error !== '' ) {
+          this.isSpecific = false;
+          this.hostDetailForm.patchValue({ design: 'GENERAL' });
+        } else {
+          this.isSpecific = true;
+          this.hostDetailForm.patchValue({ design: 'CUSTOM' });
+        }
+      }
+    );
+  }
 
+  onGeneral() {
+    this.hostActionCreator.UpdateHostDesign(this.hostDetailForm.value._id, false);
+    this.hostStoreError.subscribe(
+      error => {
+        if (error !== '') {
+          this.isSpecific = true;
+          this.hostDetailForm.patchValue({ design: 'CUSTOM' });
+        } else {
+          this.isSpecific = false;
+          this.hostDetailForm.patchValue({ design: 'GENERAL' });
+        }
+      }
+    );
   }
 
   onDelete() {
