@@ -108,6 +108,10 @@ export class HostDetailComponent implements OnInit, OnDestroy {
       );
   }
 
+  onSpecific() {
+
+  }
+
   onDelete() {
     swal({
       title: 'Are you sure?',

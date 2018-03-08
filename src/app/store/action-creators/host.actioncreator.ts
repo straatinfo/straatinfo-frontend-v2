@@ -187,7 +187,7 @@ export class HostActionCreator implements OnDestroy {
       lat: data.lat,
       phoneNumber: data.phoneNumber,
       isBlocked: data.isBlocked,
-      design: (data.isPatron) ? 'CUSTOM' : 'GENERAL',
+      design: (data.isSpecific) ? 'CUSTOM' : 'GENERAL',
       fname: data.fname,
       lname: data.lname,
       isPatron: data.isPatron,
