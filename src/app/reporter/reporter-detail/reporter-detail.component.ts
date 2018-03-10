@@ -26,7 +26,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
     public successText: string = null;
 
     private teamId: string;
-    private hostId: string;
+    private userId: string;
 
     @select(s => s.reporter.error) reporterStoreError;
     @select(s => s.team.error) teamStoreError;
@@ -49,7 +49,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                     .subscribe(
                     report => {
                         this.teamId = report.activeTeamId;
-                        this.hostId = report.hostId;
+                        this.userId = report._id;
                         this.reporterDetailForm = this.formBuilder.group({                            
                             _id: [report._id, Validators.required],
                             isVolunteer: [{ value: report.isVolunteer, disabled: true }, Validators.required],
@@ -121,7 +121,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
         this.successText = null;
 
         if (this.teamId != null) {
-            this.teamActionCreator.SetAsTeamLeader(this.hostId, this.teamId);
+            this.teamActionCreator.SetAsTeamLeader(this.userId, this.teamId);
             this.teamErrorSubscription = this.teamStoreError.subscribe(
                 error => {
                     if (error) {
@@ -141,7 +141,7 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
         this.successText = null;
 
         if (this.teamId != null) {
-            this.teamActionCreator.SetAsTeamMember(this.hostId, this.teamId);
+            this.teamActionCreator.SetAsTeamMember(this.userId, this.teamId);
             this.teamErrorSubscription = this.teamStoreError.subscribe(
                 error => {
                     if (error) {

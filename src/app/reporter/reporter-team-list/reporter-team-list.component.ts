@@ -24,14 +24,15 @@ export class ReporterTeamListComponent implements OnInit {
 
   public reporterName: string;
   public reporterId: string;
-  public hostId: string;
+  public userId: string;
+  public isVolunteer: boolean;
 
   public dataNames: string[] = [
-      'teamName', 'teamEmail'
+      'teamName', 'teamEmail', 'isVolunteer'
   ];
 
   public dataAliases: string[] = [
-      'Team', 'Email'
+      'Team', 'Email', 'Volunteer'
   ];
 
   constructor(
@@ -52,7 +53,9 @@ export class ReporterTeamListComponent implements OnInit {
 
       this.reporterSubscription = this.selectedReporter
           .subscribe(reporter => {  
-              this.hostId = reporter.hostId;
+              this.userId = reporter._id;
+              this.isVolunteer = (typeof reporter.isVolunteer == 'string' && reporter.isVolunteer.toUpperCase() === 'VOLUNTEER') ? true
+                                    : (reporter.isVolunteer === true) ? true : false;
               this.reporterName = reporter.fname + " " + reporter.lname;                  
         });
   }
@@ -66,15 +69,21 @@ export class ReporterTeamListComponent implements OnInit {
   }
 
   onJoinClick(event) {
-      this.teamActionCreator.JoinTeam(this.hostId, event._id);    
-      this.teamErrorSubscription = this.teamStoreError.subscribe(
-          error => {
-              if (error) {
-                  this.dialogService.showSwal('error-message', { title: 'Error', text: error });
-              } else {
-                  this.dialogService.showSwal('success-message', { title: 'Join Team', text: `Successfully joined team: ${event.teamName}` })
-              }
-          }
-      ); 
+      if (event.isVolunteer == this.isVolunteer) {
+        this.teamActionCreator.JoinTeam(this.userId, event._id);    
+        this.teamErrorSubscription = this.teamStoreError.subscribe(
+            error => {
+                if (error) {
+                    this.dialogService.showSwal('error-message', { title: 'Error', text: error });
+                } else {
+                    this.dialogService.showSwal('success-message', { title: 'Join Team', text: `Successfully joined team: ${event.teamName}` })
+                }
+            }
+        ); 
+      } else {
+          this.dialogService.showSwal('error-message', 
+          { title: 'Cannot Join Team',
+            text: `${(this.isVolunteer == true) ? 'Volunteer' : 'Non-Volunteer'} Reporter can't join ${(event.isVolunteer == true) ? 'Volunteer' : 'Non-Volunteer'} team`})
+      }
   }
 }
