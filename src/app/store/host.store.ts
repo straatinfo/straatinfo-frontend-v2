@@ -25,13 +25,15 @@ export interface IHostStore {
   selectedHost: IHost;
   spinner: boolean;
   error: string;
+  success: string;
 }
 
 export const HOST_INITIAL_STATE: IHostStore = {
   hosts: [],
   selectedHost: null,
   spinner: false,
-  error: ''
+  error: null,
+  success: null
 }
 
 export function hostReducer(state: IHostStore = HOST_INITIAL_STATE, action): IHostStore {

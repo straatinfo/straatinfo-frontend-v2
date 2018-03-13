@@ -51,7 +51,7 @@ export class HostReporterListComponent implements OnInit {
 
     this.hostSubscription = this.selectedHost
         .subscribe(host => {
-            this.hostName = host.hostName;
+            this.hostName = (host) ? host.hostName : null;
         });
 
     this.reporterSubscription = this.reporters
