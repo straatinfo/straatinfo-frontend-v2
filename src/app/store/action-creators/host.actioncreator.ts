@@ -8,6 +8,7 @@ import { IAppState } from '../app.store';
 import { HostService, DialogService } from '../../services';
 
 import { IHost } from '../../interface/host/host.interface';
+import { IHostView } from '../../interface/host/host-view.interface';
 
 import { 
   HOST_CREATE_ATTEMPT,
@@ -43,6 +44,7 @@ export class HostActionCreator implements OnDestroy {
   private createHostSubscription: Subscription = null;
   private createHostBulkSubscription: Subscription = null;
   private updateHostDesignTypeSubscription: Subscription = null;
+  private getOneHostSubscription: Subscription = null;
 
   constructor (
     private ngRedux: NgRedux<IAppState>,
@@ -59,6 +61,7 @@ export class HostActionCreator implements OnDestroy {
     (this.createHostSubscription) ? this.createHostSubscription.unsubscribe() : null;
     (this.createHostBulkSubscription) ? this.createHostBulkSubscription.unsubscribe() : null;
     (this.updateHostDesignTypeSubscription) ? this.updateHostDesignTypeSubscription.unsubscribe() : null;
+    (this.getOneHostSubscription) ? this.getHostByIdSubscription.unsubscribe() : null;
   }
 
   GetHosts () {
@@ -66,7 +69,7 @@ export class HostActionCreator implements OnDestroy {
     this.getHostsSubscription = this.hostService.GetHosts()
     .map((data: any[]) => { return data.map(d => this.ToHostView(d)); })
     .subscribe(
-      (host: IHost[]) => {
+      (host: IHostView[]) => {
         this.ngRedux.dispatch({type: HOST_GET_FULFILLED, payload: host});
       }, err => {
         this.errorMessage = err._body;
@@ -85,7 +88,7 @@ export class HostActionCreator implements OnDestroy {
     this.createHostSubscription = this.hostService.CreateHost(host)
     .map(data => this.ToHostView(data))
     .subscribe(
-      (host: IHost) => {
+      (host: IHostView) => {
         this.ngRedux.dispatch({ type: HOST_CREATE_FULFILLED, payload: host });
       }, err => {
         this.errorMessage = err._body;
@@ -104,9 +107,9 @@ export class HostActionCreator implements OnDestroy {
     this.updateHostSubscription = this.hostService.UpdateHost(_id, host)
     .map(data => this.ToHostView(data))
     .subscribe(
-      (host: IHost) => {
+      (host: IHostView) => {
         this.ngRedux.dispatch({ type: HOST_UPDATE_FULFILLED, payload: host });
-        this.ngRedux.dispatch({ type: HOST_SELECT_FULFILLED, payload: host._id });
+        this.ngRedux.dispatch({ type: HOST_SELECT_FULFILLED, payload: host });
       }, err => {
         this.errorMessage = err._body;
         if (this.errorMessage && typeof this.errorMessage === 'string') {
@@ -119,7 +122,7 @@ export class HostActionCreator implements OnDestroy {
     );
   }
 
-  DeleteHost (_id: string, host:IHost) {
+  DeleteHost (_id: string, host: IHost) {
     this.ngRedux.dispatch({ type: HOST_DELETE_ATTEMPT });
     this.deleteHostSubscription = this.hostService.DeleteHost(_id)
     .subscribe(
@@ -142,7 +145,7 @@ export class HostActionCreator implements OnDestroy {
     this.getHostByIdSubscription = this.hostService.GetHostById(_id)
     .map(data => this.ToHostView(data))
     .subscribe(
-      (host:IHost) => {
+      (host:IHostView) => {
         this.ngRedux.dispatch({ type: HOST_SELECT_FULFILLED, payload: host });
       }, err => {
         this.errorMessage = err._body;
@@ -195,10 +198,25 @@ export class HostActionCreator implements OnDestroy {
   }
 
   SelectHost (_id: string) {
-    this.ngRedux.dispatch({ type: HOST_SELECT_FULFILLED, payload: _id });
+    this.ngRedux.dispatch({ type: HOST_SELECT_ATTEMPT });
+    this.getOneHostSubscription = this.hostService.GetHostById(_id, true)
+    .map(data => this.ToHostView(data))
+    .subscribe(
+      (host: IHostView) => {
+        this.ngRedux.dispatch({ type: HOST_SELECT_FULFILLED, payload: host });
+      }, err => {
+        this.errorMessage = err._body;
+        if (this.errorMessage && typeof this.errorMessage === 'string') {
+          this.ngRedux.dispatch({ type: HOST_SELECT_FAILED, error: this.errorMessage });
+        }
+      },
+      () => {
+        this.errorMessage = null;
+      }
+    );
   }
 
-  private ToHostView(data: any): IHost {
+  private ToHostView(data: IHost): IHostView {
     return {
       _id: data._id,
       hostName: data.hostName,
@@ -220,7 +238,9 @@ export class HostActionCreator implements OnDestroy {
       isPatron: data.isPatron,
       hostPersonalEmail: data.hostPersonalEmail,
       designType: data['_activeDesign.designName'],
-      _role: data._role,
+      _role: data['_role._id'],
+      _roleCode: data['_role.code'],
+      _roleName: data['_role.name']
     };
   }
 }

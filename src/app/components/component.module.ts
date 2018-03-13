@@ -6,13 +6,14 @@ import { MaterialModule } from '../app.module';
 import { InputBasicComponent } from './input/basic/input-basic.component';
 import { TableBasicComponent } from './table/basic/table-basic.component';
 import { FileUploadBasicComponent } from './fileUpload/basic/fileUpload-basic.component';
-
+import { SpinnerComponent, DirectiveModule } from '../directives'
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    DirectiveModule
   ],
   exports: [
     InputBasicComponent,
@@ -24,7 +25,9 @@ import { FileUploadBasicComponent } from './fileUpload/basic/fileUpload-basic.co
     TableBasicComponent,
     FileUploadBasicComponent
   ],
-  entryComponents: []
+  entryComponents: [
+    SpinnerComponent
+  ]
 })
 export class ComponentModule {
 }

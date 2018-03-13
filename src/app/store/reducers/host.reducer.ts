@@ -1,178 +1,196 @@
 import { tassign } from 'tassign';
 import * as _ from 'lodash';
+import { IHostStore } from '../host.store';
 
-export const hostCreateAttempt = (state, action) => {
-  return tassign(state, {
+export const hostCreateAttempt = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: true,
-    error: null
+    error: null,
+    success: null
   });
 };
 
-export const hostCreateFulfilled = (state, action) => {
-  return tassign( state, {
+export const hostCreateFulfilled = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>( state, {
     hosts: [
       ...state.hosts,
       action.payload
     ],
     selectedHost: state.selectedHost,
     spinner: false,
-    error: ''
+    error: null,
+    success: `Host ID: ${action.payload._id} was successfully created`
   });
 };
 
-export const hostCreateFailed = (state, action) => {
-  return tassign( state, {
+export const hostCreateFailed = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>( state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: false,
-    error: action.error
+    error: action.error,
+    success: null
   });
 };
 
-export const hostGetAttempt = (state, action) => {
-  return tassign(state, {
+export const hostGetAttempt = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: true,
-    error: ''
+    error: null,
+    success: null
   });
 };
 
-export const hostGetFulfilled = (state, action) => {
-  return tassign(state, {
+export const hostGetFulfilled = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: action.payload,
     selectedHost: state.selectedHost,
     spinner: false,
-    error: ''
+    error: null,
+    success: `Hosts were successfully loaded`
   });
 };
 
-export const hostGetFailed = (state, action) => {
-  return tassign(state, {
+export const hostGetFailed = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: false,
-    error: action.error
+    error: action.error,
+    success: null
   });
 };
 
-export const hostUpdateAttempt = (state, action) => {
-  return tassign(state, {
+export const hostUpdateAttempt = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: true,
-    error: ''
+    error: null,
+    success: null
   });
 };
 
-export const hostUpdateFulfilled = (state, action) => {
-  const index = _.findIndex(state.hosts, (h) => { return h.id == action.payload.id });
+export const hostUpdateFulfilled = (state: IHostStore, action: any) => {
+  const index = _.findIndex(state.hosts, (h) => { return h.id == action.payload._id });
   let newArray = state.hosts.slice();
   newArray.splice(index, 1, action.payload);
-  return tassign(state, {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: newArray,
     selectedHost: state.selectedHost,
     spinner: false,
-    error: ''
+    error: null,
+    success: `Host ID: ${action.payload._id} was successfully updated`
   });
 };
 
-export const hostUpdateFailed = (state, action) => {
-  return tassign(state, {
+export const hostUpdateFailed = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: false,
-    error: action.error
+    error: action.error,
+    success: null
   });
 };
 
-export const hostDeleteAttempt = (state, action) => {
-  return tassign(state, {
+export const hostDeleteAttempt = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: true,
-    error: ''
+    error: null,
+    success: null
   });
 };
 
-export const hostDeleteFufilled = (state, action) => {
+export const hostDeleteFufilled = (state: IHostStore, action: any) => {
   const newArray = _.remove(state.hosts, (h) => {
-    return h.id != action.payload.id;
+    return h._id != action.payload._id;
   });
-  return tassign(state, {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: newArray,
     selectedHost: state.selectedHost,
     spinner: false,
-    error: ''
+    error: null,
+    success: `Host ID ${action.payload._id} was successfully deleted`
   });
 };
 
-export const hostDeleteFailed = (state, action) => {
-  return tassign(state, {
+export const hostDeleteFailed = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: false,
-    error: action.error
+    error: action.error,
+    success: null
   });
 };
 
-export const hostSelectAttempt = (state, action) => {
-  return tassign(state, {
+export const hostSelectAttempt = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: true,
-    error: ''
+    error: null,
+    success: null
   });
 };
 
-export const hostSelectFulfilled = (state, action) => {
-  const index = _.findIndex(state.hosts, (h) => { return h._id == action.payload });
-  return tassign(state, {
+export const hostSelectFulfilled = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
-    selectedHost: state.hosts[index],
+    selectedHost: action.payload,
     spinner: false,
-    error: ''
+    error: null,
+    success: `Host ID ${action.payload._id} was successfully loaded`
   });
 };
 
-export const hostSelectFailed = (state, action) => {
-  return tassign(state, {
+export const hostSelectFailed = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: false,
-    error: action.error
+    error: action.error,
+    success: null
   });
 };
 
-export const hostDesignTypeUpdateAttempt = (state, action) => {
-  return tassign(state, {
+export const hostDesignTypeUpdateAttempt = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: true,
-    error: ''
+    error: null,
+    success: null
   });
 }
 
-export const hostDesignTypeUpdateFulfilled = (state, action) => {
+export const hostDesignTypeUpdateFulfilled = (state: IHostStore, action: any) => {
   const index = _.findIndex(state.hosts, (h) => { return h._id === action.payload._id; });
   const host = {...state.hosts[index], isSpecific: action.payload.isSpecific};
   let newArray = state.hosts.slice();
   newArray.splice(index, 1, host);
-  return tassign(state, {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: newArray,
     selectedHost: state.selectedHost,
     spinner: false,
-    error: ''
+    error: null,
+    success: `Host Design ID ${action.payload._id} was successfully updated`
   });
 }
 
-export const hostDesignTypeUpdateFailed = (state, action) => {
-  return tassign(state, {
+export const hostDesignTypeUpdateFailed = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: state.selectedHost,
     spinner: false,
-    error: action.error
+    error: action.error,
+    success: null
   });
 }

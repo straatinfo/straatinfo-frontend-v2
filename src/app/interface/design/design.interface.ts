@@ -1,4 +1,5 @@
 import { IHost } from '../host/host.interface';
+import { IMediaUpload } from '../media-upload/media-upload.interface';
 
 export interface IDesign {
   _id?: string;
@@ -7,6 +8,6 @@ export interface IDesign {
   colorTwo?: string;
   colorThree?: string;
   colorFour?: string;  
-  secure_url?: string;
+  _profilePic?: IMediaUpload;
   _host?: IHost
 }

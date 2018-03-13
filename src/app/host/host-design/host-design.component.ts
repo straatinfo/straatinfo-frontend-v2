@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
 import { DesignActionCreator } from '../../store/action-creators';
 import swal from 'sweetalert2';
+import { IHostView } from '../../interface/host/host-view.interface';
 
 @Component({
   selector: 'app-host-design',
@@ -47,8 +48,8 @@ export class HostDesignComponent implements OnInit {
       );
 
       this.hostSubscription = this.selectedHost
-          .subscribe(host => {
-              this.hostName = host.hostName;
+          .subscribe((host: IHostView) => {
+              this.hostName = (host) ? host.hostName : null;
           });
   }
 
@@ -76,7 +77,7 @@ export class HostDesignComponent implements OnInit {
           confirmButtonText: 'Yes'
       }).then((result) => {
           if (result) {
-              this.designActionCreator.DeleteDesign(event._id);
+              this.designActionCreator.DeleteDesign(event._id, event);
               swal(
                   'Deleted!',
                   `${event.designName} has been deleted.`,

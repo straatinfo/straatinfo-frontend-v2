@@ -17,18 +17,21 @@ import {
   DESIGN_SELECT_FULFILLED
 } from './actions/design.action';
 import * as design from './reducers/design.reducer';
+import { IDesignView } from '../interface/design/design-view.interface';
 export interface IDesignStore {
-  designs: IDesign[];
-  selectedDesign: IDesign;
+  designs: IDesignView[];
+  selectedDesign: IDesignView;
   spinner: boolean;
   error: string;
+  success: string;
 }
 
 export const DESIGN_INITIAL_STATE: IDesignStore = {
   designs: [],
   selectedDesign: null,
   spinner: false,
-  error: ''
+  error: null,
+  success: null
 }
 
 export function designReducer(state: IDesignStore = DESIGN_INITIAL_STATE, action): IDesignStore {

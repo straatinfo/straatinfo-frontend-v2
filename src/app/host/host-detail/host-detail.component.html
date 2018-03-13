@@ -1,20 +1,22 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
+      <div *appspinner="!hostData" class="col-md-12">
         <div class="card">
           <div class="card-header card-header-icon" data-background-color="rose">
             <i class="material-icons">perm_identity</i>
           </div>
-          <div class="card-content">
+          <div *ngIf="hostData" class="card-content">
             <h4 class="card-title">Edit Profile - <small class="category">Complete your profile</small></h4>
 
             <form [formGroup]="hostDetailForm">
-                <div *ngIf="errorText" class="alert alert-danger" role="alert">
-                    <strong>Error!</strong> {{errorText}}
-                </div>
-                <div *ngIf="successText" class="alert alert-success" role="alert">
-                    <strong>Success!</strong> {{successText}}
+                <div *ngIf="errorText || successText">
+                    <div *ngIf="errorText" class="alert alert-danger" role="alert">
+                        <strong>Error!</strong> {{errorText}}
+                    </div>
+                    <div *ngIf="successText" class="alert alert-success" role="alert">
+                        <strong>Success!</strong> {{successText}}
+                    </div>
                 </div>
                 <div class="col-md-5">
                     <div class="input-group">
@@ -23,7 +25,7 @@
                         </span>
                         <div class="form-group label-floating">
                             <label class="control-label">Host Name</label>
-                            <input formControlName="hostName" type="text" class="form-control" disabled>
+                            <input formControlName="hostName" type="text" class="form-control">
                         </div>
                     </div>
 
@@ -155,8 +157,8 @@
                         <button (click)="onBack()" type="button" class="btn btn-default btn-block">Back</button>
                         <button (click)="onViewReport()" type="button" class="btn btn-info btn-block">View Reports</button>
                         <button (click)="onViewReporter()" type="button" class="btn btn-success btn-block">View Reporters</button>
-                        <button *ngIf="!isSpecific" (click)="onSpecific()" type="button" class="btn btn-warning btn-block">Set To Specific</button>
-                        <button *ngIf="isSpecific" (click)="onGeneral()" type="button" class="btn btn-warning btn-block">Set To General</button>
+                        <button *ngIf="hostData && !isSpecific" (click)="onSpecific()" type="button" class="btn btn-warning btn-block">Set To Specific</button>
+                        <button *ngIf="hostData && isSpecific" (click)="onGeneral()" type="button" class="btn btn-warning btn-block">Set To General</button>
                         <button (click)="onDesign()" type="button" class="btn btn-warning btn-block">Edit Design</button>
                         <button (click)="onCategory()" type="button" class="btn btn-primary btn-block">Edit Category</button>
                         <button (click)="onUpdate()" type="button" class="btn btn-rose btn-block">Update Host</button>

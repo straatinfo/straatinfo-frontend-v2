@@ -99,7 +99,7 @@ export const reportDeleteAttempt = (state, action) => {
 
 export const reportDeleteFufilled = (state, action) => {
     const newArray = _.remove(state.reports, (h) => {
-        return h.id != action.payload.id;
+        return h._id != action.payload._id;
     });
     return tassign(state, {
         reports: newArray,
