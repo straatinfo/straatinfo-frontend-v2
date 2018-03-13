@@ -13,7 +13,7 @@ import { HostDesignDetailComponent } from './host-design-detail/host-design-deta
 import { HostDesignAddComponent } from './host-design-add/host-design-add.component';
 import { HostCategoryComponent } from './host-category/host-category.component';
 import { ColorPickerModule } from 'ngx-color-picker';
-import { DirectiveModule } from '../directives';
+import { DirectiveModule, LoadingBarComponent } from '../directives';
 import { SpinnerComponent } from '../directives';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -51,7 +51,8 @@ import { MatSelectModule } from '@angular/material/select';
     HostCategoryComponent
   ],
   entryComponents: [
-    SpinnerComponent
+    SpinnerComponent,
+    LoadingBarComponent
   ]
 })
 export class HostModule { }

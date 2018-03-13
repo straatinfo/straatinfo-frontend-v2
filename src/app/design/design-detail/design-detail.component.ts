@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from
 import swal from 'sweetalert2';
 
 import { DesignActionCreator, CategoryActionCreator, ReportTypeActionCreator } from '../../store/action-creators';
-import { IDesignView } from 'app/interface/design/design-view.interface';
+import { IDesignCatogoryView } from 'app/interface/design/design-category-view.interface';
 import { CategoryService, HostService } from '../../services';
 
 import { BACKEND_URL } from '../../config';
