@@ -1,4 +1,3 @@
-import { IReport } from '../interface/report/report.interface';
 import { IReportView } from '../interface/report/report-view.interface';
 
 import {
@@ -21,7 +20,7 @@ import {
 
 import * as report from './reducers/report.reducer';
 export interface IReportStore {
-  reports: IReport[];
+  reports: IReportView[];
   selectedReport: IReportView;
   spinner: boolean;
   error: string;

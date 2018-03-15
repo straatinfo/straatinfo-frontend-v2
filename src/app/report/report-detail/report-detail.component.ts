@@ -56,7 +56,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
         this.reportSubscription = this.selectedReport
         .subscribe(
             (report: IReportView) => {
-                this.reportData = report;
+                this.reportData = (report) ? report : null;
                 this.loadReportData = true;            
           }
         );
@@ -80,12 +80,12 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
 
       this.reportDetailForm = this.formBuilder.group({
           _id: [report._id, Validators.required],
-          hostName: [{ value: report.hostName, disabled: true }, Validators.required],
+          hostName: [{ value: report._hostName, disabled: true }, Validators.required],
           title: [{ value: report.title, disabled: true }, Validators.required],
           description: [{ value: report.description, disabled: true }, Validators.required],
-          reportType: [{ value: report.reportTypeCode, disabled: true }, Validators.required],
-          mainCategory: [{ value: report.mainCategoryName, disabled: true }, Validators.required],
-          subCategory: [{ value: report.subCategoryName, disabled: true }, Validators.required],
+          reportType: [{ value: report._reportTypeCode, disabled: true }, Validators.required],
+          mainCategory: [{ value: report._mainCategoryName, disabled: true }, Validators.required],
+          subCategory: [{ value: report._subCategoryName, disabled: true }, Validators.required],
           location: [{ value: report.location, disabled: true }, Validators.required],
           long: [{ value: report.long, disabled: true }, Validators.required],
           lat: [{ value: report.lat, disabled: true }, Validators.required],
@@ -111,7 +111,6 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   onUpdate() {
-      this.loadReportData = true;
       this.errorText = null;
       this.successText = null;
       this.reportActionCreator.UpdateReport(this.reportDetailForm.value._id, this.reportDetailForm.value.note, (this.reportDetailForm.value.status) ? this.reportDetailForm.value.status : 'Unresolved');
@@ -120,6 +119,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
           (report: IReportStore) => {
               if (report.error) this.errorMessage = report.error;
               if (report.success) this.successMessage = report.success;
+              this.loadReportData = false;
           }
       );
   }

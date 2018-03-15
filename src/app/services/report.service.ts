@@ -29,41 +29,41 @@ export class ReportService {
     }
   }
 
-  GetReportById(_id: string): Observable<IReport> {
+  GetReportById(_id: string, flat: boolean = true): Observable<IReport> {
       const headers = new Headers({ 'Content-Type': 'application/json' });
       headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
       const options = new RequestOptions({ headers: headers });
-      return this.http.get(`${this.reportUrl}/${_id}`, options)
+      return this.http.get(`${this.reportUrl}/${_id}/?flat=${flat}`, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
           .share()
   }
 
-  GetLatestReport (): Observable<IReport[]> {
+  GetLatestReport (flat: boolean = true): Observable<IReport[]> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.get(`${this.reportUrl}?flat=true`, options)
+    return this.http.get(`${this.reportUrl}?flat=${flat}`, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
     .share();
   }
 
-  GetLatestReportByHost(_hostId: string): Observable<IReport[]> {
+  GetLatestReportByHost(_hostId: string, flat: boolean = true): Observable<IReport[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.reportUrl}/host/${_hostId}?flat=true`, options)
+    return this.http.get(`${this.reportUrl}/host/${_hostId}?flat=${flat}`, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
     .share();
   }
 
-  UpdateReport (_id: string, note: string, status: string): Observable<IReport> {
+  UpdateReport (_id: string, note: string, status: string, flat: boolean = true): Observable<IReport> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.put(`${this.reportUrl}/${_id}`, { _id, note, status}, options)
+    return this.http.put(`${this.reportUrl}/${_id}?flat=${flat}`, { _id, note, status}, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
     .share();
