@@ -63,9 +63,7 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
                         this.teamId = report.activeTeamId;
                         this.userId = report._id;
                         this.reporterData = report;
-                        this.loadReporterData = true; 
-                        console.log('team')   
-                        console.log(this.teamId)       
+                        this.loadReporterData = true;      
                     }
                     );
             }
