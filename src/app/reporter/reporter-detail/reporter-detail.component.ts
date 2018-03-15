@@ -59,9 +59,9 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
                 this.reporterActionCreator.SelectReporter(params._id);
                 this.reporterSubscription = this.selectedReporter
                     .subscribe(
-                    report => {
-                        this.teamId = report.activeTeamId;
-                        this.userId = report._id;
+                    (report: IReporterView) => {
+                        this.teamId = (report) ? report.activeTeamId : null;
+                        this.userId = (report) ? report._id : null;
                         this.reporterData = report;
                         this.loadReporterData = true;      
                     }
@@ -200,6 +200,10 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 
     onTeam() {
         this.router.navigate([`admin/reporter/team/${this.reporterDetailForm.value._id}`]);
+    }
+
+    onTeamPending() {
+        this.router.navigate([`admin/reporter/pending-team/${this.reporterDetailForm.value._id}`]);
     }
 
     onDelete() {

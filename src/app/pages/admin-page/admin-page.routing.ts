@@ -10,7 +10,7 @@ import { HostListComponent,
         HostDesignDetailComponent,
         HostCategoryComponent} from '../../host';
 import { ReportListComponent, ReportDetailComponent } from '../../report';
-import { ReporterListComponent, ReporterDetailComponent, ReporterTeamAddComponent, ReporterTeamListComponent } from '../../reporter';
+import { ReporterListComponent, ReporterDetailComponent, ReporterTeamAddComponent, ReporterTeamListComponent, ReporterTeamPendingListComponent } from '../../reporter';
 import { DesignDetailComponent  } from '../../design';
 import { TeamPendingListComponent } from '../../team';
 
@@ -85,6 +85,10 @@ export const AdminRoutes: Routes = [
       {
           path: 'reporter/add-team/:_reporterId',
           component: ReporterTeamAddComponent,
+      },
+      {
+          path: 'reporter/pending-team/:_reporterId',
+          component: ReporterTeamPendingListComponent,
       },
       {
           path: 'design',

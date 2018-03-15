@@ -55,7 +55,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
         this.reportActionCreator.SelectReport(params._id);
         this.reportSubscription = this.selectedReport
         .subscribe(
-            report => {
+            (report: IReportView) => {
                 this.reportData = report;
                 this.loadReportData = true;            
           }
