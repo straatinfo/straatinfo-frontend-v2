@@ -1,147 +1,196 @@
 import { tassign } from 'tassign';
 import * as _ from 'lodash';
+import { IReportStore } from '../report.store';
 
-export const reportCreateAttempt = (state, action) => {
-    return tassign(state, {
+export const reportCreateAttempt = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: state.reports,
         selectedReport: state.selectedReport,
         spinner: true,
-        error: null
+        error: null,
+        success: null
     });
 };
 
-export const reportCreateFulfilled = (state, action) => {
-    return tassign(state, {
+export const reportCreateFulfilled = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: [
             ...state.reports,
             action.payload
         ],
         selectedReport: state.selectedReport,
         spinner: false,
-        error: ''
+        error: null,
+        success: `Report was successfully created`
     });
 };
 
-export const reportCreateFailed = (state, action) => {
-    return tassign(state, {
+export const reportCreateFailed = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: state.reports,
         selectedReport: state.selectedReport,
         spinner: false,
-        error: action.error
+        error: action.error,
+        success: null
     });
 };
 
-export const reportGetAttempt = (state, action) => {
-    return tassign(state, {
+export const reportGetAttempt = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: state.reports,
         selectedReport: state.selectedReport,
         spinner: true,
-        error: ''
+        error: null,
+        success: null
     });
 };
 
-export const reportGetFulfilled = (state, action) => {
-    return tassign(state, {
+export const reportGetFulfilled = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: action.payload,
         selectedReport: state.selectedReport,
         spinner: false,
-        error: ''
+        error: null,
+        success: `Reports were successfully loaded`
     });
 };
 
-export const reportGetFailed = (state, action) => {
-    return tassign(state, {
+export const reportGetFailed = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: state.reports,
         selectedReport: state.selectedReport,
         spinner: false,
-        error: action.error
+        error: action.error,
+        success: null
     });
 };
 
-export const reportUpdateAttempt = (state, action) => {
-    return tassign(state, {
+export const reportUpdateAttempt = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: state.reports,
         selectedReport: state.selectedReport,
         spinner: true,
-        error: ''
+        error: null,
+        success: null
     });
 };
 
-export const reportUpdateFulfilled = (state, action) => {
-    const index = _.findIndex(state.reports, (h) => { return h.id == action.payload.id });
+export const reportUpdateFulfilled = (state: IReportStore, action: any) => {
+    const index = _.findIndex(state.reports, (h) => { return h.id == action.payload._id });
     let newArray = state.reports.slice();
     newArray.splice(index, 1, action.payload);
-    return tassign(state, {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: newArray,
         selectedReport: state.selectedReport,
         spinner: false,
-        error: ''
+        error: null,
+        success: `Report was successfully updated`
     });
 };
 
-export const reportUpdateFailed = (state, action) => {
-    return tassign(state, {
+export const reportUpdateFailed = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: state.reports,
         selectedReport: state.selectedReport,
         spinner: false,
-        error: action.error
+        error: action.error,
+        success: null
     });
 };
 
-export const reportDeleteAttempt = (state, action) => {
-    return tassign(state, {
+export const reportDeleteAttempt = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: state.reports,
         selectedReport: state.selectedReport,
         spinner: true,
-        error: ''
+        error: null,
+        success: null
     });
 };
 
-export const reportDeleteFufilled = (state, action) => {
+export const reportDeleteFufilled = (state: IReportStore, action: any) => {
     const newArray = _.remove(state.reports, (h) => {
         return h._id != action.payload._id;
     });
-    return tassign(state, {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: newArray,
         selectedReport: state.selectedReport,
         spinner: false,
-        error: ''
+        error: null,
+        success: `Report was successfully deleted`
     });
 };
 
-export const reportDeleteFailed = (state, action) => {
-    return tassign(state, {
+export const reportDeleteFailed = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: state.reports,
         selectedReport: state.selectedReport,
         spinner: false,
-        error: action.error
+        error: action.error,
+        success: null
     });
 };
 
-export const reportSelectAttempt = (state, action) => {
-    return tassign(state, {
+export const reportSelectAttempt = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: state.reports,
         selectedReport: state.selectedReport,
         spinner: true,
-        error: ''
+        error: null,
+        success: null
     });
 };
 
-export const reportSelectFulfilled = (state, action) => {
-    const index = _.findIndex(state.reports, (h) => { return h._id == action.payload });
-    return tassign(state, {
+export const reportSelectFulfilled = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: state.reports,
-        selectedReport: state.reports[index],
+        selectedReport: action.payload,
         spinner: false,
-        error: ''
+        error: null,
+        success: `Report was successfully loaded`
     });
 };
 
-export const reportSelectFailed = (state, action) => {
-    return tassign(state, {
+export const reportSelectFailed = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
         reports: state.reports,
         selectedReport: state.selectedReport,
         spinner: false,
-        error: action.error
+        error: action.error,
+        success: null
     });
 };
+
+export const reportDesignTypeUpdateAttempt = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
+        reports: state.reports,
+        selectedReport: state.selectedReport,
+        spinner: true,
+        error: null,
+        success: null
+    });
+}
+
+export const reportDesignTypeUpdateFulfilled = (state: IReportStore, action: any) => {
+    const index = _.findIndex(state.reports, (h) => { return h._id === action.payload._id; });
+    const report = {...state.reports[index], isSpecific: action.payload.isSpecific };
+    let newArray = state.reports.slice();
+    newArray.splice(index, 1, report);
+    return tassign<IReportStore, IReportStore>(state, {
+        reports: newArray,
+        selectedReport: state.selectedReport,
+        spinner: false,
+        error: null,
+        success: `Report Design was successfully updated`
+    });
+}
+
+export const reportDesignTypeUpdateFailed = (state: IReportStore, action: any) => {
+    return tassign<IReportStore, IReportStore>(state, {
+        reports: state.reports,
+        selectedReport: state.selectedReport,
+        spinner: false,
+        error: action.error,
+        success: null
+    });
+}

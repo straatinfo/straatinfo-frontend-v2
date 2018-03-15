@@ -24,13 +24,15 @@ export interface IReporterStore {
   selectedReporter: IReporter;
   spinner: boolean;
   error: string;
+  success: string;
 }
 
 export const REPORTER_INITIAL_STATE: IReporterStore = {
   reporters: [],
   selectedReporter: null,
   spinner: false,
-  error: ''
+  error: null,
+  success: null
 }
 
 export function reporterReducer(state: IReporterStore = REPORTER_INITIAL_STATE, action): IReporterStore {

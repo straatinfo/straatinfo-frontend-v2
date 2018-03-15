@@ -1,12 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import swal from 'sweetalert2';
 
 import { ReporterActionCreator, TeamActionCreator } from '../../store/action-creators';
 import { IReporter } from 'app/interface/reporter/reporter.interface';
+import { IReporterView } from 'app/interface/reporter/reporter-view.interface';
+import { IReporterStore } from '../../store/reporter.store';
+import { ITeamStore } from '../../store/team.store';
 
 @Component({
     selector: 'app-reporter-detail',
@@ -14,7 +18,7 @@ import { IReporter } from 'app/interface/reporter/reporter.interface';
     styleUrls: ['./reporter-detail.component.scss']
 })
 
-export class ReporterDetailComponent implements OnInit, OnDestroy {
+export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 
     public reporterDetailForm: FormGroup;
     private routeParamsSubscription: Subscription = null;
@@ -28,9 +32,17 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
     private teamId: string;
     private userId: string;
 
+    // variables to check
+    public reporterData: IReporterView = null
+    public loadReporterData: boolean = false;
+    public errorMessage: string = null;
+    public successMessage: string = null;
+
     @select(s => s.reporter.error) reporterStoreError;
     @select(s => s.team.error) teamStoreError;
     @select(s => s.reporter.selectedReporter) selectedReporter;
+    @select(s => s.reporter) reporter$: Observable<IReporterStore>;
+    @select(s => s.team) team$: Observable<ITeamStore>;
 
     constructor(
         private actvatedRoute: ActivatedRoute,
@@ -50,30 +62,20 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
                     report => {
                         this.teamId = report.activeTeamId;
                         this.userId = report._id;
-                        this.reporterDetailForm = this.formBuilder.group({                            
-                            _id: [report._id, Validators.required],
-                            isVolunteer: [{ value: report.isVolunteer, disabled: true }, Validators.required],
-                            fname: [{ value: report.fname, disabled: true }, Validators.required],
-                            lname: [{ value: report.lname, disabled: true }, Validators.required],
-                            gender: [{ value: report.gender, disabled: true }, Validators.required],
-                            streetName: [{ value: report.streetName, disabled: true }, Validators.required],
-                            postalCode: [{ value: report.postalCode, disabled: true }, Validators.required],
-                            city: [{ value: report.city, disabled: true }, Validators.required],
-                            email: [{ value: report.email, disabled: true }, Validators.required],
-                            phoneNumber: [{ value: report.phoneNumber, disabled: true }, Validators.required],
-                            chatName: [{ value: report.chatName, disabled: true }, Validators.required],                                                        
-                            hostName: [{ value: report.hostName, disabled: true }, Validators.required],
-                            activeTeamName: [{ value: report.activeTeamName, disabled: true }, Validators.required],
-                            activeTeamEmail: [{ value: report.activeTeamEmail, disabled: true }, Validators.required],
-                            status1: [{ value: report.status1, disabled: true }, Validators.required],
-                            status2: [{ value: report.status2, disabled: true }, Validators.required],
-                            dateRegistrationReporter: [{ value: report.dateRegistrationReporter, disabled: true }, Validators.required],
-                            dateCreationTeam: [{ value: report.dateCreationTeam, disabled: true }, Validators.required],
-                        });
+                        this.reporterData = report;
+                        this.loadReporterData = true; 
+                        console.log('team')   
+                        console.log(this.teamId)       
                     }
                     );
             }
             );
+    }
+
+    ngDoCheck() {
+        if (this.reporterData && this.loadReporterData) this.onLoadForm(this.reporterData);
+        if (this.successMessage) this.onSuccessMessage(this.successMessage);
+        if (this.errorMessage) this.onErrorMessage(this.errorMessage);
     }
 
     ngOnDestroy() {
@@ -84,75 +86,117 @@ export class ReporterDetailComponent implements OnInit, OnDestroy {
         (this.teamErrorSubscription) ? this.teamErrorSubscription.unsubscribe() : null;
     }
 
+    onLoadForm(report: IReporterView) {
+
+        this.reporterDetailForm = this.formBuilder.group({
+            _id: [report._id, Validators.required],
+            isVolunteer: [{ value: report.isVolunteer, disabled: true }, Validators.required],
+            fname: [{ value: report.fname, disabled: true }, Validators.required],
+            lname: [{ value: report.lname, disabled: true }, Validators.required],
+            gender: [{ value: report.gender, disabled: true }, Validators.required],
+            streetName: [{ value: report.streetName, disabled: true }, Validators.required],
+            postalCode: [{ value: report.postalCode, disabled: true }, Validators.required],
+            city: [{ value: report.city, disabled: true }, Validators.required],
+            email: [{ value: report.email, disabled: true }, Validators.required],
+            phoneNumber: [{ value: report.phoneNumber, disabled: true }, Validators.required],
+            chatName: [{ value: report.chatName, disabled: true }, Validators.required],
+            hostName: [{ value: report.hostName, disabled: true }, Validators.required],
+            activeTeamName: [{ value: report.activeTeamName, disabled: true }, Validators.required],
+            activeTeamEmail: [{ value: report.activeTeamEmail, disabled: true }, Validators.required],
+            status1: [{ value: report.status1, disabled: true }, Validators.required],
+            status2: [{ value: report.status2, disabled: true }, Validators.required],
+            dateRegistrationReporter: [{ value: report.dateRegistrationReporter, disabled: true }, Validators.required],
+            dateCreationTeam: [{ value: report.dateCreationTeam, disabled: true }, Validators.required],
+        });
+
+        this.loadReporterData = false;
+    }
+
+    onErrorMessage(error: string) {
+        this.errorText = error;
+        this.successText = null;
+    }
+
+    onSuccessMessage(success: string) {
+        this.successText = success;
+        this.errorText = null;
+    }
+
     onBlock() {
+        this.loadReporterData = true;
         this.errorText = null;
         this.successText = null;
         this.reporterActionCreator.BlockReporter(this.reporterDetailForm.value._id);
-        this.reporterErrorSubscription = this.reporterStoreError.subscribe(
-            error => {
-                if (error) {
-                    this.errorText = error;
-                } else {
-                    this.successText = 'The Reporter has been block.';
+        this.reporterErrorSubscription = this.reporter$
+            .subscribe(
+            (reporter: IReporterStore) => {
+                if (reporter.error) this.errorMessage = reporter.error;
+                if (reporter.success) {
+                    this.successMessage = reporter.success;
                     this.reporterDetailForm.patchValue({ status1: 'BLOCK' });
                 }
             }
-        );
+            );
     }
 
     onUnblock() {
+        this.loadReporterData = true;
         this.errorText = null;
         this.successText = null;
         this.reporterActionCreator.UnblockReporter(this.reporterDetailForm.value._id);
-        this.reporterErrorSubscription = this.reporterStoreError.subscribe(
-            error => {
-                if (error) {
-                    this.errorText = error;
-                } else {
-                    this.successText = 'The Reporter has been unblock.';
+        this.reporterErrorSubscription = this.reporter$
+            .subscribe(
+            (reporter: IReporterStore) => {
+                if (reporter.error) this.errorMessage = reporter.error;
+                if (reporter.success) {
+                    this.successMessage = reporter.success;
                     this.reporterDetailForm.patchValue({ status1: 'ACTIVE' });
                 }
             }
-        );
+            );
     }
 
     onTeamLeader() {
+        this.loadReporterData = true;
         this.errorText = null;
         this.successText = null;
 
         if (this.teamId != null) {
+            console.log('leader');
+            console.log(this.userId);
             this.teamActionCreator.SetAsTeamLeader(this.userId, this.teamId);
-            this.teamErrorSubscription = this.teamStoreError.subscribe(
-                error => {
-                    if (error) {
-                        console.log(error);
-                        this.errorText = error;
-                    } else {
-                        this.successText = 'The Reporter has been set as team leader';
+            this.teamErrorSubscription = this.team$
+                .subscribe(
+                (team: ITeamStore) => {
+                    if (team.error) this.errorMessage = team.error;
+                    if (team.success) {
+                        this.successMessage = team.success;
                         this.reporterDetailForm.patchValue({ status2: 'LEADER' });
                     }
                 }
-            );
+                );
         }
     }
 
     onTeamMember() {
+        this.loadReporterData = true;
         this.errorText = null;
         this.successText = null;
 
         if (this.teamId != null) {
+            console.log('member');
+            console.log(this.userId);
             this.teamActionCreator.SetAsTeamMember(this.userId, this.teamId);
-            this.teamErrorSubscription = this.teamStoreError.subscribe(
-                error => {
-                    if (error) {
-                        console.log(error);
-                        this.errorText = error;
-                    } else {
-                        this.successText = 'The Reporter has been set as team member';
+            this.teamErrorSubscription = this.team$
+                .subscribe(
+                (team: ITeamStore) => {
+                    if (team.error) this.errorMessage = team.error;
+                    if (team.success) {
+                        this.successMessage = team.success;
                         this.reporterDetailForm.patchValue({ status2: 'MEMBER' });
                     }
                 }
-            );
+                );
         }
     }
 

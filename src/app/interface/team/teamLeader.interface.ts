@@ -5,4 +5,6 @@ export interface ITeamLeader {
   _id?: string;
   _user?: IUser;
   _team?: ITeam;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

@@ -93,6 +93,7 @@ export class HostDesignDetailComponent implements OnInit, DoCheck, OnDestroy {
             colorThree: [design.colorThree, Validators.required],
             _profilePicSecureUrl: [design._profilePicSecureUrl, Validators.required],
         });
+        this.loadDesignData = false;
     }
 
     onColorOneEvent(value: string) {

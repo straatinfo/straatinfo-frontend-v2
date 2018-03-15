@@ -34,6 +34,7 @@ export interface ITeamStore {
   selectedTeam: ITeam;
   spinner: boolean;
   error: string;
+  success: string;
 }
 
 export const TEAM_INITIAL_STATE: ITeamStore = {
@@ -41,7 +42,8 @@ export const TEAM_INITIAL_STATE: ITeamStore = {
   pendingTeams: [],
   selectedTeam: null,
   spinner: false,
-  error: ''
+  error: null,
+  success: null
 }
 
 export function teamReducer(state: ITeamStore = TEAM_INITIAL_STATE, action): ITeamStore {
