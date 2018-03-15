@@ -8,7 +8,6 @@ import { ITeam } from '../team/team.interface';
 export interface IReport {
   _id?: string;
   generatedReportId?: string;
-  hostName: string;
   title?: string;
   description?: string;
   location?: string;
@@ -19,6 +18,8 @@ export interface IReport {
   isVehicleInvolved?: boolean;
   isPeopleInvolved?: boolean;
   vehicleInvolvedDescription?: string;
+  peopleInvolvedDescription?: string;
+  vehicleInvolvedCount?: number;
   peopleInvolvedCount?: number;
   _reportType?: IReportType;
   _mainCategory?: IMainCategory;
