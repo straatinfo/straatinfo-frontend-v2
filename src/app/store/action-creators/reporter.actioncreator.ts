@@ -34,6 +34,7 @@ export class ReporterActionCreator implements OnDestroy {
     private updateReporterSubscription: Subscription = null;
     private deleteReporterSubscription: Subscription = null;
     private getReporterByIdSubscription: Subscription = null;
+    private getOneReporterSubscription: Subscription = null;
 
     constructor(
         private ngRedux: NgRedux<IAppState>,
@@ -45,13 +46,14 @@ export class ReporterActionCreator implements OnDestroy {
         (this.updateReporterSubscription) ? this.updateReporterSubscription.unsubscribe() : null;
         (this.deleteReporterSubscription) ? this.deleteReporterSubscription.unsubscribe() : null;
         (this.getReporterByIdSubscription) ? this.getReporterByIdSubscription.unsubscribe() : null;
+        (this.getOneReporterSubscription) ? this.getOneReporterSubscription.unsubscribe() : null;
     }
 
     GetLatestReporter() {
         this.ngRedux.dispatch({ type: REPORTER_GET_ATTEMPT });
         this.getLatestReporterSubscription = this.reporterService.GetLatestReporter()
             .map(data => {
-                return data.map(d => this.ReporterToView(d))
+                return data.map(d => this.ReporterListToView(d))
             })
             .subscribe(
             (reporters: IReporterView[]) => {
@@ -72,7 +74,7 @@ export class ReporterActionCreator implements OnDestroy {
         this.ngRedux.dispatch({ type: REPORTER_GET_ATTEMPT });
         this.getLatestReporterSubscription = this.reporterService.GetLatestReporterByHost(_hostId)
             .map(data => {
-                return data.map(d => this.ReporterToView(d))
+                return data.map(d => this.ReporterListToView(d))
             })
             .subscribe(
             (reporters: IReporterView[]) => {
@@ -163,10 +165,25 @@ export class ReporterActionCreator implements OnDestroy {
     }
 
     SelectReporter(_id: string) {
-        this.ngRedux.dispatch({ type: REPORTER_SELECT_FULFILLED, payload: _id });
+        this.ngRedux.dispatch({ type: REPORTER_SELECT_ATTEMPT });
+        this.getOneReporterSubscription = this.reporterService.GetReporterById(_id)
+            .map(data => this.ReporterToView(data))
+            .subscribe(
+            (reporter: IReporterView) => {
+                this.ngRedux.dispatch({ type: REPORTER_SELECT_FULFILLED, payload: reporter });
+            }, err => {
+                this.errorMessage = err._body;
+                if (this.errorMessage && typeof this.errorMessage === 'string') {
+                    this.ngRedux.dispatch({ type: REPORTER_SELECT_FAILED, error: this.errorMessage });
+                }
+            },
+            () => {
+                this.errorMessage = null;
+            }
+            );
     }
 
-    private ReporterToView(data: IReporter): IReporterView {
+    private ReporterListToView(data: IReporter): IReporterView {
         const reporter: IReporterView = {
             _id: data._id,
             isVolunteer: data.isVolunteer ? "Volunteer" : "Non-Volunteer",
@@ -186,7 +203,35 @@ export class ReporterActionCreator implements OnDestroy {
             hostName: data['_host.hostName'],
             activeTeamId: data['activeTeam._id'],
             activeTeamName: data['activeTeam.teamName'],
-            activeTeamEmail: data['activeTeam.teamEmail'],            
+            activeTeamEmail: data['activeTeam.teamEmail'],
+            chatName: data.username,
+            createdAt: data.createdAt,
+            updatedAt: data.updatedAt
+        };
+        return reporter;
+    }
+
+    private ReporterToView(data: IReporter): IReporterView {
+        const reporter: IReporterView = {
+            _id: data._id,
+            isVolunteer: data.isVolunteer ? "Volunteer" : "Non-Volunteer",
+            fname: data.fname,
+            lname: data.lname,
+            gender: data.gender,
+            streetName: data.streetName,
+            postalCode: data.postalCode,
+            city: data.city,
+            email: data.email,
+            phoneNumber: data._host.phoneNumber,
+            status1: data.status1,
+            status2: data.status2,
+            dateRegistrationReporter: data.activeTeam.teamLeaders[0].createdAt == null ? this.formatDate(data.activeTeam.teamMembers[0].createdAt) : this.formatDate(data.activeTeam.teamLeaders[0].createdAt),
+            dateCreationTeam: this.formatDate(data.activeTeam.createdAt),
+            hostId: data._host._id,
+            hostName: data._host.hostName,
+            activeTeamId: data.activeTeam._id,
+            activeTeamName: data.activeTeam.teamName,
+            activeTeamEmail: data.activeTeam.teamEmail,            
             chatName: data.username,
             createdAt: data.createdAt,
             updatedAt: data.updatedAt

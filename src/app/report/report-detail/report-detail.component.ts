@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
@@ -7,8 +8,10 @@ import swal from 'sweetalert2';
 
 import { ReportActionCreator } from '../../store/action-creators';
 import { IReport } from 'app/interface/report/report.interface';
+import { IReportView } from 'app/interface/report/report-view.interface';
 import { ISession } from 'app/interface/session/session.interface';
 import { IRole } from 'app/interface/role/role.interface';
+import { IReportStore } from '../../store/report.store';
 
 @Component({
   selector: 'app-report-detail',
@@ -16,7 +19,7 @@ import { IRole } from 'app/interface/role/role.interface';
   styleUrls: ['./report-detail.component.scss']
 })
 
-export class ReportDetailComponent implements OnInit, OnDestroy {
+export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
 
   public reportDetailForm: FormGroup;
   private routeParamsSubscription: Subscription = null;
@@ -24,9 +27,16 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
   private reportErrorSubscription: Subscription = null;
   public errorText: string = null;
   public successText: string = null;
+  // variables to check
+  public reportData: IReportView = null
+  public loadReportData: boolean = false;
+  public errorMessage: string = null;
+  public successMessage: string = null;
+
   @select(s => s.report.error) reportStoreError;
   @select(s => s.report.selectedReport) selectedReport;
   @select(s => s.report.spinner) reportSpinner;
+  @select(s => s.report) report$: Observable<IReportStore>;
 
   public session: ISession = JSON.parse(localStorage.getItem('session'));
   public _role: IRole = this.session.user._role;
@@ -46,28 +56,18 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
         this.reportSubscription = this.selectedReport
         .subscribe(
             report => {
-            this.reportDetailForm = this.formBuilder.group({
-              _id: [report._id, Validators.required],
-              hostName: [{ value: report.hostName, disabled: true }, Validators.required],
-              title: [{ value: report.title, disabled: true }, Validators.required],
-              description: [{ value: report.description, disabled: true }, Validators.required],
-              reportType: [{ value: report.reportTypeCode, disabled: true }, Validators.required],
-              mainCategory: [{ value: report.mainCategoryName, disabled: true }, Validators.required],
-              subCategory: [{ value: report.subCategoryName, disabled: true }, Validators.required],
-              location: [{ value: report.location, disabled: true }, Validators.required],
-              long: [{ value: report.long, disabled: true }, Validators.required],
-              lat: [{ value: report.lat, disabled: true }, Validators.required],
-              isVehicleInvolved: [{ value: report.isVehicleInvolved, disabled: true }, Validators.required],
-              vehicleInvolvedDescription: [{ value: report.vehicleInvolvedDescription, disabled: true }, Validators.required],
-              isPeopleInvolved: [{ value: report.isPeopleInvolved, disabled: true }, Validators.required],
-              peopleInvolvedCount: [{ value: report.peopleInvolvedCount, disabled: true }, Validators.required],
-              note: [report.note, Validators.required],
-              status: [report.status, Validators.required]
-            });
+                this.reportData = report;
+                this.loadReportData = true;            
           }
         );
       }
       );
+  }
+
+  ngDoCheck() {
+      if (this.reportData && this.loadReportData) this.onLoadForm(this.reportData);
+      if (this.successMessage) this.onSuccessMessage(this.successMessage);
+      if (this.errorMessage) this.onErrorMessage(this.errorMessage);
   }
 
   ngOnDestroy() {
@@ -76,18 +76,50 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
     (this.reportErrorSubscription) ? this.reportErrorSubscription.unsubscribe() : null;
   }
 
+  onLoadForm(report: IReportView) {
+
+      this.reportDetailForm = this.formBuilder.group({
+          _id: [report._id, Validators.required],
+          hostName: [{ value: report.hostName, disabled: true }, Validators.required],
+          title: [{ value: report.title, disabled: true }, Validators.required],
+          description: [{ value: report.description, disabled: true }, Validators.required],
+          reportType: [{ value: report.reportTypeCode, disabled: true }, Validators.required],
+          mainCategory: [{ value: report.mainCategoryName, disabled: true }, Validators.required],
+          subCategory: [{ value: report.subCategoryName, disabled: true }, Validators.required],
+          location: [{ value: report.location, disabled: true }, Validators.required],
+          long: [{ value: report.long, disabled: true }, Validators.required],
+          lat: [{ value: report.lat, disabled: true }, Validators.required],
+          isVehicleInvolved: [{ value: report.isVehicleInvolved, disabled: true }, Validators.required],
+          vehicleInvolvedDescription: [{ value: report.vehicleInvolvedDescription, disabled: true }, Validators.required],
+          isPeopleInvolved: [{ value: report.isPeopleInvolved, disabled: true }, Validators.required],
+          peopleInvolvedCount: [{ value: report.peopleInvolvedCount, disabled: true }, Validators.required],
+          note: [report.note, Validators.required],
+          status: [report.status, Validators.required]
+      });
+
+      this.loadReportData = false;
+  }
+
+  onErrorMessage(error: string) {
+      this.errorText = error;
+      this.successText = null;
+  }
+
+  onSuccessMessage(success: string) {
+      this.successText = success;
+      this.errorText = null;
+  }
+
   onUpdate() {
+      this.loadReportData = true;
       this.errorText = null;
       this.successText = null;
       this.reportActionCreator.UpdateReport(this.reportDetailForm.value._id, this.reportDetailForm.value.note, (this.reportDetailForm.value.status) ? this.reportDetailForm.value.status : 'Unresolved');
-      this.reportErrorSubscription = this.reportStoreError.subscribe(
-          error => {
-              if (error) {
-                  console.log(error);
-                  this.errorText = error;
-              } else {
-                  this.successText = 'The Report has been updated.';
-              }
+      this.reportErrorSubscription = this.report$
+          .subscribe(
+          (report: IReportStore) => {
+              if (report.error) this.errorMessage = report.error;
+              if (report.success) this.successMessage = report.success;
           }
       );
   }

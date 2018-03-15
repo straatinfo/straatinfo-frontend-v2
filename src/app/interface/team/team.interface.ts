@@ -12,6 +12,8 @@ export interface ITeam {
     logoSecuredUrl?: string;
     description?: string;
     _host?: IHost;
+    createdAt?: Date;
+    updatedAt?: Date;
     teamLeaders?: ITeamLeader[];
     teamMembers?: ITeamMember[];
 }

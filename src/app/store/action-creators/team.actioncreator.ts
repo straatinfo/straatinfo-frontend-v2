@@ -99,16 +99,16 @@ export class TeamActionCreator implements OnDestroy {
 	}
 
 	SetAsTeamLeader(_userId: string, _teamId: string) {
-		this.ngRedux.dispatch({ type: TEAM_SELECT_ATTEMPT });
+		this.ngRedux.dispatch({ type: TEAM_UPDATE_ATTEMPT });
 		this.getLatestTeamSubscription = this.teamService.SetAsTeamLeader(_userId, _teamId)
 			.map(data => this.ToTeamView(data))
 			.subscribe(
 				(team: ITeamView) => {
-					this.ngRedux.dispatch({ type: TEAM_SELECT_FULFILLED, payload: team });
+                    this.ngRedux.dispatch({ type: TEAM_UPDATE_FULFILLED, payload: team });
 				}, err => {
 					this.errorMessage = err._body;
 					if (this.errorMessage && typeof this.errorMessage === 'string') {
-						this.ngRedux.dispatch({ type: TEAM_GET_FAILED, error: this.errorMessage });
+                        this.ngRedux.dispatch({ type: TEAM_UPDATE_FAILED, error: this.errorMessage });
 					}
 				},
 				() => {
@@ -118,16 +118,16 @@ export class TeamActionCreator implements OnDestroy {
 	}
 
 	SetAsTeamMember(_userId: string, _teamId: string) {
-		this.ngRedux.dispatch({ type: TEAM_SELECT_ATTEMPT });
+        this.ngRedux.dispatch({ type: TEAM_UPDATE_ATTEMPT });
 		this.getLatestTeamSubscription = this.teamService.SetAsTeamMember(_userId, _teamId)
 			.map(data => this.ToTeamView(data))
 			.subscribe(
 				(team: ITeamView) => {
-					this.ngRedux.dispatch({ type: TEAM_SELECT_FULFILLED, payload: team });
+                    this.ngRedux.dispatch({ type: TEAM_UPDATE_FULFILLED, payload: team });
 				}, err => {
 					this.errorMessage = err._body;
 					if (this.errorMessage && typeof this.errorMessage === 'string') {
-						this.ngRedux.dispatch({ type: TEAM_GET_FAILED, error: this.errorMessage });
+                        this.ngRedux.dispatch({ type: TEAM_UPDATE_FAILED, error: this.errorMessage });
 					}
 				},
 				() => {
