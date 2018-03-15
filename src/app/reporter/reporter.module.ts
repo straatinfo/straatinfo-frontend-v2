@@ -6,6 +6,7 @@ import { ReporterListComponent } from './reporter-list/reporter-list.component';
 import { ReporterDetailComponent } from './reporter-detail/reporter-detail.component';
 import { ReporterTeamAddComponent } from './reporter-team-add/reporter-team-add.component';
 import { ReporterTeamListComponent } from './reporter-team-list/reporter-team-list.component';
+import { ReporterTeamPendingListComponent } from './reporter-team-pending-list/reporter-team-pending-list.component';
 import { ComponentModule } from '../components';
 import { DirectiveModule } from '../directives';
 import { SpinnerComponent } from '../directives';
@@ -23,13 +24,15 @@ import { SpinnerComponent } from '../directives';
     ReporterListComponent,
     ReporterDetailComponent,
     ReporterTeamAddComponent,
-    ReporterTeamListComponent
+    ReporterTeamListComponent,
+    ReporterTeamPendingListComponent
   ],
   exports: [
     ReporterListComponent,
     ReporterDetailComponent,
     ReporterTeamAddComponent,
-    ReporterTeamListComponent
+    ReporterTeamListComponent,
+    ReporterTeamPendingListComponent
   ],
   entryComponents: [
     SpinnerComponent

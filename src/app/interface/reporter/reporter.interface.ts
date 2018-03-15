@@ -4,7 +4,7 @@ import { ITeam } from '../team/team.interface';
 import { IConversation } from '../conversation/conversation.interface';
 
 export interface IReporter {
-    _id?: number;
+    _id?: string;
     isVolunteer?: boolean;
     fname?: string;
     lname?: string;

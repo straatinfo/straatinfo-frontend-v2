@@ -1,5 +1,5 @@
 export interface IReporterView {
-    _id?: number;
+    _id?: string;
     isVolunteer?: string;
     fname?: string;
     lname?: string;

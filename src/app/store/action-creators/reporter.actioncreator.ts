@@ -144,7 +144,7 @@ export class ReporterActionCreator implements OnDestroy {
             }
             );
     }
-
+     
     GetReporterById(_id: string) {
         this.ngRedux.dispatch({ type: REPORTER_SELECT_ATTEMPT });
         this.getReporterByIdSubscription = this.reporterService.GetReporterById(_id)
