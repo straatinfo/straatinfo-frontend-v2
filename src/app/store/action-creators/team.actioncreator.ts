@@ -32,6 +32,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { TeamService, DialogService } from '../../services';
 import { ITeamView } from '../../interface/team/team-view.interface';
 import { ITeam } from '../../interface/team/team.interface';
+import * as _ from 'lodash';
 
 @Injectable()
 
@@ -176,15 +177,16 @@ export class TeamActionCreator implements OnDestroy {
 					this.errorMessage = null;
 				}
 			);
-	}
+    }
 
 	ApproveTeam (_id) {
 		this.ngRedux.dispatch({ type: TEAM_PENDING_APPROVE_ATTEMPT });
 		this.approveTeamSubscription = this.teamService.ApproveTeam(_id)
 		.subscribe(
 			(team: ITeam) => {
-				this.ngRedux.dispatch({ type: TEAM_PENDING_APPROVE_FULFILLED, payload: team });
-				this.dialogService.showSwal('success-message', {title: 'Team Approved', text: `Successfully approved team: ${team.teamName}`})
+                this.ngRedux.dispatch({ type: TEAM_PENDING_APPROVE_FULFILLED, payload: team });
+                this.GetNonApprovedTeam();
+                this.dialogService.showSwal('success-message', { title: 'Team Approved', text: `Successfully approved team: ${team.teamName}` })                
 			}, err => {
 				this.errorMessage = err._body;
 				if (this.errorMessage && typeof this.errorMessage === 'string') {
@@ -203,7 +205,8 @@ export class TeamActionCreator implements OnDestroy {
 		this.declineTeamSubscription = this.teamService.DeclineTeam(_id)
 		.subscribe(
 			(team: ITeam) => {
-				this.ngRedux.dispatch({ type: TEAM_PENDING_DECLINE_FULFILLED, payload: team });
+                this.ngRedux.dispatch({ type: TEAM_PENDING_DECLINE_FULFILLED, payload: team });
+                this.GetNonApprovedTeam();  
 				this.dialogService.showSwal('success-message', {title: 'Team Declined', text: `Successfully declined team: ${team.teamName}`})
 			}, err => {
 				this.errorMessage = err._body;
@@ -216,7 +219,74 @@ export class TeamActionCreator implements OnDestroy {
 				this.errorMessage = null;
 			}
 		);
-	}
+    }
+
+    GetReporterNonApprovedTeam(hostId: string) {
+        this.ngRedux.dispatch({ type: TEAM_PENDING_GET_ATTEMPT });
+        this.getNonApprovedTeamSubscription = this.teamService.GetNonApprovedTeam()
+            .map((data: any[]) => { return data.map(d => this.ToTeamView(d)); })
+            .map((data: any[]) => {
+                const newArray = _.filter(data, (h) => {
+                    return h._host == hostId;
+                });
+                return newArray;
+            })
+            .subscribe(
+            (teams: ITeamView[]) => {
+                this.ngRedux.dispatch({ type: TEAM_PENDING_GET_FULFILLED, payload: teams });
+            }, err => {
+                this.errorMessage = err._body;
+                if (this.errorMessage && typeof this.errorMessage === 'string') {
+                    this.ngRedux.dispatch({ type: TEAM_PENDING_GET_FAILED, error: this.errorMessage });
+                }
+            },
+            () => {
+                this.errorMessage = null;
+            }
+            );
+    }
+
+    ReporterApproveTeam(_id) {
+        this.ngRedux.dispatch({ type: TEAM_PENDING_APPROVE_ATTEMPT });
+        this.approveTeamSubscription = this.teamService.ApproveTeam(_id)
+            .subscribe(
+            (team: ITeam) => {
+                this.ngRedux.dispatch({ type: TEAM_PENDING_APPROVE_FULFILLED, payload: team });
+                this.GetReporterNonApprovedTeam(team._host);  
+                this.dialogService.showSwal('success-message', { title: 'Team Approved', text: `Successfully approved team: ${team.teamName}` })
+            }, err => {
+                this.errorMessage = err._body;
+                if (this.errorMessage && typeof this.errorMessage === 'string') {
+                    this.ngRedux.dispatch({ type: TEAM_PENDING_APPROVE_FAILED, error: this.errorMessage });
+                    this.dialogService.showSwal('error-message', { title: 'Error', text: this.errorMessage });
+                }
+            },
+            () => {
+                this.errorMessage = null;                              
+            }
+            );
+    }
+
+    ReporterDeclineTeam(_id) {
+        this.ngRedux.dispatch({ type: TEAM_PENDING_DECLINE_ATTEMPT });
+        this.declineTeamSubscription = this.teamService.DeclineTeam(_id)
+            .subscribe(
+            (team: ITeam) => {
+                this.ngRedux.dispatch({ type: TEAM_PENDING_DECLINE_FULFILLED, payload: team });
+                this.GetReporterNonApprovedTeam(team._host); 
+                this.dialogService.showSwal('success-message', { title: 'Team Declined', text: `Successfully declined team: ${team.teamName}` })
+            }, err => {
+                this.errorMessage = err._body;
+                if (this.errorMessage && typeof this.errorMessage === 'string') {
+                    this.ngRedux.dispatch({ type: TEAM_PENDING_DECLINE_FAILED, error: this.errorMessage });
+                    this.dialogService.showSwal('error-message', { title: 'Error', text: this.errorMessage });
+                }
+            },
+            () => {
+                this.errorMessage = null;
+            }
+            );
+    }
 
 
 	private ToTeamView(data: any): ITeamView {
@@ -232,5 +302,5 @@ export class TeamActionCreator implements OnDestroy {
 			teamLeaders: data.teamLeaders,
 			teamMembers: data.teamMembers
 		};
-	}
+    }   
 }
