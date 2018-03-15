@@ -98,7 +98,8 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy {
       lname: [host.lname, Validators.required],
       hostPersonalEmail: [host.hostPersonalEmail, Validators.required],
       isSpecific: [host.isSpecific]
-    });
+      });
+    this.loadHostData = false;
   }
 
   onViewReport() {

@@ -22,6 +22,7 @@ export interface IReporter {
     _reporter?: IUser;
     _host?: IHost;
     _team?: ITeam;
+    activeTeam?: ITeam;
     createdAt?: Date;
     updatedAt?: Date;
 }
