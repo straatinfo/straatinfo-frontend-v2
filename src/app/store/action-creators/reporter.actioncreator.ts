@@ -3,21 +3,21 @@ import { Router } from '@angular/router';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../app.store';
 import {
-REPORTER_CREATE_ATTEMPT,
-REPORTER_CREATE_FAILED,
-REPORTER_CREATE_FULFILLED,
-REPORTER_DELETE_ATTEMPT,
-REPORTER_DELETE_FAILED,
-REPORTER_DELETE_FULFILLED,
-REPORTER_GET_ATTEMPT,
-REPORTER_GET_FAILED,
-REPORTER_GET_FULFILLED,
-REPORTER_SELECT_ATTEMPT,
-REPORTER_SELECT_FAILED,
-REPORTER_SELECT_FULFILLED,
-REPORTER_UPDATE_ATTEMPT,
-REPORTER_UPDATE_FAILED,
-REPORTER_UPDATE_FULFILLED
+    REPORTER_CREATE_ATTEMPT,
+    REPORTER_CREATE_FAILED,
+    REPORTER_CREATE_FULFILLED,
+    REPORTER_DELETE_ATTEMPT,
+    REPORTER_DELETE_FAILED,
+    REPORTER_DELETE_FULFILLED,
+    REPORTER_GET_ATTEMPT,
+    REPORTER_GET_FAILED,
+    REPORTER_GET_FULFILLED,
+    REPORTER_SELECT_ATTEMPT,
+    REPORTER_SELECT_FAILED,
+    REPORTER_SELECT_FULFILLED,
+    REPORTER_UPDATE_ATTEMPT,
+    REPORTER_UPDATE_FAILED,
+    REPORTER_UPDATE_FULFILLED
 } from '../actions/reporter.action';
 import { Subscription } from 'rxjs/Subscription';
 import { ReporterService } from '../../services';
@@ -144,7 +144,7 @@ export class ReporterActionCreator implements OnDestroy {
             }
             );
     }
-     
+
     GetReporterById(_id: string) {
         this.ngRedux.dispatch({ type: REPORTER_SELECT_ATTEMPT });
         this.getReporterByIdSubscription = this.reporterService.GetReporterById(_id)
@@ -225,13 +225,13 @@ export class ReporterActionCreator implements OnDestroy {
             phoneNumber: data._host.phoneNumber,
             status1: data.status1,
             status2: data.status2,
-            dateRegistrationReporter: data.activeTeam.teamLeaders[0].createdAt == null ? this.formatDate(data.activeTeam.teamMembers[0].createdAt) : this.formatDate(data.activeTeam.teamLeaders[0].createdAt),
-            dateCreationTeam: this.formatDate(data.activeTeam.createdAt),
+            dateRegistrationReporter: data.activeTeam == null ? "-" : this.dateRegistration(data.activeTeam.teamLeaders, data.activeTeam.teamMembers),
+            dateCreationTeam: data.activeTeam == null ? "-" : this.formatDate(data.activeTeam.createdAt),
             hostId: data._host._id,
             hostName: data._host.hostName,
-            activeTeamId: data.activeTeam._id,
-            activeTeamName: data.activeTeam.teamName,
-            activeTeamEmail: data.activeTeam.teamEmail,            
+            activeTeamId: data.activeTeam == null ? "-" : data.activeTeam._id,
+            activeTeamName: data.activeTeam == null ? "-" : data.activeTeam.teamName,
+            activeTeamEmail: data.activeTeam == null ? "-" : data.activeTeam.teamEmail,
             chatName: data.username,
             createdAt: data.createdAt,
             updatedAt: data.updatedAt
@@ -258,5 +258,21 @@ export class ReporterActionCreator implements OnDestroy {
     private padLeft(text: string, padChar: string, size: number): string {
         return (String(padChar).repeat(size) + text).substr((size * -1), size);
     }
+
+    private dateRegistration(teamLeaders: any, teamMembers: any): string {
+
+        if (teamLeaders.length > 0) {
+            if (teamLeaders[0].createdAt != null) {
+                return this.formatDate(teamLeaders[0].createdAt);
+            }
+        }
+
+        if (teamMembers.length > 0) {
+            if (teamMembers[0].createdAt != null) {
+                return this.formatDate(teamMembers[0].createdAt);
+            }
+        }
+
+        return '';
+    }
 }
- 
