@@ -71,7 +71,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
   ];
 
   public mainSubDataNames = [
-      'mainCategoryName', 'name'
+      '_mainCategoryName', 'name'
   ];
   public mainSubDataAliases = [
       'Main', 'Sub'
@@ -349,7 +349,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
           confirmButtonText: 'Yes'
       }).then((result) => {
           if (result) {
-              this.categoryActionCreator.DeleteMainCategoryA(event._id);
+              this.categoryActionCreator.DeleteMainCategoryA(event._id, event);
               swal(
                   'Deleted!',
                   `${event.name} has been deleted.`,
@@ -386,7 +386,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
           confirmButtonText: 'Yes'
       }).then((result) => {
           if (result) {
-              this.categoryActionCreator.DeleteMainCategoryB(event._id);
+              this.categoryActionCreator.DeleteMainCategoryB(event._id, event);
               swal(
                   'Deleted!',
                   `${event.name} has been deleted.`,
@@ -409,7 +409,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
           confirmButtonText: 'Yes'
       }).then((result) => {
           if (result) {
-              this.categoryActionCreator.DeleteMainCategoryC(event._id);
+              this.categoryActionCreator.DeleteMainCategoryC(event._id, event);
               swal(
                   'Deleted!',
                   `${event.name} has been deleted.`,
@@ -432,7 +432,7 @@ export class DesignDetailComponent implements OnInit, OnDestroy {
           confirmButtonText: 'Yes'
       }).then((result) => {
           if (result) {
-              this.categoryActionCreator.DeleteSubCategoryA(event._id);
+              this.categoryActionCreator.DeleteSubCategoryA(event._id, event);
               swal(
                   'Deleted!',
                   `${event.name} has been deleted.`,

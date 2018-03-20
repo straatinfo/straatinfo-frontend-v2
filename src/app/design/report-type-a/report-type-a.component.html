@@ -1,0 +1,50 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div *appspinner="(categorySpinner$| async)" class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="rose">
+            <i class="material-icons">assignment</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">General Design -
+              <small class="category">Edit design</small>
+            </h4>
+            <div *ngIf="mainCategories$ | async" class="col-md-6">
+              <app-table-basic
+                tableTitle="Main Category A List"
+                paginator="true" itemPerPage="50"
+                [currentPage]="0" [actionDelete]="true"
+                [actionMore]="true" [actionEdit]="false"
+                [tableDataArray]="(mainCategories$)"
+                [tableHeaderName]="mainDataNames"
+                [tableHeaderAlias]="mainDataAliases"
+                (clickDelete)="onDeleteCategorAClick($event)"
+                (clickMore)="onMoreCategoryAClick($event)">
+                <button class="btn btn-info" (click)="addMainCategory()">Add Main Category</button>
+              </app-table-basic>
+            </div>
+
+            <div *ngIf="selectedMainCategoryId" class="col-md-6">
+              <div *appLoadingBar="(categorySubSpinner$ | async)"></div>
+              <app-table-basic
+                tableTitle="Sub-Category List for [{{selectedMainCategoryName}}]"
+                paginator="true" itemPerPage="50"
+                [currentPage]="0" [actionDelete]="true"
+                [actionMore]="false" [actionEdit]="false"
+                [tableDataArray]="(subCategories$)"
+                [tableHeaderName]="subDataNames"
+                [tableHeaderAlias]="subDataAliases"
+                (clickDelete)="onDeleteCategorySubClick($event)">
+                <button class="btn btn-success" (click)="addSubCategory()">Add Sub Category</button>
+              </app-table-basic>
+            </div>
+            <div *ngIf="!selectedMainCategoryId" class="col-md-6">
+              <h4>Please Select Main Category to show Sub-Category</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

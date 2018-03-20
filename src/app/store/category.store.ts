@@ -1,7 +1,7 @@
 import { IMainCategory } from '../interface/category/main-category.interface';
-import { IMainViewCategory } from '../interface/category/main-category-view.interface';
+import { IMainCategoryView } from '../interface/category/main-category-view.interface';
 import { ISubCategory } from '../interface/category/sub-category.interface';
-import { ISubViewCategory } from '../interface/category/sub-category-view.interface';
+import { ISubCategoryView } from '../interface/category/sub-category-view.interface';
 import {
     CATEGORYMAIN_A_CREATE_ATTEMPT,
     CATEGORYMAIN_A_CREATE_FAILED,
@@ -81,29 +81,29 @@ import * as categoryMainC from './reducers/categoryMainC.reducer';
 import * as categorySubA from './reducers/categorySubA.reducer';
 
 export interface ICategoryMainAStore {
-    categoryMainAs: IMainViewCategory[];
-    selectedCategoryMainA: IMainViewCategory;
+    categoryMainAs: IMainCategoryView[];
+    selectedCategoryMainA: IMainCategoryView;
     spinner: boolean;
     error: string;
 }
 
 export interface ICategoryMainBStore {
-    categoryMainBs: IMainViewCategory[];
-    selectedCategoryMainB: IMainViewCategory;
+    categoryMainBs: IMainCategoryView[];
+    selectedCategoryMainB: IMainCategoryView;
     spinner: boolean;
     error: string;
 }
 
 export interface ICategoryMainCStore {
-    categoryMainCs: IMainViewCategory[];
-    selectedCategoryMainC: IMainViewCategory;
+    categoryMainCs: IMainCategoryView[];
+    selectedCategoryMainC: IMainCategoryView;
     spinner: boolean;
     error: string;
 }
 
 export interface ICategorySubAStore {
-    categorySubAs: ISubViewCategory[];
-    selectedCategorySubA: ISubViewCategory;
+    categorySubAs: ISubCategoryView[];
+    selectedCategorySubA: ISubCategoryView;
     spinner: boolean;
     error: string;
 }

@@ -6,7 +6,8 @@ import { MaterialModule } from '../app.module';
 import { InputBasicComponent } from './input/basic/input-basic.component';
 import { TableBasicComponent } from './table/basic/table-basic.component';
 import { FileUploadBasicComponent } from './fileUpload/basic/fileUpload-basic.component';
-import { SpinnerComponent, DirectiveModule } from '../directives'
+import { SpinnerComponent, DirectiveModule } from '../directives';
+import { ModalBasicComponentComponent } from './modal/modal-basic/modal-basic-component.component'
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +24,8 @@ import { SpinnerComponent, DirectiveModule } from '../directives'
   declarations: [
     InputBasicComponent,
     TableBasicComponent,
-    FileUploadBasicComponent
+    FileUploadBasicComponent,
+    ModalBasicComponentComponent
   ],
   entryComponents: [
     SpinnerComponent

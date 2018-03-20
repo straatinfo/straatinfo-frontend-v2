@@ -1,125 +1,52 @@
 <div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header card-header-icon" data-background-color="rose">
-            <i class="material-icons">assignment</i>
-          </div>
-          <div class="card-content">
-              <h4 class="card-title">Host Category page of [{{hostName}}]</h4>            
-
-              <div class="col-md-12">
-                    <h4>Categories Report A</h4>
-                    <button (click)="onBack()" type="button" class="btn btn-default pull-left">Back to Host</button>
-                    <button (click)="onAddMainCategory('reportA')" type="button" class="btn btn-info pull-left">Add Main Category</button>
-                    <button (click)="onAddSubCategory('reportA')" type="button" class="btn btn-warning pull-left">Add Sub Category</button>
+        <div class="container-fluid">
+          <div class="row">
+            <div *appspinner="(categorySpinner$| async)" class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-icon" data-background-color="rose">
+                  <i class="material-icons">assignment</i>
+                </div>
+                <div class="card-content">
+                  <h4 class="card-title">General Design -
+                    <small class="category">Edit design</small>
+                  </h4>
+                  <div *ngIf="mainCategories$ | async" class="col-md-6">
+                    <app-table-basic
+                      tableTitle="Main Category A List"
+                      paginator="true" itemPerPage="50"
+                      [currentPage]="0" [actionDelete]="true"
+                      [actionMore]="true" [actionEdit]="false"
+                      [tableDataArray]="(mainCategories$)"
+                      [tableHeaderName]="mainDataNames"
+                      [tableHeaderAlias]="mainDataAliases"
+                      (clickDelete)="onDeleteCategorAClick($event)"
+                      (clickMore)="onMoreCategoryAClick($event)">
+                      <button class="btn btn btn-default" (click)="onBackToHost()">Back To Host</button>
+                      <button class="btn btn-info" (click)="addMainCategory()">Add Main Category</button>
+                    </app-table-basic>
+                  </div>
+      
+                  <div *ngIf="selectedMainCategoryId" class="col-md-6">
+                    <div *appLoadingBar="(categorySubSpinner$ | async)"></div>
+                    <app-table-basic
+                      tableTitle="Sub-Category List for [{{selectedMainCategoryName}}]"
+                      paginator="true" itemPerPage="50"
+                      [currentPage]="0" [actionDelete]="true"
+                      [actionMore]="false" [actionEdit]="false"
+                      [tableDataArray]="(subCategories$)"
+                      [tableHeaderName]="subDataNames"
+                      [tableHeaderAlias]="subDataAliases"
+                      (clickDelete)="onDeleteCategorySubClick($event)">
+                      <button class="btn btn-success" (click)="addSubCategory()">Add Sub Category</button>
+                    </app-table-basic>
+                  </div>
+                  <div *ngIf="!selectedMainCategoryId" class="col-md-6">
+                    <h4>Please Select Main Category to show Sub-Category</h4>
+                  </div>
+                </div>
               </div>
-
-                  <div class="col-md-12">
-                      
-                      <form [formGroup]="categoryAForm" [hidden]="isCategoryAHidden">
-                          <div *ngIf="errorText" class="alert alert-danger" role="alert">
-                              <strong>Error!</strong> {{errorText}}
-                          </div>
-                          <div *ngIf="successText" class="alert alert-success" role="alert">
-                              <strong>Success!</strong> {{successText}}
-                          </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Name</label>
-                                    <input formControlName="name" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Description</label>
-                                    <input formControlName="description" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <button (click)="onSaveMainCategory('reportA')" type="button" class="btn btn-info pull-left">Save Main Category</button>
-                            </div>
-
-                          <div class="clearfix"></div>
-                      </form>
-
-                      <form [formGroup]="categorySubAForm" [hidden]="isCategoryASubHidden">
-                          <div *ngIf="errorText" class="alert alert-danger" role="alert">
-                              <strong>Error!</strong> {{errorText}}
-                          </div>
-                          <div *ngIf="successText" class="alert alert-success" role="alert">
-                              <strong>Success!</strong> {{successText}}
-                          </div>
-                            <div class="col-md-12">
-                                <div class="form-group label-floating">
-                                    <label class="control-label">Main Category</label>
-                                    <mat-form-field style="width:100% !important;">
-                                        <mat-select [(value)]="selectedMainCategoryA">
-                                            <mat-option *ngFor="let category of mainCategoryAList" [value]="category.value">
-                                                {{ category.viewValue }}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Name</label>
-                                    <input formControlName="name" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Description</label>
-                                    <input formControlName="description" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div  class="col-md-12">
-                                <button (click)="onSaveSubCategory('reportA')" type="button" class="btn btn-info pull-left">Save Sub Category</button>
-                            </div>
-
-                          <div class="clearfix"></div>
-                      </form>
-
-                  </div>
-                  
-                  <hr />
-
-                  <div class="col-md-6" *appspinner="(categoryMainAsSpinner | async)">
-                      <app-table-basic tableTitle="Main Category A List"
-                                       paginator="true"
-                                       itemPerPage="50"
-                                       [currentPage]="0"
-                                       [actionDelete]="true"
-                                       [actionMore]="true"
-                                       [actionEdit]="false"
-                                       [tableDataArray]="(categoryMainAs)"
-                                       [tableHeaderName]="mainDataNames"
-                                       [tableHeaderAlias]="mainDataAliases"
-                                       (clickDelete)="onDeleteCategoryAClick($event)"
-                                       (clickMore)="onMoreCategoryAClick($event)"></app-table-basic>
-                  </div>
-
-                  <div class="col-md-6" *appspinner="(categorySubAsSpinner | async)">
-                      <div [hidden]="isCategoryASubTableHidden">
-                          <app-table-basic tableTitle="Sub Category A List"
-                                           paginator="true"
-                                           itemPerPage="50"
-                                           [currentPage]="0"
-                                           [actionDelete]="true"
-                                           [actionMore]="false"
-                                           [actionEdit]="false"
-                                           [tableDataArray]="(categorySubAs)"
-                                           [tableHeaderName]="mainSubDataNames"
-                                           [tableHeaderAlias]="mainSubDataAliases"
-                                           (clickDelete)="onDeleteSubCategoryAClick($event)"></app-table-basic>
-                      </div>
-                  </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+      
