@@ -59,7 +59,7 @@ import { AppRoutes } from './app.routing';
 import { ServiceModule } from 'app/services';
 
 /* Routing Guards */
-import { AdminGuard, SessionGuard, HostDetailGuard } from './guards';
+import { AdminGuard, SessionGuard, HostDetailGuard, HostGuard } from './guards';
 
 @NgModule({
   exports: [
@@ -126,7 +126,8 @@ export class MaterialModule {}
     providers: [
       SessionGuard,
       AdminGuard,
-      HostDetailGuard
+      HostDetailGuard,
+      HostGuard
     ]
 })
 export class AppModule {

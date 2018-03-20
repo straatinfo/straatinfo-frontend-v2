@@ -68,7 +68,7 @@ export const categoryMainCUpdateAttempt = (state, action) => {
 };
 
 export const categoryMainCUpdateFulfilled = (state, action) => {
-    const index = _.findIndex(state.categoryMainCs, (h) => { return h._id == action.payload });
+    const index = _.findIndex(state.categoryMainCs, (h) => { return h._id == action.payload._id });
     let newArray = state.categoryMainCs.slice();
     newArray.splice(index, 1, action.payload);
     return tassign(state, {
@@ -99,7 +99,7 @@ export const categoryMainCDeleteAttempt = (state, action) => {
 
 export const categoryMainCDeleteFufilled = (state, action) => {
     const newArray = _.remove(state.categoryMainCs, (h) => {
-        return h._id != action.payload;
+        return h._id != action.payload._id;
     });
     return tassign(state, {
         categoryMainCs: newArray,
@@ -128,10 +128,9 @@ export const categoryMainCSelectAttempt = (state, action) => {
 };
 
 export const categoryMainCSelectFulfilled = (state, action) => {
-    const index = _.findIndex(state.categoryMainCs, (h) => { return h._id == action.payload });
     return tassign(state, {
         categoryMainCs: state.categoryMainCs,
-        selectedCategoryMainC: state.categoryMainCs[index],
+        selectedCategoryMainC: action.payload,
         spinner: false,
         error: ''
     });

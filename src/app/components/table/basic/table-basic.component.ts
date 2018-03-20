@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject, DoCheck, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject, DoCheck, OnDestroy, ViewChild } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
 import * as _ from 'lodash';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
