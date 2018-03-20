@@ -1,0 +1,32 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div *appspinner="(categorySpinner$| async)" class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-icon" data-background-color="rose">
+              <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+              <h4 class="card-title">General Design -
+                <small class="category">Edit design</small>
+              </h4>
+              <div *ngIf="mainCategories$ | async" class="col-md-6">
+                <app-table-basic
+                  tableTitle="Main Category B List"
+                  paginator="true" itemPerPage="50"
+                  [currentPage]="0" [actionDelete]="true"
+                  [actionMore]="false" [actionEdit]="false"
+                  [tableDataArray]="(mainCategories$)"
+                  [tableHeaderName]="mainDataNames"
+                  [tableHeaderAlias]="mainDataAliases"
+                  (clickDelete)="onDeleteCategorBClick($event)">
+                  <button class="btn btn-info" (click)="addMainCategory()">Add Main Category</button>
+                </app-table-basic>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -16,6 +16,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { DirectiveModule, LoadingBarComponent } from '../directives';
 import { SpinnerComponent } from '../directives';
 import { MatSelectModule } from '@angular/material/select';
+import { MaterialModule } from '../app.module';
+import { MainCategoryAddModalComponent, SubCategoryAddModalComponent } from '../design';
 
 @NgModule({
   imports: [
@@ -26,7 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
     ComponentModule,
     ColorPickerModule,
     DirectiveModule,
-    MatSelectModule
+    MatSelectModule,
+    MaterialModule
   ],
   declarations: [
     HostListComponent,
@@ -52,7 +55,9 @@ import { MatSelectModule } from '@angular/material/select';
   ],
   entryComponents: [
     SpinnerComponent,
-    LoadingBarComponent
+    LoadingBarComponent,
+    MainCategoryAddModalComponent,
+    SubCategoryAddModalComponent
   ]
 })
 export class HostModule { }

@@ -1,7 +1,7 @@
-export interface ISubViewCategory {
+export interface ISubCategoryView {
   _id?: string;
   name?: string;
   description?: string;
-  _mainCategoryId?: string;
-  mainCategoryName?: string;
+  _mainCategory?: string;
+  _mainCategoryName?: string;
 }

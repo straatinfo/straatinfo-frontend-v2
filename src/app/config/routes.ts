@@ -50,8 +50,14 @@ const ADMIN: RouteInfo[] = [
   {
       path: '/admin/design',
       title: 'General Design',
-      type: 'link',
-      icontype: 'settings'
+      type: 'sub',
+      collapse: 'Course',
+      icontype: 'settings',
+      children: [
+        { path: 'report-type-a', title: 'Report Type A', ab: 'RA' },
+        { path: 'report-type-b', title: 'Report Type B', ab: 'RB' },
+        { path: 'report-type-c', title: 'Report Type C', ab: 'RC' }
+      ]
   },
   {
     path: '/admin/pending-team',

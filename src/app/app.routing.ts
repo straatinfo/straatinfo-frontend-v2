@@ -4,7 +4,7 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { HostLayoutComponent } from './layouts/host/host-layout.component';
 
-import { SessionGuard, AdminGuard } from './guards';
+import { SessionGuard, AdminGuard, HostGuard } from './guards';
 
 export const AppRoutes: Routes = [
     {
@@ -26,8 +26,8 @@ export const AppRoutes: Routes = [
     },
     {
       path: '',
-      canActivate: [SessionGuard],
-      canActivateChild: [SessionGuard],
+      canActivate: [SessionGuard, HostGuard],
+      canActivateChild: [SessionGuard, HostGuard],
       component: HostLayoutComponent,
       children: [
         {

@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable, Subscription } from 'rxjs';
 import { CategoryActionCreator } from '../../store/action-creators';
@@ -9,15 +8,15 @@ import { ISubCategoryView } from '../../interface/category/sub-category-view.int
 import swal from 'sweetalert2';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { MainCategoryAddModalComponent, SubCategoryAddModalComponent } from '../../design';
+import { MainCategoryAddModalComponent } from '../main-category-add/main-category-add-modal.component';
+import { SubCategoryAddModalComponent } from '../sub-category-add/sub-category-add-modal.component';
 
 @Component({
-  selector: 'app-host-category',
-  templateUrl: './host-category.component.html',
-  styleUrls: ['./host-category.component.scss']
+  selector: 'app-report-type-a',
+  templateUrl: './report-type-a.component.html',
+  styleUrls: ['./report-type-a.component.scss']
 })
-
-export class HostCategoryComponent implements OnInit, OnDestroy {
+export class ReportTypeAComponent implements OnInit {
 
   public session: ISession = JSON.parse(localStorage.getItem('session'));
   @select(s => s.categoryMainA.categoryMainAs) mainCategories$: Observable<IMainCategoryView[]>;
@@ -43,28 +42,13 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   private dialogRef: any;
   private dialogRefSubscription: Subscription = null;
 
-  private routeSubscription: Subscription = null;
-  private hostId: string = null;
-
   constructor(
-    private activatedRoute: ActivatedRoute,
     private categoryActionCreator: CategoryActionCreator,
-    public dialog: MatDialog,
-    private router: Router
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this.routeSubscription = this.activatedRoute.params
-    .subscribe(
-      params => {
-        this.hostId = params._hostId;
-        this.categoryActionCreator.GetHostMainCategory(params._hostId, 'A');
-      }
-    );
-  }
-
-  ngOnDestroy() {
-
+    this.categoryActionCreator.GetGeneralMainCategory('A', true);
   }
 
   onMoreCategoryAClick(event) {
@@ -95,17 +79,15 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   }
 
   addMainCategory() {
-    if (this.hostId) {
-      this.dialogRef = this.dialog.open(MainCategoryAddModalComponent, {
-        width: '500px',
-        data: {code: 'A'}
-      });
-  
-      this.dialogRefSubscription = this.dialogRef.afterClosed().subscribe(result => {
-        const data = JSON.parse(result);
-        this.categoryActionCreator.CreateMainCategoryA(this.hostId, {code: data.code, description: data.description, name: data.name}, true);
-      });
-    }
+    this.dialogRef = this.dialog.open(MainCategoryAddModalComponent, {
+      width: '500px',
+      data: {code: 'A'}
+    });
+
+    this.dialogRefSubscription = this.dialogRef.afterClosed().subscribe(result => {
+      const data = JSON.parse(result);
+      this.categoryActionCreator.CreateGeneralMainCategory(data, true);
+    });
   }
 
   addSubCategory() {
@@ -140,8 +122,5 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
     })
   }
 
-  onBackToHost () {
-    this.router.navigate(['/admin/host']);
-  }
 
 }
