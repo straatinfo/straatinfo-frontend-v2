@@ -28,7 +28,8 @@ import {
   HOST_SELECT_ATTEMPT,
   HOST_DESIGN_TYPE_UPDATE_ATTEMPT,
   HOST_DESIGN_TYPE_UPDATE_FAILED,
-  HOST_DESIGN_TYPE_UPDATE_FULFILLED
+  HOST_DESIGN_TYPE_UPDATE_FULFILLED,
+  HOST_RESET_SELECT_FULFILLED
 } from '../actions/host.action';
 
 
@@ -214,6 +215,10 @@ export class HostActionCreator implements OnDestroy {
         this.errorMessage = null;
       }
     );
+  }
+
+  ResetSelectedHost () {
+    this.ngRedux.dispatch({ type: HOST_RESET_SELECT_FULFILLED });
   }
 
   private ToHostView(data: IHost): IHostView {

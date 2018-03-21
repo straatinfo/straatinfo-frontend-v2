@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable, Subscription } from 'rxjs';
-import { CategoryActionCreator } from '../../store/action-creators';
+import { CategoryActionCreator, HostActionCreator } from '../../store/action-creators';
 import { ISession } from '../../interface/session/session.interface';
 import { IMainCategoryView } from '../../interface/category/main-category-view.interface';
 import { ISubCategoryView } from '../../interface/category/sub-category-view.interface';
@@ -10,6 +10,7 @@ import swal from 'sweetalert2';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { MainCategoryAddModalComponent, SubCategoryAddModalComponent } from '../../design';
+import { IHostView } from '../../interface/host/host-view.interface';
 
 @Component({
   selector: 'app-host-category',
@@ -24,6 +25,7 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   @select(s => s.categorySubA.categorySubAs) subCategories$: Observable<ISubCategoryView[]>;
   @select(s => s.categoryMainA.spinner) categorySpinner$: Observable<boolean>;
   @select(s => s.categorySubA.spinner) categorySubSpinner$: Observable<boolean>;
+  @select(s => s.host.selectedHost) host$: Observable<IHostView>;
 
   public mainDataNames: string[] = [
     '_reportTypeCode', 'name'
@@ -50,7 +52,8 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private categoryActionCreator: CategoryActionCreator,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private hostActionCreator: HostActionCreator
   ) { }
 
   ngOnInit() {
@@ -58,6 +61,7 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
     .subscribe(
       params => {
         this.hostId = params._hostId;
+        this.hostActionCreator.SelectHost(params._hostId);
         this.categoryActionCreator.GetHostMainCategory(params._hostId, 'A');
       }
     );
