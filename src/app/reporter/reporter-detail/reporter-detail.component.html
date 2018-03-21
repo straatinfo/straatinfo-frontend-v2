@@ -1,7 +1,7 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div *appspinner="(reporterSpinner | async) || (teamSpinner | async)" class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-icon" data-background-color="blue">
                         <i class="material-icons">perm_identity</i>
@@ -189,7 +189,7 @@
                                     <button (click)="onTeamLeader()" type="button" class="btn btn-warning btn-block">As Team Leader</button>
                                     <button (click)="onTeamMember()" type="button" class="btn btn-primary btn-block">As Team Member</button>
                                     <button (click)="onTeam()" type="button" class="btn btn-rose btn-block">Team</button>
-                                    <button (click)="onTeamPending()" type="button" class="btn btn-rose btn-block">Pending Teams</button>
+                                    <button *ngIf="pendingTeamId" (click)="onTeamPending()" type="button" class="btn btn-rose btn-block">Allow Team</button>
                                     <button (click)="onDelete()" type="button" class="btn btn-danger btn-block">Delete Reporter</button>
                                 </div>
                             </div>

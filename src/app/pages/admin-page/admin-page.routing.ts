@@ -89,10 +89,6 @@ export const AdminRoutes: Routes = [
 				component: ReporterTeamAddComponent,
 			},
 			{
-				path: 'reporter/pending-team/:_reporterId',
-				component: ReporterTeamPendingListComponent,
-			},
-			{
 				path: 'design/report-type-a',
 				component: ReportTypeAComponent,
 			},
@@ -103,10 +99,6 @@ export const AdminRoutes: Routes = [
 			{
 				path: 'design/report-type-c',
 				component: ReportTypeCComponent
-			},
-			{
-				path: 'pending-team',
-				component: TeamPendingListComponent
 			}
 		]
 	},

@@ -148,7 +148,7 @@ export class ReporterActionCreator implements OnDestroy {
     GetReporterById(_id: string) {
         this.ngRedux.dispatch({ type: REPORTER_SELECT_ATTEMPT });
         this.getReporterByIdSubscription = this.reporterService.GetReporterById(_id)
-            .map(data => this.ReporterToView(data))
+            .map(data => this.ReporterListToView(data))
             .subscribe(
             (reporter: IReporterView) => {
                 this.ngRedux.dispatch({ type: REPORTER_SELECT_FULFILLED, payload: reporter });
@@ -167,7 +167,7 @@ export class ReporterActionCreator implements OnDestroy {
     SelectReporter(_id: string) {
         this.ngRedux.dispatch({ type: REPORTER_SELECT_ATTEMPT });
         this.getOneReporterSubscription = this.reporterService.GetReporterById(_id)
-            .map(data => this.ReporterToView(data))
+            .map(data => this.ReporterListToView(data))
             .subscribe(
             (reporter: IReporterView) => {
                 this.ngRedux.dispatch({ type: REPORTER_SELECT_FULFILLED, payload: reporter });
@@ -181,6 +181,10 @@ export class ReporterActionCreator implements OnDestroy {
                 this.errorMessage = null;
             }
             );
+    }
+
+    ResetSelectedReporter() {
+        this.ngRedux.dispatch({ type: REPORTER_SELECT_FULFILLED, payload: null });
     }
 
     private ReporterListToView(data: IReporter): IReporterView {
@@ -197,13 +201,15 @@ export class ReporterActionCreator implements OnDestroy {
             phoneNumber: data['_host.phoneNumber'],
             status1: data.status1,
             status2: data.status2,
-            dateRegistrationReporter: data['activeTeam.teamLeader.createdAt'] == null ? this.formatDate(data['activeTeam.teamMember.createdAt']) : this.formatDate(data['activeTeam.teamLeader.createdAt']),
+            dateRegistrationReporter: data.createdAt,
             dateCreationTeam: this.formatDate(data['activeTeam.createdAt']),
             hostId: data['_host._id'],
             hostName: data['_host.hostName'],
             activeTeamId: data['activeTeam._id'],
             activeTeamName: data['activeTeam.teamName'],
             activeTeamEmail: data['activeTeam.teamEmail'],
+            pendingTeam: data['pendingTeam._id'],
+            pendingTeamName: data['pendingTeam.teamName'],
             chatName: data.username,
             createdAt: data.createdAt,
             updatedAt: data.updatedAt
@@ -225,13 +231,13 @@ export class ReporterActionCreator implements OnDestroy {
             phoneNumber: data._host.phoneNumber,
             status1: data.status1,
             status2: data.status2,
-            dateRegistrationReporter: data.activeTeam.teamLeaders[0].createdAt == null ? this.formatDate(data.activeTeam.teamMembers[0].createdAt) : this.formatDate(data.activeTeam.teamLeaders[0].createdAt),
-            dateCreationTeam: this.formatDate(data.activeTeam.createdAt),
+            dateRegistrationReporter: data.createdAt,
+            dateCreationTeam: this.formatDate(data._activeTeam.createdAt),
             hostId: data._host._id,
             hostName: data._host.hostName,
-            activeTeamId: data.activeTeam._id,
-            activeTeamName: data.activeTeam.teamName,
-            activeTeamEmail: data.activeTeam.teamEmail,            
+            activeTeamId: data._activeTeam._id,
+            activeTeamName: data._activeTeam.teamName,
+            activeTeamEmail: data._activeTeam.teamEmail,   
             chatName: data.username,
             createdAt: data.createdAt,
             updatedAt: data.updatedAt
