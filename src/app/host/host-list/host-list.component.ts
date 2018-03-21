@@ -30,6 +30,7 @@ export class HostListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.hostActionCreator.ResetSelectedHost();
     this.hostActionCreator.GetHosts();
     this.tableActionCreator.ResetPage();
   }

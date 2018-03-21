@@ -194,3 +194,13 @@ export const hostDesignTypeUpdateFailed = (state: IHostStore, action: any) => {
     success: null
   });
 }
+
+export const hostResetSelectedFulfilled = (state: IHostStore, action: any) => {
+  return tassign<IHostStore, IHostStore>(state, {
+    hosts: state.hosts,
+    selectedHost: null,
+    spinner: false,
+    error: null,
+    success: null
+  });
+};
