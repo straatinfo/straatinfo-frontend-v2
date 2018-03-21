@@ -11,7 +11,7 @@ export interface IReporterView {
     phoneNumber?: string;
     status1?: string;
     status2?: string;
-    dateRegistrationReporter?: string;
+    dateRegistrationReporter?: Date;
     dateCreationTeam?: string;
     hostName?: string;
     activeTeamId?: string;
@@ -21,4 +21,8 @@ export interface IReporterView {
     hostId?: string;
     createdAt?: Date;
     updatedAt?: Date;
+    _activeTeam?: string;
+    _activeTeamName?: string;
+    pendingTeam?: string;
+    pendingTeamName?: string;
 }

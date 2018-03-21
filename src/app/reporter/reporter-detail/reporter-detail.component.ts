@@ -37,12 +37,15 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
     public loadReporterData: boolean = false;
     public errorMessage: string = null;
     public successMessage: string = null;
+    public pendingTeamId: string = null;
 
     @select(s => s.reporter.error) reporterStoreError;
     @select(s => s.team.error) teamStoreError;
     @select(s => s.reporter.selectedReporter) selectedReporter;
     @select(s => s.reporter) reporter$: Observable<IReporterStore>;
+    @select(s => s.reporter.spinner) reporterSpinner: Observable<boolean>;
     @select(s => s.team) team$: Observable<ITeamStore>;
+    @select(s => s.team.spinner) teamSpinner: Observable<boolean>;
 
     constructor(
         private actvatedRoute: ActivatedRoute,
@@ -53,6 +56,7 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
     ) { }
 
     ngOnInit() {
+        this.reporterActionCreator.ResetSelectedReporter();
         this.routeParamsSubscription = this.actvatedRoute.params
             .subscribe(
             params => {
@@ -107,6 +111,7 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
             dateCreationTeam: [{ value: report.dateCreationTeam, disabled: true }, Validators.required],
         });
 
+        this.pendingTeamId = report.pendingTeam;
         this.loadReporterData = false;
     }
 
@@ -203,7 +208,9 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
     }
 
     onTeamPending() {
-        this.router.navigate([`admin/reporter/pending-team/${this.reporterDetailForm.value._id}`]);
+        if (this.pendingTeamId) {
+            this.teamActionCreator.ApproveTeam(this.pendingTeamId);
+        }
     }
 
     onDelete() {

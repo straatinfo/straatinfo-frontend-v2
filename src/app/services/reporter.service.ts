@@ -33,7 +33,7 @@ export class ReporterService {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
         const options = new RequestOptions({ headers: headers });
-        return this.http.get(`${this.reporterUrl}/${_id}`, options)
+        return this.http.get(`${this.reporterUrl}/${_id}?flat=true`, options)
             .map(response => response.json())
             .map(data => this.GetData(data))
             .share()
