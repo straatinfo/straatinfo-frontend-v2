@@ -28,7 +28,7 @@ export class ReportListComponent implements OnInit {
 	public reportData = [];
 
 	public dataNames: string[] = (this._role.code.toUpperCase() === 'ADMIN') ? [
-		'generatedReportId', 'date', '_mainCategoryName', '_reporterName', '_teamName'
+		'generatedReportId', 'date', '_mainCategoryName', '_reporterUsername', '_teamName'
 	] : ['generatedReportId', 'date', '_mainCategoryName', 'status'];
 
 	public dataAliases: string[] = (this._role.code.toUpperCase() === 'ADMIN') ? [

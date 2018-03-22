@@ -47,6 +47,20 @@
                       </div>
 
                       <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">info_outline</i>
+                        </span>
+                        <app-input-basic length="20"
+                                         formControlName="houseNumber"
+                                         [c]="addHostForm.controls.houseNumber"
+                                         [optional]="true"
+                                         idd="houseNumber"
+                                         placeholder="House Number"
+                                         type="text"
+                                         text="House Number:"></app-input-basic>
+                        </div>
+
+                      <div class="input-group">
                           <span class="input-group-addon">
                               <i class="material-icons">info_outline</i>
                           </span>
