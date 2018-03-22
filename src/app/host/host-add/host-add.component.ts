@@ -51,17 +51,17 @@ export class HostAddComponent implements OnInit, OnDestroy {
       this.errorText = null;
       this.successText = null;
       this.hostActionCreator.CreateHost(this.addHostForm.value);
-      this.hostErrorSubscription = this.hostStoreError.subscribe(
-        error => {
-          if (error) {
-            console.log(error);
-            this.errorText = error;
-          } else {
-            this.addHostForm.reset();
-            this.successText = 'The Host has been added.';
-          }
-        }
-      );
+      // this.hostErrorSubscription = this.hostStoreError.subscribe(
+      //   error => {
+      //     if (error) {
+      //       console.log(error);
+      //       this.errorText = error;
+      //     } else {
+      //       this.addHostForm.reset();
+      //       this.successText = 'The Host has been added.';
+      //     }
+      //   }
+      // );
   }
   onReset() {
     this.addHostForm.reset();

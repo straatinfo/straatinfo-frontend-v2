@@ -91,6 +91,7 @@ export class HostActionCreator implements OnDestroy {
     .subscribe(
       (host: IHostView) => {
         this.ngRedux.dispatch({ type: HOST_CREATE_FULFILLED, payload: host });
+        this.dialogService.showSwal('success-message', {title: 'New Host', text: 'Successfully Added Host'});
       }, err => {
         this.errorMessage = err._body;
         if (this.errorMessage && typeof this.errorMessage === 'string') {
