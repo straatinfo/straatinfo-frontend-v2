@@ -233,6 +233,7 @@ export class ReportActionCreator implements OnDestroy {
 			_subCategoryName: data['_subCategory.name'],
 			_reporter: data['_reporter._id'],
 			_reporterName: (data['_reporter.lname'] && data['._reporter.fname']) ? data['_reporter.fname'] + ' ' + data['_reporter.lname ']: '',
+			_reporterUsername: data['_reporter.username'],
 			_team: data['_team._id'],
 			_teamName: data['_team.teamName'],
 			_host: data['_host._id'],

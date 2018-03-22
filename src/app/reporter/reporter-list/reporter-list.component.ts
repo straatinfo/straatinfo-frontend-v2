@@ -21,11 +21,11 @@ export class ReporterListComponent implements OnInit {
   public reporterData = [];
 
   public dataNames: string[] = [
-      'fname', 'lname', 'chatName', 'isVolunteer', 'activeTeamName', 'hostName'
+      'fname', 'lname', 'chatName', 'isVolunteer', 'activeTeamName', 'hostName', 'status1', 'status2'
   ];
 
   public dataAliases: string[] = [
-      'First Name', 'Last Name', 'Chat Name', 'Volunteer', 'Team', 'Host'
+      'First Name', 'Last Name', 'Chat Name', 'Volunteer', 'Team', 'Host', 'S1', 'S2'
   ];
 
   constructor(

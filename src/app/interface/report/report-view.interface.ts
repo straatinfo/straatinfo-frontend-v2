@@ -24,6 +24,7 @@ export interface IReportView {
   _subCategoryCode?: string;
   _reporter?: string;
   _reporterName?: string;
+  _reporterUsername?: string;
   _team?: string;
   _teamName?: string;
   _host?: string;

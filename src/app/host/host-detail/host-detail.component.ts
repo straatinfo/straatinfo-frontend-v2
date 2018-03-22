@@ -85,6 +85,7 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy {
       email: [host.email, [Validators.required, Validators.email]],
       designType: [{ value: host.designType, disabled: true }, Validators.required],
       design: [{ value: host.design, disabled: true }],
+      houseNumber: [{ value: host.houseNumber, disabled: true}],
       streetName: [host.streetName, Validators.required],
       city: [host.city, Validators.required],
       state: [host.state, Validators.required],

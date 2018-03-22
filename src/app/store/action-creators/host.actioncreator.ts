@@ -227,6 +227,7 @@ export class HostActionCreator implements OnDestroy {
       hostName: data.hostName,
       email: data.email,
       username: data.username,
+      houseNumber: data.houseNumber,
       streetName: data.streetName,
       city: data.city,
       state: data.state,
