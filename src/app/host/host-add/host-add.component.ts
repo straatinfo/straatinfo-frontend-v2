@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
 
 import { HostActionCreator } from '../../store/action-creators';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-host-add',
@@ -48,20 +49,14 @@ export class HostAddComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    if (this.addHostForm.valid) {
       this.errorText = null;
       this.successText = null;
       this.hostActionCreator.CreateHost(this.addHostForm.value);
-      // this.hostErrorSubscription = this.hostStoreError.subscribe(
-      //   error => {
-      //     if (error) {
-      //       console.log(error);
-      //       this.errorText = error;
-      //     } else {
-      //       this.addHostForm.reset();
-      //       this.successText = 'The Host has been added.';
-      //     }
-      //   }
-      // );
+      this.ngOnInit();
+    } else {
+      swal('warning', 'Please complete the form');
+    }
   }
   onReset() {
     this.addHostForm.reset();
