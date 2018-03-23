@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
-import { ReportActionCreator } from '../../store/action-creators';
+import { ReportActionCreator, HostActionCreator } from '../../store/action-creators';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
@@ -26,17 +26,22 @@ export class HostReportListComponent implements OnInit {
   public reportData = [];
 
   public dataNames: string[] = [
-      'generatedReportId', 'date', 'mainCategoryName', 'subCategoryName', 'reporterName', 'teamName', 'finishedDate', 'causeOfFinished', 'reportTypeCode'
+      'generatedReportId', 'date', '_mainCategoryName',
+      '_subCategoryName', '_reporterUsername', '_teamName',
+      'finishedDate', 'causeOfFinished', '_reportTypeCode'
   ];
 
   public dataAliases: string[] = [
-      'ID', 'Date', 'Main Category', 'Sub Category', 'Chat Name', 'Team', 'Finished Date', 'Cause of Finishing', 'Report Type'
+      'ID', 'Date', 'Main Category',
+      'Sub Category', 'Chat Name', 'Team',
+      'Finished Date', 'Cause of Finishing', 'Report Type'
   ];
 
   constructor(
       private actvatedRoute: ActivatedRoute,
       private reportActionCreator: ReportActionCreator,
-      private router: Router
+      private router: Router,
+      private hostActionCreator: HostActionCreator
   ) {
   }
 
@@ -46,6 +51,7 @@ export class HostReportListComponent implements OnInit {
           params => {
                 this.hostId = params._hostId;
                 this.reportActionCreator.GetLatestReportByHost(params._hostId);
+                this.hostActionCreator.SelectHost(params._hostId);
         });
 
       this.hostSubscription = this.selectedHost

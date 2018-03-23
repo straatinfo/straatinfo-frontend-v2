@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
-import { ReporterActionCreator } from '../../store/action-creators';
+import { ReporterActionCreator, HostActionCreator } from '../../store/action-creators';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
@@ -10,7 +10,7 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
   templateUrl: './host-reporter-list.component.html',
   styleUrls: ['./host-reporter-list.component.scss']
 })
-export class HostReporterListComponent implements OnInit {
+export class HostReporterListComponent implements OnInit, DoCheck {
 
   private routeParamsSubscription: Subscription = null;
   private hostSubscription: Subscription = null;
@@ -26,17 +26,18 @@ export class HostReporterListComponent implements OnInit {
   public reporterData = [];
 
   public dataNames: string[] = [
-      'fname', 'lname', 'chatName', 'isVolunteer', 'activeTeamName'
+      'fname', 'lname', 'chatName', 'isVolunteer', 'activeTeamName', 'status1', 'status2'
   ];
 
   public dataAliases: string[] = [
-      'First Name', 'Last Name', 'Chat Name', 'Volunteer', 'Team'
+      'First Name', 'Last Name', 'Chat Name', 'Volunteer', 'Team', 'S1', 'S2'
   ];
 
   constructor(
       private actvatedRoute: ActivatedRoute,
       private reporterActionCreator: ReporterActionCreator,
-      private router: Router
+      private router: Router,
+      private hostActionCreator: HostActionCreator
   ) {
   }
 
@@ -46,6 +47,7 @@ export class HostReporterListComponent implements OnInit {
         params => {
             this.hostId = params._hostId;
             this.reporterActionCreator.GetLatestReporterByHost(params._hostId);
+            this.hostActionCreator.SelectHost(params._hostId);
         }
       );
 
@@ -58,6 +60,13 @@ export class HostReporterListComponent implements OnInit {
         .subscribe(reporter => {
             this.reporterData = reporter;
         });
+  }
+
+  ngDoCheck () {
+    this.hostSubscription = this.selectedHost
+    .subscribe(host => {
+        this.hostName = (host) ? host.hostName : null;
+    });
   }
 
   onBack() {

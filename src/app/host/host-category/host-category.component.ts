@@ -145,7 +145,7 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   }
 
   onBackToHost () {
-    this.router.navigate(['/admin/host']);
+    this.router.navigate([`/admin/host/${this.hostId}`]);
   }
 
 }
