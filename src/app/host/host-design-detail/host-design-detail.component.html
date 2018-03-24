@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div *appspinner="(designSpinner | async)" class="col-md-8">
+      <div *appspinner="(designSpinner | async) || (hostSpinner$ | async)" class="col-md-8">
         <div class="card">
           <div class="card-header card-header-icon" data-background-color="rose">
             <i class="material-icons">perm_identity</i>
@@ -79,6 +79,7 @@
                 <div class="col-md-12">
                     <button (click)="onBack()" type="button" class="btn btn-default pull-left">Back</button>
                     <button (click)="onUpdate()" type="button" class="btn btn-rose pull-left">Update Design</button>
+                    <button (click)="onSetAsActive()" type="button" class="btn btn-info pull-left">Set As Active Design</button>
                     <app-fileUpload-basic
                      fileAlias="host-logo"
                      [URL]="uploadUrl"

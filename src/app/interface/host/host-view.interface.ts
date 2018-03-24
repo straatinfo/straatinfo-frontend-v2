@@ -1,3 +1,5 @@
+import { IMediaUpload } from "../media-upload/media-upload.interface";
+
 export interface IHostView {
   _id?: string;
   hostName?: string;
@@ -23,4 +25,6 @@ export interface IHostView {
   _role?: string;
   _roleCode?: string;
   _roleName?: string;
+  _activeDesign?: string;
+  designs?: IMediaUpload[]
 }

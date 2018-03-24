@@ -21,6 +21,9 @@
       <tr *ngFor="let row of newTableDataArray">
         <td *ngFor="let r of tableHeaderName">{{ row[r] }}</td>
         <td *ngIf="actionsEnabled()" class="text-right">
+          <button *ngIf="actionCheck" (click)="onCheckClick(row)" class="btn btn-simple btn-success btn-icon check"  matTooltip="Select" [matTooltipPosition]="'left'" style="padding: 0px 30px 0px 0px;">
+              <i class="material-icons">check</i>
+          </button>
           <button *ngIf="actionMore" (click)="onMoreClick(row)" class="btn btn-simple btn-info btn-icon edit"  matTooltip="More" [matTooltipPosition]="'left'" style="padding: 0px 30px 0px 0px;">
             <i class="material-icons">more</i>
           </button>
@@ -36,9 +39,9 @@
           <button *ngIf="actionDecline" (click)="onActionDeclineClick(row)" class="btn btn-simple btn-danger btn-icon close" matTooltip="Decline" [matTooltipPosition]="'left'" style="padding: 0px 30px 0px 0px;">
             <i class="material-icons">close</i>
           </button>
-            <button *ngIf="actionJoin" (click)="onActionJoinClick(row)" class="btn btn-simple btn-info btn-icon add" matTooltip="Join" [matTooltipPosition]="'left'" style="padding: 0px 30px 0px 0px;">
-                <i class="material-icons">add</i>
-            </button>
+          <button *ngIf="actionJoin" (click)="onActionJoinClick(row)" class="btn btn-simple btn-info btn-icon add" matTooltip="Join" [matTooltipPosition]="'left'" style="padding: 0px 30px 0px 0px;">
+              <i class="material-icons">add</i>
+          </button>
         </td>
       </tr>
     </tbody>

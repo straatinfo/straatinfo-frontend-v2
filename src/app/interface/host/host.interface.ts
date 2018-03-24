@@ -1,4 +1,5 @@
 import { IRole } from '../role/role.interface';
+import { IMediaUpload } from '../media-upload/media-upload.interface';
 
 export interface IHost {
   _id?: string;
@@ -23,4 +24,6 @@ export interface IHost {
   designType?: string;
   isPatron?: boolean;
   _role?: IRole;
+  _activeDesign?: string;
+  designs?: IMediaUpload[]
 }

@@ -5,7 +5,7 @@ import * as Redux from 'redux';
 import { Subscription } from 'rxjs/Subscription';
 
 import { IAppState } from '../app.store';
-import { HostService, DialogService } from '../../services';
+import { HostService, DesignService, DialogService } from '../../services';
 
 import { IHost } from '../../interface/host/host.interface';
 import { IHostView } from '../../interface/host/host-view.interface';
@@ -29,8 +29,13 @@ import {
   HOST_DESIGN_TYPE_UPDATE_ATTEMPT,
   HOST_DESIGN_TYPE_UPDATE_FAILED,
   HOST_DESIGN_TYPE_UPDATE_FULFILLED,
-  HOST_RESET_SELECT_FULFILLED
+  HOST_RESET_SELECT_FULFILLED,
+  HOST_SELECT_ACTIVE_DESIGN_ATTEMPT,
+  HOST_SELECT_ACTIVE_DESIGN_FULFILLED,
+  HOST_SELECT_ACTIVE_DESIGN_FAILED
 } from '../actions/host.action';
+import { IDesign } from '../../interface/design/design.interface';
+import { IDesignView } from '../../interface/design/design-view.interface';
 
 
 @Injectable()
@@ -46,12 +51,15 @@ export class HostActionCreator implements OnDestroy {
   private createHostBulkSubscription: Subscription = null;
   private updateHostDesignTypeSubscription: Subscription = null;
   private getOneHostSubscription: Subscription = null;
+  private getActiveDesignSubscription: Subscription = null;
+  private setActiveDesignSubscription: Subscription = null;
 
   constructor (
     private ngRedux: NgRedux<IAppState>,
     private router: Router,
     private hostService: HostService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private designService: DesignService
   ) {}
 
   ngOnDestroy () {
@@ -63,6 +71,8 @@ export class HostActionCreator implements OnDestroy {
     (this.createHostBulkSubscription) ? this.createHostBulkSubscription.unsubscribe() : null;
     (this.updateHostDesignTypeSubscription) ? this.updateHostDesignTypeSubscription.unsubscribe() : null;
     (this.getOneHostSubscription) ? this.getHostByIdSubscription.unsubscribe() : null;
+    (this.getActiveDesignSubscription) ? this.getActiveDesignSubscription.unsubscribe() : null;
+    (this.setActiveDesignSubscription) ? this.setActiveDesignSubscription.unsubscribe() : null;
   }
 
   GetHosts () {
@@ -218,8 +228,61 @@ export class HostActionCreator implements OnDestroy {
     );
   }
 
+  GetActiveDesign (_activeDesign: string) {
+    this.ngRedux.dispatch({ type: HOST_SELECT_ACTIVE_DESIGN_ATTEMPT });
+    this.getActiveDesignSubscription = this.designService.GetDesignById(_activeDesign, false)
+    .map(data => this.ToDesignView(data))
+    .subscribe(
+      (design: IDesignView) => {
+        this.ngRedux.dispatch({ type: HOST_SELECT_ACTIVE_DESIGN_FULFILLED, payload: design });
+      }, err => {
+        this.errorMessage = err._body;
+        if (this.errorMessage && typeof this.errorMessage === 'string') {
+          this.ngRedux.dispatch({ type: HOST_SELECT_ACTIVE_DESIGN_FAILED, error: this.errorMessage });
+        }
+      },
+      () => {
+        this.errorMessage = null;
+      }
+    );
+  }
+
+  SetActiveDesign(_id: string, _host: string, flat: boolean = true) {
+    this.ngRedux.dispatch({ type: HOST_SELECT_ACTIVE_DESIGN_ATTEMPT });
+    this.setActiveDesignSubscription = this.designService.SetAsActiveDesign(_id, _host, flat)
+    .map(data => this.ToDesignView(data))
+    .subscribe(
+      (design: IDesignView) => {
+        this.ngRedux.dispatch({ type: HOST_SELECT_ACTIVE_DESIGN_FULFILLED, payload: design });
+        this.dialogService.showSwal('success-message', {title: 'Design Selected', text: `Design: ${design.designName} was successfully set`});
+      }, err => {
+        this.errorMessage = err._body;
+        if (this.errorMessage && typeof this.errorMessage === 'string') {
+          this.ngRedux.dispatch({ type: HOST_SELECT_ACTIVE_DESIGN_FAILED, error: this.errorMessage });
+          this.dialogService.showSwal('error-message', {title: 'Design Not Selected', text: `There is an unexpected problem, Please try again next time.`});
+        }
+      },
+      () => {
+        this.errorMessage = null;
+      }
+    );
+  }
+
   ResetSelectedHost () {
     this.ngRedux.dispatch({ type: HOST_RESET_SELECT_FULFILLED });
+  }
+
+  private ToDesignView(data: any): IDesignView {
+    return {
+      _id: data._id,
+      colorOne: data.colorOne,
+      colorTwo: data.colorTwo,
+      colorThree: data.colorThree,
+      colorFour: data.colorFour,
+      designName: data.designName,
+      _profilePicUrl: (data._profilePic && data._profilePic.url) ? data._profilePic.url : null,
+      _profilePicSecureUrl: (data._profilePic && data._profilePic.secure_url) ? data._profilePic.secure_url : null,
+    };
   }
 
   private ToHostView(data: IHost): IHostView {
@@ -239,6 +302,7 @@ export class HostActionCreator implements OnDestroy {
       phoneNumber: data.phoneNumber,
       isBlocked: data.isBlocked,
       design: (data.isSpecific === true) ? 'CUSTOM' : 'GENERAL',
+      designs: data['designs'],
       isSpecific: data.isSpecific,
       fname: data.fname,
       lname: data.lname,
@@ -247,7 +311,8 @@ export class HostActionCreator implements OnDestroy {
       designType: data['_activeDesign.designName'],
       _role: data['_role._id'],
       _roleCode: data['_role.code'],
-      _roleName: data['_role.name']
+      _roleName: data['_role.name'],
+      _activeDesign: data['_activeDesign._id']
     };
   }
 }

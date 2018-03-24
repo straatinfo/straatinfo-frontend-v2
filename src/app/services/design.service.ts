@@ -79,6 +79,16 @@ export class DesignService {
           .share()
   }
 
+  SetAsActiveDesign(_id: string, _host: string, flat: boolean = true): Observable<IDesign> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({ headers: headers });
+    return this.http.put(`${this.designUrl}/activeDesign/${_host}/${_id}?flat=${flat}`,{}, options)
+        .map(response => response.json())
+        .map(data => this.GetData(data))
+        .share()
+  }
+
   GetData(data) {
       return data.data;
   }

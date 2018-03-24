@@ -54,6 +54,7 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy {
             this.loadHostData = true;
             this.hostData = host;
             this.isSpecific = (host) ? host.isSpecific : null;
+            if (host) { this.hostActionCreator.GetActiveDesign(host._activeDesign); }
           }
         );
       }
