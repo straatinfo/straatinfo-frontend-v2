@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
 import { ReportActionCreator, HostActionCreator } from '../../store/action-creators';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { IReportView } from '../../interface/report/report-view.interface';
 
 @Component({
   selector: 'app-host-report-list',
@@ -99,37 +100,35 @@ export class HostReportListComponent implements OnInit {
       new Angular2Csv(mapData, fileName, options);
   }
 
-  private ReportData(data: any): any {
+  private ReportData(data: IReportView): any {
       return {
-          id: data._id,
-          generatedReportId: data.generatedReportId,
-          date: data.date,
-          title: data.title,
-          description: data.description,
-          location: data.location,
-          lat: data.lat,
-          long: data.long,
-          status: data.status,
-          isPeopleInvolved: data.isPeopleInvolved,
-          peopleInvolvedCount: data.peopleInvolvedCount,
-          isVehicleInvolved: data.isVehicleInvolved,
-          vehicleInvolvedDescription: data.vehicleInvolvedDescription,
-          note: data.note,
-          host: data.hostName,
-          mainCategory: data.mainCategoryName,
-          subCategory: data.subCategoryName,
-          reporter: data.reporterName,
-          reportType: data.reportTypeCode,
-          team: data.teamName,
-          finishedDate: data.finishedDate,
-          causeOfFinished: data.causeOfFinished,
-          createdAt: data.createdAt
+          generatedReportId: data.generatedReportId || '',
+          date: data.date || '',
+          title: data.title || '',
+          description: data.description || '',
+          location: data.location || '',
+          lat: data.lat || '',
+          long: data.long || '',
+          status: data.status || '',
+          isPeopleInvolved: data.isPeopleInvolved || '',
+          peopleInvolvedCount: data.peopleInvolvedCount || '',
+          isVehicleInvolved: data.isVehicleInvolved || '',
+          vehicleInvolvedDescription: data.vehicleInvolvedDescription || '',
+          note: data.note || '',
+          host: data._hostName || '',
+          mainCategory: data._mainCategoryName || '',
+          subCategory: data._subCategoryName || '',
+          reporter: data._reporterName || '',
+          reportType: data._reportTypeCode || '',
+          team: data._teamName || '',
+          finishedDate: data.finishedDate || '',
+          causeOfFinished: data.causeOfFinished || '',
+          createdAt: data.createdAt || ''
       };
   }
 
   private ReportHeader(): any {
       return {
-          id: "Id",
           generatedReportId: "Generated Report Id",
           date: "Date",
           title: "Title",
@@ -153,6 +152,10 @@ export class HostReportListComponent implements OnInit {
           causeOfFinished: "Cause Of Finished",
           createdAt: "CreatedAt",
       };
+  }
+
+  onClickMore(data) {
+      this.router.navigate([`admin/host/report/details/${this.hostId}/${data._id}`]);
   }
 
   private padLeft(text: string, padChar: string, size: number): string {

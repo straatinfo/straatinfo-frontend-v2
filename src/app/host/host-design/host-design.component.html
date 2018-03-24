@@ -2,13 +2,15 @@
   <div class="container-fluid">
     <div>
       <div class="row">
-        <div class="col-md-12" *appspinner="(designSpinner | async)">
+        <div class="col-md-12" *appspinner="(designSpinner | async) || (hostSpinner$ | async)">
           <div class="card">
             <div class="card-header card-header-icon" data-background-color="blue">
               <i class="material-icons">assignment</i>
             </div>
             <div class="card-content">
                 <h4 *ngIf="hostName" class="card-title">Design page of [{{hostName}}]</h4>
+
+                <h5 *ngIf="(activeDesign$ | async)">Active Design: {{(activeDesign$ | async).designName}}</h5>
 
                 <div class="col-md-12">
                     <button (click)="onBack()" type="button" class="btn btn-default">Back to Host</button>
@@ -23,11 +25,13 @@
                 [actionDelete]="true"
                 [actionMore]="true"
                 [actionEdit]="false"
+                [actionCheck]="true"
                 [tableDataArray]="(designs)"
                 [tableHeaderName]="dataNames"
                 [tableHeaderAlias]="dataAliases"
                 (clickMore)="onMoreClick($event)"
                 (clickDelete)="onDeleteClick($event)"
+                (clickCheck)="onSelectClick($event)"
               ></app-table-basic>
             </div>
             <!-- end content-->

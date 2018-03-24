@@ -112,7 +112,13 @@
               </div>
 
               <div class="col-md-6">
-                <div class="input-group">
+                <app-media-viewer-v1 *ngIf="isHost"
+                  [reportId]="_report"
+                  width="400"
+                  height="300"
+                ></app-media-viewer-v1>
+
+                <div *ngIf="!isHost" class="input-group">
                   <span class="input-group-addon">
                     
                   </span>
@@ -123,7 +129,7 @@
                   </div>
                 </div>
 
-                <div class="input-group">
+                <div *ngIf="!isHost" class="input-group">
                   <span class="input-group-addon">
                     
                   </span>
@@ -133,7 +139,7 @@
                   </div>
                 </div>
 
-                <div class="input-group">
+                <div *ngIf="!isHost" class="input-group">
                   <span class="input-group-addon">
                     
                   </span>
@@ -144,7 +150,7 @@
                   </div>
                 </div>
 
-                <div class="input-group">
+                <div *ngIf="!isHost" class="input-group">
                   <span class="input-group-addon">
                     
                   </span>

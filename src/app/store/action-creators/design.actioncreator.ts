@@ -149,7 +149,7 @@ export class DesignActionCreator implements OnDestroy {
     }
 
     SelectDesign(_id: string, flat: boolean = true) {
-        this.ngRedux.dispatch({ type: DESIGN_SELECT_ATTEMPT, });
+        this.ngRedux.dispatch({ type: DESIGN_SELECT_ATTEMPT });
         this.selectDesignSubscription = this.designService.GetDesignById(_id, flat)
             .map(design => this.ToDesignView(design))
             .subscribe(
@@ -166,6 +166,7 @@ export class DesignActionCreator implements OnDestroy {
             }
             );
     }
+
 
     private ToDesignView(data: IDesign): IDesignView {
         return {

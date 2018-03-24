@@ -22,7 +22,7 @@ export class MainCategoryAddModalComponent implements OnInit {
     this.mainCategoryAddForm = this.formBuilder.group({
       code: [this.data.code, Validators.required],
       name: [null, Validators.required],
-      description: [null, Validators.required]
+      description: ['']
     });
   }
 

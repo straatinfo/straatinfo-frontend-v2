@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
 import { ReporterActionCreator } from '../../store/action-creators';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { IReporterView } from '../../interface/reporter/reporter-view.interface';
 
 @Component({
   selector: 'app-report-list',
@@ -74,17 +75,17 @@ export class ReporterListComponent implements OnInit {
       new Angular2Csv(mapData, fileName, options);
   }
 
-  private ReporterData(data: any): any {
+  private ReporterData(data: IReporterView): any {
       return {
-          id: data._id,
-          fname: data.fname,
+          id: data._id || '',
+          fname: data.fname || '',
           lname: data.lname,
-          chatName: data.chatName,
-          isVolunteer: data.isVolunteer,
-          team: data.activeTeamName,
-          host: data.hostName,
-          status1: data.status1,
-          status2: data.status2,
+          chatName: data.chatName || '',
+          isVolunteer: data.isVolunteer || '',
+          team: data.activeTeamName || '',
+          host: data.hostName || '',
+          status1: data.status1 || '',
+          status2: data.status2 || ''
       };
   }
 

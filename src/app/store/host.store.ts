@@ -18,12 +18,17 @@ import {
   HOST_DESIGN_TYPE_UPDATE_ATTEMPT,
   HOST_DESIGN_TYPE_UPDATE_FAILED,
   HOST_DESIGN_TYPE_UPDATE_FULFILLED,
-  HOST_RESET_SELECT_FULFILLED
+  HOST_RESET_SELECT_FULFILLED,
+  HOST_SELECT_ACTIVE_DESIGN_ATTEMPT,
+  HOST_SELECT_ACTIVE_DESIGN_FAILED,
+  HOST_SELECT_ACTIVE_DESIGN_FULFILLED
 } from './actions/host.action';
 import * as host from './reducers/host.reducer';
+import { IDesignView } from '../interface/design/design-view.interface';
 export interface IHostStore {
   hosts: IHost[];
   selectedHost: IHost;
+  selectedHostActiveDesign: IDesignView;
   spinner: boolean;
   error: string;
   success: string;
@@ -32,6 +37,7 @@ export interface IHostStore {
 export const HOST_INITIAL_STATE: IHostStore = {
   hosts: [],
   selectedHost: null,
+  selectedHostActiveDesign: null,
   spinner: false,
   error: null,
   success: null
@@ -58,6 +64,9 @@ export function hostReducer(state: IHostStore = HOST_INITIAL_STATE, action): IHo
     case HOST_DESIGN_TYPE_UPDATE_FAILED: return host.hostDesignTypeUpdateFailed(state, action);
     case HOST_DESIGN_TYPE_UPDATE_FULFILLED: return host.hostDesignTypeUpdateFulfilled(state, action);
     case HOST_RESET_SELECT_FULFILLED: return host.hostResetSelectedFulfilled(state, action);
+    case HOST_SELECT_ACTIVE_DESIGN_ATTEMPT: return host.setHostActiveDesignAttempt(state, action);
+    case HOST_SELECT_ACTIVE_DESIGN_FAILED: return host.setHostActiveDesignFailed(state, action);
+    case HOST_SELECT_ACTIVE_DESIGN_FULFILLED: return host.setHostActiveDesignFulfilled(state, action);
   }
   return state;
 };

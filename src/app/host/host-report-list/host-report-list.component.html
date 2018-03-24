@@ -21,11 +21,12 @@
                   itemPerPage="50"
                   [currentPage]="(page | async)"
                   [actionDelete]="false"
-                  [actionMore]="false"
+                  [actionMore]="true"
                   [actionEdit]="false"
                   [tableDataArray]="(reports)"
                   [tableHeaderName]="dataNames"
                   [tableHeaderAlias]="dataAliases"
+                  (clickMore)="onClickMore($event)"
                 ></app-table-basic>
               </div>
               <!-- end content-->
