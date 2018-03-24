@@ -165,8 +165,6 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
         this.successText = null;
 
         if (this.teamId != null) {
-            console.log('leader');
-            console.log(this.userId);
             this.teamActionCreator.SetAsTeamLeader(this.userId, this.teamId);
             this.teamErrorSubscription = this.team$
                 .subscribe(
@@ -187,8 +185,6 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
         this.successText = null;
 
         if (this.teamId != null) {
-            console.log('member');
-            console.log(this.userId);
             this.teamActionCreator.SetAsTeamMember(this.userId, this.teamId);
             this.teamErrorSubscription = this.team$
                 .subscribe(
@@ -210,6 +206,7 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
     onTeamPending() {
         if (this.pendingTeamId) {
             this.teamActionCreator.ApproveTeam(this.pendingTeamId);
+            this.ngOnInit();
         }
     }
 
