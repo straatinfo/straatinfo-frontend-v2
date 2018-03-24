@@ -88,35 +88,33 @@ export class ReportListComponent implements OnInit {
 
 	private ReportData(data: IReportView): any {
 		return {
-			id: data._id,
-			generatedReportId: data.generatedReportId,
-			date: data.date,
-			title: data.title,
-			description: data.description,
-			location: data.location,
-			lat: data.lat,
-			long: data.long,
-			status: data.status,
-			isPeopleInvolved: data.isPeopleInvolved,
-			peopleInvolvedCount: data.peopleInvolvedCount,
-			isVehicleInvolved: data.isVehicleInvolved,
-			vehicleInvolvedDescription: data.vehicleInvolvedDescription,
-			note: data.note,
-			host: data._host,
-			mainCategory: data._mainCategoryName,
-			subCategory: data._subCategoryName,
-			reporter: data._reporterName,
-			reportType: data._reportTypeCode,
-			team: data._teamName,
-			finishedDate: data.finishedDate,
-			causeOfFinished: data.causeOfFinished,
-			createdAt: data.createdAt
+			generatedReportId: data.generatedReportId || '',
+			date: data.date || '',
+			title: data.title || '',
+			description: data.description || '',
+			location: data.location || '',
+			lat: data.lat || '',
+			long: data.long || '',
+			status: data.status || '',
+			isPeopleInvolved: data.isPeopleInvolved || '',
+			peopleInvolvedCount: data.peopleInvolvedCount || '',
+			isVehicleInvolved: data.isVehicleInvolved || '',
+			vehicleInvolvedDescription: data.vehicleInvolvedDescription || '',
+			note: data.note || '',
+			host: data._host || '',
+			mainCategory: data._mainCategoryName || '',
+			subCategory: data._subCategoryName || '',
+			reporter: data._reporterName || '',
+			reportType: data._reportTypeCode || '',
+			team: data._teamName || '',
+			finishedDate: data.finishedDate || '',
+			causeOfFinished: data.causeOfFinished || '',
+			createdAt: data.createdAt || ''
 		};
 	}
 
 	private ReportHeader(): any {
 		return {
-			id: "Id",
 			generatedReportId: "Generated Report Id",
 			date: "Date",
 			title: "Title",

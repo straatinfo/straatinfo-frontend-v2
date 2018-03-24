@@ -40,6 +40,9 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
 
   public session: ISession = JSON.parse(localStorage.getItem('session'));
   public _role: IRole = this.session.user._role;
+  public isHost: boolean = (this._role.accessLevel === 2);
+
+  public _report: string;
 
   constructor(
     private actvatedRoute: ActivatedRoute,
@@ -53,6 +56,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
     .subscribe(
       params => {
         this.reportActionCreator.SelectReport(params._id);
+        this._report = params._id;
         this.reportSubscription = this.selectedReport
         .subscribe(
             (report: IReportView) => {
@@ -125,7 +129,16 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   onBack() {
-    this.router.navigate([`${this._role.code.toLowerCase()}/report`]);
+    this.actvatedRoute.params
+    .subscribe(
+      params => {
+        if (params._hostId) {
+          this.router.navigate([`${this._role.code.toLowerCase()}/host/report/${params._hostId}`]);
+        } else {
+          this.router.navigate([`${this._role.code.toLowerCase()}/report`]);
+        }
+      }
+    );
   }
 
   onDelete() {

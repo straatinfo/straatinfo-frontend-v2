@@ -9,6 +9,7 @@ import { ISession } from '../interface/session/session.interface';
 import { IReport } from '../interface/report/report.interface';
 import { SessionService } from './session.service';
 import { BACKEND_URL } from '../config';
+import { IMediaUpload } from '../interface/media-upload/media-upload.interface';
 
 @Injectable()
 export class ReportService {
@@ -74,6 +75,16 @@ export class ReportService {
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
     return this.http.delete(`${this.reportUrl}/${_id}`, options)
+    .map(response => response.json())
+    .map(data => this.GetData(data))
+    .share();
+  }
+
+  GetAttachments(_report: string): Observable<IMediaUpload[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(`${this.reportUrl}/attachments/${_report}`, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
     .share();

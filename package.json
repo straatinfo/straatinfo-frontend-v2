@@ -70,6 +70,7 @@
     "ng2-select": "1.2.0",
     "ngx-chips": "1.6.3",
     "ngx-color-picker": "^5.3.1",
+    "ngx-gallery": "^5.3.0",
     "nouislider": "9.2.0",
     "perfect-scrollbar": "1.1.0",
     "redux": "^3.7.2",

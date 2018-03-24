@@ -238,6 +238,15 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
     }
 
     onBack() {
-        this.router.navigate([`admin/reporter`]);
+        this.actvatedRoute.params
+        .subscribe(
+            params => {
+                if (params._hostId) {
+                    this.router.navigate([`admin/host/reporter/${params._hostId}`]);
+                } else {
+                    this.router.navigate([`admin/reporter`]);
+                }
+            }
+        );
     }
 }

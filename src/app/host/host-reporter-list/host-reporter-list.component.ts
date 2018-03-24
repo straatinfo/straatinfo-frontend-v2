@@ -73,9 +73,8 @@ export class HostReporterListComponent implements OnInit, DoCheck {
       this.router.navigate([`admin/host/${this.hostId}`]);
   }
 
-  onMoreClick(event) {
-      this.reporterActionCreator.SelectReporter(event._id);
-      this.router.navigate([`admin/reporter/${event._id}`]);
+  onClickMore(event) {
+      this.router.navigate([`admin/host/reporter/details/${this.hostId}/${event._id}`]);
   }
 
   onDownload() {
@@ -105,15 +104,15 @@ export class HostReporterListComponent implements OnInit, DoCheck {
 
   private ReporterData(data: any): any {
       return {
-          id: data._id,
-          fname: data.fname,
-          lname: data.lname,
-          chatName: data.chatName,
-          isVolunteer: data.isVolunteer,
-          team: data.activeTeamName,
-          host: data.hostName,
-          status1: data.status1,
-          status2: data.status2,
+          id: data._id || '',
+          fname: data.fname || '',
+          lname: data.lname || '',
+          chatName: data.chatName || '',
+          isVolunteer: data.isVolunteer || '',
+          team: data.activeTeamName || '',
+          host: data.hostName || '',
+          status1: data.status1 || '',
+          status2: data.status2 || ''
       };
   }
 

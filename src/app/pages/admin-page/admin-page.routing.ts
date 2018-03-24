@@ -57,8 +57,16 @@ export const AdminRoutes: Routes = [
 				component: HostReportListComponent,
 			},
 			{
+				path: 'host/report/details/:_hostId/:_id',
+				component: ReportDetailComponent
+			},
+			{
 				path: 'host/reporter/:_hostId',
 				component: HostReporterListComponent,
+			},
+			{
+				path: 'host/reporter/details/:_hostId/:_id',
+				component: ReporterDetailComponent
 			},
 			{
 				path: 'host/category/:_hostId',
