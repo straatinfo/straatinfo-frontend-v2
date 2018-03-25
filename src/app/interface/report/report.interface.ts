@@ -29,7 +29,7 @@ export interface IReport {
   _team: ITeam;
   date?: string;  
   causeOfFinished?: string;
-  finishedDate?: Date;
+  finishedDate?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

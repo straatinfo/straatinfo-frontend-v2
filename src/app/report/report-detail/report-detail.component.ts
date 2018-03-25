@@ -117,7 +117,13 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
   onUpdate() {
       this.errorText = null;
       this.successText = null;
-      this.reportActionCreator.UpdateReport(this.reportDetailForm.value._id, this.reportDetailForm.value.note, (this.reportDetailForm.value.status) ? this.reportDetailForm.value.status : 'Unresolved');
+      const causeOfFinish = `${this.reportDetailForm.value.status}, ${this._role.code}`;
+      this.reportActionCreator.UpdateReport(
+        this.reportDetailForm.value._id,
+        this.reportDetailForm.value.note,
+        (this.reportDetailForm.value.status) ? this.reportDetailForm.value.status : 'Unresolved',
+        causeOfFinish, true
+      );
       this.reportErrorSubscription = this.report$
           .subscribe(
           (report: IReportStore) => {

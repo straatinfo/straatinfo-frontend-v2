@@ -23,6 +23,7 @@ export class TableBasicComponent implements OnInit, OnDestroy {
   @Input() tableTitle:string;
   @Input() actionDelete: boolean;
   @Input() actionEdit: boolean;
+  @Input() actionSave: boolean;
   @Input() actionCheck: boolean;
   @Input() actionMore: boolean;
   @Input() actionApprove: boolean;
@@ -38,6 +39,7 @@ export class TableBasicComponent implements OnInit, OnDestroy {
   @Output() clickEdit = new EventEmitter<any>();
   @Output() clickDelete = new EventEmitter<any>();
   @Output() clickCheck = new EventEmitter<any>();
+  @Output() clickSave = new EventEmitter<any>();
   @Output() clickMore = new EventEmitter<any>();
   @Output() clickActionApprove = new EventEmitter<any>();
   @Output() clickActionDecline = new EventEmitter<any>();
@@ -135,6 +137,10 @@ export class TableBasicComponent implements OnInit, OnDestroy {
 
   onCheckClick (data) {
     this.clickCheck.emit(data);
+  }
+
+  onSaveClick (data) {
+    this.clickSave.emit(data);
   }
 
   onMoreClick (data) {

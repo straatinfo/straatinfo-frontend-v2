@@ -60,11 +60,11 @@ export class ReportService {
     .share();
   }
 
-  UpdateReport (_id: string, note: string, status: string, flat: boolean = true): Observable<IReport> {
+  UpdateReport (_id: string, note: string, status: string, causeOfFinished: string, flat: boolean = true): Observable<IReport> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.put(`${this.reportUrl}/${_id}?flat=${flat}`, { _id, note, status}, options)
+    return this.http.put(`${this.reportUrl}/${_id}?flat=${flat}`, { _id, note, status, causeOfFinished, finishedDate: new Date()}, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
     .share();

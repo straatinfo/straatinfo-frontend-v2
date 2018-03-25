@@ -24,14 +24,15 @@
                 [currentPage]="(page | async)"
                 [actionDelete]="true"
                 [actionMore]="true"
+                [actionSave]="true"
                 [actionEdit]="false"
-                [actionCheck]="true"
+                [actionCheck]="false"
                 [tableDataArray]="(designs)"
                 [tableHeaderName]="dataNames"
                 [tableHeaderAlias]="dataAliases"
                 (clickMore)="onMoreClick($event)"
                 (clickDelete)="onDeleteClick($event)"
-                (clickCheck)="onSelectClick($event)"
+                (clickSave)="onSelectClick($event)"
               ></app-table-basic>
             </div>
             <!-- end content-->

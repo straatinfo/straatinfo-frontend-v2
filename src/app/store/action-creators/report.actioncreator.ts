@@ -23,6 +23,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ReportService, DialogService } from '../../services';
 import { IReport } from '../../interface/report/report.interface';
 import { IReportView } from '../../interface/report/report-view.interface';
+import * as moment from 'moment';
 
 
 @Injectable()
@@ -98,9 +99,9 @@ export class ReportActionCreator implements OnDestroy {
 			);
 	}
 
-	UpdateReport(_id: string, note: string, status: string) {
+	UpdateReport(_id: string, note: string, status: string, causeOfFinished: string, flat: boolean = true) {
 		this.ngRedux.dispatch({ type: REPORT_UPDATE_ATTEMPT });
-		this.updateReportSubscription = this.reportService.UpdateReport(_id, note, status)
+		this.updateReportSubscription = this.reportService.UpdateReport(_id, note, status, causeOfFinished, flat)
 			.subscribe(
 				(report: IReport) => {
 					this.ngRedux.dispatch({ type: REPORT_UPDATE_FULFILLED, payload: report });
@@ -242,7 +243,7 @@ export class ReportActionCreator implements OnDestroy {
 			causeOfFinished: data.causeOfFinished,
 			createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
-			finishedDate: this.formatFinishedDate(data)
+			finishedDate: (data.finishedDate) ? moment(data.finishedDate).format('YYYY/MM/DD') : ''
 		};
 		return report;
 	}
@@ -261,21 +262,21 @@ export class ReportActionCreator implements OnDestroy {
 		};
 	}
 
-	private formatFinishedDate(data: IReport): string {
+	// private formatFinishedDate(data: IReport): string {
 
-		const date = new Date(data.finishedDate);
-		const year = date.getFullYear().toString();
-		const month = this.padLeft((date.getMonth() + 1).toString(), '0', 2);
-		const day = this.padLeft(date.getDate().toString(), '0', 2);
-		const hour = this.padLeft(date.getHours().toString(), '0', 2);
-		const minutes = this.padLeft(date.getMinutes().toString(), '0', 2);
-		const formattedDate = year + "/" + month + "/" + day + " " + hour + ":" + minutes;
+	// 	const date = new Date(data.finishedDate);
+	// 	const year = date.getFullYear().toString();
+	// 	const month = this.padLeft((date.getMonth() + 1).toString(), '0', 2);
+	// 	const day = this.padLeft(date.getDate().toString(), '0', 2);
+	// 	const hour = this.padLeft(date.getHours().toString(), '0', 2);
+	// 	const minutes = this.padLeft(date.getMinutes().toString(), '0', 2);
+	// 	const formattedDate = year + "/" + month + "/" + day + " " + hour + ":" + minutes;
 
-		if (data.finishedDate == null)
-			return "";
+	// 	if (data.finishedDate == null)
+	// 		return "";
 
-		return formattedDate;
-	}
+	// 	return formattedDate;
+	// }
 
 	private padLeft(text: string, padChar: string, size: number): string {
 		return (String(padChar).repeat(size) + text).substr((size * -1), size);
