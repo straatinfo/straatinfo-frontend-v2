@@ -10,7 +10,7 @@
             <div class="card-content">
                 <h4 class="card-title">Add Host - <small class="category">Create new host</small></h4>
 
-                <form [formGroup]="addHostForm" (submit)="submit()">
+                <form [formGroup]="addHostForm" (submit)="submit()" (change)="setToDirty()">
                   <div *ngIf="errorText" class="alert alert-danger" role="alert">
                     <strong>Error!</strong> {{errorText}}
                   </div>

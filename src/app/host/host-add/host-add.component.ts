@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, CanDeactivate } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
@@ -12,12 +12,13 @@ import swal from 'sweetalert2';
   templateUrl: './host-add.component.html',
   styleUrls: ['./host-add.component.scss']
 })
-export class HostAddComponent implements OnInit, OnDestroy {
+export class HostAddComponent implements OnInit, OnDestroy, CanDeactivate<HostAddComponent> {
 
   public addHostForm: FormGroup;
   private hostErrorSubscription: Subscription = null;
   public errorText: string = null;
   public successText: string = null;
+  private isDirty: boolean = false;
   @select(s => s.host.error) hostStoreError;
 
   constructor(
@@ -44,11 +45,30 @@ export class HostAddComponent implements OnInit, OnDestroy {
     });
   }
 
+  canDeactivate(): Promise<boolean> | boolean {
+    if (this.isDirty) {
+      return swal({
+        title: 'Do you want to discard changes?',
+        text: 'Please click submit to save changes',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        return true;
+      });
+    }
+    return true;
+  }
+
   ngOnDestroy() {
     (this.hostErrorSubscription) ? this.hostErrorSubscription.unsubscribe(): null;
   }
 
+  setToDirty() {
+    this.isDirty = true;
+  }
   submit() {
+    this.isDirty = false;
     if (this.addHostForm.valid) {
       this.errorText = null;
       this.successText = null;
