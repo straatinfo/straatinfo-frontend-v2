@@ -11,7 +11,7 @@
               <small class="category">Details</small>
             </h4>
 
-            <form [formGroup]="reportDetailForm">
+            <form [formGroup]="reportDetailForm" (change)="setToDirty()">
               <!-- <div *ngIf="errorText" class="alert alert-danger" role="alert">
                 <strong>Error!</strong> {{errorText}}
               </div>
@@ -183,8 +183,8 @@
                         <span class="input-group-addon">
                           
                         </span>
-                        <mat-form-field style="width:100% !important;" ngClass="form-group label-floating">
-                          <mat-select placeholder="Status" formControlName="status">
+                        <mat-form-field (change)="setToDirty()" style="width:100% !important;" ngClass="form-group label-floating">
+                          <mat-select  placeholder="Status" formControlName="status">
                             <mat-option value="NEW">New</mat-option>
                             <mat-option value="INPROGRESS">In Progress</mat-option>
                             <mat-option value="DONE">Done</mat-option>

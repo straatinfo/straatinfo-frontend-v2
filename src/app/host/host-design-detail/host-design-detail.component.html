@@ -9,7 +9,7 @@
           <div *ngIf="designData" class="card-content">
               <h4 class="card-title">Edit Design - <small class="category">Change host design</small></h4>
               <div *appLoadingBar="(miscSpinner | async)"></div>
-            <form [formGroup]="hostDesignForm">
+            <form [formGroup]="hostDesignForm" (change)="setToDirty()">
                 <div *ngIf="errorText" class="alert alert-danger" role="alert">
                     <strong>Error!</strong> {{errorText}}
                 </div>
@@ -43,6 +43,7 @@
                   <div class="form-group">
                       <label class="control-label">Color Two</label> 
                       <input formControlName="colorTwo"
+                             onchange="setToDirty()"
                              [value] ="hostDesignForm.value.colorTwo"
                              [style.background]="hostDesignForm.value.colorTwo"
                              [cpOutputFormat]="'hex'"

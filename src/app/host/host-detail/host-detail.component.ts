@@ -1,5 +1,5 @@
 import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, CanDeactivate } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 import { select, ObservableStore } from '@angular-redux/store';
@@ -11,13 +11,15 @@ import { IHost } from 'app/interface/host/host.interface';
 import { IHostView } from '../../interface/host/host-view.interface';
 import { IHostStore } from '../../store/host.store';
 
+
+
 @Component({
   selector: 'app-host-detail',
   templateUrl: './host-detail.component.html',
   styleUrls: ['./host-detail.component.scss']
 })
 
-export class HostDetailComponent implements OnInit, DoCheck, OnDestroy {
+export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeactivate<HostDetailComponent> {
 
   public hostDetailForm: FormGroup;
   private routeParamsSubscription: Subscription = null;
@@ -31,6 +33,7 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy {
   public isSpecific: boolean;
   public hostData: IHostView = null;
   public loadHostData: boolean = false;
+  private isDirty: boolean = false;
   @select(s => s.host.error) hostStoreError;
   @select(s => s.host.selectedHost) selectedHost;
   @select(s => s.host) host$: Observable<IHostStore>;
@@ -79,6 +82,24 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy {
     (this.hostStoreSubscription) ? this.hostStoreSubscription.unsubscribe() : null;
   }
 
+  setToDirty() {
+    this.isDirty = true;
+  }
+  canDeactivate(): Promise<boolean> | boolean {
+    if (this.isDirty) {
+      return swal({
+        title: 'Do you want to discard changes?',
+        text: 'Please click update to save changes',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        return true;
+      });
+    }
+    return true;
+  }
+
   onLoadForm (host: IHostView) {
     this.hostDetailForm = this.formBuilder.group({
       _id: [host._id, Validators.required],
@@ -125,6 +146,7 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   onUpdate() {
+      this.isDirty = false;
       this.loadHostData = true;
       this.errorText = null;
       this.successText = null;

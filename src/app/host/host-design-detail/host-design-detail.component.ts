@@ -1,5 +1,5 @@
 import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, CanDeactivate } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 import { select, NgRedux } from '@angular-redux/store';
@@ -22,7 +22,7 @@ import { IHostView } from '../../interface/host/host-view.interface';
 	styleUrls: ['./host-design-detail.component.scss']
 })
 
-export class HostDesignDetailComponent implements OnInit, DoCheck, OnDestroy {
+export class HostDesignDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeactivate<HostDesignDetailComponent> {
 
 	public uploadUrl: string;
 	public hostId: string;
@@ -38,6 +38,7 @@ export class HostDesignDetailComponent implements OnInit, DoCheck, OnDestroy {
 	public errorMessage: string = null;
 	public successMessage: string = null;
 	private hostSubscription: Subscription = null;
+	private isDirty: boolean = false;
 
 	@select(s => s.design.error) designStoreError: Observable<string>;
 	@select(s => s.design.selectedDesign) selectedDesign: Observable<IDesignView>;
@@ -84,6 +85,21 @@ export class HostDesignDetailComponent implements OnInit, DoCheck, OnDestroy {
 		if (this.errorMessage) this.onErrorMessage(this.errorMessage);
 	}
 
+	canDeactivate(): Promise<boolean> | boolean {
+    if (this.isDirty) {
+      return swal({
+        title: 'Do you want to discard changes?',
+        text: 'Please click update design to save changes',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        return true;
+      });
+    }
+    return true;
+  }
+
 	ngOnDestroy() {
 		(this.routeParamsSubscription) ? this.routeParamsSubscription.unsubscribe() : null;
 		(this.designSubscription) ? this.designSubscription.unsubscribe() : null;
@@ -107,18 +123,21 @@ export class HostDesignDetailComponent implements OnInit, DoCheck, OnDestroy {
 		this.loadDesignData = false;
 		// this.hostDesignForm.value.patch({ colorOne: value });
 		this.hostDesignForm.value.colorOne = value;
+		this.isDirty = true;
 	}
 
 	onColorTwoEvent(value: string) {
 		this.loadDesignData = false;
 		// this.hostDesignForm.value.patch({ colorTwo: value });
 		this.hostDesignForm.value.colorTwo = value;
+		this.isDirty = true;
 	}
 
 	onColorThreeEvent(value: string) {
 		this.loadDesignData = false;
 		// this.hostDesignForm.value.patch({ colorThree: value });
 		this.hostDesignForm.value.colorThree = value;
+		this.isDirty = true;
 	}
 
 	onBack() {
@@ -147,7 +166,11 @@ export class HostDesignDetailComponent implements OnInit, DoCheck, OnDestroy {
 		this.ngOnInit();
 	}
 
+	setToDirty () {
+		this.isDirty = true;
+	}
 	onUpdate() {
+		this.isDirty = false;
 		this.loadDesignData = true;
 		this.errorText = null;
 		this.successText = null;

@@ -188,6 +188,7 @@
                                     <button (click)="onUnblock()" type="button" class="btn btn-success btn-block">Unblock Reporter</button>
                                     <button (click)="onTeamLeader()" type="button" class="btn btn-warning btn-block">As Team Leader</button>
                                     <button (click)="onTeamMember()" type="button" class="btn btn-primary btn-block">As Team Member</button>
+                                    <!-- <button *ngIf="isVolunteer" (click)="onTeamMember()" type="button" class="btn btn-info btn-block">Set as Individual</button> -->
                                     <!-- <button (click)="onTeam()" type="button" class="btn btn-rose btn-block">Team</button> -->
                                     <button *ngIf="pendingTeamId" (click)="onTeamPending()" type="button" class="btn btn-rose btn-block">Allow Team</button>
                                     <button (click)="onDelete()" type="button" class="btn btn-danger btn-block">Delete Reporter</button>

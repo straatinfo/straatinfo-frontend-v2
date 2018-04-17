@@ -1,5 +1,5 @@
 import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, CanDeactivate } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
@@ -19,7 +19,7 @@ import { IReportStore } from '../../store/report.store';
   styleUrls: ['./report-detail.component.scss']
 })
 
-export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
+export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeactivate<ReportDetailComponent> {
 
   public reportDetailForm: FormGroup;
   private routeParamsSubscription: Subscription = null;
@@ -43,6 +43,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
   public isHost: boolean = (this._role.accessLevel === 2);
 
   public _report: string;
+  private isDirty: boolean = false;
 
   constructor(
     private actvatedRoute: ActivatedRoute,
@@ -74,10 +75,29 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
       if (this.errorMessage) this.onErrorMessage(this.errorMessage);
   }
 
+  canDeactivate(): Promise<boolean> | boolean {
+    if (this.isDirty) {
+      return swal({
+        title: 'Do you want to discard changes?',
+        text: 'Please click submit to save changes',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        return true;
+      });
+    }
+    return true;
+  }
+
   ngOnDestroy() {
     (this.routeParamsSubscription) ? this.routeParamsSubscription.unsubscribe() : null;
     (this.reportSubscription) ? this.reportSubscription.unsubscribe() : null;
     (this.reportErrorSubscription) ? this.reportErrorSubscription.unsubscribe() : null;
+  }
+
+  setToDirty() {
+    this.isDirty = true;
   }
 
   onLoadForm(report: IReportView) {
@@ -115,6 +135,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   onUpdate() {
+      this.isDirty = false;
       this.errorText = null;
       this.successText = null;
       const causeOfFinish = `${this.reportDetailForm.value.status}, ${this._role.code}`;

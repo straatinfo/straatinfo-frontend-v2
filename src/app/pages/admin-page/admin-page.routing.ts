@@ -16,7 +16,7 @@ import { ReporterListComponent, ReporterDetailComponent, ReporterTeamAddComponen
 import { DesignDetailComponent, ReportTypeAComponent, ReportTypeBComponent, ReportTypeCComponent } from '../../design';
 import { TeamPendingListComponent } from '../../team';
 
-import { HostDetailGuard } from '../../guards';
+import { HostDetailGuard, CanDeactivateGuard } from '../../guards';
 
 export const AdminRoutes: Routes = [
 	{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -34,7 +34,8 @@ export const AdminRoutes: Routes = [
 			{
 				path: 'host/:_id',
 				component: HostDetailComponent,
-				canActivate: [HostDetailGuard]
+				canActivate: [HostDetailGuard],
+				canDeactivate: [CanDeactivateGuard]
 			},
 			{
 				path: 'host/design/:_hostId',
@@ -47,14 +48,17 @@ export const AdminRoutes: Routes = [
 			{
 				path: 'host/design/detail/:_id',
 				component: HostDesignDetailComponent,
+				canDeactivate: [CanDeactivateGuard]
 			},
 			{
 				path: 'add-host',
-				component: HostAddComponent
+				component: HostAddComponent,
+				canDeactivate: [CanDeactivateGuard]
 			},
 			{
 				path: 'host/report/:_hostId',
 				component: HostReportListComponent,
+				canDeactivate: [CanDeactivateGuard]
 			},
 			{
 				path: 'host/report/details/:_hostId/:_id',
@@ -79,6 +83,7 @@ export const AdminRoutes: Routes = [
 			{
 				path: 'report/:_id',
 				component: ReportDetailComponent,
+				canDeactivate: [CanDeactivateGuard]
 			},
 			{
 				path: 'reporter',
@@ -98,11 +103,11 @@ export const AdminRoutes: Routes = [
 			},
 			{
 				path: 'design/report-type-a',
-				component: ReportTypeAComponent,
+				component: ReportTypeAComponent
 			},
 			{
 				path: 'design/report-type-b',
-				component: ReportTypeBComponent,
+				component: ReportTypeBComponent
 			},
 			{
 				path: 'design/report-type-c',
