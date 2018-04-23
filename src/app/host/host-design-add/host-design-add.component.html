@@ -9,7 +9,7 @@
           <div class="card-content">
               <h4 class="card-title">Add Design - <small class="category">Add new host design</small></h4>
 
-            <form [formGroup]="hostDesignForm">
+            <form [formGroup]="hostDesignForm" (change)="setToDirty()">
                 <div *ngIf="errorText" class="alert alert-danger" role="alert">
                     <strong>Error!</strong> {{errorText}}
                 </div>
@@ -20,14 +20,14 @@
                 <div class="col-md-12">
                     <div class="form-group label-floating">
                         <label class="control-label">Design Name</label>
-                        <input formControlName="designName" type="text" class="form-control">
+                        <input id="designName" formControlName="designName" type="text" class="form-control">
                     </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">    
                     <label class="control-label">Color One</label> 
-                    <input formControlName="colorOne"
+                    <input formControlName="colorOne" id="colorOne" name="colorOne"
                             [value] ="hostDesignForm.value.colorOne"
                             [style.background]="hostDesignForm.value.colorOne"
                             [cpOutputFormat]="'hex'"
@@ -42,7 +42,8 @@
                 <div class="col-md-4">
                   <div class="form-group">
                       <label class="control-label">Color Two</label> 
-                      <input formControlName="colorTwo"
+                      <input id="colorTwo" name="colorTwo"
+                            formControlName="colorTwo"
                              [value] ="hostDesignForm.value.colorTwo"
                              [style.background]="hostDesignForm.value.colorTwo"
                              [cpOutputFormat]="'hex'"
@@ -57,7 +58,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                       <label class="control-label">Color Three</label> 
-                      <input formControlName="colorThree"
+                      <input formControlName="colorThree" id="colorThree" name="colorThree"
                              [value] ="hostDesignForm.value.colorThree"
                              [style.background]="hostDesignForm.value.colorThree"
                              [cpOutputFormat]="'hex'"

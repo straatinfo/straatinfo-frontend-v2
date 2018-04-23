@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router, CanDeactivate } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
@@ -19,7 +19,7 @@ import { IReportStore } from '../../store/report.store';
   styleUrls: ['./report-detail.component.scss']
 })
 
-export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeactivate<ReportDetailComponent> {
+export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDestroy, CanDeactivate<ReportDetailComponent> {
 
   public reportDetailForm: FormGroup;
   private routeParamsSubscription: Subscription = null;
@@ -44,6 +44,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy, CanDea
 
   public _report: string;
   private isDirty: boolean = false;
+  private initialStatus: string;
 
   constructor(
     private actvatedRoute: ActivatedRoute,
@@ -70,9 +71,14 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy, CanDea
   }
 
   ngDoCheck() {
+      if (this.reportDetailForm && this.reportDetailForm.value.status !== this.initialStatus) this.isDirty = true;
       if (this.reportData && this.loadReportData) this.onLoadForm(this.reportData);
       if (this.successMessage) this.onSuccessMessage(this.successMessage);
       if (this.errorMessage) this.onErrorMessage(this.errorMessage);
+  }
+
+  ngOnChanges() {
+
   }
 
   canDeactivate(): Promise<boolean> | boolean {
@@ -97,6 +103,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy, CanDea
   }
 
   setToDirty() {
+    console.log('change');
     this.isDirty = true;
   }
 
@@ -120,7 +127,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy, CanDea
           note: [report.note, Validators.required],
           status: [report.status, Validators.required]
       });
-
+      this.initialStatus = report.status;
       this.loadReportData = false;
   }
 
@@ -136,6 +143,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnDestroy, CanDea
 
   onUpdate() {
       this.isDirty = false;
+      this.initialStatus = this.reportDetailForm.value.status;
       this.errorText = null;
       this.successText = null;
       const causeOfFinish = `${this.reportDetailForm.value.status}, ${this._role.code}`;
