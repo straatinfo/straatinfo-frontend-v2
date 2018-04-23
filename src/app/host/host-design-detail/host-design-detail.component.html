@@ -71,7 +71,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-12">
+                <div *ngIf="hostDesignForm.value && hostDesignForm.value._profilePicSecureUrl" class="col-md-12">
                     <div class="form-group">
                         <img [src]="hostDesignForm.value._profilePicSecureUrl" class="img-rounded" alt="" style="width:50%">
                     </div>

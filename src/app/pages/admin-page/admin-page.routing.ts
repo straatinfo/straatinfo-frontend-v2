@@ -44,6 +44,7 @@ export const AdminRoutes: Routes = [
 			{
 				path: 'host/design/add/:_hostId',
 				component: HostDesignAddComponent,
+				canDeactivate: [CanDeactivateGuard]
 			},
 			{
 				path: 'host/design/detail/:_id',
@@ -62,7 +63,8 @@ export const AdminRoutes: Routes = [
 			},
 			{
 				path: 'host/report/details/:_hostId/:_id',
-				component: ReportDetailComponent
+				component: ReportDetailComponent,
+				canDeactivate: [CanDeactivateGuard]
 			},
 			{
 				path: 'host/reporter/:_hostId',
