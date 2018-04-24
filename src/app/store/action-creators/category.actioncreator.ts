@@ -112,7 +112,17 @@ export class CategoryActionCreator implements OnDestroy {
 	GetHostMainCategory(hostId: string, code: string = 'A') {
 		this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_ATTEMPT });
 		this.getCategorySubscription = this.categoryService.GetHostMainCategory(hostId, code)
-			.map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+            .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+            .map((data: IMainCategoryView[]) => {
+
+                var overige = _.remove(data, function (item) {
+                    return item.name === 'overige';
+                });
+                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var items = _.union(orderedList, overige);
+
+                return items;
+            })
 			.subscribe(
 				(category: IMainCategoryView[]) => {
 					this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_FULFILLED, payload: category });
@@ -131,7 +141,17 @@ export class CategoryActionCreator implements OnDestroy {
 	GetSubCategory(mainCategoryId: string) {
 		this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_ATTEMPT });
 		this.getCategorySubscription = this.categoryService.GetSubCategory(mainCategoryId)
-			.map((data: any[]) => { return data.map(d => this.ToSubCategoryView(d)); })
+            .map((data: any[]) => { return data.map(d => this.ToSubCategoryView(d)); })
+            .map((data: ISubCategoryView[]) => {
+
+                var overige = _.remove(data, function (item) {
+                    return item.name === 'overige';
+                });
+                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var items = _.union(orderedList, overige);
+
+                return items;
+            })
 			.subscribe(
 				(category: ISubCategoryView[]) => {
 					this.ngRedux.dispatch({ type: CATEGORYSUB_A_GET_FULFILLED, payload: category });
@@ -150,7 +170,17 @@ export class CategoryActionCreator implements OnDestroy {
 	GetMainCategoryA(reportTypeId: string) {
 		this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_ATTEMPT });
 		this.getCategorySubscription = this.categoryService.GetMainCategory(reportTypeId)
-			.map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+            .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+            .map((data: IMainCategoryView[]) => {
+
+                var overige = _.remove(data, function (item) {
+                    return item.name === 'overige';
+                });
+                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var items = _.union(orderedList, overige);
+
+                return items;
+            })
 			.subscribe(
 				(category: IMainCategoryView[]) => {
 					this.ngRedux.dispatch({ type: CATEGORYMAIN_A_GET_FULFILLED, payload: category });
@@ -169,7 +199,17 @@ export class CategoryActionCreator implements OnDestroy {
 	GetMainCategoryB(reportTypeId: string) {
 		this.ngRedux.dispatch({ type: CATEGORYMAIN_B_GET_ATTEMPT });
 		this.getCategorySubscription = this.categoryService.GetMainCategory(reportTypeId)
-			.map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+            .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+            .map((data: IMainCategoryView[]) => {
+
+                var overige = _.remove(data, function (item) {
+                    return item.name === 'overige';
+                });
+                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var items = _.union(orderedList, overige);
+
+                return items;
+            })
 			.subscribe(
 				(category: IMainCategoryView[]) => {
 					this.ngRedux.dispatch({ type: CATEGORYMAIN_B_GET_FULFILLED, payload: category });
@@ -188,7 +228,17 @@ export class CategoryActionCreator implements OnDestroy {
 	GetMainCategoryC(reportTypeId: string) {
 		this.ngRedux.dispatch({ type: CATEGORYMAIN_C_GET_ATTEMPT });
 		this.getCategorySubscription = this.categoryService.GetMainCategory(reportTypeId)
-			.map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+            .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+            .map((data: IMainCategoryView[]) => {
+                
+                var overige = _.remove(data, function (item) {
+                    return item.name === 'overige';
+                });
+                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var items = _.union(orderedList, overige);
+
+                return items;
+            })
 			.subscribe(
 				(category: IMainCategoryView[]) => {
 					this.ngRedux.dispatch({ type: CATEGORYMAIN_C_GET_FULFILLED, payload: category });
@@ -280,7 +330,7 @@ export class CategoryActionCreator implements OnDestroy {
 	CreateMainCategoryA(_host: string, category: IMainCategoryCreate, flat: boolean = true) {
 		this.ngRedux.dispatch({ type: CATEGORYMAIN_A_CREATE_ATTEMPT });
 		this.updateCategorySubscription = this.categoryService.CreateMainCategory(_host, category, flat)
-			.map(data => this.ToMainCategoryView(data))
+            .map(data => this.ToMainCategoryView(data))
 			.subscribe(
 				(category: IMainCategoryView) => {
 					this.ngRedux.dispatch({ type: CATEGORYMAIN_A_CREATE_FULFILLED, payload: category });
@@ -300,7 +350,7 @@ export class CategoryActionCreator implements OnDestroy {
 	CreateMainCategoryB(_id: string, category: IMainCategoryCreate) {
 		this.ngRedux.dispatch({ type: CATEGORYMAIN_B_CREATE_ATTEMPT });
 		this.updateCategorySubscription = this.categoryService.CreateMainCategory(_id, category)
-			.map(data => this.ToMainCategoryView(data))
+            .map(data => this.ToMainCategoryView(data))
 			.subscribe(
 				(category: IMainCategoryView) => {
 					this.ngRedux.dispatch({ type: CATEGORYMAIN_B_CREATE_FULFILLED, payload: category });
@@ -319,7 +369,7 @@ export class CategoryActionCreator implements OnDestroy {
 	CreateMainCategoryC(_id: string, category: IMainCategoryCreate) {
 		this.ngRedux.dispatch({ type: CATEGORYMAIN_C_CREATE_ATTEMPT });
 		this.updateCategorySubscription = this.categoryService.CreateMainCategory(_id, category)
-			.map(data => this.ToMainCategoryView(data))
+            .map(data => this.ToMainCategoryView(data))
 			.subscribe(
 				(category: IMainCategoryView) => {
 					this.ngRedux.dispatch({ type: CATEGORYMAIN_C_CREATE_FULFILLED, payload: category });
@@ -338,7 +388,7 @@ export class CategoryActionCreator implements OnDestroy {
 	CreateSubCategoryA(_mainCategoryId: string, category: ISubCategoryView) {
 		this.ngRedux.dispatch({ type: CATEGORYSUB_A_CREATE_ATTEMPT });
 		this.updateCategorySubscription = this.categoryService.CreateSubCategory(_mainCategoryId, category)
-			.map(data => this.ToSubCategoryView(data))
+            .map(data => this.ToSubCategoryView(data))
 			.subscribe(
 				(category: ISubCategoryView) => {
 					this.ngRedux.dispatch({ type: CATEGORYSUB_A_CREATE_FULFILLED, payload: category });
@@ -391,7 +441,18 @@ export class CategoryActionCreator implements OnDestroy {
 		};
 		this.ngRedux.dispatch({ type: action[CODE].attempt });
 		this.getMainCategorySubscription = this.categoryService.GetGeneralMainCategory(code, flat)
-		.map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+            .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
+            .map((data: IMainCategory[]) => {
+
+                var overige = _.remove(data, function (item) {
+                    return item.name === 'overige';
+                });
+                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var items = _.union(orderedList, overige);
+
+                return items;
+            })
+
 		.subscribe(
 			(mainCategories: IMainCategoryView[]) => {
 				this.ngRedux.dispatch({ type: action[CODE].fulfilled, payload: mainCategories });
