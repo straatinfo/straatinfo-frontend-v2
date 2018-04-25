@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgRedux } from '@angular-redux/store';
 import * as Redux from 'redux';
 import { Subscription } from 'rxjs/Subscription';
+import * as _ from 'lodash';
 
 import { IAppState } from '../app.store';
 import { CategoryService, DialogService } from '../../services';
@@ -116,9 +117,9 @@ export class CategoryActionCreator implements OnDestroy {
             .map((data: IMainCategoryView[]) => {
 
                 var overige = _.remove(data, function (item) {
-                    return item.name === 'overige';
+                    return item.name.toUpperCase() === 'overige'.toUpperCase();
                 });
-                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
 
                 return items;
@@ -145,9 +146,9 @@ export class CategoryActionCreator implements OnDestroy {
             .map((data: ISubCategoryView[]) => {
 
                 var overige = _.remove(data, function (item) {
-                    return item.name === 'overige';
+                    return item.name.toUpperCase() === 'overige'.toUpperCase();
                 });
-                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
 
                 return items;
@@ -174,9 +175,9 @@ export class CategoryActionCreator implements OnDestroy {
             .map((data: IMainCategoryView[]) => {
 
                 var overige = _.remove(data, function (item) {
-                    return item.name === 'overige';
+                    return item.name.toUpperCase() === 'overige'.toUpperCase();
                 });
-                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
 
                 return items;
@@ -203,9 +204,9 @@ export class CategoryActionCreator implements OnDestroy {
             .map((data: IMainCategoryView[]) => {
 
                 var overige = _.remove(data, function (item) {
-                    return item.name === 'overige';
+                    return item.name.toUpperCase() === 'overige'.toUpperCase();
                 });
-                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
 
                 return items;
@@ -232,9 +233,9 @@ export class CategoryActionCreator implements OnDestroy {
             .map((data: IMainCategoryView[]) => {
                 
                 var overige = _.remove(data, function (item) {
-                    return item.name === 'overige';
+                    return item.name.toUpperCase() === 'overige'.toUpperCase();
                 });
-                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
 
                 return items;
@@ -333,8 +334,7 @@ export class CategoryActionCreator implements OnDestroy {
             .map(data => this.ToMainCategoryView(data))
 			.subscribe(
 				(category: IMainCategoryView) => {
-					this.ngRedux.dispatch({ type: CATEGORYMAIN_A_CREATE_FULFILLED, payload: category });
-
+                    this.GetHostMainCategory(_host, category._reportTypeCode);
 				}, err => {
 					this.errorMessage = err._body;
 					if (this.errorMessage && typeof this.errorMessage === 'string') {
@@ -399,8 +399,8 @@ export class CategoryActionCreator implements OnDestroy {
 					}
 				},
 				() => {
-					this.errorMessage = null;
-					this.ngRedux.dispatch({ type: CATEGORYSUB_A_SELECT_FULFILLED, payload: category._id });
+                    this.errorMessage = null;
+                    this.GetSubCategory(_mainCategoryId);
 				}
 			);
 	}
@@ -414,10 +414,10 @@ export class CategoryActionCreator implements OnDestroy {
 		};
 		this.ngRedux.dispatch({ type: action[CODE].attempt });
 		this.crateMainCategorySubscription = this.categoryService.CreateGeneralMainCategory({code, name, description}, flat)
-			.map(data => this.ToMainCategoryView(data))	
+            .map(data => this.ToMainCategoryView(data))	
 			.subscribe(
 				(mainCategory: IMainCategoryView) => {
-					this.ngRedux.dispatch({ type: action[CODE].fulfilled, payload: mainCategory });
+                    this.GetGeneralMainCategory(CODE, true)
 					this.dialogService.showSwal('success-message', {title: 'Main Category Created', text: 'Main Category has Successfully created'});
 				}, err => {
 					this.errorMessage = err._body;
@@ -430,7 +430,7 @@ export class CategoryActionCreator implements OnDestroy {
 					this.errorMessage = null;
 				}
 			);
-	}
+	} 
 
 	GetGeneralMainCategory (code: string, flat: boolean = true) {
 		const CODE = code.toUpperCase();
@@ -442,12 +442,12 @@ export class CategoryActionCreator implements OnDestroy {
 		this.ngRedux.dispatch({ type: action[CODE].attempt });
 		this.getMainCategorySubscription = this.categoryService.GetGeneralMainCategory(code, flat)
             .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
-            .map((data: IMainCategory[]) => {
-
+            .map((data: IMainCategoryView[]) => {
+                
                 var overige = _.remove(data, function (item) {
-                    return item.name === 'overige';
+                    return item.name.toUpperCase() === 'overige'.toUpperCase();
                 });
-                var orderedList = _.orderBy(data, ['name'], ['asc']);
+                var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
 
                 return items;
