@@ -33,6 +33,9 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
   public errorMessage: string = null;
   public successMessage: string = null;
 
+  private long: number;
+  private lat: number;
+
   @select(s => s.report.error) reportStoreError;
   @select(s => s.report.selectedReport) selectedReport;
   @select(s => s.report.spinner) reportSpinner;
@@ -127,6 +130,9 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
           note: [report.note, Validators.required],
           status: [report.status, Validators.required]
       });
+
+      this.long = report.long;
+      this.lat = report.lat;
       this.initialStatus = report.status;
       this.loadReportData = false;
   }
