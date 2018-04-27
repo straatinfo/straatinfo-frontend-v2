@@ -20,7 +20,7 @@ import { MaterialModule } from 'app/app.module';
     ComponentModule,
     MaterialModule,
     AgmCoreModule.forRoot({
-        apiKey: 'AIzaSyBTuSniFR4-7NIkjbbfPMsd4SM4GyKcIEA' // Change this to a new apiKey
+        apiKey: 'AIzaSyDuQd44hbjRx-70DSsFUWuAtt2uMe_Hotk' // Change this to a new apiKey
     }),
     DirectiveModule
   ],

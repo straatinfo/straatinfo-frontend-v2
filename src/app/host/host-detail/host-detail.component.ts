@@ -119,7 +119,8 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
       fname: [host.fname, Validators.required],
       lname: [host.lname, Validators.required],
       hostPersonalEmail: [host.hostPersonalEmail, Validators.required],
-      isSpecific: [host.isSpecific]
+      isSpecific: [host.isSpecific],
+      language: [host.language, Validators.required]
       });
     this.loadHostData = false;
   }
