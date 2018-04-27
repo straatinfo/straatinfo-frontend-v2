@@ -309,6 +309,7 @@ export class HostActionCreator implements OnDestroy {
       isPatron: data.isPatron,
       hostPersonalEmail: data.hostPersonalEmail,
       designType: data['_activeDesign.designName'],
+      language: data.language,
       _role: data['_role._id'],
       _roleCode: data['_role.code'],
       _roleName: data['_role.name'],
