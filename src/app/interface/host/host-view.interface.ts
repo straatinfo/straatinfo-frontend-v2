@@ -26,5 +26,6 @@ export interface IHostView {
   _roleCode?: string;
   _roleName?: string;
   _activeDesign?: string;
+  language?: string;
   designs?: IMediaUpload[]
 }
