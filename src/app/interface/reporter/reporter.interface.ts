@@ -25,4 +25,6 @@ export interface IReporter {
     _activeTeam?: ITeam;
     createdAt?: Date;
     updatedAt?: Date;
+    teamLeaders?: any[];
+    teamMembers?: any[];
 }

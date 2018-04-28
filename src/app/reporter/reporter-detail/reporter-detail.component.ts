@@ -38,9 +38,9 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 	public errorMessage: string = null;
 	public successMessage: string = null;
 	public pendingTeamId: string = null;
-    public isVolunteer: boolean;
-    public isTeamLeader: boolean = false;
-    public isBlock: boolean = false;
+	public isVolunteer: boolean;
+	public isTeamLeader: boolean = false;
+	public isBlock: boolean = false;
 
 	@select(s => s.reporter.error) reporterStoreError;
 	@select(s => s.team.error) teamStoreError;

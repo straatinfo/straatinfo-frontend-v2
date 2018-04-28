@@ -212,7 +212,9 @@ export class ReporterActionCreator implements OnDestroy {
             pendingTeamName: data['pendingTeam.teamName'],
             chatName: data.username,
             createdAt: data.createdAt,
-            updatedAt: data.updatedAt
+            updatedAt: data.updatedAt,
+            teamMembers: data.teamMembers,
+            teamLeaders: data.teamLeaders
         };
         return reporter;
     }

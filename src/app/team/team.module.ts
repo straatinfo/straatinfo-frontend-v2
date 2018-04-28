@@ -6,6 +6,7 @@ import { ComponentModule } from '../components';
 import { DirectiveModule, SpinnerComponent } from '../directives';
 import { MatSelectModule } from '@angular/material/select';
 import { TeamPendingListComponent } from './team-pending-list/team-pending-list.component';
+import { TeamSetupComponent } from './team-setup/team-setup.component';
 
 @NgModule({
   imports: [
@@ -18,10 +19,12 @@ import { TeamPendingListComponent } from './team-pending-list/team-pending-list.
     MatSelectModule
   ],
   declarations: [
-    TeamPendingListComponent
+    TeamPendingListComponent,
+    TeamSetupComponent
   ],
   exports: [
-    TeamPendingListComponent
+    TeamPendingListComponent,
+    TeamSetupComponent
   ],
   entryComponents: [
     SpinnerComponent
