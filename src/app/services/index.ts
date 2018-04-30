@@ -8,6 +8,7 @@ import { ReportTypeService } from './reportType.service';
 import { CategoryService } from './category.service';
 import { TeamService } from './team.service';
 import { DialogService } from './dialog.service';
+import { LanguageService } from './language.service';
 
 export {
   ServiceModule,
@@ -19,5 +20,6 @@ export {
   ReportTypeService,
   DialogService,
   CategoryService,
-  TeamService
+  TeamService,
+  LanguageService
 };

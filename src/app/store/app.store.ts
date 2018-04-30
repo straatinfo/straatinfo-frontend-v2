@@ -20,6 +20,7 @@ import { CATEGORYMAIN_A_INITIAL_STATE,
         categorySubAReducer} from './category.store';
 import { MISC_INITIAL_STATE, IMiscStore, miscReducer  } from './misc.store';
 import { TEAM_INITIAL_STATE, ITeamStore, teamReducer  } from './team.store';
+import { LANGUAGE_INITIAL_STATE, ILanguageStore, languageReducer  } from './language.store';
 
 export interface IAppState {
   session: ISessionStore,
@@ -34,6 +35,7 @@ export interface IAppState {
   categorySubA: ICategorySubAStore,
   misc: IMiscStore;
   team: ITeamStore;
+  language: ILanguageStore;
 }
 
 export const INITIAL_STATE: IAppState = {
@@ -49,6 +51,7 @@ export const INITIAL_STATE: IAppState = {
   categorySubA: CATEGORYSUB_A_INITIAL_STATE,
   misc: MISC_INITIAL_STATE,
   team: TEAM_INITIAL_STATE,
+  language: LANGUAGE_INITIAL_STATE,
 }
 
 export const rootReducer = combineReducers<IAppState>({
@@ -64,5 +67,6 @@ export const rootReducer = combineReducers<IAppState>({
   categoryMainC: categoryMainCReducer,
   categorySubA: categorySubAReducer,
   misc: miscReducer,
-  team: teamReducer
+  team: teamReducer,
+  language: languageReducer,
 });

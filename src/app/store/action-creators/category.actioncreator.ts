@@ -6,11 +6,12 @@ import { Subscription } from 'rxjs/Subscription';
 import * as _ from 'lodash';
 
 import { IAppState } from '../app.store';
-import { CategoryService, DialogService } from '../../services';
+import { CategoryService, DialogService, LanguageService } from '../../services';
 import { IMainCategory } from '../../interface/category/main-category.interface';
 import { IMainCategoryView } from '../../interface/category/main-category-view.interface';
 import { ISubCategory } from '../../interface/category/sub-category.interface';
 import { ISubCategoryView } from '../../interface/category/sub-category-view.interface';
+import { ILanguage } from '../../interface/language/language.interface';
 
 import {
 	CATEGORYMAIN_A_CREATE_ATTEMPT,
@@ -95,11 +96,13 @@ export class CategoryActionCreator implements OnDestroy {
 	private updateCategorySubscription: Subscription = null;
 	private crateMainCategorySubscription: Subscription = null;
 	private getMainCategorySubscription: Subscription = null;
+    private languageSubscription: Subscription = null;
 
 	constructor(
 		private ngRedux: NgRedux<IAppState>,
 		private router: Router,
-		private categoryService: CategoryService,
+        private categoryService: CategoryService,
+        private languageService: LanguageService,
 		private dialogService: DialogService
 	) { }
 
@@ -107,7 +110,8 @@ export class CategoryActionCreator implements OnDestroy {
 		(this.getCategorySubscription) ? this.getCategorySubscription.unsubscribe() : null;
 		(this.updateCategorySubscription) ? this.updateCategorySubscription.unsubscribe() : null;
 		(this.crateMainCategorySubscription) ? this.crateMainCategorySubscription.unsubscribe() : null;
-		(this.getMainCategorySubscription) ? this.getMainCategorySubscription.unsubscribe() : null;
+        (this.getMainCategorySubscription) ? this.getMainCategorySubscription.unsubscribe() : null;
+        (this.languageSubscription) ? this.languageSubscription.unsubscribe() : null;
 	}
 
 	GetHostMainCategory(hostId: string, code: string = 'A') {
@@ -413,7 +417,7 @@ export class CategoryActionCreator implements OnDestroy {
 			'C': {attempt: CATEGORYMAIN_C_CREATE_ATTEMPT, fulfilled: CATEGORYMAIN_C_CREATE_FULFILLED, failed: CATEGORYMAIN_C_CREATE_FAILED}
 		};
 		this.ngRedux.dispatch({ type: action[CODE].attempt });
-		this.crateMainCategorySubscription = this.categoryService.CreateGeneralMainCategory({code, name, description}, flat)
+        this.crateMainCategorySubscription = this.categoryService.CreateGeneralMainCategory({ code, name, description}, flat)
             .map(data => this.ToMainCategoryView(data))	
 			.subscribe(
 				(mainCategory: IMainCategoryView) => {
@@ -440,7 +444,7 @@ export class CategoryActionCreator implements OnDestroy {
 			'C': {attempt: CATEGORYMAIN_C_GET_ATTEMPT, fulfilled: CATEGORYMAIN_C_GET_FULFILLED, failed: CATEGORYMAIN_C_GET_FAILED}
 		};
 		this.ngRedux.dispatch({ type: action[CODE].attempt });
-		this.getMainCategorySubscription = this.categoryService.GetGeneralMainCategory(code, flat)
+        this.getMainCategorySubscription = this.categoryService.GetGeneralMainCategory(code, flat)
             .map((data: any[]) => { return data.map(d => this.ToMainCategoryView(d)); })
             .map((data: IMainCategoryView[]) => {
                 
@@ -454,8 +458,9 @@ export class CategoryActionCreator implements OnDestroy {
             })
 
 		.subscribe(
-			(mainCategories: IMainCategoryView[]) => {
+            (mainCategories: IMainCategoryView[]) => {
 				this.ngRedux.dispatch({ type: action[CODE].fulfilled, payload: mainCategories });
+
 			}, err => {
 				this.errorMessage = err._body;
 				if (this.errorMessage && typeof this.errorMessage === 'string') {

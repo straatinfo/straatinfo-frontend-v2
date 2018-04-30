@@ -24,6 +24,7 @@ export class SubCategoryAddModalComponent implements OnInit {
       _mainCategory: [this.data._mainCategory, Validators.required],
       _mainCategoryName: [this.data._mainCategoryName],
       name: [null, Validators.required],
+      dutch: [null, Validators.required],
       description: [null]
     });
   }

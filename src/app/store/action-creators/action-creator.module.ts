@@ -9,8 +9,8 @@ import { ReporterActionCreator } from './reporter.actioncreator';
 import { ReportTypeActionCreator } from './reportType.actioncreator';
 import { CategoryActionCreator } from './category.actioncreator';
 import { TeamActionCreator } from './team.actioncreator';
-
 import { MiscActionCreator } from './misc.actioncreator';
+import { LanguageActionCreator } from './language.actioncreator';
 
 @NgModule({
   imports: [],
@@ -30,7 +30,8 @@ export class ActionCreatorModule {
         ReportTypeActionCreator,
         CategoryActionCreator,
         TeamActionCreator,
-        MiscActionCreator        
+        MiscActionCreator,
+        LanguageActionCreator
       ]
     }
   }

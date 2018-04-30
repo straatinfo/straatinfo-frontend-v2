@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable, Subscription } from 'rxjs';
-import { CategoryActionCreator, HostActionCreator } from '../../store/action-creators';
+import { CategoryActionCreator, HostActionCreator, LanguageActionCreator } from '../../store/action-creators';
 import { ISession } from '../../interface/session/session.interface';
 import { IMainCategoryView } from '../../interface/category/main-category-view.interface';
 import { ISubCategoryView } from '../../interface/category/sub-category-view.interface';
@@ -51,6 +51,7 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private categoryActionCreator: CategoryActionCreator,
+    private languageActionCreator: LanguageActionCreator,
     public dialog: MatDialog,
     private router: Router,
     private hostActionCreator: HostActionCreator
@@ -107,7 +108,8 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   
       this.dialogRefSubscription = this.dialogRef.afterClosed().subscribe(result => {
         const data = JSON.parse(result);
-        this.categoryActionCreator.CreateMainCategoryA(this.hostId, {code: data.code, description: data.description, name: data.name}, true);
+        this.categoryActionCreator.CreateMainCategoryA(this.hostId, { code: data.code, description: data.description, name: data.name }, true);
+        this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
       });
     }
   }
@@ -119,9 +121,9 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
     });
 
     this.dialogRefSubscription = this.dialogRef.afterClosed().subscribe(result => {
-      const data = JSON.parse(result);
-      
-      this.categoryActionCreator.CreateSubCategoryA(data._mainCategory, {name: data.name, description: data.description});
+      const data = JSON.parse(result);      
+      this.categoryActionCreator.CreateSubCategoryA(data._mainCategory, { name: data.name, description: data.description });
+      this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
     });
   }
 

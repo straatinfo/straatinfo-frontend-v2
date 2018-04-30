@@ -10,7 +10,7 @@ import { ReporterService } from './reporter.service';
 import { ReportTypeService } from './reportType.service';
 import { CategoryService } from './category.service';
 import { TeamService } from './team.service';
-
+import { LanguageService } from './language.service';
 import { DialogService } from './dialog.service';
 
 @NgModule({
@@ -33,7 +33,8 @@ export class ServiceModule {
         ReportTypeService,
         CategoryService,
         TeamService,
-        DialogService
+        DialogService,
+        LanguageService
       ]
     }
   }
