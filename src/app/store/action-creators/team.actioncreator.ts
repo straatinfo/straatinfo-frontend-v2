@@ -62,6 +62,7 @@ export class TeamActionCreator implements OnDestroy {
   }
 
   GetTeams() {
+    this.errorMessage = null;
     this.ngRedux.dispatch({ type: TEAM_GET_ATTEMPT });
     this.getTeamSubscription = this.teamService.GetTeams()
       .map((data: any[]) => { return data.map(d => this.ToTeamView(d)); })
@@ -81,6 +82,7 @@ export class TeamActionCreator implements OnDestroy {
   }
 
   GetTeamsWithFilter(_host: string) {
+    this.errorMessage = null;
     this.ngRedux.dispatch({ type: TEAM_GET_ATTEMPT });
     this.getTeamSubscription = this.teamService.GetTeamsWithFilter(_host)
       .map((data: any[]) => { return data.map(d => this.ToTeamView(d)); })
@@ -99,17 +101,20 @@ export class TeamActionCreator implements OnDestroy {
       );
   }
 
-  CreateTeam(_userId: string, team: ITeamView) {
+  CreateTeam(_userId: string, _hostId, team: any, cb) {
+    this.errorMessage = null;
     this.ngRedux.dispatch({ type: TEAM_CREATE_ATTEMPT });
-    this.createTeamSubscription = this.teamService.CreateTeam(_userId, team)
+    this.createTeamSubscription = this.teamService.CreateTeam(_userId, _hostId, team)
       .map(data => this.ToTeamView(data))
       .subscribe(
         (team: ITeamView) => {
           this.ngRedux.dispatch({ type: TEAM_CREATE_FULFILLED, payload: team });
+          cb(null, team);
         }, err => {
           this.errorMessage = err._body;
           if (this.errorMessage && typeof this.errorMessage === 'string') {
             this.ngRedux.dispatch({ type: TEAM_CREATE_FAILED, error: this.errorMessage });
+            cb(this.errorMessage);
           }
         },
         () => {
@@ -118,17 +123,16 @@ export class TeamActionCreator implements OnDestroy {
       );
   }
 
-  SetAsTeamLeader(_userId: string, _teamId: string) {
-    this.ngRedux.dispatch({ type: TEAM_UPDATE_ATTEMPT });
+  SetAsTeamLeader(_userId: string, _teamId: string, cb) {
+    this.errorMessage = null;
     this.getLatestTeamSubscription = this.teamService.SetAsTeamLeader(_userId, _teamId)
-      .map(data => this.ToTeamView(data))
       .subscribe(
-        (team: ITeamView) => {
-          this.ngRedux.dispatch({ type: TEAM_UPDATE_FULFILLED, payload: team });
+        (team) => {
+          cb(null, team);
         }, err => {
           this.errorMessage = err._body;
           if (this.errorMessage && typeof this.errorMessage === 'string') {
-            this.ngRedux.dispatch({ type: TEAM_UPDATE_FAILED, error: this.errorMessage });
+            cb(this.errorMessage);
           }
         },
         () => {
@@ -137,17 +141,16 @@ export class TeamActionCreator implements OnDestroy {
       );
   }
 
-  SetAsTeamMember(_userId: string, _teamId: string) {
-    this.ngRedux.dispatch({ type: TEAM_UPDATE_ATTEMPT });
+  SetAsTeamMember(_userId: string, _teamId: string, cb) {
+    this.errorMessage = null;
     this.getLatestTeamSubscription = this.teamService.SetAsTeamMember(_userId, _teamId)
-      .map(data => this.ToTeamView(data))
       .subscribe(
-        (team: ITeamView) => {
-          this.ngRedux.dispatch({ type: TEAM_UPDATE_FULFILLED, payload: team });
+        (team) => {
+          cb(null, team)
         }, err => {
           this.errorMessage = err._body;
           if (this.errorMessage && typeof this.errorMessage === 'string') {
-            this.ngRedux.dispatch({ type: TEAM_UPDATE_FAILED, error: this.errorMessage });
+            cb(this.errorMessage);
           }
         },
         () => {
@@ -156,17 +159,52 @@ export class TeamActionCreator implements OnDestroy {
       );
   }
 
-  JoinTeam(_userId: string, _teamId: string) {
-    this.ngRedux.dispatch({ type: TEAM_SELECT_ATTEMPT });
+  JoinTeam(_userId: string, _teamId: string, cb) {
+    this.errorMessage = null;
     this.getLatestTeamSubscription = this.teamService.JoinTeam(_userId, _teamId)
-      .map(data => this.ToTeamView(data))
       .subscribe(
         (team: ITeamView) => {
-          this.ngRedux.dispatch({ type: TEAM_SELECT_FULFILLED, payload: team });
+          cb(null, team);
         }, err => {
           this.errorMessage = err._body;
           if (this.errorMessage && typeof this.errorMessage === 'string') {
-            this.ngRedux.dispatch({ type: TEAM_GET_FAILED, error: this.errorMessage });
+            cb(this.errorMessage);
+          }
+        },
+        () => {
+          this.errorMessage = null;
+        }
+      );
+  }
+
+  UnJoinTeam(_userId: string, _teamId: string, cb) {
+    this.errorMessage = null;
+    this.getLatestTeamSubscription = this.teamService.UnJoinTeam(_userId, _teamId)
+      .subscribe(
+        (team: ITeamView) => {
+          cb(null, team);
+        }, err => {
+          this.errorMessage = err._body;
+          if (this.errorMessage && typeof this.errorMessage === 'string') {
+            cb(this.errorMessage);
+          }
+        },
+        () => {
+          this.errorMessage = null;
+        }
+      );
+  }
+
+  SetActiveTeam(_userId: string, _teamId: string, cb) {
+    this.errorMessage = null;
+    this.getLatestTeamSubscription = this.teamService.SetActiveTeam(_userId, _teamId)
+      .subscribe(
+        (team: ITeamView) => {
+          cb(null, team);
+        }, err => {
+          this.errorMessage = err._body;
+          if (this.errorMessage && typeof this.errorMessage === 'string') {
+            cb(this.errorMessage);
           }
         },
         () => {
@@ -180,6 +218,7 @@ export class TeamActionCreator implements OnDestroy {
   }
 
   GetNonApprovedTeam() {
+    this.errorMessage = null;
     this.ngRedux.dispatch({ type: TEAM_PENDING_GET_ATTEMPT });
     this.getNonApprovedTeamSubscription = this.teamService.GetNonApprovedTeam()
       .map((data: any[]) => { return data.map(d => this.ToTeamView(d)); })
@@ -199,6 +238,7 @@ export class TeamActionCreator implements OnDestroy {
   }
 
   ApproveTeam(_id) {
+    this.errorMessage = null;
     this.ngRedux.dispatch({ type: TEAM_PENDING_APPROVE_ATTEMPT });
     this.approveTeamSubscription = this.teamService.ApproveTeam(_id)
       .subscribe(
@@ -220,6 +260,7 @@ export class TeamActionCreator implements OnDestroy {
   }
 
   DeclineTeam(_id) {
+    this.errorMessage = null;
     this.ngRedux.dispatch({ type: TEAM_PENDING_DECLINE_ATTEMPT });
     this.declineTeamSubscription = this.teamService.DeclineTeam(_id)
       .subscribe(
@@ -241,6 +282,7 @@ export class TeamActionCreator implements OnDestroy {
   }
 
   GetReporterNonApprovedTeam(hostId: string) {
+    this.errorMessage = null;
     this.ngRedux.dispatch({ type: TEAM_PENDING_GET_ATTEMPT });
     this.getNonApprovedTeamSubscription = this.teamService.GetNonApprovedTeam()
       .map((data: any[]) => { return data.map(d => this.ToTeamView(d)); })
@@ -266,6 +308,7 @@ export class TeamActionCreator implements OnDestroy {
   }
 
   ReporterApproveTeam(_id) {
+    this.errorMessage = null;
     this.ngRedux.dispatch({ type: TEAM_PENDING_APPROVE_ATTEMPT });
     this.approveTeamSubscription = this.teamService.ApproveTeam(_id)
       .subscribe(
@@ -287,6 +330,7 @@ export class TeamActionCreator implements OnDestroy {
   }
 
   ReporterDeclineTeam(_id) {
+    this.errorMessage = null;
     this.ngRedux.dispatch({ type: TEAM_PENDING_DECLINE_ATTEMPT });
     this.declineTeamSubscription = this.teamService.DeclineTeam(_id)
       .subscribe(

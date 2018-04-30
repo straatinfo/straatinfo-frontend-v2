@@ -51,31 +51,34 @@ export class TeamService {
       .share()
   }
 
-  CreateTeam(_userId: string, team: ITeamView): Observable<ITeamView> {
+  CreateTeam(_userId: string, _hostId: string, team: any): Observable<ITeamView> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(`${this.teamUrl}/new/${_userId}`, team, options)
+    const query = `_host=${_hostId}&_user=${_userId}`;
+    return this.http.post(`${BACKEND_URL}/v2/api/team?${query}`, team, options)
       .map(response => response.json())
       .map(data => this.GetData(data))
-      .share()
+      .share();
   }
 
   SetAsTeamLeader(_userId: string, _teamId: string): Observable<any> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.teamUrl}/leader/${_userId}/${_teamId}`, options)
+    const query = `keyword=setleader&_user=${_userId}&_team=${_teamId}`;
+    return this.http.put(`${BACKEND_URL}/v2/api/team?${query}`,{} , options)
       .map(response => response.json())
       .map(data => this.GetData(data))
-      .share()
+      .share();
   }
 
   SetAsTeamMember(_userId: string, _teamId: string): Observable<any> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.teamUrl}/member/${_userId}/${_teamId}`, options)
+    const query = `keyword=setmember&_user=${_userId}&_team=${_teamId}`;
+    return this.http.put(`${BACKEND_URL}/v2/api/team?${query}`,{} , options)
       .map(response => response.json())
       .map(data => this.GetData(data))
       .share();
@@ -85,7 +88,30 @@ export class TeamService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.teamUrl}/member/${_userId}/${_teamId}`, options)
+    const query = `keyword=join&_user=${_userId}&_team=${_teamId}`;
+    return this.http.put(`${BACKEND_URL}/v2/api/team?${query}`,{} , options)
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share();
+  }
+
+  UnJoinTeam(_userId: string, _teamId: string): Observable<any> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({ headers: headers });
+    const query = `keyword=unjoin&_user=${_userId}&_team=${_teamId}`;
+    return this.http.put(`${BACKEND_URL}/v2/api/team?${query}`,{} , options)
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share();
+  }
+
+  SetActiveTeam(_userId: string, _teamId: string): Observable<any> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({ headers: headers });
+    const query = `keyword=setactiveteam&_user=${_userId}&_team=${_teamId}`;
+    return this.http.put(`${BACKEND_URL}/v2/api/team?${query}`,{} , options)
       .map(response => response.json())
       .map(data => this.GetData(data))
       .share();

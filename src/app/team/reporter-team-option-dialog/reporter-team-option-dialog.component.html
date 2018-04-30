@@ -1,0 +1,15 @@
+<div>
+  <h3>Reporter Team Options</h3>
+  <h4>Team Name: {{data.teamName}}</h4>
+  <div>
+    <div class="col-md-6">
+      <button (click)="onClose()" class="btn btn-default btn-block">Back</button>
+      <button (click)="action('setmember')" *ngIf="data.role.toLowerCase() === 'leader'" class="btn btn-info btn-block">Set As Member</button>
+      <button (click)="action('setleader')" *ngIf="data.role.toLowerCase() === 'member'" class="btn btn-warning btn-block">Set As Leader</button>
+    </div>
+    <div class="col-md-6">
+      <button (click)="action('setactive')" class="btn btn-success btn-block">Set As Active Team</button>
+      <button (click)="action('unjoin')" class="btn btn-danger btn-block">Un-Join Team</button>
+    </div>
+  </div>
+</div>

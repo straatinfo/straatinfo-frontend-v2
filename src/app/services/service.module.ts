@@ -1,3 +1,4 @@
+
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
@@ -12,6 +13,7 @@ import { CategoryService } from './category.service';
 import { TeamService } from './team.service';
 import { LanguageService } from './language.service';
 import { DialogService } from './dialog.service';
+import { RoutingState } from './router-state.service';
 
 @NgModule({
   imports: [
@@ -34,7 +36,8 @@ export class ServiceModule {
         CategoryService,
         TeamService,
         DialogService,
-        LanguageService
+        LanguageService,
+        RoutingState
       ]
     }
   }

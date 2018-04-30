@@ -1,3 +1,4 @@
+import { RoutingState } from './../../services/router-state.service';
 import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
@@ -55,8 +56,11 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private reporterActionCreator: ReporterActionCreator,
-		private teamActionCreator: TeamActionCreator
-	) { }
+		private teamActionCreator: TeamActionCreator,
+		private routingState: RoutingState
+	) {
+		this.routingState.loadRouting();
+	}
 
 	ngOnInit() {
 		this.reporterActionCreator.ResetSelectedReporter();
@@ -174,7 +178,7 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 		this.successText = null;
 
 		if (this.teamId != null) {
-			this.teamActionCreator.SetAsTeamLeader(this.userId, this.teamId);
+			this.teamActionCreator.SetAsTeamLeader(this.userId, this.teamId, () => {});
 			this.teamErrorSubscription = this.team$
 				.subscribe(
 					(team: ITeamStore) => {
@@ -194,7 +198,7 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 		this.successText = null;
 
 		if (this.teamId != null) {
-			this.teamActionCreator.SetAsTeamMember(this.userId, this.teamId);
+			this.teamActionCreator.SetAsTeamMember(this.userId, this.teamId, () => {});
 			this.teamErrorSubscription = this.team$
 				.subscribe(
 					(team: ITeamStore) => {

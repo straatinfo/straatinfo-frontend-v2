@@ -71,7 +71,7 @@ export class ReporterTeamListComponent implements OnInit {
 
   onJoinClick(event) {
       if (event.isVolunteer == this.isVolunteer) {
-        this.teamActionCreator.JoinTeam(this.userId, event._id);    
+        this.teamActionCreator.JoinTeam(this.userId, event._id, null);    
         this.teamErrorSubscription = this.teamStoreError.subscribe(
             error => {
                 if (error) {
