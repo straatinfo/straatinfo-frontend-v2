@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable, Subscription } from 'rxjs';
-import { CategoryActionCreator } from '../../store/action-creators';
+import { CategoryActionCreator, LanguageActionCreator } from '../../store/action-creators';
 import { ISession } from '../../interface/session/session.interface';
 import { IMainCategoryView } from '../../interface/category/main-category-view.interface';
 import { ISubCategoryView } from '../../interface/category/sub-category-view.interface';
@@ -25,16 +25,16 @@ export class ReportTypeAComponent implements OnInit {
   @select(s => s.categorySubA.spinner) categorySubSpinner$: Observable<boolean>;
 
   public mainDataNames: string[] = [
-    '_reportTypeCode', 'name'
+    '_reportTypeCode', 'name', 'dutch'
   ];
   public mainDataAliases: string[] = [
-    'Type', 'Name'
+      'Type', 'Name', 'Dutch'
   ];
   public subDataNames: string[] = [
-    '_mainCategoryName', 'name'
+      '_mainCategoryName', 'name', 'dutch'
   ];
   public subDataAliases: string[] = [
-    'Main', 'Name'
+      'Main', 'Name', 'Dutch'
   ];
   public selectedMainCategoryId: string = null;
   public selectedMainCategoryName: string = null;
@@ -44,6 +44,7 @@ export class ReportTypeAComponent implements OnInit {
 
   constructor(
     private categoryActionCreator: CategoryActionCreator,
+    private languageActionCreator: LanguageActionCreator,
     public dialog: MatDialog
   ) { }
 
@@ -87,6 +88,7 @@ export class ReportTypeAComponent implements OnInit {
     this.dialogRefSubscription = this.dialogRef.afterClosed().subscribe(result => {
       const data = JSON.parse(result);
       this.categoryActionCreator.CreateGeneralMainCategory(data, true);
+      this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
     });
   }
 
@@ -97,9 +99,9 @@ export class ReportTypeAComponent implements OnInit {
     });
 
     this.dialogRefSubscription = this.dialogRef.afterClosed().subscribe(result => {
-      const data = JSON.parse(result);
-      
-      this.categoryActionCreator.CreateSubCategoryA(data._mainCategory, {name: data.name, description: data.description});
+      const data = JSON.parse(result);      
+      this.categoryActionCreator.CreateSubCategoryA(data._mainCategory, { name: data.name, description: data.description });
+      this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
     });
   }
 

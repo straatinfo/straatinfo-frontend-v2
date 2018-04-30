@@ -1,7 +1,7 @@
 <form [formGroup]="subCategoryAddForm" (ngSubmit)="onSubmit()">
   <h2 mat-dialog-title>Create New Sub Category under Main Category: {{ data._mainCategoryName }}</h2>
   <mat-dialog-content>
-    <div class="form-group label-floating col-md-6">
+    <div class="form-group label-floating col-md-12">
       <label class="control-label" for="_mainCategoryName">Main Category
         <span class="star">*</span>
       </label>
@@ -9,14 +9,24 @@
         <input disabled formControlName="_mainCategoryName" class="form-control" type="text" id="_mainCategoryName" placeholder="">
       </div>
     </div>
-    <div class="form-group label-floating col-md-6">
-      <label class="control-label" for="name">Name
-        <span class="star">*</span>
-      </label>
-      <div class="form-group">
-        <input formControlName="name" class="form-control" type="text" id="name" placeholder="Name">
+      <div class="form-group label-floating col-md-6">
+          <label class="control-label" for="name">
+              English
+              <span class="star">*</span>
+          </label>
+          <div class="form-group">
+              <input formControlName="name" class="form-control" type="text" id="name" placeholder="English">
+          </div>
       </div>
-    </div>
+      <div class="form-group label-floating col-md-6">
+          <label class="control-label" for="dutch">
+              Dutch
+              <span class="star">*</span>
+          </label>
+          <div class="form-group">
+              <input formControlName="dutch" class="form-control" type="text" id="dutch" placeholder="Dutch">
+          </div>
+      </div>
     <div class="form-group label-floating col-md-12">
       <label class="control-label" for="name">Description
         <span class="star">*</span>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable, Subscription } from 'rxjs';
-import { CategoryActionCreator } from '../../store/action-creators';
+import { CategoryActionCreator, LanguageActionCreator } from '../../store/action-creators';
 import { ISession } from '../../interface/session/session.interface';
 import { IMainCategoryView } from '../../interface/category/main-category-view.interface';
 import { ISubCategoryView } from '../../interface/category/sub-category-view.interface';
@@ -34,6 +34,7 @@ export class ReportTypeCComponent implements OnInit {
 
   constructor(
     private categoryActionCreator: CategoryActionCreator,
+    private languageActionCreator: LanguageActionCreator,
     public dialog: MatDialog
   ) { }
 
@@ -69,6 +70,7 @@ export class ReportTypeCComponent implements OnInit {
     this.dialogRefSubscription = this.dialogRef.afterClosed().subscribe(result => {
       const data = JSON.parse(result);
       this.categoryActionCreator.CreateGeneralMainCategory(data, true);
+      this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
     });
   }
 
