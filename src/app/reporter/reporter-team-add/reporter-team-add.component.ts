@@ -68,7 +68,7 @@ export class ReporterTeamAddComponent implements OnInit, OnDestroy {
         this.addTeamForm.value._host = this.reporterHostId;
         if (this.addTeamForm.value.isVolunteer == null)
             this.addTeamForm.value.isVolunteer = true;
-        this.teamActionCreator.CreateTeam(this.reporterId, this.addTeamForm.value);
+        this.teamActionCreator.CreateTeam(this.reporterId, this.reporterHostId, this.addTeamForm.value, null);
         this.teamErrorSubscription = this.teamStoreError.subscribe(
             error => {
                 if (error) {

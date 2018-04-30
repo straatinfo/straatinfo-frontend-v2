@@ -9,6 +9,7 @@ import { CategoryService } from './category.service';
 import { TeamService } from './team.service';
 import { DialogService } from './dialog.service';
 import { LanguageService } from './language.service';
+import { RoutingState } from './router-state.service';
 
 export {
   ServiceModule,
@@ -21,5 +22,6 @@ export {
   DialogService,
   CategoryService,
   TeamService,
-  LanguageService
+  LanguageService,
+  RoutingState
 };

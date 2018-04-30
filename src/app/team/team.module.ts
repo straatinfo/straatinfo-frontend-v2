@@ -1,3 +1,4 @@
+import { MaterialModule } from 'app/app.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,6 +8,8 @@ import { DirectiveModule, SpinnerComponent } from '../directives';
 import { MatSelectModule } from '@angular/material/select';
 import { TeamPendingListComponent } from './team-pending-list/team-pending-list.component';
 import { TeamSetupComponent } from './team-setup/team-setup.component';
+import { AddTeamDialogComponent } from './add-team-dialog/add-team-dialog.component';
+import { ReporterTeamOptionDialogComponent } from './reporter-team-option-dialog/reporter-team-option-dialog.component';
 
 @NgModule({
   imports: [
@@ -16,18 +19,25 @@ import { TeamSetupComponent } from './team-setup/team-setup.component';
     RouterModule,
     ComponentModule,
     DirectiveModule,
-    MatSelectModule
+    MatSelectModule,
+    MaterialModule
   ],
   declarations: [
     TeamPendingListComponent,
-    TeamSetupComponent
+    TeamSetupComponent,
+    AddTeamDialogComponent,
+    ReporterTeamOptionDialogComponent
   ],
   exports: [
     TeamPendingListComponent,
-    TeamSetupComponent
+    TeamSetupComponent,
+    AddTeamDialogComponent,
+    ReporterTeamOptionDialogComponent
   ],
   entryComponents: [
-    SpinnerComponent
+    SpinnerComponent,
+    AddTeamDialogComponent,
+    ReporterTeamOptionDialogComponent
   ]
 })
 export class TeamModule {}

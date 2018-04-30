@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from '@angular-redux/router';
 import { SESSION_INITIAL_STATE, ISessionStore, sessionReducer } from './session.store';
 import { HOST_INITIAL_STATE, IHostStore, hostReducer } from './host.store';
 import { TABLE_INITIAL_STATE, ITableStore, tableReducer } from './table.store';
@@ -69,4 +70,5 @@ export const rootReducer = combineReducers<IAppState>({
   misc: miscReducer,
   team: teamReducer,
   language: languageReducer,
+  router: routerReducer
 });
