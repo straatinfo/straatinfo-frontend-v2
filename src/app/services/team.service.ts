@@ -31,83 +31,94 @@ export class TeamService {
   }
 
   GetTeams(): Observable<ITeamView[]> {
-      const headers = new Headers({ 'Content-Type': 'application/json' });
-      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-      const options = new RequestOptions({ headers: headers });
-      return this.http.get(`${this.teamUrl}?flat=true`, options)
-          .map(response => response.json())
-          .map(data => this.GetData(data))
-          .share()
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({ headers: headers });
+    return this.http.get(`${this.teamUrl}?flat=true`, options)
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share()
+  }
+
+  GetTeamsWithFilter(_host: string): Observable<ITeamView[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({ headers: headers });
+    const queryObject = { '_host': _host };
+    return this.http.post(`${this.teamUrl}?flat=true`, {queryObject}, options)
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share()
   }
 
   CreateTeam(_userId: string, team: ITeamView): Observable<ITeamView> {
-      const headers = new Headers({ 'Content-Type': 'application/json' });
-      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-      const options = new RequestOptions({ headers: headers });
-      return this.http.post(`${this.teamUrl}/new/${_userId}`, team, options)
-          .map(response => response.json())
-          .map(data => this.GetData(data))
-          .share()
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(`${this.teamUrl}/new/${_userId}`, team, options)
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share()
   }
 
   SetAsTeamLeader(_userId: string, _teamId: string): Observable<any> {
-      const headers = new Headers({ 'Content-Type': 'application/json' });
-      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-      const options = new RequestOptions({ headers: headers });
-      return this.http.get(`${this.teamUrl}/leader/${_userId}/${_teamId}`, options)
-          .map(response => response.json())
-          .map(data => this.GetData(data))
-          .share()
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({ headers: headers });
+    return this.http.get(`${this.teamUrl}/leader/${_userId}/${_teamId}`, options)
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share()
   }
 
   SetAsTeamMember(_userId: string, _teamId: string): Observable<any> {
-    const headers = new Headers({ 'Content-Type': 'application/json'});
+    const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-    const options = new RequestOptions({headers: headers});
+    const options = new RequestOptions({ headers: headers });
     return this.http.get(`${this.teamUrl}/member/${_userId}/${_teamId}`, options)
-    .map(response => response.json())
-    .map(data => this.GetData(data))
-    .share();
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share();
   }
 
   JoinTeam(_userId: string, _teamId: string): Observable<any> {
-      const headers = new Headers({ 'Content-Type': 'application/json' });
-      headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-      const options = new RequestOptions({ headers: headers });
-      return this.http.get(`${this.teamUrl}/member/${_userId}/${_teamId}`, options)
-          .map(response => response.json())
-          .map(data => this.GetData(data))
-          .share();
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({ headers: headers });
+    return this.http.get(`${this.teamUrl}/member/${_userId}/${_teamId}`, options)
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share();
   }
 
   GetNonApprovedTeam(): Observable<ITeam[]> {
-    const headers = new Headers({ 'Content-Type': 'application/json'});
+    const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-    const options = new RequestOptions({headers: headers});
+    const options = new RequestOptions({ headers: headers });
     return this.http.get(`${this.teamUrl}/approve?isApproved=false&flat=true`, options)
-    .map(response => response.json())
-    .map(data => this.GetData(data))
-    .share()
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share()
   }
 
-  ApproveTeam (_id): Observable<ITeam> {
-    const headers = new Headers({ 'Content-Type': 'application/json'});
+  ApproveTeam(_id): Observable<ITeam> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-    const options = new RequestOptions({headers: headers});
-    return this.http.post(`${this.teamUrl}/approve`, {teamId: _id}, options)
-    .map(response => response.json())
-    .map(data => this.GetData(data))
-    .share()
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(`${this.teamUrl}/approve`, { teamId: _id }, options)
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share()
   }
 
-  DeclineTeam (_id): Observable<ITeam> {
-    const headers = new Headers({ 'Content-Type': 'application/json'});
+  DeclineTeam(_id): Observable<ITeam> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
-    const options = new RequestOptions({headers: headers});
-    return this.http.put(`${this.teamUrl}/approve`, {teamId: _id}, options)
-    .map(response => response.json())
-    .map(data => this.GetData(data))
-    .share()
+    const options = new RequestOptions({ headers: headers });
+    return this.http.put(`${this.teamUrl}/approve`, { teamId: _id }, options)
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share()
   }
 
   GetData(data) {

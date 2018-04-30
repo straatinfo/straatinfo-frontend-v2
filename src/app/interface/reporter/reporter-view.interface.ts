@@ -25,4 +25,6 @@ export interface IReporterView {
     _activeTeamName?: string;
     pendingTeam?: string;
     pendingTeamName?: string;
+    teamLeaders?: any[];
+    teamMembers?: any[];
 }

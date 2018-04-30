@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
 import { TeamActionCreator } from '../../store/action-creators';
 import { DialogService } from '../../services';
+import swal from 'sweetalert2';
 
 @Component({
     selector: 'app-reporter-team-list',
@@ -81,9 +82,9 @@ export class ReporterTeamListComponent implements OnInit {
             }
         ); 
       } else {
-          this.dialogService.showSwal('error-message', 
-          { title: 'Cannot Join Team',
-            text: `${(this.isVolunteer == true) ? 'Volunteer' : 'Non-Volunteer'} Reporter can't join ${(event.isVolunteer == true) ? 'Volunteer' : 'Non-Volunteer'} team`})
+          const text = `${(this.isVolunteer == true) ? 'Volunteer' : 'Non-Volunteer'} Reporter can't join ${(event.isVolunteer == true) ? 'Volunteer' : 'Non-Volunteer'} team`;
+          swal('Cannot Join Team', text, 'warning');
       }
+
   }
 }

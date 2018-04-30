@@ -39,6 +39,8 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 	public successMessage: string = null;
 	public pendingTeamId: string = null;
 	public isVolunteer: boolean;
+	public isTeamLeader: boolean = false;
+	public isBlock: boolean = false;
 
 	@select(s => s.reporter.error) reporterStoreError;
 	@select(s => s.team.error) teamStoreError;
@@ -90,7 +92,6 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 	}
 
 	onLoadForm(report: IReporterView) {
-		this.isVolunteer = report.isVolunteer.toLowerCase() === 'volunteer';
 		this.reporterDetailForm = this.formBuilder.group({
 			_id: [report._id, Validators.required],
 			isVolunteer: [{ value: report.isVolunteer, disabled: true }, Validators.required],
@@ -113,7 +114,10 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 		});
 
 		this.pendingTeamId = report.pendingTeam;
-		this.loadReporterData = false;
+        this.loadReporterData = false;
+        this.isVolunteer = report.isVolunteer.toLowerCase() === 'volunteer';
+        this.isTeamLeader = report.status2.toLowerCase() === 'leader';
+        this.isBlock = report.status1.toLowerCase() === 'block';
 	}
 
 	onErrorMessage(error: string) {
@@ -127,7 +131,7 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 	}
 
 	onBlock() {
-		this.loadReporterData = true;
+		this.loadReporterData = false;
 		this.errorText = null;
 		this.successText = null;
 		this.reporterActionCreator.BlockReporter(this.reporterDetailForm.value._id);
@@ -140,11 +144,13 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 						this.reporterDetailForm.patchValue({ status1: 'BLOCK' });
 					}
 				}
-			);
+        );
+
+        this.isBlock = true;
 	}
 
 	onUnblock() {
-		this.loadReporterData = true;
+        this.loadReporterData = false;
 		this.errorText = null;
 		this.successText = null;
 		this.reporterActionCreator.UnblockReporter(this.reporterDetailForm.value._id);
@@ -157,7 +163,9 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 						this.reporterDetailForm.patchValue({ status1: 'ACTIVE' });
 					}
 				}
-			);
+        );
+
+        this.isBlock = false;
 	}
 
 	onTeamLeader() {

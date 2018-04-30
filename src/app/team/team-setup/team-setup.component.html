@@ -1,0 +1,46 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div *appspinner="isLoading" class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="blue">
+            <i class="material-icons">assignment</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Reporter's Teams -
+              <small class="category">Setup Reporter's Teams</small>
+            </h4>
+            <div class="col-md-12">
+              <h4>{{reporterName}}'s Active Team: {{activeTeamName}} </h4>
+              <button class="btn btn-info">Add Team</button>
+            </div>
+            <div *ngIf="(hostTeamTableData | async)" class="col-md-6">
+              <app-table-basic
+                tableTitle="Team List of Host {{hostName}}"
+                paginator="true" itemPerPage="5"
+                [currentPage]="0"
+                [actionCheck]="true"
+                [tableDataArray]="hostTeamTableData"
+                [tableHeaderName]="hostTeamTable.headerName"
+                [tableHeaderAlias]="hostTeamTable.headerAlias"
+                (clickCheck)="onJoinTeam($event)">
+              </app-table-basic>
+            </div>
+            <div *ngIf="(hostTeamTableData | async)" class="col-md-6">
+              <app-table-basic
+                tableTitle="List of Team Joined by {{reporterName}}"
+                paginator="true" itemPerPage="5"
+                [currentPage]="0"
+                [actionMore]="true"
+                [tableDataArray]="reporterTeamTableData"
+                [tableHeaderName]="reporterTeamTable.headerName"
+                [tableHeaderAlias]="reporterTeamTable.headerAlias"
+                (clickMore)="reporterTeamOptions($event)">
+              </app-table-basic>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

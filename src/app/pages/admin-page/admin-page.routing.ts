@@ -14,7 +14,7 @@ import {
 import { ReportListComponent, ReportDetailComponent } from '../../report';
 import { ReporterListComponent, ReporterDetailComponent, ReporterTeamAddComponent, ReporterTeamListComponent, ReporterTeamPendingListComponent } from '../../reporter';
 import { DesignDetailComponent, ReportTypeAComponent, ReportTypeBComponent, ReportTypeCComponent } from '../../design';
-import { TeamPendingListComponent } from '../../team';
+import { TeamPendingListComponent, TeamSetupComponent } from '../../team';
 
 import { HostDetailGuard, CanDeactivateGuard } from '../../guards';
 
@@ -97,7 +97,7 @@ export const AdminRoutes: Routes = [
 			},
 			{
 				path: 'reporter/team/:_reporterId',
-				component: ReporterTeamListComponent,
+				component: TeamSetupComponent,
 			},
 			{
 				path: 'reporter/add-team/:_reporterId',

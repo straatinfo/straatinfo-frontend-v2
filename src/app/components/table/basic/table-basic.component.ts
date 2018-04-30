@@ -98,7 +98,7 @@ export class TableBasicComponent implements OnInit, OnDestroy {
   }
 
   actionsEnabled (): boolean {
-      return (this.actionDelete || this.actionEdit || this.actionMore || this.actionApprove || this.actionDecline || this.actionJoin) ? true : false;
+      return (this.actionDelete || this.actionEdit || this.actionMore || this.actionApprove || this.actionDecline || this.actionJoin || this.actionCheck) ? true : false;
   }
 
   onFirst() {
