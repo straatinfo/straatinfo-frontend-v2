@@ -21,8 +21,11 @@ export class RoutingState {
       .subscribe(({urlAfterRedirects}: NavigationEnd) => {
         if (this.history[this.history.length - 1] !== urlAfterRedirects) {
           this.history = [...this.history, urlAfterRedirects];
-
-          localStorage.setItem('routerHistory', JSON.stringify(this.history.reverse().slice(10).reverse()));
+          if (history.length > 9) {
+            localStorage.setItem('routerHistory', JSON.stringify(this.history.slice(0, 9)));
+          } else {
+            localStorage.setItem('routerHistory', JSON.stringify(this.history));
+          }
         }
       });
   }
