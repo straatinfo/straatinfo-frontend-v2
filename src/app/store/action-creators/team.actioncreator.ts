@@ -114,7 +114,7 @@ export class TeamActionCreator implements OnDestroy {
           this.errorMessage = err._body;
           if (this.errorMessage && typeof this.errorMessage === 'string') {
             this.ngRedux.dispatch({ type: TEAM_CREATE_FAILED, error: this.errorMessage });
-            cb(this.errorMessage);
+            cb(JSON.parse(this.errorMessage).message);
           }
         },
         () => {
@@ -132,7 +132,7 @@ export class TeamActionCreator implements OnDestroy {
         }, err => {
           this.errorMessage = err._body;
           if (this.errorMessage && typeof this.errorMessage === 'string') {
-            cb(this.errorMessage);
+            cb(JSON.parse(this.errorMessage).message);
           }
         },
         () => {
@@ -150,7 +150,7 @@ export class TeamActionCreator implements OnDestroy {
         }, err => {
           this.errorMessage = err._body;
           if (this.errorMessage && typeof this.errorMessage === 'string') {
-            cb(this.errorMessage);
+            cb(JSON.parse(this.errorMessage).message);
           }
         },
         () => {
@@ -168,7 +168,7 @@ export class TeamActionCreator implements OnDestroy {
         }, err => {
           this.errorMessage = err._body;
           if (this.errorMessage && typeof this.errorMessage === 'string') {
-            cb(this.errorMessage);
+            cb(JSON.parse(this.errorMessage).message);
           }
         },
         () => {
@@ -186,7 +186,7 @@ export class TeamActionCreator implements OnDestroy {
         }, err => {
           this.errorMessage = err._body;
           if (this.errorMessage && typeof this.errorMessage === 'string') {
-            cb(this.errorMessage);
+            cb(JSON.parse(this.errorMessage).message);
           }
         },
         () => {
@@ -204,7 +204,7 @@ export class TeamActionCreator implements OnDestroy {
         }, err => {
           this.errorMessage = err._body;
           if (this.errorMessage && typeof this.errorMessage === 'string') {
-            cb(this.errorMessage);
+            cb(JSON.parse(this.errorMessage).message);
           }
         },
         () => {
