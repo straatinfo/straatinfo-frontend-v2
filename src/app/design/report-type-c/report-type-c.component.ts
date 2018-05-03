@@ -23,10 +23,10 @@ export class ReportTypeCComponent implements OnInit {
   @select(s => s.categoryMainC.spinner) categorySpinner$: Observable<boolean>;
 
   public mainDataNames: string[] = [
-    '_reportTypeCode', 'name'
+      '_reportTypeCode', 'name', 'dutch'
   ];
   public mainDataAliases: string[] = [
-    'Type', 'Name'
+      'Type', 'Name', 'Dutch'
   ];
 
   private dialogRef: any;

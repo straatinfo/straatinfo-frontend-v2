@@ -126,6 +126,14 @@ export class CategoryActionCreator implements OnDestroy {
                 var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
 
+                _.map(items, function (x) {
+                    _.map(x.translations, function (y) {
+                        if (y.code == 'nl') {
+                            x.dutch = y.word
+                        }
+                    });
+                });
+
                 return items;
             })
 			.subscribe(
@@ -155,6 +163,14 @@ export class CategoryActionCreator implements OnDestroy {
                 var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
 
+                _.map(items, function (x) {
+                    _.map(x.translations, function (y) {
+                        if (y.code == 'nl') {
+                            x.dutch = y.word
+                        }
+                    });
+                });
+                
                 return items;
             })
 			.subscribe(
@@ -183,6 +199,14 @@ export class CategoryActionCreator implements OnDestroy {
                 });
                 var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
+
+                _.map(items, function (x) {
+                    _.map(x.translations, function (y) {
+                        if (y.code == 'nl') {
+                            x.dutch = y.word
+                        }
+                    });
+                });
 
                 return items;
             })
@@ -213,6 +237,14 @@ export class CategoryActionCreator implements OnDestroy {
                 var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
 
+                _.map(items, function (x) {
+                    _.map(x.translations, function (y) {
+                        if (y.code == 'nl') {
+                            x.dutch = y.word
+                        }
+                    });
+                });
+
                 return items;
             })
 			.subscribe(
@@ -241,6 +273,14 @@ export class CategoryActionCreator implements OnDestroy {
                 });
                 var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
+
+                _.map(items, function (x) {
+                    _.map(x.translations, function (y) {
+                        if (y.code == 'nl') {
+                            x.dutch = y.word
+                        }
+                    });
+                });
 
                 return items;
             })
@@ -453,6 +493,14 @@ export class CategoryActionCreator implements OnDestroy {
                 });
                 var orderedList = _.orderBy(data, [x => x.name.toLowerCase()], ['asc']);
                 var items = _.union(orderedList, overige);
+   
+                _.map(items, function (x) {                    
+                    _.map(x.translations, function (y) {
+                        if (y.code == 'nl') {
+                            x.dutch = y.word
+                        }
+                    });
+                });
 
                 return items;
             })
@@ -477,12 +525,13 @@ export class CategoryActionCreator implements OnDestroy {
 		return {
 			_id: data._id,
 			name: data.name,
-			description: data.description,
+            description: data.description,            
 			_reportType: data['_reportType._id'],
 			_reportTypeCode: data['_reportType.code'],
 			_reportTypeName: data['_reportType.name'],
 			_host: data['_host._id'],
-			_hostName: data['_host.hostName']
+            _hostName: data['_host.hostName'],
+            translations: data.translations,
 		};
 	}
 
@@ -492,7 +541,8 @@ export class CategoryActionCreator implements OnDestroy {
 			name: data.name,
 			description: data.description,
 			_mainCategory: data['_mainCategory._id'],
-			_mainCategoryName: data['_mainCategory.name']
+            _mainCategoryName: data['_mainCategory.name'],
+            translations: data.translations,
 		};
 	}
 }

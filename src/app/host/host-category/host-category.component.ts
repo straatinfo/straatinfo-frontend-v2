@@ -28,17 +28,18 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   @select(s => s.host.selectedHost) host$: Observable<IHostView>;
 
   public mainDataNames: string[] = [
-    '_reportTypeCode', 'name'
+      '_reportTypeCode', 'name', 'dutch'
   ];
   public mainDataAliases: string[] = [
-    'Type', 'Name'
+      'Type', 'Name', 'Dutch'
   ];
   public subDataNames: string[] = [
-    '_mainCategoryName', 'name'
+      '_mainCategoryName', 'name', 'dutch'
   ];
   public subDataAliases: string[] = [
-    'Main', 'Name'
+      'Main', 'Name', 'Dutch'
   ];
+
   public selectedMainCategoryId: string = null;
   public selectedMainCategoryName: string = null;
 
