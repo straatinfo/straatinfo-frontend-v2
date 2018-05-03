@@ -129,6 +129,16 @@ export class HostService {
     .share()
   }
 
+  ActivateHost(_hostEmail): Observable<any> {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({headers: headers});
+    return this.http.post(`${BACKEND_URL}/v1/api/user/password`, {email: _hostEmail}, options)
+    .map(response => response.json())
+    .map(data => this.GetData(data))
+    .share();
+  }
+
   GetData(data) {
     return data.data;
   }

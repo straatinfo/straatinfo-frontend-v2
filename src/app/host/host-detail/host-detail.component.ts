@@ -21,6 +21,7 @@ import { IHostStore } from '../../store/host.store';
 
 export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeactivate<HostDetailComponent> {
 
+  public isLoading: boolean = false;
   public hostDetailForm: FormGroup;
   private routeParamsSubscription: Subscription = null;
   private hostSubscription: Subscription = null;
@@ -34,6 +35,7 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
   public hostData: IHostView = null;
   public loadHostData: boolean = false;
   private isDirty: boolean = false;
+  private language: string = null;
   @select(s => s.host.error) hostStoreError;
   @select(s => s.host.selectedHost) selectedHost;
   @select(s => s.host) host$: Observable<IHostStore>;
@@ -64,6 +66,7 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
   }
 
   ngDoCheck() {
+    if (this.hostDetailForm && this.hostDetailForm.value.language !== this.language) this.isDirty = true;
     if (this.hostData && this.loadHostData) this.onLoadForm(this.hostData);
     if (this.errorMessage) this.onErrorMessage(this.errorMessage);
     if (this.successMessage) this.onSuccessMessage(this.successMessage);
@@ -82,6 +85,7 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
   }
 
   setToDirty() {
+    console.log('Im dirty');
     this.isDirty = true;
   }
   canDeactivate(): Promise<boolean> | boolean {
@@ -123,6 +127,7 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
       language: [host.language, Validators.required]
       });
     this.loadHostData = false;
+    this.language = host.language;
   }
 
   onViewReport() {
@@ -150,6 +155,7 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
       this.loadHostData = true;
       this.errorText = null;
       this.successText = null;
+      this.language = this.hostDetailForm.value.language;
       this.hostActionCreator.UpdateHost(this.hostDetailForm.value._id, this.hostDetailForm.value);
       this.hostStoreSubscription = this.host$
       .subscribe(
@@ -168,6 +174,18 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
       //         }
       //     }
       // );
+  }
+
+  activateHost() {
+    this.isLoading = true;
+    this.hostActionCreator.ActivateHost(this.hostDetailForm.value.email, (err, success) => {
+      if (err) {
+        this.isLoading = false;
+        return swal('Activate Host', err, 'error');
+      }
+      this.isLoading = false;
+      swal('Activate Host', success, 'success');
+    });
   }
 
   onSpecific() {

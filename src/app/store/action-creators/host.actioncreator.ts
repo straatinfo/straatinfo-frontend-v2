@@ -53,6 +53,7 @@ export class HostActionCreator implements OnDestroy {
   private getOneHostSubscription: Subscription = null;
   private getActiveDesignSubscription: Subscription = null;
   private setActiveDesignSubscription: Subscription = null;
+  private activateHostSubscription: Subscription = null;
 
   constructor (
     private ngRedux: NgRedux<IAppState>,
@@ -73,6 +74,7 @@ export class HostActionCreator implements OnDestroy {
     (this.getOneHostSubscription) ? this.getHostByIdSubscription.unsubscribe() : null;
     (this.getActiveDesignSubscription) ? this.getActiveDesignSubscription.unsubscribe() : null;
     (this.setActiveDesignSubscription) ? this.setActiveDesignSubscription.unsubscribe() : null;
+    (this.activateHostSubscription) ? this.activateHostSubscription.unsubscribe() : null;
   }
 
   GetHosts () {
@@ -270,6 +272,20 @@ export class HostActionCreator implements OnDestroy {
 
   ResetSelectedHost () {
     this.ngRedux.dispatch({ type: HOST_RESET_SELECT_FULFILLED });
+  }
+
+  ActivateHost(_hostEmail, cb) {
+    this.activateHostSubscription = this.hostService.ActivateHost(_hostEmail)
+    .subscribe(
+      () => {
+        cb(null, 'Successfully Activated the host');
+      },
+      err => {
+        if (err._body && typeof(err._body) === 'string') {
+          cb(JSON.parse(err._body).message ? JSON.parse(err._body).message : 'There was an unexpected error');
+        }
+      }
+    );
   }
 
   private ToDesignView(data: any): IDesignView {

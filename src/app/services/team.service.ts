@@ -52,11 +52,12 @@ export class TeamService {
   }
 
   CreateTeam(_userId: string, _hostId: string, team: any): Observable<ITeamView> {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    headers.append('Access-Control-Allow-Origin', '*');
     const options = new RequestOptions({ headers: headers });
     const query = `_host=${_hostId}&_user=${_userId}`;
-    return this.http.post(`${BACKEND_URL}/v2/api/team?${query}`, team, options)
+    return this.http.post(`${BACKEND_URL}/v2/api/team?${query}`, team)
       .map(response => response.json())
       .map(data => this.GetData(data))
       .share();

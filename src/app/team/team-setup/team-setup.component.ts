@@ -177,6 +177,7 @@ export class TeamSetupComponent implements OnInit, DoCheck, OnDestroy {
     .subscribe(
       result => {
         if (result) {
+          this.isLoading = true;
           const data = JSON.parse(result);
           this.TeamActions(data);
         }
@@ -194,17 +195,13 @@ export class TeamSetupComponent implements OnInit, DoCheck, OnDestroy {
     .subscribe(
       result => {
         if (result) {
-          this.isLoading = true;
           const data = JSON.parse(result);
-          this.teamActionCreator.CreateTeam(this.reporter._id, this.host._id, data, (err, team) => {
-            if (err) {
-              this.isLoading = false;
-              swal('Team Creation Error', err, 'warning');
-            }
-            if (team) {
-              window.location.reload();
-            }
-          });
+          if (typeof(result) === 'string') {
+            this.isLoading = false;
+            swal('Team Creation Error', result, 'warning');
+          }
+        } else {
+          window.location.reload();
         }
       }
     );
@@ -214,6 +211,7 @@ export class TeamSetupComponent implements OnInit, DoCheck, OnDestroy {
     this.isLoading = true;
     switch (data.action) {
       case 'setmember': {
+        this.isLoading = true;
         this.teamActionCreator.SetAsTeamMember(data._reporter, data._id, (err, team) => {
           if (err) {
             this.isLoading = false;
@@ -226,6 +224,7 @@ export class TeamSetupComponent implements OnInit, DoCheck, OnDestroy {
       }
       break;
       case 'setleader': {
+        this.isLoading = true;
         this.teamActionCreator.SetAsTeamLeader(data._reporter, data._id, (err, team) => {
           if (err) {
             this.isLoading = false;
@@ -238,6 +237,7 @@ export class TeamSetupComponent implements OnInit, DoCheck, OnDestroy {
       }
       break;
       case 'setactive': {
+        this.isLoading = true;
         this.teamActionCreator.SetActiveTeam(data._reporter, data._id, (err, team) => {
           if (err) {
             this.isLoading = false;
@@ -250,6 +250,7 @@ export class TeamSetupComponent implements OnInit, DoCheck, OnDestroy {
       }
       break;
       case 'join': {
+        this.isLoading = true;
         this.teamActionCreator.JoinTeam(data._reporter, data._id, (err, team) => {
           if (err) {
             this.isLoading = false;
@@ -262,6 +263,7 @@ export class TeamSetupComponent implements OnInit, DoCheck, OnDestroy {
       }
       break;
       case 'unjoin': {
+        this.isLoading = true;
         this.teamActionCreator.UnJoinTeam(data._reporter, data._id, (err, team) => {
           if (err) {
             this.isLoading = false;
@@ -272,6 +274,7 @@ export class TeamSetupComponent implements OnInit, DoCheck, OnDestroy {
           }
         });
       }
+      break;
       default:
         this.isLoading = false;
     }

@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div *appspinner="!hostData" class="col-md-12">
+      <div *appspinner="!hostData || isLoading" class="col-md-12">
         <div class="card">
           <div class="card-header card-header-icon" data-background-color="rose">
             <i class="material-icons">perm_identity</i>
@@ -165,7 +165,7 @@
                             <span class="input-group-addon">
                                 <i class="material-icons">info_outline</i>
                             </span>
-                        <mat-form-field style="width:100% !important;" ngClass="form-group label-floating">
+                        <mat-form-field (change)="setToDirty()" style="width:100% !important;" ngClass="form-group label-floating">
                             <mat-select placeholder="language" formControlName="language">
                                 <mat-option value="en">English (en)</mat-option>
                                 <mat-option value="nl">Dutch (nl)</mat-option>
@@ -184,6 +184,7 @@
                         <button (click)="onDesign()" type="button" class="btn btn-warning btn-block">Edit Design</button>
                         <button (click)="onCategory()" type="button" class="btn btn-primary btn-block">Edit Category</button>
                         <button (click)="onUpdate()" type="button" class="btn btn-rose btn-block">Update Host</button>
+                        <button (click)="activateHost()" type="button" class="btn btn-success btn-block">Activate / Send Password</button>
                         <button (click)="onDelete()" type="button" class="btn btn-danger btn-block">Delete Host</button>
                     </div>                    
                 </div>
