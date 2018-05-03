@@ -541,7 +541,7 @@ export class CategoryActionCreator implements OnDestroy {
 			name: data.name,
 			description: data.description,
 			_mainCategory: data['_mainCategory._id'],
-            _mainCategoryName: data['_mainCategory.name']
+            _mainCategoryName: data['_mainCategory.name'],
             translations: data.translations,
 		};
 	}
