@@ -1,3 +1,4 @@
+import { ViewProfileComponent } from './../../profile/view-profile/view-profile.component';
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import {
@@ -114,6 +115,10 @@ export const AdminRoutes: Routes = [
 			{
 				path: 'design/report-type-c',
 				component: ReportTypeCComponent
+			},
+			{
+				path: 'profile',
+				component: ViewProfileComponent
 			}
 		]
 	},

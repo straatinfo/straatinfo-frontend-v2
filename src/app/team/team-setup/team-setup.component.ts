@@ -199,9 +199,9 @@ export class TeamSetupComponent implements OnInit, DoCheck, OnDestroy {
           if (typeof(result) === 'string') {
             this.isLoading = false;
             swal('Team Creation Error', result, 'warning');
+          } else {
+            window.location.reload();
           }
-        } else {
-          window.location.reload();
         }
       }
     );

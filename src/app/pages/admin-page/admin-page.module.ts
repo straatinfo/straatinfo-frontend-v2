@@ -9,6 +9,7 @@ import { ReportModule } from '../../report';
 import { ReporterModule } from '../../reporter';
 import { DesignModule } from '../../design';
 import { TeamModule } from '../../team';
+import { ProfileModule } from '../../profile';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { TeamModule } from '../../team';
     ReportModule,
     ReporterModule,
     DesignModule,
-    TeamModule
+    TeamModule,
+    ProfileModule
   ],
   declarations: [
   ],

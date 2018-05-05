@@ -1,0 +1,22 @@
+<div class="main-content">
+  <div *appspinner="isLoading" class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div *ngIf="user._role.code.toLocaleLowerCase() === 'host'">
+          <app-host-profile
+            [hostId]="user._id"
+            (sendChanges)="getChanges($event)"
+            (changePassword)="onChangePassword($event)"
+          >
+          </app-host-profile>
+        </div>
+        <div *ngIf="user._role.code.toLocaleLowerCase() === 'admin'">
+          <app-admin-profile
+            (changePassword)="onChangePassword($event)"
+          >
+          </app-admin-profile>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

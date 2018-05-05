@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HostRoutes } from './host-page.routing';
 import { DashboardModule } from '../../dashboard/dashboard.module';
 import { ReportModule } from '../../report';
+import { ProfileModule } from '../../profile';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { ReportModule } from '../../report';
     FormsModule,
     ReactiveFormsModule,
     DashboardModule,
-    ReportModule
+    ReportModule,
+    ProfileModule
   ],
   declarations: [
   ],

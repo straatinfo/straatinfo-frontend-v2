@@ -22,6 +22,7 @@ export interface IHostView {
   hostPersonalEmail?: string;
   designType?: string;
   isPatron?: boolean;
+  isActivated?: boolean;
   _role?: string;
   _roleCode?: string;
   _roleName?: string;

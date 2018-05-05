@@ -23,6 +23,7 @@ export interface IHost {
   hostPersonalEmail?: string;
   designType?: string;
   isPatron?: boolean;
+  isActivated?: boolean;
   language?: string;
   _role?: IRole;
   _activeDesign?: string;
