@@ -1,3 +1,4 @@
+import { IChangePassword } from './../interface/session/change-password.interface';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -45,6 +46,24 @@ export class SessionService {
 
   SessionDestroy(): void {
     localStorage.clear();
+  }
+
+  ChangePassword(changePassword: IChangePassword): Observable<any> {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
+    return this.http.put(`${BACKEND_URL}/v1/api/user/password`, changePassword, options)
+    .map(response => response.json())
+    .map(data => this.GetData(data))
+    .share();
+  }
+
+  ForgotPassword(email: string): Observable<any> {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
+    return this.http.post(`${BACKEND_URL}/v1/api/user/password`, {email}, options)
+    .map(response => response.json())
+    .map(data => this.GetData(data))
+    .share();
   }
 
   GetData (data) {

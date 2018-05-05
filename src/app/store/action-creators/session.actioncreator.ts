@@ -1,3 +1,4 @@
+import { IChangePassword } from './../../interface/session/change-password.interface';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgRedux } from '@angular-redux/store';
@@ -29,6 +30,8 @@ export class SessionActionCreator implements OnDestroy {
   private loginSubscription: Subscription = null;
   private registerSubscription: Subscription = null;
   private errorMessage: string = null;
+  private changePasswordSubscription: Subscription = null;
+  private forgotPasswordSubscription: Subscription = null;
   constructor (
     private ngRedux: NgRedux<IAppState>,
     private router: Router,
@@ -38,6 +41,8 @@ export class SessionActionCreator implements OnDestroy {
   ngOnDestroy () {
     (this.loginSubscription) ? this.loginSubscription.unsubscribe() : null;
     (this.registerSubscription) ? this.registerSubscription.unsubscribe() : null;
+    (this.changePasswordSubscription) ? this.changePasswordSubscription.unsubscribe() : null;
+    (this.forgotPasswordSubscription) ? this.forgotPasswordSubscription.unsubscribe() : null;
   }
 
   Login (sessionCreate: ISessionCreate) {
@@ -100,4 +105,41 @@ export class SessionActionCreator implements OnDestroy {
     this.ngRedux.dispatch({ type: SESSION_DESTROY_FULFILLED });
   }
 
+  ChangePassword (changePassword: IChangePassword, cb) {
+    this.changePasswordSubscription = this.sessionService.ChangePassword(changePassword)
+    .subscribe(
+      result => {
+        cb(null, 'Successfully changed password');
+      },
+      err => {
+        this.errorMessage = err._body;
+        if (this.errorMessage && typeof this.errorMessage === 'string') {
+          const wrongPasswordError = this.errorMessage.toLowerCase() === 'unauthorized' ? 'Wrong Current password Input' : this.errorMessage;
+          cb((this.IsJsonString(this.errorMessage).message) ? this.IsJsonString(this.errorMessage).message : wrongPasswordError);
+        }
+      }
+    );
+  }
+
+  ForgotPassword (email: string, cb) {
+    this.forgotPasswordSubscription = this.sessionService.ForgotPassword(email)
+    .subscribe(
+      result => {
+        cb(null, 'Please check your email for the temporary password');
+      },
+      err => {
+        this.errorMessage = err._body;
+        if (this.errorMessage && typeof this.errorMessage === 'string') {
+          cb((this.IsJsonString(this.errorMessage).message) ? this.IsJsonString(this.errorMessage).message : this.errorMessage);
+        }
+      }
+    );
+  }
+  IsJsonString (str) {
+    try {
+      return JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+  }
 }

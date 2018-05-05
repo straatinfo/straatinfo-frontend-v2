@@ -18,6 +18,7 @@ export class SidebarComponent implements OnInit {
 
   public session: ISession = JSON.parse(localStorage.getItem('session'));
   public user: IUser = this.session.user;
+  public profileLink: string = `/${this.user._role.code.toLowerCase()}/profile`;
 
   getRole (): string {
     if (this.session) {

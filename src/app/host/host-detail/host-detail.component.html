@@ -184,11 +184,11 @@
                         <button (click)="onDesign()" type="button" class="btn btn-warning btn-block">Edit Design</button>
                         <button (click)="onCategory()" type="button" class="btn btn-primary btn-block">Edit Category</button>
                         <button (click)="onUpdate()" type="button" class="btn btn-rose btn-block">Update Host</button>
-                        <button (click)="activateHost()" type="button" class="btn btn-success btn-block">Activate / Send Password</button>
+                        <button *ngIf="!isActivated" (click)="activateHost()" type="button" class="btn btn-success btn-block">Activate Host</button>
+                        <button *ngIf="isActivated" (click)="deactivateHost()" type="button" class="btn btn-info btn-block">Deactivate Host</button>
                         <button (click)="onDelete()" type="button" class="btn btn-danger btn-block">Delete Host</button>
                     </div>                    
                 </div>
-
                 <div class="clearfix"></div>
             </form>
           </div>

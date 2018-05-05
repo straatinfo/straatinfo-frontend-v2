@@ -54,6 +54,7 @@ export class HostActionCreator implements OnDestroy {
   private getActiveDesignSubscription: Subscription = null;
   private setActiveDesignSubscription: Subscription = null;
   private activateHostSubscription: Subscription = null;
+  private deactivateHostSubscription: Subscription = null;
 
   constructor (
     private ngRedux: NgRedux<IAppState>,
@@ -75,6 +76,7 @@ export class HostActionCreator implements OnDestroy {
     (this.getActiveDesignSubscription) ? this.getActiveDesignSubscription.unsubscribe() : null;
     (this.setActiveDesignSubscription) ? this.setActiveDesignSubscription.unsubscribe() : null;
     (this.activateHostSubscription) ? this.activateHostSubscription.unsubscribe() : null;
+    (this.deactivateHostSubscription) ? this.deactivateHostSubscription.unsubscribe() : null;
   }
 
   GetHosts () {
@@ -274,11 +276,27 @@ export class HostActionCreator implements OnDestroy {
     this.ngRedux.dispatch({ type: HOST_RESET_SELECT_FULFILLED });
   }
 
-  ActivateHost(_hostEmail, cb) {
+  ActivateHost(_hostEmail, host: IHostView, cb) {
     this.activateHostSubscription = this.hostService.ActivateHost(_hostEmail)
     .subscribe(
       () => {
+        this.ngRedux.dispatch({ type: HOST_UPDATE_FULFILLED, payload: {...host, isActivated: true }});
         cb(null, 'Successfully Activated the host');
+      },
+      err => {
+        if (err._body && typeof(err._body) === 'string') {
+          cb(JSON.parse(err._body).message ? JSON.parse(err._body).message : 'There was an unexpected error');
+        }
+      }
+    );
+  }
+
+  DeactivateHost(_hostEmail, host: IHostView, cb) {
+    this.deactivateHostSubscription = this.hostService.DeactivateHost(_hostEmail)
+    .subscribe(
+      () => {
+        this.ngRedux.dispatch({ type: HOST_UPDATE_FULFILLED, payload: {...host, isActivated: false }});
+        cb(null, 'Successfully Deactivated the host');
       },
       err => {
         if (err._body && typeof(err._body) === 'string') {
@@ -323,6 +341,7 @@ export class HostActionCreator implements OnDestroy {
       fname: data.fname,
       lname: data.lname,
       isPatron: data.isPatron,
+      isActivated: data.isActivated,
       hostPersonalEmail: data.hostPersonalEmail,
       designType: data['_activeDesign.designName'],
       language: data.language,

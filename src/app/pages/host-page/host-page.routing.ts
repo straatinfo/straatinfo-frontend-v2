@@ -1,9 +1,11 @@
+import { CanDeactivateGuard } from './../../guards/can-deactivate.guard';
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import {
   ReportListComponent,
   ReportDetailComponent
 } from '../../report';
+import { ViewProfileComponent } from '../../profile';
 
 export const HostRoutes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -21,7 +23,12 @@ export const HostRoutes: Routes = [
       {
         path: 'report/:_id',
         component: ReportDetailComponent,
-      }
+      },
+      {
+				path: 'profile',
+        component: ViewProfileComponent,
+        canDeactivate: [CanDeactivateGuard]
+			}
     ]
   },
   {

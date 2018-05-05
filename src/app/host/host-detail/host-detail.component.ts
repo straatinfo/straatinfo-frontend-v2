@@ -36,6 +36,7 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
   public loadHostData: boolean = false;
   private isDirty: boolean = false;
   private language: string = null;
+  public isActivated: boolean = false;
   @select(s => s.host.error) hostStoreError;
   @select(s => s.host.selectedHost) selectedHost;
   @select(s => s.host) host$: Observable<IHostStore>;
@@ -123,11 +124,13 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
       fname: [host.fname, Validators.required],
       lname: [host.lname, Validators.required],
       hostPersonalEmail: [host.hostPersonalEmail, Validators.required],
+      isActivated: [host.isActivated, Validators.required],
       isSpecific: [host.isSpecific],
       language: [host.language, Validators.required]
       });
     this.loadHostData = false;
     this.language = host.language;
+    this.isActivated = host.isActivated;
   }
 
   onViewReport() {
@@ -178,13 +181,27 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
 
   activateHost() {
     this.isLoading = true;
-    this.hostActionCreator.ActivateHost(this.hostDetailForm.value.email, (err, success) => {
+    this.hostActionCreator.ActivateHost(this.hostDetailForm.value.email, this.hostData, (err, success) => {
       if (err) {
         this.isLoading = false;
         return swal('Activate Host', err, 'error');
       }
       this.isLoading = false;
+      this.isActivated = true;
       swal('Activate Host', success, 'success');
+    });
+  }
+
+  deactivateHost() {
+    this.isLoading = true;
+    this.hostActionCreator.DeactivateHost(this.hostDetailForm.value.email, this.hostData, (err, success) => {
+      if (err) {
+        this.isLoading = false;
+        return swal('Deactivate Host', err, 'error');
+      }
+      this.isLoading = false;
+      this.isActivated = false;
+      swal('Deactivate Host', success, 'success');
     });
   }
 
