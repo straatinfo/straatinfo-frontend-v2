@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { select } from '@angular-redux/store'; 
+import { Router } from '@angular/router';
 
 import { SessionActionCreator } from '../../../store/action-creators';
 declare var $: any;
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   public signInForm: FormGroup;
 
   constructor(
+    private router: Router,
     private element: ElementRef,
     private formBuilder: FormBuilder,
     private sessionActionCreator: SessionActionCreator
@@ -69,6 +71,6 @@ export class LoginComponent implements OnInit {
   }
 
   forgotPasswordToggle() {
-    // forgot password logic here
+      this.router.navigate([`auth/forgot-password`]);
   }
 }
