@@ -35,8 +35,8 @@
                     
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">Title</label>
-                    <input formControlName="title" type="text" class="form-control">
+                    <label class="control-label">Report ID</label>
+                    <input formControlName="generatedReportId" type="text" class="form-control">
                   </div>
                 </div>
 
@@ -47,6 +47,36 @@
                   <div class="form-group label-floating">
                     <label class="control-label">Description</label>
                     <input formControlName="description" type="text" class="form-control">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    
+                  </span>
+                  <div class="form-group label-floating">
+                    <label class="control-label">Reporter Chatname</label>
+                    <input formControlName="_reporterUsername" type="text" class="form-control">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    
+                  </span>
+                  <div class="form-group label-floating">
+                    <label class="control-label">Team</label>
+                    <input formControlName="_teamName" type="text" class="form-control">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    
+                  </span>
+                  <div class="form-group label-floating">
+                    <label class="control-label">Date Reported</label>
+                    <input formControlName="createdAt" type="text" class="form-control">
                   </div>
                 </div>
 
@@ -192,7 +222,7 @@
                           </mat-select>
                         </mat-form-field>
                       </div>
-                      <button (click)="onBack()" type="button" class="btn btn-default">Back</button>
+                      <button (click)="onBack()" type="button" class="btn btn-default">Check all your reports</button>
                       <button (click)="onUpdate()" type="button" class="btn btn-rose">Update Report</button>
                     </div>
                 </div>

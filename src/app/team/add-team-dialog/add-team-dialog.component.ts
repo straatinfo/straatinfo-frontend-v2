@@ -25,7 +25,7 @@ export class AddTeamDialogComponent implements OnInit {
     this.newTeamForm = this.formBuilder.group({
       teamName: [null, Validators.required],
       teamEmail: [null, [Validators.email, Validators.required]],
-      description: [null, Validators.required],
+      description: ['    ', Validators.required],
       isVolunteer: [this.data.reporter.isVolunteer === 'Non-Volunteer' ? false : true],
       creationMethod: ['WEBSITE'],
       photo: null
@@ -50,7 +50,7 @@ export class AddTeamDialogComponent implements OnInit {
 
   private prepareSave(): any {
     let input = new FormData();
-    input.append('photo', this.newTeamForm.get('photo').value);
+    this.newTeamForm.value.photo ? input.append('photo', this.newTeamForm.get('photo').value) : null;
     input.append('teamName', this.newTeamForm.get('teamName').value);
     input.append('teamEmail', this.newTeamForm.get('teamEmail').value);
     input.append('description', this.newTeamForm.get('description').value);

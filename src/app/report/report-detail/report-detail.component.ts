@@ -128,7 +128,11 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
           isPeopleInvolved: [{ value: report.isPeopleInvolved, disabled: true }, Validators.required],
           peopleInvolvedCount: [{ value: report.peopleInvolvedCount, disabled: true }, Validators.required],
           note: [report.note, Validators.required],
-          status: [report.status, Validators.required]
+          status: [report.status, Validators.required],
+          createdAt: [{ value: report.createdAt, disabled: true }],
+          _reporterUsername: [{ value: report._reporterUsername, disabled: true }],
+          _teamName: [{ value: report._teamName, disabled: true }],
+          generatedReportId: [{ value: report.generatedReportId, disabled: true }]
       });
 
       this.long = report.long;
