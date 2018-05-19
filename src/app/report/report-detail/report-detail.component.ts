@@ -42,9 +42,10 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
   @select(s => s.report) report$: Observable<IReportStore>;
 
   public session: ISession = JSON.parse(localStorage.getItem('session'));
-  public _role: IRole = this.session.user._role;
+  public Public = { _id: '', name: 'PUBLIC', accessLevel: 5, code: 'PUBLIC', description: '' }; // @TODO need to optimize in the future
+  public _role: IRole = this.session && this.session.user ? this.session.user._role : this.Public;
   public isHost: boolean = (this._role.accessLevel === 2);
-
+  public isPublic: boolean = (this._role.code === 'PUBLIC');
   public _report: string;
   private isDirty: boolean = false;
   private initialStatus: string;
@@ -57,6 +58,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
   ) { }
 
   ngOnInit() {
+    console.log(this._role);
     this.routeParamsSubscription = this.actvatedRoute.params
     .subscribe(
       params => {
@@ -66,7 +68,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
         .subscribe(
             (report: IReportView) => {
                 this.reportData = (report) ? report : null;
-                this.loadReportData = true;            
+                this.loadReportData = true;
           }
         );
       }
@@ -128,11 +130,12 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
           isPeopleInvolved: [{ value: report.isPeopleInvolved, disabled: true }, Validators.required],
           peopleInvolvedCount: [{ value: report.peopleInvolvedCount, disabled: true }, Validators.required],
           note: [report.note, Validators.required],
-          status: [report.status, Validators.required],
+          status: this.isPublic ? [{ value: report.status, disabled: true }] : [report.status, Validators.required],
           createdAt: [{ value: report.createdAt, disabled: true }],
           _reporterUsername: [{ value: report._reporterUsername, disabled: true }],
           _teamName: [{ value: report._teamName, disabled: true }],
-          generatedReportId: [{ value: report.generatedReportId, disabled: true }]
+          generatedReportId: [{ value: report.generatedReportId, disabled: true }],
+          causeOfFinished: [{ value: report.causeOfFinished, disabled: true }]
       });
 
       this.long = report.long;
@@ -208,4 +211,8 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
        this.router.navigate([`${this._role.code.toLowerCase()}/report`]);
      });
   }
+
+  onLogin() {
+		this.router.navigate(['/']);
+	}
 }

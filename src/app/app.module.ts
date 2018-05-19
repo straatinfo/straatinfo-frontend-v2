@@ -54,6 +54,7 @@ import { FixedpluginModule} from './shared/fixedplugin/fixedplugin.module';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { HostLayoutComponent } from './layouts/host/host-layout.component';
+import { PublicLayoutComponent } from './layouts/public/public-layout.component';
 
 import { AppRoutes } from './app.routing';
 import { ServiceModule } from 'app/services';
@@ -120,7 +121,8 @@ export class MaterialModule {}
         AppComponent,
         AdminLayoutComponent,
         AuthLayoutComponent,
-        HostLayoutComponent
+        HostLayoutComponent,
+        PublicLayoutComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [
