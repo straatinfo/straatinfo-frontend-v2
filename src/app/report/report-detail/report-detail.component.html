@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div *appspinner="!reportData"  class="col-md-12">
+      <div *appspinner="!reportData" class="col-md-12">
         <div class="card">
           <div class="card-header card-header-icon" data-background-color="blue">
             <i class="material-icons">perm_identity</i>
@@ -22,7 +22,7 @@
               <div class="col-md-6">
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Host Name</label>
@@ -32,7 +32,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Report ID</label>
@@ -42,7 +42,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Description</label>
@@ -52,7 +52,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Reporter Chatname</label>
@@ -62,7 +62,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Team</label>
@@ -72,7 +72,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Date Reported</label>
@@ -82,7 +82,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Report Type</label>
@@ -92,7 +92,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Main Category</label>
@@ -102,7 +102,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Sub Category</label>
@@ -112,7 +112,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Location</label>
@@ -122,7 +122,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Longtitude</label>
@@ -132,7 +132,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Latitude</label>
@@ -142,15 +142,11 @@
               </div>
 
               <div class="col-md-6">
-                <app-media-viewer-v1 *ngIf="isHost"
-                  [reportId]="_report"
-                  width="400"
-                  height="300"
-                ></app-media-viewer-v1>
-
-                <div *ngIf="!isHost" class="input-group">
+                <!-- this button is for Public users -->
+                <button *ngIf="isPublic" (click)="onLogin()" class="btn btn-block btn-info">Login</button>
+                <div *ngIf="!isHost || isPublic" class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="checkbox">
                     <label>
@@ -159,9 +155,9 @@
                   </div>
                 </div>
 
-                <div *ngIf="!isHost" class="input-group">
+                <div *ngIf="!isHost || !isPublic" class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">Vehicle Involved Description</label>
@@ -171,7 +167,7 @@
 
                 <div *ngIf="!isHost" class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="checkbox">
                     <label>
@@ -180,53 +176,73 @@
                   </div>
                 </div>
 
-                <div *ngIf="!isHost" class="input-group">
+                <div *ngIf="!isHost && isPublic" class="input-group">
                   <span class="input-group-addon">
-                    
+
                   </span>
                   <div class="form-group label-floating">
                     <label class="control-label">People Involved Count</label>
                     <input formControlName="peopleInvolvedCount" type="number" class="form-control">
                   </div>
                 </div>
+                <div *ngIf="isPublic" class="input-group">
+                  <span class="input-group-addon">
 
-                <div class="update">
+                  </span>
+                  <div class="form-group label-floating">
+                    <label class="control-label">Status</label>
+                    <input formControlName="status" type="text" class="form-control">
+                  </div>
+                </div>
+                <div *ngIf="isPublic" class="input-group">
+                  <span class="input-group-addon">
+
+                  </span>
+                  <div class="form-group label-floating">
+                    <label class="control-label">Cause Of Finished</label>
+                    <input formControlName="causeOfFinished" type="text" class="form-control">
+                  </div>
+                </div>
+
+                <app-media-viewer-v1 *ngIf="isHost || isPublic" [reportId]="_report" width="400" height="300"></app-media-viewer-v1>
+
+                <div *ngIf="!isPublic" class="update">
                   <div class="update-loading">
                     <div class="spin">
-                       
+
                     </div>
                   </div>
                   <div>
-                      <legend>Update Report Here</legend>
-                      <span *appLoadingBar="(reportSpinner | async)"></span>
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          
-                        </span>
-                        <div class="form-group label-floating">
-                          <label class="control-label">Note</label>
-                          <input formControlName="note" type="text" class="form-control">
-                        </div>
+                    <legend>Update Report Here</legend>
+                    <span *appLoadingBar="(reportSpinner | async)"></span>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+
+                      </span>
+                      <div class="form-group label-floating">
+                        <label class="control-label">Note</label>
+                        <input formControlName="note" type="text" class="form-control">
                       </div>
-      
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          
-                        </span>
-                        <mat-form-field (change)="setToDirty()" style="width:100% !important;" ngClass="form-group label-floating">
-                          <mat-select placeholder="Status" formControlName="status">
-                            <mat-option value="NEW">New</mat-option>
-                            <mat-option value="INPROGRESS">In Progress</mat-option>
-                            <mat-option value="DONE">Done</mat-option>
-                            <mat-option value="EXPIRED">Expired</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <button (click)="onBack()" type="button" class="btn btn-default">Check all your reports</button>
-                      <button (click)="onUpdate()" type="button" class="btn btn-rose">Update Report</button>
                     </div>
+
+                    <div class="input-group">
+                      <span class="input-group-addon">
+
+                      </span>
+                      <mat-form-field (change)="setToDirty()" style="width:100% !important;" ngClass="form-group label-floating">
+                        <mat-select placeholder="Status" formControlName="status">
+                          <mat-option value="NEW">New</mat-option>
+                          <mat-option value="INPROGRESS">In Progress</mat-option>
+                          <mat-option value="DONE">Done</mat-option>
+                          <mat-option value="EXPIRED">Expired</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <button (click)="onBack()" type="button" class="btn btn-default">Check all your reports</button>
+                    <button (click)="onUpdate()" type="button" class="btn btn-rose">Update Report</button>
+                  </div>
                 </div>
-                </div>
+              </div>
 
               <!-- <div class="col-md-2">
                 <div class="row">

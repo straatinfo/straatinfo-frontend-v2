@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { HostLayoutComponent } from './layouts/host/host-layout.component';
+import { PublicLayoutComponent } from './layouts/public/public-layout.component';
 
 import { SessionGuard, AdminGuard, HostGuard } from './guards';
 
@@ -11,7 +12,7 @@ export const AppRoutes: Routes = [
       path: '',
       redirectTo: 'auth',
       pathMatch: 'full',
-    }, 
+    },
     {
       path: '',
       canActivate: [SessionGuard, AdminGuard],
@@ -33,6 +34,16 @@ export const AppRoutes: Routes = [
         {
           path: 'host',
           loadChildren: './pages/host-page/host-page.module#HostPageModule'
+        }
+      ]
+    },
+    {
+      path: '',
+      component: PublicLayoutComponent,
+      children: [
+        {
+          path: 'public',
+          loadChildren: './pages/public-page/public-page.module#PublicPageModule'
         }
       ]
     },
