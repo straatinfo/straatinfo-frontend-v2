@@ -198,7 +198,7 @@ export class ReporterActionCreator implements OnDestroy {
             postalCode: data.postalCode,
             city: data.city,
             email: data.email,
-            phoneNumber: data['_host.phoneNumber'],
+            phoneNumber: data.phoneNumber,
             status1: data.status1,
             status2: data.status2,
             dateRegistrationReporter: data.createdAt,
