@@ -198,7 +198,7 @@ export class ReporterActionCreator implements OnDestroy {
             postalCode: data.postalCode,
             city: data.city,
             email: data.email,
-            phoneNumber: data['_host.phoneNumber'], // <--- issue fbapp#112: phone number must be reporter's phonenumber
+            phoneNumber: data.phoneNumber,
             status1: data.status1,
             status2: data.status2,
             dateRegistrationReporter: data.createdAt,
