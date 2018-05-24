@@ -55,6 +55,7 @@
     "datatables.net-responsive": "2.1.1",
     "eonasdan-bootstrap-datetimepicker": "4.17.47",
     "express": "^4.16.2",
+    "file-saver": "^1.3.8",
     "fullcalendar": "3.4.0",
     "googleapis": "19.0.0",
     "hammerjs": "2.0.8",
@@ -81,6 +82,8 @@
     "uglify-js": "1.3.5",
     "validate": "3.0.1",
     "web-animations-js": "2.2.2",
+    "xlsx": "^0.12.13",
+    "xlsx-style": "git+https://github.com/markatil/xlsx-style.git",
     "zone.js": "0.8.4"
   },
   "devDependencies": {
