@@ -48,6 +48,29 @@
       </div>
     </div>
   </div>
+  <div class="user">
+    <div class="photo">
+			<i class="material-icons" style="font-size: 34px;color: white">language</i>
+		</div>
+    <div class="info">
+      <a data-toggle="collapse" href="#languageList" class="collapsed">
+        <span>
+          Language
+          <b class="caret"></b>
+        </span>
+      </a>
+      <div class="collapse" id="languageList">
+        <ul class="nav">
+          <li *ngFor="let language of systemLanguages">
+            <a (click)="onSystemLanguageSelect(language.code)">
+              <span class="sidebar-mini">{{language.code.toUpperCase()}}</span>
+              <span class="sidebar-normal">{{language.name}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
   <div class="nav-container">
     <ul class="nav">
       <li routerLinkActive="active" *ngFor="let menuitem of menuItems">

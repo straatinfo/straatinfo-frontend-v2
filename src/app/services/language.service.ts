@@ -1,3 +1,4 @@
+import { ISystemLanguage } from './../interface/language/language-system.interface';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -12,13 +13,12 @@ import { BACKEND_URL } from '../config';
 
 @Injectable()
 export class LanguageService {
-
+  private languageUrl = `${BACKEND_URL}/v1/api/language`;
   constructor(
     private http: Http,
     private sessionService: SessionService
   ) { }
 
-  private languageUrl = `${BACKEND_URL}/v1/api/language`;
 
   private GetSessionToken(): string {
     const session: ISession = this.sessionService.SessionRead();
@@ -36,7 +36,7 @@ export class LanguageService {
       return this.http.get(`${this.languageUrl}?baseWord=${baseWord}`, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
-          .share()
+          .share();
   }
 
   CreateLanguage(baseWord: string, language: ILanguage): Observable<ILanguage> {
@@ -46,7 +46,7 @@ export class LanguageService {
     return this.http.post(`${this.languageUrl}?baseWord=${baseWord}`, language, options)
       .map(response => response.json())
       .map(data => this.GetData(data))
-      .share()
+      .share();
   }
 
   UpdateLanguage(baseWord: string, language: ILanguage): Observable<ILanguage> {
@@ -56,7 +56,16 @@ export class LanguageService {
       return this.http.put(`${this.languageUrl}?baseWord=${baseWord}`, language, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
-          .share()
+          .share();
+  }
+
+  GetSystemLanguage(): ISystemLanguage {
+    const systemLanguage: ISystemLanguage = JSON.parse(localStorage.getItem('systemlanguage'));
+    return systemLanguage ? systemLanguage : { code: 'nl', name: 'Dutch' };
+  }
+
+  SetSystemLanguage(systemLanguage: ISystemLanguage) {
+    localStorage.setItem('systemlanguage', JSON.stringify(systemLanguage));
   }
 
   GetData(data) {

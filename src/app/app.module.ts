@@ -61,6 +61,7 @@ import { ServiceModule } from 'app/services';
 
 /* Routing Guards */
 import { AdminGuard, SessionGuard, HostDetailGuard, HostGuard, CanDeactivateGuard } from './guards';
+import { TranslationPipe } from './pipes/translation.pipe';
 
 @NgModule({
   exports: [
@@ -100,7 +101,7 @@ import { AdminGuard, SessionGuard, HostDetailGuard, HostGuard, CanDeactivateGuar
 export class MaterialModule {}
 
 @NgModule({
-    imports:      [
+    imports:[
         CommonModule,
         BrowserAnimationsModule,
         NgReduxModule,
