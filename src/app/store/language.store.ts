@@ -1,3 +1,4 @@
+import { ISystemLanguage } from './../interface/language/language-system.interface';
 import { ILanguage } from '../interface/language/language.interface';
 import {
   LANGUAGE_CREATE_ATTEMPT,
@@ -21,25 +22,30 @@ import {
   LANGUAGE_RESET_SELECT_FULFILLED,
   LANGUAGE_SELECT_ACTIVE_DESIGN_ATTEMPT,
   LANGUAGE_SELECT_ACTIVE_DESIGN_FAILED,
-  LANGUAGE_SELECT_ACTIVE_DESIGN_FULFILLED
+  LANGUAGE_SELECT_ACTIVE_DESIGN_FULFILLED,
+  LANGUAGE_SYSTEM_SELECT_ATTEMPT,
+  LANGUAGE_SYSTEM_SELECT_FULFILLED,
+  LANGUAGE_SYSTEM_SELECT_FAILED
 } from './actions/language.action';
 import * as language from './reducers/language.reducer';
 
 export interface ILanguageStore {
   languages: ILanguage[];
-  selectedHost: ILanguage;
+  selectedLanguage: ILanguage;
   spinner: boolean;
   error: string;
   success: string;
+  systemLanguage: ISystemLanguage;
 }
 
 export const LANGUAGE_INITIAL_STATE: ILanguageStore = {
   languages: [],
-  selectedHost: null,
+  selectedLanguage: null,
   spinner: false,
   error: null,
-  success: null
-}
+  success: null,
+  systemLanguage: { code: 'en', name: 'English' }
+};
 
 export function languageReducer(state: ILanguageStore = LANGUAGE_INITIAL_STATE, action): ILanguageStore {
   switch (action.type){
@@ -58,6 +64,9 @@ export function languageReducer(state: ILanguageStore = LANGUAGE_INITIAL_STATE, 
     case LANGUAGE_SELECT_ATTEMPT: return language.languageSelectAttempt(state, action);
     case LANGUAGE_SELECT_FAILED: return language.languageSelectFailed(state, action);
     case LANGUAGE_SELECT_FULFILLED: return language.languageSelectFulfilled(state, action);
+    case LANGUAGE_SYSTEM_SELECT_ATTEMPT: return language.systemLanguageSelectAttempt(state, action);
+    case LANGUAGE_SYSTEM_SELECT_FAILED: return language.systemLanguageSelectFailed(state, action);
+    case LANGUAGE_SYSTEM_SELECT_FULFILLED: return language.systemLanguageSelectFulfilled(state, action);
   }
   return state;
 };
