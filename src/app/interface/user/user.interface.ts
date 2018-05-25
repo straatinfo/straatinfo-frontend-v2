@@ -21,7 +21,8 @@ export interface IUser {
   phoneNumber?: string;
   isBlocked?: boolean;
   isPatron?: boolean;
-  hostPersonalEmail?: string; 
-  designType?: string; 
+  hostPersonalEmail?: string;
+  designType?: string;
+  language?: string;
   _role?: IRole;
 }

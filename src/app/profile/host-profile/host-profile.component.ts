@@ -1,3 +1,5 @@
+import { ISession } from 'app/interface/session/session.interface';
+
 import { Component, OnInit, DoCheck, OnDestroy, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, CanDeactivate } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
@@ -6,7 +8,7 @@ import { select, ObservableStore } from '@angular-redux/store';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import swal from 'sweetalert2';
 
-import { HostActionCreator } from '../../store/action-creators';
+import { HostActionCreator, SessionActionCreator } from '../../store/action-creators';
 import { IHost } from 'app/interface/host/host.interface';
 import { IHostView } from '../../interface/host/host-view.interface';
 import { IHostStore } from '../../store/host.store';
@@ -46,7 +48,8 @@ export class HostProfileComponent implements OnInit, OnDestroy, DoCheck {
     private actvatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
-    private hostActionCreator: HostActionCreator
+    private hostActionCreator: HostActionCreator,
+    private sessionActionCreator: SessionActionCreator
   ) { }
 
   ngOnInit() {
@@ -68,7 +71,9 @@ export class HostProfileComponent implements OnInit, OnDestroy, DoCheck {
     }
     if (this.hostData && this.loadHostData) this.onLoadForm(this.hostData);
     if (this.errorMessage) this.onErrorMessage(this.errorMessage);
-    if (this.successMessage) this.onSuccessMessage(this.successMessage);
+    if (this.successMessage) {
+      this.onSuccessMessage(this.successMessage);
+    }
     if (this.isSpecific && this.hostDetailForm) {
       this.hostDetailForm.patchValue({ design: 'CUSTOM' });
     } else if (!this.isSpecific && this.hostDetailForm) {
@@ -156,6 +161,7 @@ export class HostProfileComponent implements OnInit, OnDestroy, DoCheck {
     //         }
     //     }
     // );
+    this.updateLanguage(this.hostDetailForm.value.language);
   }
 
   onChangePassword() {
@@ -170,6 +176,13 @@ export class HostProfileComponent implements OnInit, OnDestroy, DoCheck {
   onErrorMessage(error: string) {
     this.errorMessage = error;
     this.successText = null;
+  }
+
+  updateLanguage(language) {
+    const oldSession: ISession = JSON.parse(localStorage.getItem('session'));
+    const newSession: ISession = {...oldSession, user: {...oldSession.user, language}};
+    localStorage.setItem('session', JSON.stringify(newSession));
+    window.location.reload();
   }
 
 }

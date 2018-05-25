@@ -19,7 +19,7 @@ export interface ChildrenItems {
 const ADMIN: RouteInfo[] = [
   {
     path: '/admin/dashboard',
-    title: 'Dashboard',
+    title: 'sideMenu.dashboard',
     type: 'link',
     icontype: 'dashboard'
   },
@@ -70,7 +70,7 @@ const ADMIN: RouteInfo[] = [
 const HOST: RouteInfo[] = [
   {
     path: '/host/dashboard',
-    title: 'Dashboard',
+    title: 'sideMenu.dashboard',
     type: 'link',
     icontype: 'dashboard'
   },

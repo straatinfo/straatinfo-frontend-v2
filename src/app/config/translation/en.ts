@@ -23,4 +23,5 @@ export const EN = {
     'report.list.mainCategory': 'Main Category',
     'report.list.status': 'Status',
     'report.list.actions': 'Actions',
+    'sideMenu.dashboard': 'Dashboard'
 };
