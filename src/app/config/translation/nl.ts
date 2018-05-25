@@ -22,6 +22,5 @@ export const NL = {
     'report.list.date': 'Datum',
     'report.list.mainCategory': 'Hoofdcategorie',
     'report.list.status': 'Status',
-    'report.list.actions': 'Actie',
-    'sideMenu.dashboard': 'Het'
+    'report.list.actions': 'Actie'
 };

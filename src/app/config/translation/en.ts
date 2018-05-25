@@ -22,6 +22,5 @@ export const EN = {
     'report.list.date': 'Date',
     'report.list.mainCategory': 'Main Category',
     'report.list.status': 'Status',
-    'report.list.actions': 'Actions',
-    'sideMenu.dashboard': 'Dashboard'
+    'report.list.actions': 'Actions'
 };

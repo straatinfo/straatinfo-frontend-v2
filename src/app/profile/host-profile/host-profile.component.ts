@@ -73,6 +73,7 @@ export class HostProfileComponent implements OnInit, OnDestroy, DoCheck {
     if (this.errorMessage) this.onErrorMessage(this.errorMessage);
     if (this.successMessage) {
       this.onSuccessMessage(this.successMessage);
+      window.location.reload();
     }
     if (this.isSpecific && this.hostDetailForm) {
       this.hostDetailForm.patchValue({ design: 'CUSTOM' });
@@ -182,7 +183,6 @@ export class HostProfileComponent implements OnInit, OnDestroy, DoCheck {
     const oldSession: ISession = JSON.parse(localStorage.getItem('session'));
     const newSession: ISession = {...oldSession, user: {...oldSession.user, language}};
     localStorage.setItem('session', JSON.stringify(newSession));
-    window.location.reload();
   }
 
 }
