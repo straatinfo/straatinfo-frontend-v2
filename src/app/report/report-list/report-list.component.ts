@@ -40,7 +40,7 @@ export class ReportListComponent implements OnInit {
 
     public dataAliases: string[] = (this._role.code.toUpperCase() === 'ADMIN') ?
         ['Report Number', 'Date', 'Main Category', 'Chat Name', 'Team'] :
-        (this._language == "DUTCH" ? ['Melding Nummer', 'Datum', 'Hoofdcategorie', 'Status'] : ['Report Number', 'Date', 'Main Category', 'Status'])
+        (this._language == "NL" ? ['Melding Nummer', 'Datum', 'Hoofdcategorie', 'Status'] : ['Report Number', 'Date', 'Main Category', 'Status'])
 
 	constructor(
 		private reportActionCreator: ReportActionCreator,
@@ -48,7 +48,6 @@ export class ReportListComponent implements OnInit {
 	) { }
 
     ngOnInit() {
-        console.log(this._language)
 		if (this._role.code.toUpperCase() === 'ADMIN') {
 			this.reportActionCreator.GetLatestReport();
 		} else {
