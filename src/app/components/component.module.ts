@@ -10,6 +10,7 @@ import { FileUploadBasicComponent } from './fileUpload/basic/fileUpload-basic.co
 import { SpinnerComponent, DirectiveModule } from '../directives';
 import { ModalBasicComponentComponent } from './modal/modal-basic/modal-basic-component.component';
 import { MediaViewerV1Component } from './media-viewer/media-viewerV1/media-viewer-v1.component'
+import { PipeModule } from './../pipes';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { MediaViewerV1Component } from './media-viewer/media-viewerV1/media-view
     ReactiveFormsModule,
     HttpModule,
     NgxGalleryModule,
-    DirectiveModule
+    DirectiveModule,
+    PipeModule
   ],
   exports: [
     InputBasicComponent,

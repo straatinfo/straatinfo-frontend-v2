@@ -20,6 +20,8 @@ declare interface DataTable {
 })
 export class TableBasicComponent implements OnInit, OnDestroy {
 
+  public actions = 'table.actions';
+
   @Input() tableTitle:string;
   @Input() actionDelete: boolean;
   @Input() actionEdit: boolean;

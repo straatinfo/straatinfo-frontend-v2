@@ -18,6 +18,8 @@ import * as XLSXStyle from 'xlsx-style';
 })
 export class ReportListComponent implements OnInit {
 
+    public reportList = 'report.list.reportList';
+
     private EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     private EXCEL_EXTENSION = '.xlsx';
 
@@ -29,23 +31,24 @@ export class ReportListComponent implements OnInit {
 
 	public session: ISession = JSON.parse(localStorage.getItem('session'));
 	public _role: IRole = this.session.user._role;
-	public _host: IHost = this.session.user;
+    public _host: IHost = this.session.user;
+    public _language = this.session.user.language.toUpperCase();
 	public reportData = [];
 
-	public dataNames: string[] = (this._role.code.toUpperCase() === 'ADMIN') ? [
-		'generatedReportId', 'date', '_mainCategoryName', '_reporterUsername', '_teamName'
-	] : ['generatedReportId', 'date', '_mainCategoryName', 'status'];
+    public dataNames: string[] = (this._role.code.toUpperCase() === 'ADMIN') ?
+        ['generatedReportId', 'date', '_mainCategoryName', '_reporterUsername', '_teamName'] : ['generatedReportId', 'date', '_mainCategoryName', 'status'];
 
-	public dataAliases: string[] = (this._role.code.toUpperCase() === 'ADMIN') ? [
-		'Report Number', 'Date', 'Main Category', 'Chat Name', 'Team'
-	] : ['Melding Nummer', 'Datum', 'Hoofdcategorie', 'Status']
+    public dataAliases: string[] = (this._role.code.toUpperCase() === 'ADMIN') ?
+        ['Report Number', 'Date', 'Main Category', 'Chat Name', 'Team'] :
+        (this._language == "DUTCH" ? ['Melding Nummer', 'Datum', 'Hoofdcategorie', 'Status'] : ['Report Number', 'Date', 'Main Category', 'Status'])
 
 	constructor(
 		private reportActionCreator: ReportActionCreator,
 		private router: Router
 	) { }
 
-	ngOnInit() {
+    ngOnInit() {
+        console.log(this._language)
 		if (this._role.code.toUpperCase() === 'ADMIN') {
 			this.reportActionCreator.GetLatestReport();
 		} else {

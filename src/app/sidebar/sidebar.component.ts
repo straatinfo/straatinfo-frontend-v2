@@ -39,7 +39,6 @@ export class SidebarComponent implements OnInit {
   };
 
   ngOnInit() {
-    console.log(SYSTEM_LANGUAGES);
     this.menuItems = ROUTES[this.getRole()].filter(menuItem => menuItem);
   }
   updatePS(): void {

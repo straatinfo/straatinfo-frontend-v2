@@ -13,7 +13,7 @@
         <tr>
           <th *ngFor="let th of tableHeaderAlias; let i = index"><span class="sort"><i (click)="sortAscending(tableHeaderName[i])" class="material-icons">arrow_drop_up</i><i (click)="sortDescending(tableHeaderName[i])" class="material-icons">arrow_drop_down</i></span>{{ th }}</th>
           <th *ngIf="actionsEnabled()" class="disabled-sorting text-right">
-            Actions
+            {{actions | translation}}
           </th>
         </tr>
     </thead>

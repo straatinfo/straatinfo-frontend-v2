@@ -157,7 +157,7 @@ export class ReportActionCreator implements OnDestroy {
 			);
 	}
 
-	SelectReport(_id: string) {
+    SelectReport(_id: string) {
 		this.ngRedux.dispatch({ type: REPORT_SELECT_ATTEMPT });
 		this.getOneReportSubscription = this.reportService.GetReportById(_id)
 			.map(data => this.ReportToView(data))

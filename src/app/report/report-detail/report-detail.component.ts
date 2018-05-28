@@ -21,6 +21,33 @@ import { IReportStore } from '../../store/report.store';
 
 export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDestroy, CanDeactivate<ReportDetailComponent> {
 
+  public hostName = 'report.hostName';
+  public reportDetails = 'report.reportDetails';
+  public reportId = 'report.reportId';
+  public description = 'report.description';
+  public teamName = 'report.teamName';
+  public dateReported = 'report.dateReported';
+  public chatName = 'report.chatName';
+  public publicIdNumber = 'report.publicIdNumber';
+  public mainCategory = 'report.mainCategory';
+  public subCategory = 'report.subCategory';
+  public location = 'report.location';
+  public longitude = 'report.longitude';
+  public latitude = 'report.latitude';
+  public isVehicleInvolved = 'report.isVehicleInvolved';
+  public vehicleInvolvedDescription = 'report.vehicleInvolvedDescription';
+  public isPeopleInvolved = 'report.isPeopleInvolved';
+  public peopleInvolvedCount = 'report.peopleInvolvedCount';
+  public causeOfFinished = 'report.causeOfFinished';
+  public updateReportHere = 'report.updateReportHere';
+  public status = 'report.status';
+  public checkAllYourReports = 'report.checkAllYourReports';
+  public updateReport = 'report.updateReport';
+  public new = 'report.status.new';
+  public inProgress = 'report.status.inProgress';
+  public done = 'report.status.done';
+  public expired = 'report.status.expired';
+
   public reportDetailForm: FormGroup;
   private routeParamsSubscription: Subscription = null;
   private reportSubscription: Subscription = null;
@@ -58,10 +85,9 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
   ) { }
 
   ngOnInit() {
-    console.log(this._role);
     this.routeParamsSubscription = this.actvatedRoute.params
     .subscribe(
-      params => {
+        params => {
         this.reportActionCreator.SelectReport(params._id);
         this._report = params._id;
         this.reportSubscription = this.selectedReport

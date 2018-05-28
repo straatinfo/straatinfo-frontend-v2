@@ -11,6 +11,8 @@ import { DirectiveModule, SpinnerComponent, LoadingBarComponent } from '../direc
 import { AgmCoreModule } from '@agm/core';
 import { MaterialModule } from 'app/app.module';
 
+import { PipeModule } from './../pipes';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { MaterialModule } from 'app/app.module';
     AgmCoreModule.forRoot({
         apiKey: 'AIzaSyDuQd44hbjRx-70DSsFUWuAtt2uMe_Hotk' // Change this to a new apiKey
     }),
-    DirectiveModule
+    DirectiveModule,
+    PipeModule
   ],
   declarations: [
     ReportListComponent,
