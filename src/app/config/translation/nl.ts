@@ -33,5 +33,11 @@ export const NL = {
     'report.list.mainCategory': 'Hoofdcategorie',
     'report.list.status': 'Status',
     'report.list.actions': 'Actie',
-    'table.actions': 'Actie'
+    'table.actions': 'Actie',
+    'table.reportNumber': 'Melding Nummer',
+    'table.date': 'Datum',
+    'table.mainCategory': 'Hoofdcategorie',
+    'table.chatName': 'Chat naam',
+    'table.team': 'Team naam',
+    'table.status': 'Status',
 };

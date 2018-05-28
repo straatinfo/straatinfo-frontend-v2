@@ -33,5 +33,11 @@ export const EN = {
     'report.list.mainCategory': 'Main Category',
     'report.list.status': 'Status',
     'report.list.actions': 'Actions',
-    'table.actions': 'Actions'
+    'table.actions': 'Actions',
+    'table.reportNumber': 'Report Number',
+    'table.date': 'Date',
+    'table.mainCategory': 'Main Category',
+    'table.chatName': 'Chat Name',
+    'table.team': 'Team name',
+    'table.status': 'Status',
 };

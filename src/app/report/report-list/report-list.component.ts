@@ -39,8 +39,8 @@ export class ReportListComponent implements OnInit {
         ['generatedReportId', 'date', '_mainCategoryName', '_reporterUsername', '_teamName'] : ['generatedReportId', 'date', '_mainCategoryName', 'status'];
 
     public dataAliases: string[] = (this._role.code.toUpperCase() === 'ADMIN') ?
-        ['Report Number', 'Date', 'Main Category', 'Chat Name', 'Team'] :
-        (this._language == "NL" ? ['Melding Nummer', 'Datum', 'Hoofdcategorie', 'Status'] : ['Report Number', 'Date', 'Main Category', 'Status'])
+        ['table.reportNumber', 'table.date', 'table.mainCategory', 'table.status', 'table.team'] :
+        ['table.reportNumber', 'table.date', 'table.mainCategory', 'table.status']
 
 	constructor(
 		private reportActionCreator: ReportActionCreator,
