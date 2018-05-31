@@ -63,14 +63,24 @@ export class ReporterListComponent implements OnInit {
   }
 
   private ReporterData(data: IReporterView): any {
+  console.log(data)
       return {
           id: data._id || '',
           fname: data.fname || '',
           lname: data.lname,
           chatName: data.chatName || '',
           isVolunteer: data.isVolunteer || '',
+          activeTeamName: data.activeTeamName || '',
           team: data.activeTeamName || '',
           host: data.hostName || '',
+          email: data.email || '',
+          gender: data.gender || '',
+          phoneNumber: data.phoneNumber || '',
+          postalCode: data.postalCode || '',
+          streetName: data.streetName || '',
+          city: data.city || '',
+          dateRegistrationReporter: data.dateRegistrationReporter || '',
+          dateCreationTeam: data.dateCreationTeam || '',
           status1: data.status1 || '',
           status2: data.status2 || ''
       };
