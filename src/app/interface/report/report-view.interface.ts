@@ -13,7 +13,7 @@ export interface IReportView {
   vehicleInvolvedDescription?: string;
   peopleInvolvedDescription?: string;
   vehicleInvolvedCount?: number;
-  peopleInvolvedCount?: number;
+  peopleInvolvedCount?: number;  
   _reportType?: string;
   _reportTypeCode?: string;
   _reportTypeName?: string;
@@ -33,6 +33,7 @@ export interface IReportView {
   date?: string;
   causeOfFinished?: string;
   finishedDate: string;
+  dateReported: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -57,9 +57,6 @@ export class ReportActionCreator implements OnDestroy {
 			.map(data => {
 				return data.map(d => this.ReportToView(d))
 			})
-			.map(data => {
-				return data.map(d => this.formatDate(d))
-			})
 			.subscribe(
 				(reports: IReportView[]) => {
 					this.ngRedux.dispatch({ type: REPORT_GET_FULFILLED, payload: reports });
@@ -80,9 +77,6 @@ export class ReportActionCreator implements OnDestroy {
 		this.getLatestReportSubscription = this.reportService.GetLatestReportByHost(_hostId)
 			.map(data => {
 				return data.map(d => this.ReportToView(d))
-			})
-			.map(data => {
-				return data.map(d => this.formatDate(d))
 			})
 			.subscribe(
 				(reports: IReportView[]) => {
@@ -240,27 +234,30 @@ export class ReportActionCreator implements OnDestroy {
 			_host: data['_host._id'],
 			_hostName: data['_host.hostName'],
 			_hostEmail: data['_host.email'],
-			causeOfFinished: data.causeOfFinished,
-			createdAt: data.createdAt,
+            causeOfFinished: data.causeOfFinished,
+            dateReported: this.formatDate(data.createdAt),
+            createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
 			finishedDate: (data.finishedDate) ? moment(data.finishedDate).format('YYYY/MM/DD') : ''
 		};
 		return report;
 	}
 
-	private formatDate(data: IReportView): IReportView {
-		const date = new Date(data.createdAt);
-		const year = date.getFullYear().toString();
-		const month = this.padLeft((date.getMonth() + 1).toString(), '0', 2);
-		const day = this.padLeft(date.getDate().toString(), '0', 2);
-		const hour = this.padLeft(date.getHours().toString(), '0', 2);
-		const minutes = this.padLeft(date.getMinutes().toString(), '0', 2);
-		const formattedDate = year + "/" + month + "/" + day + " " + hour + ":" + minutes;
-		return {
-			...data,
-			date: formattedDate
-		};
-	}
+    private formatDate(data: Date): string {
+
+        const date = new Date(data);
+        const year = date.getFullYear().toString();
+        const month = this.padLeft((date.getMonth() + 1).toString(), '0', 2);
+        const day = this.padLeft(date.getDate().toString(), '0', 2);
+        const hour = this.padLeft(date.getHours().toString(), '0', 2);
+        const minutes = this.padLeft(date.getMinutes().toString(), '0', 2);
+        const formattedDate = year + "/" + month + "/" + day + " " + hour + ":" + minutes;
+
+        if (data == null)
+            return "";
+
+        return formattedDate;
+    }
 
 	// private formatFinishedDate(data: IReport): string {
 
