@@ -76,7 +76,7 @@ export class InputBasicComponent implements OnInit {
 
   //Lifecycle hook. angular.io for more info
   ngAfterViewInit() {
-    // set placeholder default value when no input given to pH property      
+    // set placeholder default value when no input given to pH property
     
   }
 

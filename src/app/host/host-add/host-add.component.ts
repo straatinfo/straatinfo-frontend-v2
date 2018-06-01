@@ -27,13 +27,17 @@ export class HostAddComponent implements OnInit, OnDestroy, CanDeactivate<HostAd
   ) { }
 
   ngOnInit() {
+    this.loadHostForm();
+  }
+
+  loadHostForm () {
     this.addHostForm = this.formBuilder.group({
       hostName: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       houseNumber: [null, Validators.required],
       streetName: [null, Validators.required],
       city: [null, Validators.required],
-      state: [null, Validators.required],
+      state: [null],
       country: [null, Validators.required],
       postalCode: [null, Validators.required],
       phoneNumber: [null, Validators.required],
@@ -73,7 +77,7 @@ export class HostAddComponent implements OnInit, OnDestroy, CanDeactivate<HostAd
       this.errorText = null;
       this.successText = null;
       this.hostActionCreator.CreateHost(this.addHostForm.value);
-      this.ngOnInit();
+      this.loadHostForm();
     } else {
       swal('warning', 'Please complete the form');
     }
