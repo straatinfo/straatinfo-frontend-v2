@@ -158,6 +158,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
           note: [report.note, Validators.required],
           status: this.isPublic ? [{ value: report.status, disabled: true }] : [report.status, Validators.required],
           createdAt: [{ value: report.createdAt, disabled: true }],
+          dateReported: [{ value: report.dateReported, disabled: true }],
           _reporterUsername: [{ value: report._reporterUsername, disabled: true }],
           _teamName: [{ value: report._teamName, disabled: true }],
           generatedReportId: [{ value: report.generatedReportId, disabled: true }],
