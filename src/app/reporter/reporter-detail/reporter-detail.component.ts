@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
+import * as Moment from 'moment';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import swal from 'sweetalert2';
 
 import { ReporterActionCreator, TeamActionCreator } from '../../store/action-creators';
-import { IReporter } from 'app/interface/reporter/reporter.interface';
 import { IReporterView } from 'app/interface/reporter/reporter-view.interface';
 import { IReporterStore } from '../../store/reporter.store';
 import { ITeamStore } from '../../store/team.store';
@@ -96,6 +96,8 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 	}
 
 	onLoadForm(report: IReporterView) {
+		const dateRegistered: string = Moment(report.dateRegistrationReporter).format('YYYY-MM-DD');
+		const dateCreationTeam: string = Moment(report.dateCreationTeam).format('YYYY-MM-DD');
 		this.reporterDetailForm = this.formBuilder.group({
 			_id: [report._id, Validators.required],
 			isVolunteer: [{ value: report.isVolunteer, disabled: true }, Validators.required],
@@ -113,8 +115,8 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 			activeTeamEmail: [{ value: report.activeTeamEmail, disabled: true }, Validators.required],
 			status1: [{ value: report.status1, disabled: true }, Validators.required],
 			status2: [{ value: report.status2, disabled: true }, Validators.required],
-			dateRegistrationReporter: [{ value: report.dateRegistrationReporter, disabled: true }, Validators.required],
-			dateCreationTeam: [{ value: report.dateCreationTeam, disabled: true }, Validators.required],
+			dateRegistrationReporter: [{ value: dateRegistered, disabled: true }, Validators.required],
+			dateCreationTeam: [{ value: dateCreationTeam, disabled: true }, Validators.required],
 		});
 
 		this.pendingTeamId = report.pendingTeam;
