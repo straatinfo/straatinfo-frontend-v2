@@ -68,8 +68,8 @@ export class AddTeamDialogComponent implements OnInit {
         (team) => {
           this.dialogRef.close();
         }, err => {
-          if (err && typeof(err) === 'string') {
-            this.dialogRef.close(JSON.parse(err).message);
+          if (err && typeof(err._body) === 'string') {
+            JSON.parse(err._body) ? this.dialogRef.close(JSON.parse(err._body).message) : this.dialogRef.close('Internal Server Error');
           } else {
             this.dialogRef.close('Internal Server Error');
           }

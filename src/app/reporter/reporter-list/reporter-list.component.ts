@@ -56,9 +56,9 @@ export class ReporterListComponent implements OnInit {
   }
 
   onDownload() {
-      var mapData = [];
+      const mapData = [];
       this.reporterData.map(d => mapData.push(this.ReporterData(d)));
-      var fileName = 'Reporters';
+      const fileName = 'Reporters';
       this.ExportAsExcelFile(mapData, fileName);
   }
 

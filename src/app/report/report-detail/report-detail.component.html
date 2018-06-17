@@ -229,16 +229,16 @@
 
                       </span>
                       <mat-form-field (change)="setToDirty()" style="width:100% !important;" ngClass="form-group label-floating">
-                        <mat-select placeholder="Status" formControlName="status">
+                        <mat-select [disabled]="statusDisabled" placeholder="Status" formControlName="status">
                           <mat-option value="NEW">{{new | translation}}</mat-option>
                           <mat-option value="INPROGRESS">{{inProgress | translation}}</mat-option>
                           <mat-option value="DONE">{{done | translation}}</mat-option>
-                          <mat-option value="EXPIRED">{{expired | translation}}</mat-option>
+                          <mat-option *ngIf="statusDisabled" value="EXPIRED">{{expired | translation}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
                     <button (click)="onBack()" type="button" class="btn btn-default">{{checkAllYourReports | translation}}</button>
-                    <button (click)="onUpdate()" type="button" class="btn btn-rose">{{updateReport | translation}}</button>
+                    <button [disabled]="statusDisabled" (click)="onUpdate()" type="button" class="btn btn-rose">{{updateReport | translation}}</button>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgRedux } from '@angular-redux/store';
+import swal from 'sweetalert2';
 import { IAppState } from '../app.store';
 import {
 	REPORT_CREATE_ATTEMPT,
@@ -98,14 +99,23 @@ export class ReportActionCreator implements OnDestroy {
 		this.updateReportSubscription = this.reportService.UpdateReport(_id, note, status, causeOfFinished, flat)
 			.subscribe(
 				(report: IReport) => {
-					this.ngRedux.dispatch({ type: REPORT_UPDATE_FULFILLED, payload: report });
-					this.ngRedux.dispatch({ type: REPORT_SELECT_FULFILLED, payload: report });
-					this.dialogService.showSwal('success-message', { title: 'Update Success', text: `Report: ${report.generatedReportId} was updated to ${report.status}` });
+					swal('Update Success', `Report: ${report.generatedReportId} was updated to ${report.status}`, 'success')
+					.then(() => {
+						this.ngRedux.dispatch({ type: REPORT_UPDATE_FULFILLED, payload: report });
+						this.ngRedux.dispatch({ type: REPORT_SELECT_FULFILLED, payload: report });
+						window.location.reload();
+					});
 				}, err => {
 					this.errorMessage = err._body;
 					if (this.errorMessage && typeof this.errorMessage === 'string') {
-						this.ngRedux.dispatch({ type: REPORT_UPDATE_FAILED, error: this.errorMessage });
-						this.dialogService.showSwal('error-message', { title: 'Update Error', text: this.errorMessage });
+						const errorData = JSON.parse(this.errorMessage) ? JSON.parse(this.errorMessage) : {
+							status: 0,
+							error: 'SERVER_ERROR',
+							message: 'Internal Server Error',
+							statusCode: 500
+						};
+						this.ngRedux.dispatch({ type: REPORT_UPDATE_FAILED, error: errorData.message });
+						this.dialogService.showSwal('error-message', { title: 'Update Error', text: errorData.message });
 					}
 				},
 				() => {

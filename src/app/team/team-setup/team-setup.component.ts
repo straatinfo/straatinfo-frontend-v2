@@ -195,8 +195,7 @@ export class TeamSetupComponent implements OnInit, DoCheck, OnDestroy {
     .subscribe(
       result => {
         if (result) {
-          const data = JSON.parse(result);
-          if (typeof(result) === 'string') {
+          if (typeof result === 'string') {
             this.isLoading = false;
             swal('Team Creation Error', result, 'warning');
           }

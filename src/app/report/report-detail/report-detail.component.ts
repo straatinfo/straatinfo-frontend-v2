@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import swal from 'sweetalert2';
-
+import * as _ from 'lodash';
 import { ReportActionCreator } from '../../store/action-creators';
 import { IReport } from 'app/interface/report/report.interface';
 import { IReportView } from 'app/interface/report/report-view.interface';
@@ -75,7 +75,8 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
   public isPublic: boolean = (this._role.code === 'PUBLIC');
   public _report: string;
   private isDirty: boolean = false;
-  private initialStatus: string;
+  public initialStatus: string;
+  public statusDisabled: boolean = false;
 
   constructor(
     private actvatedRoute: ActivatedRoute,
@@ -169,6 +170,9 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
       this.lat = report.lat;
       this.initialStatus = report.status;
       this.loadReportData = false;
+      if (report.status.toLowerCase() === 'done' || report.status.toLowerCase() === 'expired') {
+        this.statusDisabled = true;
+      }
   }
 
   onErrorMessage(error: string) {
@@ -198,7 +202,6 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
           (report: IReportStore) => {
               if (report.error) this.errorMessage = report.error;
               if (report.success) this.successMessage = report.success;
-              this.loadReportData = false;
           }
       );
   }
