@@ -184,6 +184,37 @@ export class TeamSetupComponent implements OnInit, DoCheck, OnDestroy {
       }
     );
   }
+  reporterTeamDelete (data) {
+    this.isLoading = true;
+    swal({
+      title: 'Are you sure to Delete Team?',
+      text: 'This will delete the team as well as associated data',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then(() => {
+      return new Promise((resolve, reject) => {
+        this.teamActionCreator.DeleteTeam(data._id, (err, team) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(team);
+        });
+      });
+    }, () => {
+      this.isLoading = false;
+    })
+    .then((team) => {
+      this.isLoading = false;
+      window.location.reload();
+    })
+    .catch((err) => {
+      this.isLoading = false;
+      swal('Delete Team Error', err, 'warning');
+    });
+  }
 
   onCreateTeam () {
     this.dialogRef = this.dialog.open(AddTeamDialogComponent, {

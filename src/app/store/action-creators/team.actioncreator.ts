@@ -45,6 +45,7 @@ export class TeamActionCreator implements OnDestroy {
   private getNonApprovedTeamSubscription: Subscription = null;
   private approveTeamSubscription: Subscription = null;
   private declineTeamSubscription: Subscription = null;
+  private deleteTeamSubscription: Subscription = null;
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
@@ -59,6 +60,7 @@ export class TeamActionCreator implements OnDestroy {
     (this.getNonApprovedTeamSubscription) ? this.getNonApprovedTeamSubscription.unsubscribe() : null;
     (this.approveTeamSubscription) ? this.approveTeamSubscription.unsubscribe() : null;
     (this.declineTeamSubscription) ? this.declineTeamSubscription.unsubscribe() : null;
+    (this.deleteTeamSubscription) ? this.deleteTeamSubscription.unsubscribe() : null;
   }
 
   GetTeams() {
@@ -213,6 +215,25 @@ export class TeamActionCreator implements OnDestroy {
       );
   }
 
+  DeleteTeam(_team: string, cb) {
+    this.errorMessage = null;
+    this.deleteTeamSubscription = this.teamService.DeleteTeam(_team)
+      .map(data => this.ToTeamView(data))
+      .subscribe(
+        (team: ITeamView) => {
+          cb(null, team);
+        }, err => {
+          this.errorMessage = err._body;
+          if (this.errorMessage && typeof this.errorMessage === 'string') {
+            cb(JSON.parse(this.errorMessage).message);
+          }
+        },
+        () => {
+          this.errorMessage = null;
+        }
+      );
+  }
+
   SelectTeam(_id: string) {
     this.ngRedux.dispatch({ type: TEAM_SELECT_FULFILLED, payload: _id });
   }
@@ -221,7 +242,7 @@ export class TeamActionCreator implements OnDestroy {
     this.errorMessage = null;
     this.ngRedux.dispatch({ type: TEAM_PENDING_GET_ATTEMPT });
     this.getNonApprovedTeamSubscription = this.teamService.GetNonApprovedTeam()
-      .map((data: any[]) => { return data.map(d => this.ToTeamView(d)); })
+      .map((data: any[]) => data.map(d => this.ToTeamView(d)))
       .subscribe(
         (teams: ITeamView[]) => {
           this.ngRedux.dispatch({ type: TEAM_PENDING_GET_FULFILLED, payload: teams });

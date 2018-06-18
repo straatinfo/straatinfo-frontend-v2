@@ -148,6 +148,16 @@ export class TeamService {
       .share()
   }
 
+  DeleteTeam(_team): Observable<ITeam> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
+    const options = new RequestOptions({ headers: headers });
+    return this.http.delete(`${BACKEND_URL}/v2/api/team?_team=${_team}`, options)
+      .map(response => response.json())
+      .map(data => this.GetData(data))
+      .share();
+  }
+
   GetData(data) {
     return data.data;
   }

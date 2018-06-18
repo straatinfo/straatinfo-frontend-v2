@@ -23,10 +23,12 @@
                 paginator="true" itemPerPage="5"
                 [currentPage]="0"
                 [actionCheck]="true"
+                [actionDelete]="true"
                 [tableDataArray]="hostTeamTableData"
                 [tableHeaderName]="hostTeamTable.headerName"
                 [tableHeaderAlias]="hostTeamTable.headerAlias"
-                (clickCheck)="onJoinTeam($event)">
+                (clickCheck)="onJoinTeam($event)"
+                (clickDelete)="reporterTeamDelete($event)">
               </app-table-basic>
             </div>
             <div *ngIf="(hostTeamTableData | async)" class="col-md-6">
