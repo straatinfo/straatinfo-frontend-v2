@@ -93,7 +93,7 @@ export class HostReportListComponent implements OnInit {
     private ReportData(data: IReportView): any {
         return {
             generatedReportId: data.generatedReportId || '',
-            date: data.date || '',
+            date: data.date || '', // bug note: date not showing on report in host list
             title: data.title || '',
             description: data.description || '',
             location: data.location || '',
