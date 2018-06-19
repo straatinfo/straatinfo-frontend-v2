@@ -99,7 +99,7 @@ export class ReportListComponent implements OnInit {
 			team: data._teamName || '',
 			finishedDate: data.finishedDate || '',
 			causeOfFinished: data.causeOfFinished || '',
-			createdAt: data.createdAt || ''
+            createdAt: this.formatDate(data.createdAt) || ''
 		};
 	}
 
@@ -157,5 +157,21 @@ export class ReportListComponent implements OnInit {
             type: this.EXCEL_TYPE
         });
         FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + this.EXCEL_EXTENSION);
+    }
+
+    private formatDate(data: Date): string {
+
+        const date = new Date(data);
+        const year = date.getFullYear().toString();
+        const month = this.padLeft((date.getMonth() + 1).toString(), '0', 2);
+        const day = this.padLeft(date.getDate().toString(), '0', 2);
+        const hour = this.padLeft(date.getHours().toString(), '0', 2);
+        const minutes = this.padLeft(date.getMinutes().toString(), '0', 2);
+        const formattedDate = year + "/" + month + "/" + day + " " + hour + ":" + minutes;
+
+        if (data == null)
+            return "";
+
+        return formattedDate;
     }
 }

@@ -7,6 +7,7 @@ import { IReportView } from '../../interface/report/report-view.interface';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import * as XLSXStyle from 'xlsx-style';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-host-report-list',
@@ -108,9 +109,9 @@ export class HostReportListComponent implements OnInit {
           reporter: data._reporterName || '',
           reportType: data._reportTypeCode || '',
           team: data._teamName || '',
-          finishedDate: data.finishedDate || '',
+          finishedDate: data.finishedDate|| '',
           causeOfFinished: data.causeOfFinished || '',
-          createdAt: data.createdAt || ''
+          createdAt: this.formatDate(data.createdAt) || ''
       };
   }
 
@@ -172,5 +173,21 @@ export class HostReportListComponent implements OnInit {
           type: this.EXCEL_TYPE
       });
       FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + this.EXCEL_EXTENSION);
+  }
+
+  private formatDate(data: Date): string {
+
+      const date = new Date(data);
+      const year = date.getFullYear().toString();
+      const month = this.padLeft((date.getMonth() + 1).toString(), '0', 2);
+      const day = this.padLeft(date.getDate().toString(), '0', 2);
+      const hour = this.padLeft(date.getHours().toString(), '0', 2);
+      const minutes = this.padLeft(date.getMinutes().toString(), '0', 2);
+      const formattedDate = year + "/" + month + "/" + day + " " + hour + ":" + minutes;
+
+      if (data == null)
+          return "";
+
+      return formattedDate;
   }
 }
