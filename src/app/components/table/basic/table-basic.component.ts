@@ -46,6 +46,7 @@ export class TableBasicComponent implements OnInit, OnDestroy {
   @Output() clickActionApprove = new EventEmitter<any>();
   @Output() clickActionDecline = new EventEmitter<any>();
   @Output() clickActionJoin = new EventEmitter<any>();
+  @Output() clickChatName = new EventEmitter<any>();
 
   public newTableDataArray:any[]; // page number
   // private itemPerPage:number = 5; // item per page
@@ -159,6 +160,10 @@ export class TableBasicComponent implements OnInit, OnDestroy {
 
   onActionJoinClick(data) {
       this.clickActionJoin.emit(data);
+  }
+
+  onChatNameClick (data) {
+    this.clickChatName.emit(data);
   }
 
   sortAscending (headerName) {

@@ -54,6 +54,10 @@ export class ReporterListComponent implements OnInit {
       this.reporterActionCreator.SelectReporter(event._id);
       this.router.navigate([`admin/reporter/${event._id}`]);
   }
+  onClickChatName(event) {
+    this.reporterActionCreator.SelectReporter(event._id);
+    this.router.navigate([`admin/reporter/${event._id}`]);
+  }
 
   onDownload() {
       const mapData = [];

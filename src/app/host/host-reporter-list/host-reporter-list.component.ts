@@ -82,6 +82,10 @@ export class HostReporterListComponent implements OnInit, DoCheck {
   onClickMore(event) {
       this.router.navigate([`admin/host/reporter/details/${this.hostId}/${event._id}`]);
   }
+  onClickChatName(event) {
+    this.router.navigate([`admin/host/reporter/details/${this.hostId}/${event._id}`]);
+    // this.router.navigate([`${this.session.user._role.code.toLowerCase()}/reporter/${_reporter}`]);
+}
 
   onDownload() {
       var mapData = [];

@@ -21,8 +21,8 @@
       <tr *ngFor="let row of newTableDataArray">
         <!-- <td *ngFor="let r of tableHeaderName">{{ row[r] }}</td> -->
         <td *ngFor="let r of tableHeaderName">
-          <a *ngIf="r === 'chatName'" (click)="onMoreClick(row)">{{ row[r] }}</a>
-          <p *ngIf="r !== 'chatName'">{{ row[r] }}</p>
+          <a *ngIf="r === 'chatName' || r === '_reporterUsername'" (click)="onChatNameClick(row)">{{ row[r] }}</a>
+          <p *ngIf="r !== 'chatName' && r !== '_reporterUsername'">{{ row[r] }}</p>
         </td>
         <td *ngIf="actionsEnabled()" class="text-right">
           <button *ngIf="actionCheck" (click)="onCheckClick(row)" class="btn btn-simple btn-success btn-icon check"  matTooltip="Select" [matTooltipPosition]="'left'" style="padding: 0px 30px 0px 0px;">

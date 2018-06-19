@@ -244,9 +244,9 @@ export class ReportActionCreator implements OnDestroy {
 			_host: data['_host._id'],
 			_hostName: data['_host.hostName'],
 			_hostEmail: data['_host.email'],
-            causeOfFinished: data.causeOfFinished,
-            dateReported: this.formatDate(data.createdAt),
-            createdAt: data.createdAt,
+			causeOfFinished: data.causeOfFinished,
+			dateReported: this.formatDate(data.createdAt),
+			createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
 			finishedDate: (data.finishedDate) ? moment(data.finishedDate).format('YYYY/MM/DD') : ''
 		};
