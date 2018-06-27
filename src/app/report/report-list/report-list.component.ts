@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
 import { ReportActionCreator } from '../../store/action-creators';
 import { ISession } from 'app/interface/session/session.interface';
@@ -10,6 +11,7 @@ import { IReportView } from '../../interface/report/report-view.interface';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import * as XLSXStyle from 'xlsx-style';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'app-report-list',
@@ -24,10 +26,11 @@ export class ReportListComponent implements OnInit {
     private EXCEL_EXTENSION = '.xlsx';
 
 	private reportSubscription: Subscription = null;
-
-	@select(s => s.report.reports) reports;
+	private reports$Subscription: Subscription = null;
+	@select(s => s.report.reports) reports$;
 	@select(s => s.report.spinner) reportSpinner;
 	@select(s => s.table.page) page;
+	public reports: Observable<IReportView[]> = this.reports$;
 
 	public session: ISession = JSON.parse(localStorage.getItem('session'));
 	public _role: IRole = this.session.user._role;
@@ -53,6 +56,7 @@ export class ReportListComponent implements OnInit {
 			this.reportActionCreator.GetLatestReport();
 		} else {
 			this.reportActionCreator.GetLatestReportByHost(this._host._id);
+			this.populateReport();
 		}
 		this.reportSubscription = this.reports
 			.subscribe(report => {
@@ -60,9 +64,10 @@ export class ReportListComponent implements OnInit {
 			});
 	}
 
+
 	onMoreClick(event) {
 		this.reportActionCreator.ResetSelectedReport();
-		if (this._role.code.toLocaleUpperCase() === 'ADMIN') {
+		if (this._role.code.toUpperCase() === 'ADMIN') {
 			this.router.navigate([`admin/report/${event._id}`]);
 		} else {
 			this.router.navigate([`host/report/${event._id}`]);
@@ -74,6 +79,21 @@ export class ReportListComponent implements OnInit {
         this.reportData.map(d => mapData.push(this.ReportData(d)));
         var fileName = 'Reports';
         this.ExportAsExcelFile(mapData, fileName);
+	}
+
+	populateReport() {
+		this.reports = this.reports$
+		.map((reports) => {
+			if (reports) {
+				if (this._role.code.toUpperCase() === 'ADMIN') {
+					return reports;
+				}
+				const filteredReports = _.filter(reports, (report) => {
+					return report._reportTypeCode === 'A';
+				});
+				return filteredReports;
+			}
+		});
 	}
 
 	private ReportData(data: IReportView): any {
@@ -175,3 +195,4 @@ export class ReportListComponent implements OnInit {
         return formattedDate;
     }
 }
+ 
