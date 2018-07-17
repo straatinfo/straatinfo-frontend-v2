@@ -41,7 +41,19 @@ export class SessionService {
   }
 
   SessionRead(): ISession {
-    return JSON.parse(localStorage.getItem('session'));
+    let PublicSession: ISession;
+    if (JSON.parse(localStorage.getItem('session'))) {
+      return JSON.parse(localStorage.getItem('session'));
+    } else {
+      PublicSession = {
+        user: {
+          _role: { _id: '', name: 'PUBLIC', accessLevel: 5, code: 'PUBLIC', description: '' },
+          language: 'en'
+        },
+        token: ''
+      };
+      return PublicSession;
+    }
   }
 
   SessionDestroy(): void {

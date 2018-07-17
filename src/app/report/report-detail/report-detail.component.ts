@@ -135,7 +135,6 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
   }
 
   setToDirty() {
-    console.log('change');
     this.isDirty = true;
   }
 

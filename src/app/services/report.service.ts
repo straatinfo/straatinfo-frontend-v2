@@ -37,7 +37,7 @@ export class ReportService {
       return this.http.get(`${this.reportUrl}/${_id}/?flat=${flat}`, options)
           .map(response => response.json())
           .map(data => this.GetData(data))
-          .share()
+          .share();
   }
 
   GetLatestReport (flat: boolean = true): Observable<IReport[]> {
