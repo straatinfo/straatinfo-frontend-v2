@@ -16,7 +16,7 @@ export class TranslationPipe implements PipeTransform {
     private languageActionCreator: LanguageActionCreator,
     private sessionService: SessionService
   ) {}
-  GetTranslation (id) {
+  GetTranslation (id, languageString: string = null) {
     // @TODO this can be used in the future
     // const systemLanguage: ISystemLanguage = this.languageActionCreator.GetSystemLanguage();
     // const session: ISession = JSON.parse(localStorage.getItem('session'));
@@ -24,10 +24,11 @@ export class TranslationPipe implements PipeTransform {
     const checkLanguage: ISystemLanguage = _.find(SYSTEM_LANGUAGES, (sl) =>
     session.user.language.toUpperCase() === sl.name.toUpperCase() || session.user.language.toUpperCase() === sl.code.toUpperCase());
     const language: ISystemLanguage = checkLanguage ? checkLanguage : _.find(SYSTEM_LANGUAGES, (sl) => sl.code.toUpperCase() === 'EN');
-    return TRANSLATION[language.code.toUpperCase()][id] ? TRANSLATION[language.code.toUpperCase()][id] : id;
+    const ln = languageString ? languageString.toUpperCase() : language.code.toUpperCase();
+    return TRANSLATION[ln][id] ? TRANSLATION[ln][id] : id;
   }
-  transform(value: any, args?: any): any {
-    return this.GetTranslation(value);
+  transform(value: any, languageString?: any): any {
+    return this.GetTranslation(value, languageString);
   }
 
 }

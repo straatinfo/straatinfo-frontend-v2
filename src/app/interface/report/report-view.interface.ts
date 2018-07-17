@@ -36,4 +36,5 @@ export interface IReportView {
   dateReported: string;
   createdAt?: Date;
   updatedAt?: Date;
+  language?: string;
 }

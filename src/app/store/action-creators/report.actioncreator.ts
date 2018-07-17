@@ -248,7 +248,8 @@ export class ReportActionCreator implements OnDestroy {
 			dateReported: this.formatDate(data.createdAt),
 			createdAt: data.createdAt,
 			updatedAt: data.updatedAt,
-			finishedDate: (data.finishedDate) ? moment(data.finishedDate).format('YYYY/MM/DD') : ''
+			finishedDate: (data.finishedDate) ? moment(data.finishedDate).format('YYYY/MM/DD') : '',
+			language: data.language
 		};
 		return report;
 	}

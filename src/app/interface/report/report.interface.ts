@@ -32,4 +32,5 @@ export interface IReport {
   finishedDate?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  language?: string;
 }

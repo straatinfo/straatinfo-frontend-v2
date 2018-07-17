@@ -59,6 +59,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
   public loadReportData: boolean = false;
   public errorMessage: string = null;
   public successMessage: string = null;
+  public languageString: string = null;
 
   private long: number;
   private lat: number;
@@ -94,6 +95,7 @@ export class ReportDetailComponent implements OnInit, DoCheck, OnChanges, OnDest
         this.reportSubscription = this.selectedReport
         .subscribe(
             (report: IReportView) => {
+                this.languageString = report ? report.language : null;
                 this.reportData = (report) ? report : null;
                 this.loadReportData = true;
           }

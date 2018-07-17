@@ -7,7 +7,7 @@
             <i class="material-icons">perm_identity</i>
           </div>
           <div *ngIf="reportData" class="card-content">
-            <h4 class="card-title">{{reportDetails | translation}}
+            <h4 class="card-title">{{reportDetails | translation: languageString}}
             </h4>
 
             <form [formGroup]="reportDetailForm" (change)="setToDirty()">
@@ -24,7 +24,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{hostName | translation}}</label>
+                    <label class="control-label">{{hostName | translation: languageString}}</label>
                     <input formControlName="hostName" type="text" class="form-control">
                   </div>
                 </div>
@@ -34,7 +34,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{reportId | translation}}</label>
+                    <label class="control-label">{{reportId | translation: languageString}}</label>
                     <input formControlName="generatedReportId" type="text" class="form-control">
                   </div>
                 </div>
@@ -44,7 +44,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{description | translation}}</label>
+                    <label class="control-label">{{description | translation: languageString}}</label>
                     <input formControlName="description" type="text" class="form-control">
                   </div>
                 </div>
@@ -54,7 +54,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{chatName | translation}}</label>
+                    <label class="control-label">{{chatName | translation: languageString}}</label>
                     <input formControlName="_reporterUsername" type="text" class="form-control">
                   </div>
                 </div>
@@ -64,7 +64,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{teamName | translation}}</label>
+                    <label class="control-label">{{teamName | translation: languageString}}</label>
                     <input formControlName="_teamName" type="text" class="form-control">
                   </div>
                 </div>
@@ -74,7 +74,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{dateReported | translation}}</label>
+                    <label class="control-label">{{dateReported | translation: languageString}}</label>
                     <input formControlName="dateReported" type="text" class="form-control">
                   </div>
                 </div>
@@ -84,7 +84,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{publicIdNumber | translation}}</label>
+                    <label class="control-label">{{publicIdNumber | translation: languageString}}</label>
                     <input formControlName="reportType" type="text" class="form-control">
                   </div>
                 </div>
@@ -94,7 +94,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{mainCategory | translation}}</label>
+                    <label class="control-label">{{mainCategory | translation: languageString}}</label>
                     <input formControlName="mainCategory" type="text" class="form-control">
                   </div>
                 </div>
@@ -104,7 +104,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{subCategory | translation}}</label>
+                    <label class="control-label">{{subCategory | translation: languageString}}</label>
                     <input formControlName="subCategory" type="text" class="form-control">
                   </div>
                 </div>
@@ -114,7 +114,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{location | translation}}</label>
+                    <label class="control-label">{{location | translation: languageString}}</label>
                     <input formControlName="location" type="text" class="form-control">
                   </div>
                 </div>
@@ -124,7 +124,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{longitude | translation}}</label>
+                    <label class="control-label">{{longitude | translation: languageString}}</label>
                     <input formControlName="long" type="text" class="form-control">
                   </div>
                 </div>
@@ -134,7 +134,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{latitude | translation}}</label>
+                    <label class="control-label">{{latitude | translation: languageString}}</label>
                     <input formControlName="lat" type="text" class="form-control">
                   </div>
                 </div>
@@ -149,7 +149,7 @@
                   </span>
                   <div class="checkbox">
                     <label>
-                      <input formControlName="isVehicleInvolved" type="checkbox" name="optionsIsVehicleInvolved"> {{isVehicleInvolved | translation}}?
+                      <input formControlName="isVehicleInvolved" type="checkbox" name="optionsIsVehicleInvolved"> {{isVehicleInvolved | translation: languageString}}?
                     </label>
                   </div>
                 </div>
@@ -159,7 +159,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{vehicleInvolvedDescription | translation}}</label>
+                    <label class="control-label">{{vehicleInvolvedDescription | translation: languageString}}</label>
                     <input formControlName="vehicleInvolvedDescription" type="text" class="form-control">
                   </div>
                 </div>
@@ -170,7 +170,7 @@
                   </span>
                   <div class="checkbox">
                     <label>
-                      <input formControlName="isPeopleInvolved" type="checkbox" name="optionsIsPeopleInvolved"> {{isPeopleInvolved | translation}}?
+                      <input formControlName="isPeopleInvolved" type="checkbox" name="optionsIsPeopleInvolved"> {{isPeopleInvolved | translation: languageString}}?
                     </label>
                   </div>
                 </div>
@@ -180,7 +180,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{peopleInvolvedCount | translation}}</label>
+                    <label class="control-label">{{peopleInvolvedCount | translation: languageString}}</label>
                     <input formControlName="peopleInvolvedCount" type="number" class="form-control">
                   </div>
                 </div>
@@ -189,7 +189,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{status | translation}}</label>
+                    <label class="control-label">{{status | translation: languageString}}</label>
                     <input formControlName="status" type="text" class="form-control">
                   </div>
                 </div>
@@ -198,7 +198,7 @@
 
                   </span>
                   <div class="form-group label-floating">
-                    <label class="control-label">{{causeOfFinished | translation}}</label>
+                    <label class="control-label">{{causeOfFinished | translation: languageString}}</label>
                     <input formControlName="causeOfFinished" type="text" class="form-control">
                   </div>
                 </div>
@@ -212,7 +212,7 @@
                     </div>
                   </div>
                   <div>
-                    <legend>{{updateReportHere | translation}}</legend>
+                    <legend>{{updateReportHere | translation: languageString}}</legend>
                     <span *appLoadingBar="(reportSpinner | async)"></span>
                     <div class="input-group">
                       <span class="input-group-addon">
@@ -230,15 +230,15 @@
                       </span>
                       <mat-form-field (change)="setToDirty()" style="width:100% !important;" ngClass="form-group label-floating">
                         <mat-select [disabled]="statusDisabled" placeholder="Status" formControlName="status">
-                          <mat-option value="NEW">{{new | translation}}</mat-option>
-                          <mat-option value="INPROGRESS">{{inProgress | translation}}</mat-option>
-                          <mat-option value="DONE">{{done | translation}}</mat-option>
+                          <mat-option value="NEW">{{new | translation: languageString}}</mat-option>
+                          <mat-option value="INPROGRESS">{{inProgress | translation: languageString}}</mat-option>
+                          <mat-option value="DONE">{{done | translation: languageString}}</mat-option>
                           <mat-option *ngIf="statusDisabled" value="EXPIRED">{{expired | translation}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
-                    <button (click)="onBack()" type="button" class="btn btn-default">{{checkAllYourReports | translation}}</button>
-                    <button [disabled]="statusDisabled" (click)="onUpdate()" type="button" class="btn btn-rose">{{updateReport | translation}}</button>
+                    <button (click)="onBack()" type="button" class="btn btn-default">{{checkAllYourReports | translation: languageString}}</button>
+                    <button [disabled]="statusDisabled" (click)="onUpdate()" type="button" class="btn btn-rose">{{updateReport | translation: languageString}}</button>
                   </div>
                 </div>
               </div>
