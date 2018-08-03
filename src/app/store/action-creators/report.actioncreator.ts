@@ -21,11 +21,12 @@ import {
 	REPORT_UPDATE_FULFILLED
 } from '../actions/report.action';
 import { Subscription } from 'rxjs/Subscription';
-import { ReportService, DialogService } from '../../services';
+import { ReportService, DialogService, CategoryService } from '../../services';
 import { IReport } from '../../interface/report/report.interface';
 import { IReportView } from '../../interface/report/report-view.interface';
+import { IMainCategory } from '../../interface/category/main-category.interface';
 import * as moment from 'moment';
-
+import * as _ from 'lodash';
 
 @Injectable()
 
@@ -37,11 +38,13 @@ export class ReportActionCreator implements OnDestroy {
 	private deleteReportSubscription: Subscription = null;
 	private getReportByIdSubscription: Subscription = null;
 	private getOneReportSubscription: Subscription = null;
+    private categorySubscription: Subscription = null;
 
 	constructor(
 		private ngRedux: NgRedux<IAppState>,
 		private reportService: ReportService,
-		private dialogService: DialogService
+        private dialogService: DialogService,
+        private categoryService: CategoryService
 	) { }
 
 	ngOnDestroy() {
@@ -49,7 +52,8 @@ export class ReportActionCreator implements OnDestroy {
 		(this.updateReportSubscription) ? this.updateReportSubscription.unsubscribe() : null;
 		(this.deleteReportSubscription) ? this.deleteReportSubscription.unsubscribe() : null;
 		(this.getReportByIdSubscription) ? this.getReportByIdSubscription.unsubscribe() : null;
-		(this.getOneReportSubscription) ? this.getOneReportSubscription.unsubscribe() : null;
+        (this.getOneReportSubscription) ? this.getOneReportSubscription.unsubscribe() : null;
+        (this.categorySubscription) ? this.categorySubscription.unsubscribe() : null;
 	}
 
 	GetLatestReport() {
@@ -164,10 +168,25 @@ export class ReportActionCreator implements OnDestroy {
     SelectReport(_id: string) {
 		this.ngRedux.dispatch({ type: REPORT_SELECT_ATTEMPT });
 		this.getOneReportSubscription = this.reportService.GetReportById(_id)
-			.map(data => this.ReportToView(data))
+            .map(data => this.ReportToView(data))
 			.subscribe(
-				(report: IReportView) => {
-					this.ngRedux.dispatch({ type: REPORT_SELECT_FULFILLED, payload: report });
+            (report: IReportView) => {
+                    this.categoryService.GetHostMainCategory(report._host).subscribe(
+                    (category: IMainCategory) => {
+                        _.map(category, function (x) {
+                            if (report._mainCategory == x._id)
+                            {   
+                                _.map(x.translations, function (y) {
+                                    if (y.code == 'nl') {
+                                        report._mainCategoryName = y.word
+                                    }
+                                });                                
+                            }
+                        });
+
+                        this.ngRedux.dispatch({ type: REPORT_SELECT_FULFILLED, payload: report });
+                    });
+                    					
 				}, err => {
 					this.errorMessage = err._body;
 					if (this.errorMessage && typeof this.errorMessage === 'string') {
@@ -213,7 +232,8 @@ export class ReportActionCreator implements OnDestroy {
 	// 	return report;
 	// }
 
-	private ReportToView(data: IReport): IReportView {
+    private ReportToView(data: IReport): IReportView {
+
 		const report: IReportView = {
 			_id: data._id,
 			generatedReportId: data.generatedReportId,
