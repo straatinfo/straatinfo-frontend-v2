@@ -172,7 +172,7 @@ export class ReportActionCreator implements OnDestroy {
 			.subscribe(
             (report: IReportView) => {
                     this.categoryService.GetHostMainCategory(report._host).subscribe(
-                    (category: IMainCategory) => {
+                    (category: IMainCategory[]) => {
                         _.map(category, function (x) {
                             if (report._mainCategory == x._id)
                             {   
