@@ -21,11 +21,12 @@ import {
 	REPORT_UPDATE_FULFILLED
 } from '../actions/report.action';
 import { Subscription } from 'rxjs/Subscription';
-import { ReportService, DialogService, CategoryService } from '../../services';
+import { ReportService, DialogService, CategoryService, HostService } from '../../services';
 import { IReport } from '../../interface/report/report.interface';
 import { IReportView } from '../../interface/report/report-view.interface';
 import { IMainCategory } from '../../interface/category/main-category.interface';
 import { ISubCategory } from '../../interface/category/sub-category.interface';
+import { IHost } from '../../interface/host/host.interface';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -45,7 +46,8 @@ export class ReportActionCreator implements OnDestroy {
 		private ngRedux: NgRedux<IAppState>,
 		private reportService: ReportService,
         private dialogService: DialogService,
-        private categoryService: CategoryService
+        private categoryService: CategoryService,
+        private hostService: HostService
 	) { }
 
 	ngOnDestroy() {
@@ -87,27 +89,31 @@ export class ReportActionCreator implements OnDestroy {
 			})
 			.subscribe(
             (reports: IReportView[]) => {
-                console.log(reports)
-                this.categoryService.GetHostMainCategory(hostId).subscribe(
-                    (category: IMainCategory[]) => {
-                        reports = this.mainCategoryListTranslate(reports, category); 
 
-                        this.categoryService.GetGeneralMainCategory('A').subscribe(
-                        (category: IMainCategory[]) => {
-                            reports = this.mainCategoryListTranslate(reports, category); 
+                this.hostService.GetHostById(hostId).subscribe(
+                    (host: IHost) => {
 
-                            this.categoryService.GetGeneralMainCategory('B').subscribe(
+                        this.categoryService.GetHostMainCategory(hostId).subscribe(
                             (category: IMainCategory[]) => {
-                                reports = this.mainCategoryListTranslate(reports, category);
+                                reports = this.mainCategoryListTranslate(reports, category, host.language);
 
-                                this.categoryService.GetGeneralMainCategory('C').subscribe(
-                                (category: IMainCategory[]) => {
-                                    reports = this.mainCategoryListTranslate(reports, category);
+                                this.categoryService.GetGeneralMainCategory('A').subscribe(
+                                    (category: IMainCategory[]) => {
+                                        reports = this.mainCategoryListTranslate(reports, category, host.language);
 
-                                    this.ngRedux.dispatch({ type: REPORT_GET_FULFILLED, payload: reports });
-                                });
+                                        this.categoryService.GetGeneralMainCategory('B').subscribe(
+                                            (category: IMainCategory[]) => {
+                                                reports = this.mainCategoryListTranslate(reports, category, host.language);
+
+                                                this.categoryService.GetGeneralMainCategory('C').subscribe(
+                                                    (category: IMainCategory[]) => {
+                                                        reports = this.mainCategoryListTranslate(reports, category, host.language);
+
+                                                        this.ngRedux.dispatch({ type: REPORT_GET_FULFILLED, payload: reports });
+                                                    });
+                                            });
+                                    });
                             });
-                        });
                     });
 
 				}, err => {
@@ -374,12 +380,12 @@ export class ReportActionCreator implements OnDestroy {
         return report;
     }
 
-    private mainCategoryListTranslate(reports: IReportView[], category: IMainCategory[]): IReportView[] {
+    private mainCategoryListTranslate(reports: IReportView[], category: IMainCategory[], language?: string): IReportView[] {
         _.map(reports, function (report) {
             _.map(category, function (x) {
                 if (report._mainCategory == x._id) {
                     _.map(x.translations, function (y) {
-                        if (y.code == report.language) {
+                        if (y.code == language) {
                             report._mainCategoryName = y.word
                         }
                     });
