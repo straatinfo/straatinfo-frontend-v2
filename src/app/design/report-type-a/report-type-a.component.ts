@@ -88,7 +88,7 @@ export class ReportTypeAComponent implements OnInit {
     this.dialogRefSubscription = this.dialogRef.afterClosed().subscribe(result => {
       const data = JSON.parse(result);
       this.categoryActionCreator.CreateGeneralMainCategory(data, true);
-      this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
+      // this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
     });
   }
 
@@ -100,8 +100,8 @@ export class ReportTypeAComponent implements OnInit {
 
     this.dialogRefSubscription = this.dialogRef.afterClosed().subscribe(result => {
       const data = JSON.parse(result);      
-      this.categoryActionCreator.CreateSubCategoryA(data._mainCategory, { name: data.name, description: data.description });
-      this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
+      this.categoryActionCreator.CreateSubCategoryA(data._mainCategory, { name: data.name, description: data.description, nl: data.nl });
+      // this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
     });
   }
 

@@ -449,7 +449,7 @@ export class CategoryActionCreator implements OnDestroy {
 			);
 	}
 
-	CreateGeneralMainCategory({code, name, description}: IMainCategoryCreate, flat: boolean = true) {
+	CreateGeneralMainCategory({code, name, description, nl}: IMainCategoryCreate, flat: boolean = true) {
 		const CODE = code.toUpperCase();
 		const action = {
 			'A': {attempt: CATEGORYMAIN_A_CREATE_ATTEMPT, fulfilled: CATEGORYMAIN_A_CREATE_FULFILLED, failed: CATEGORYMAIN_A_CREATE_FAILED },
@@ -457,7 +457,7 @@ export class CategoryActionCreator implements OnDestroy {
 			'C': {attempt: CATEGORYMAIN_C_CREATE_ATTEMPT, fulfilled: CATEGORYMAIN_C_CREATE_FULFILLED, failed: CATEGORYMAIN_C_CREATE_FAILED}
 		};
 		this.ngRedux.dispatch({ type: action[CODE].attempt });
-        this.crateMainCategorySubscription = this.categoryService.CreateGeneralMainCategory({ code, name, description}, flat)
+        this.crateMainCategorySubscription = this.categoryService.CreateGeneralMainCategory({ code, name, description, nl}, flat)
             .map(data => this.ToMainCategoryView(data))	
 			.subscribe(
 				(mainCategory: IMainCategoryView) => {

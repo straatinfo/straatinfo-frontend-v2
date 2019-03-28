@@ -4,6 +4,7 @@ export interface ISubCategoryView {
   _id?: string;
   name?: string;
   dutch?: string;
+  nl?: string;
   description?: string;
   translations?: ILanguage[];
   _mainCategory?: string;
