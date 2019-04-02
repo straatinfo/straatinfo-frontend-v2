@@ -109,8 +109,8 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
   
       this.dialogRefSubscription = this.dialogRef.afterClosed().subscribe(result => {
         const data = JSON.parse(result);
-        this.categoryActionCreator.CreateMainCategoryA(this.hostId, { code: data.code, description: data.description, name: data.name }, true);
-        this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
+        this.categoryActionCreator.CreateMainCategoryA(this.hostId, { code: data.code, description: data.description, name: data.name, nl: data.nl }, true);
+        // this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
       });
     }
   }
@@ -123,8 +123,8 @@ export class HostCategoryComponent implements OnInit, OnDestroy {
 
     this.dialogRefSubscription = this.dialogRef.afterClosed().subscribe(result => {
       const data = JSON.parse(result);      
-      this.categoryActionCreator.CreateSubCategoryA(data._mainCategory, { name: data.name, description: data.description });
-      this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
+      this.categoryActionCreator.CreateSubCategoryA(data._mainCategory, { name: data.name, description: data.description, nl: data.nl });
+      // this.languageActionCreator.CreateLanguage(data.name, { code: 'nl', word: data.dutch });
     });
   }
 
