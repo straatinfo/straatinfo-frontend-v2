@@ -146,6 +146,19 @@
                   </div>
 
                   <div class="col-md-5">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="material-icons">info_outline</i>
+                          </span>
+                          <app-input-basic length="20"
+                                           formControlName="hostAlternateName"
+                                           [c]="addHostForm.controls.hostAlternateName"
+                                           [optional]="true"
+                                           idd="hostAlternateName"
+                                           placeholder="Alternate Name"
+                                           type="text"
+                                           text="Alternate Name:"></app-input-basic>
+                      </div>
                       <div class="input-group">
                           <span class="input-group-addon">
                               <i class="material-icons">info_outline</i>

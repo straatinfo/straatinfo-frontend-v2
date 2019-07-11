@@ -56,7 +56,8 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
         this.hostActionCreator.SelectHost(params._id);
         this.hostSubscription = this.selectedHost
         .subscribe(
-          (host: IHostView) => { 
+          (host: IHostView) => {
+            console.log(host);
             this.loadHostData = true;
             this.hostData = host;
             this.isSpecific = (host) ? host.isSpecific : null;
@@ -108,6 +109,7 @@ export class HostDetailComponent implements OnInit, DoCheck, OnDestroy, CanDeact
     this.hostDetailForm = this.formBuilder.group({
       _id: [host._id, Validators.required],
       hostName: [{ value: host.hostName, disabled: true }, Validators.required],
+      hostAlternateName: [host.hostAlternateName, Validators.required],
       email: [host.email, [Validators.required, Validators.email]],
       designType: [{ value: host.designType, disabled: true }, Validators.required],
       design: [{ value: host.design, disabled: true }],

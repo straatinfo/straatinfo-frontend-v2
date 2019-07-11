@@ -3,6 +3,7 @@ import { IMediaUpload } from "../media-upload/media-upload.interface";
 export interface IHostView {
   _id?: string;
   hostName?: string;
+  hostAlternateName?: string;
   email?: string;
   username?: string;
   houseNumber?: string;

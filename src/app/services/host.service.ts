@@ -89,14 +89,14 @@ export class HostService {
     .share()
   }
 
-  UpdateHost (_id: string, host:IHost): Observable<IHost> {
+  UpdateHost (_id: string, host: IHost): Observable<IHost> {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', `Bearer ${this.GetSessionToken()}`);
     const options = new RequestOptions({headers: headers});
-    return this.http.put(`${this.hostUrl}/${_id}`,host, options)
+    return this.http.put(`${this.hostUrl}/${_id}`, host, options)
     .map(response => response.json())
     .map(data => this.GetData(data))
-    .share()
+    .share();
   }
 
   DeleteHost (_id: string): Observable<any> {

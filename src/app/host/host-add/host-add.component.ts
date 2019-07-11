@@ -33,6 +33,7 @@ export class HostAddComponent implements OnInit, OnDestroy, CanDeactivate<HostAd
   loadHostForm () {
     this.addHostForm = this.formBuilder.group({
       hostName: [null, Validators.required],
+      hostAlternateName: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       houseNumber: [null, Validators.required],
       streetName: [null, Validators.required],

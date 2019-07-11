@@ -155,6 +155,7 @@ export const hostSelectAttempt = (state: IHostStore, action: any) => {
 };
 
 export const hostSelectFulfilled = (state: IHostStore, action: any) => {
+  console.log(action.payload);
   return tassign<IHostStore, IHostStore>(state, {
     hosts: state.hosts,
     selectedHost: action.payload,
