@@ -37,12 +37,15 @@ const taskPrune = cron.schedule(config.cron.pruneReports, () => {
   cronJobs.pruneReports();
 });
 
-if (config.cron.enabled || false) {
-  taskExpire.start();
-  taskPrune.start();
-}
+let cronIsRunning = false;
 
-server.listen(port, () => { 
+server.listen(port, () => {
+  if (!cronIsRunning && config.cron.enabled) {
+    console.log('CRON JOB INITIALIZATION');
+    cronIsRunning = true;
+    taskExpire.start();
+    taskPrune.start();
+  }
   console.log(`Running on localhost:${port}`)
 });
 

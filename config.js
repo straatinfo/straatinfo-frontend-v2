@@ -4,7 +4,7 @@ module.exports = {
   },
   cron: {
     enabled: process.env.PRUNE_ENABLED == 'true',
-    pruneReports: process.env.CRON_PRUNE_REPORTS_SCHEDULE || '* * 0,12 * * *',
-    expireReports: process.env.CRON_EXPIRE_REPORTS_SCHEDULE || '* * 0,12 * * *'
+    pruneReports: process.env.CRON_PRUNE_REPORTS_SCHEDULE || '10 * * * * *',
+    expireReports: process.env.CRON_EXPIRE_REPORTS_SCHEDULE || '10 * * * * *'
   }
 };
