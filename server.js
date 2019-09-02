@@ -3,6 +3,11 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
 const app = express();
+const cron = require('node-cron');
+
+const cronJobs = require('./cronJobs');
+const config = require('./config');
+
 // Parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,4 +26,24 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
-server.listen(port, () => console.log(`Running on localhost:${port}`));
+// run cron jobs
+const taskExpire = cron.schedule(config.cron.expireReports, () => {
+  console.log('REGISTERING EXPIRE REPORTS JOB');
+  cronJobs.expireReports();
+});
+
+const taskPrune = cron.schedule(config.cron.pruneReports, () => {
+  console.log('REGISTERING PRUNE REPORTS JOB');
+  cronJobs.pruneReports();
+});
+
+server.listen(port, () => { 
+  taskExpire.start();
+  taskPrune.start();
+  console.log(`Running on localhost:${port}`)
+});
+
+// server.close(() => {
+//   taskExpire.destroy()
+//   taskPrune.destroy();
+// });
