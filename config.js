@@ -1,6 +1,6 @@
 module.exports = {
   server: {
-    url: process.env.SERVER_URL || 'http://localhost:5000'
+    url: process.env.SERVER_URL || 'https://straatinfo-backend-v2.herokuapp.com' // 'http://localhost:5000'
   },
   cron: {
     enabled: process.env.PRUNE_ENABLED == 'true',
