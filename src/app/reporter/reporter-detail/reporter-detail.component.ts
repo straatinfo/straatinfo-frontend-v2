@@ -117,6 +117,7 @@ export class ReporterDetailComponent implements OnInit, DoCheck, OnDestroy {
 			status2: [{ value: report.status2, disabled: true }, Validators.required],
 			dateRegistrationReporter: [{ value: dateRegistered, disabled: true }, Validators.required],
 			dateCreationTeam: [{ value: dateCreationTeam, disabled: true }, Validators.required],
+			houseNumber: [{ value: report.houseNumber, disabled: true }, Validators.required ]
 		});
 
 		this.pendingTeamId = report.pendingTeam;

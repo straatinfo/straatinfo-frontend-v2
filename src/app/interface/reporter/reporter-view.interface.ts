@@ -27,4 +27,5 @@ export interface IReporterView {
     pendingTeamName?: string;
     teamLeaders?: any[];
     teamMembers?: any[];
+    houseNumber?: number;
 }

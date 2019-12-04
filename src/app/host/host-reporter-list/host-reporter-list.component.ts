@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { select } from '@angular-redux/store';
 import { ReporterActionCreator, HostActionCreator } from '../../store/action-creators';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+// import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import * as XLSXStyle from 'xlsx-style';

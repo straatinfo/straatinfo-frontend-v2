@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, ElementRef, EventEmitter } from '@angular/core';
-import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/map";

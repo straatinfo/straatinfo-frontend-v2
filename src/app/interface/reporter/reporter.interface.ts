@@ -27,4 +27,5 @@ export interface IReporter {
     updatedAt?: Date;
     teamLeaders?: any[];
     teamMembers?: any[];
+    houseNumber?: number;
 }

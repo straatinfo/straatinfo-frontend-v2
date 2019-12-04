@@ -214,7 +214,8 @@ export class ReporterActionCreator implements OnDestroy {
             createdAt: data.createdAt,
             updatedAt: data.updatedAt,
             teamMembers: data.teamMembers,
-            teamLeaders: data.teamLeaders
+            teamLeaders: data.teamLeaders,
+            houseNumber: data.houseNumber
         };
         return reporter;
     }
