@@ -81,6 +81,7 @@ export class ReporterListComponent implements OnInit {
           gender: data.gender || '',
           phoneNumber: data.phoneNumber || '',
           postalCode: data.postalCode || '',
+          houseNumber: data.houseNumber || '',
           streetName: data.streetName || '',
           city: data.city || '',
           dateRegistrationReporter: data.dateRegistrationReporter || '',
